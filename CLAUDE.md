@@ -36,7 +36,7 @@ don't rename anything in code or UI unless Seth asks.
   The last wrapper loaded wins, and every wrapper must call through to the one before it.
 - **A new build is a new file:** `vNN.js`, plus one `<script src="vNN.js">` tag placed after the previous one
   and before the boot line `<script>applyTheme();build();home();netInit();</script>`. Current order:
-  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → boot`.
+  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → v39.js → boot`.
   - Don't rewrite or reformat old layers inside `index.html`. Prefer small, targeted wrappers in the new file.
   - Set `FB.ver="bNN"`, and add a "What's new" entry with `NEWS.unshift({d, t:[…]})` when testers would notice the change.
 - Because they're wrapped, functions declared with `function x(){}` get **reassigned** later (`x=function…`).
@@ -104,6 +104,9 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   - Stress is never a safety verdict.
 - **Demos and figures:**
   - The labs are in `DEMOS`, and v17 is the data-driven 2D demo engine.
+  - The Lab lists lessons; a model shows there only through its lesson (`DEMO_OVR`). v39 adds standalone
+    "model sets" (Computational Methods, Dynamics and Control) for demos without lessons: `XD39` holds the
+    pasted spec JSON, `XS39` the sets. The top-right plot `note` fits about 36 characters on a phone.
   - Seth wants every lesson to have a demo or visual. Any question that refers to a graph should show one.
   - The **ideas in the existing demos must be kept** even when their visual style is redone.
 - Seth wants as much content as possible and will cut it back later. "Nothing is too specialized." Lessons
