@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Seth's stats page (stats.html) signs in like the app. Paste the device ID it shows here,
+    // then publish the rules. Only listed IDs can read lesson stats and saved progress.
+    function isAdmin() {
+      return request.auth != null && request.auth.uid in ['WHBKG7KuQRSLpzV30OufPId1VRb2', 'P2jBBhX9biR9oE6z9bZtLtGGnUf2'];
+    }
+
+    // Each device gets its own anonymous account. Progress is private to that account:
+    // nobody else can read it, not even the project owner through the app.
+    match /data/users/{uid}/{doc=**} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow read: if isAdmin();
+    }
+
+    // Friend cards: a small public-ish row (chosen name, streak, XP, whether today is done).
+    // Any signed-in user can read one, which is what lets a friend code work; only the
+    // owner of the row can write it, and only the fields below.
+    match /people/{uid} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null
+                   && request.auth.uid == uid
+                   && request.resource.data.keys().hasOnly(['streak','last','today','title','xp','nick'])
+                   && (!('nick' in request.resource.data) || request.resource.data.nick is string)
+                   && (!('nick' in request.resource.data) || request.resource.data.nick.size() <= 30)
+                   && (!('xp' in request.resource.data) || request.resource.data.xp is number);
+    }
+
+    // In-app feedback. A tester can write and re-read their own feedback document.
+    // Nobody can read anyone else's; Seth reads them in the Firebase console.
+    match /fb/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Anonymous lesson stats (b34). Any device can add a record about itself; nobody can
+    // change or delete one, and only the stats page (isAdmin) can read them.
+    match /ev/{eid} {
+      allow read: if isAdmin();
+      allow create: if request.auth != null
+                    && eid.matches(request.auth.uid + '_[a-z0-9]+')
+                    && request.resource.data.u == request.auth.uid
+                    && request.resource.data.keys().hasOnly(['u','k','id','t','sub','br','lv','n','sc','pass','sec','ok','miss','end','at','v','d','ts'])
+                    && request.resource.data.k is string && request.resource.data.k.size() <= 20
+                    && (!('id' in request.resource.data) || (request.resource.data.id is string && request.resource.data.id.size() <= 120))
+                    && (!('t' in request.resource.data) || (request.resource.data.t is string && request.resource.data.t.size() <= 120))
+                    && (!('ok' in request.resource.data) || (request.resource.data.ok is list && request.resource.data.ok.size() <= 40))
+                    && (!('miss' in request.resource.data) || (request.resource.data.miss is list && request.resource.data.miss.size() <= 40))
+                    && request.resource.data.ts is number;
+    }
+
+    // Anything else is closed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
