@@ -5,7 +5,7 @@ service cloud.firestore {
     // Seth's stats page (stats.html) signs in like the app. Paste the device ID it shows here,
     // then publish the rules. Only listed IDs can read lesson stats and saved progress.
     function isAdmin() {
-      return request.auth != null && request.auth.uid in ['PASTE_DEVICE_ID_FROM_STATS_PAGE'];
+      return request.auth != null && request.auth.uid in ['WHBKG7KuQRSLpzV30OufPId1VRb2', 'P2jBBhX9biR9oE6z9bZtLtGGnUf2'];
     }
 
     // Each device gets its own anonymous account. Progress is private to that account:
