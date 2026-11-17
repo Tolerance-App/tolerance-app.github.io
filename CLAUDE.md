@@ -36,7 +36,7 @@ don't rename anything in code or UI unless Seth asks.
   The last wrapper loaded wins, and every wrapper must call through to the one before it.
 - **A new build is a new file:** `vNN.js`, plus one `<script src="vNN.js">` tag placed after the previous one
   and before the boot line `<script>applyTheme();build();home();netInit();</script>`. Current order:
-  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → boot`.
+  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → boot`.
   - Don't rewrite or reformat old layers inside `index.html`. Prefer small, targeted wrappers in the new file.
   - Set `FB.ver="bNN"`, and add a "What's new" entry with `NEWS.unshift({d, t:[…]})` when testers would notice the change.
 - Because they're wrapped, functions declared with `function x(){}` get **reassigned** later (`x=function…`).
@@ -122,6 +122,11 @@ Seth's top rule: **a new build must never reset anyone's progress.**
 
 - **Top edge in the Home Screen app** (v35, class `sa35`): the strip under the clock and battery is solid
   `--bg`, and the top bar is solid instead of translucent. Seth disliked the fading bar there.
+  - b37: the status-bar style is `black`, not `black-translucent`. On iOS 26 the translucent style made iOS
+    draw a grey fade over the status bar and sometimes left the page 59 pt (the status-bar height) short
+    at the bottom, showing a dark strip under menus. The root background is `--s1` while a sheet or the
+    nav is showing, so any leftover gap matches. The feedback sheet in the Home Screen app shows a faint
+    diagnostic line (`diag37`: screen, page and safe-area heights).
 - **Feel:** calm, relaxing and easy to learn in, not doomscrolling. **Keep the existing UI and refresh it
   (edges, colors, density); don't replace it.** Dark theme by default, blue `#3B8BFF` with an orange accent,
   and monospace for numbers.
