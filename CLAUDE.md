@@ -36,7 +36,7 @@ don't rename anything in code or UI unless Seth asks.
   The last wrapper loaded wins, and every wrapper must call through to the one before it.
 - **A new build is a new file:** `vNN.js`, plus one `<script src="vNN.js">` tag placed after the previous one
   and before the boot line `<script>applyTheme();build();home();netInit();</script>`. Current order:
-  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → boot`.
+  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → boot`.
   - Don't rewrite or reformat old layers inside `index.html`. Prefer small, targeted wrappers in the new file.
   - Set `FB.ver="bNN"`, and add a "What's new" entry with `NEWS.unshift({d, t:[…]})` when testers would notice the change.
 - Because they're wrapped, functions declared with `function x(){}` get **reassigned** later (`x=function…`).
@@ -122,11 +122,13 @@ Seth's top rule: **a new build must never reset anyone's progress.**
 
 - **Top edge in the Home Screen app** (v35, class `sa35`): the strip under the clock and battery is solid
   `--bg`, and the top bar is solid instead of translucent. Seth disliked the fading bar there.
-  - b37: the status-bar style is `black`, not `black-translucent`. On iOS 26 the translucent style made iOS
-    draw a grey fade over the status bar and sometimes left the page 59 pt (the status-bar height) short
-    at the bottom, showing a dark strip under menus. The root background is `--s1` while a sheet or the
-    nav is showing, so any leftover gap matches. The feedback sheet in the Home Screen app shows a faint
-    diagnostic line (`diag37`: screen, page and safe-area heights).
+  - b37: the status-bar style tag is `black`, not `black-translucent`. iOS fixes the style when the icon is
+    added to the Home Screen, so existing installs keep the translucent bar (diag37 still reads safe-area
+    top 59) and the grey fade iOS draws over it. Page code can't remove that fade.
+  - **Never lock scrolling by making `<body>` `position:fixed`.** b25's `lock25` did, and in the iOS 26
+    Home Screen app that lays out fixed elements in a viewport 59 pt short, leaving a dark strip under
+    every sheet. b38 locks with `overflow:hidden` on `<html>` instead.
+  - The feedback sheet in the Home Screen app shows a faint diagnostic line (`diag37`, extended in v38).
 - **Feel:** calm, relaxing and easy to learn in, not doomscrolling. **Keep the existing UI and refresh it
   (edges, colors, density); don't replace it.** Dark theme by default, blue `#3B8BFF` with an orange accent,
   and monospace for numbers.
