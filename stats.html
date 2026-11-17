@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Tolerance stats</title>
+<style>
+:root{--bg:#101214;--card:#1a1d21;--line:#2a2f35;--tx:#e8eaed;--mut:#9aa1a9;--ok:#5cc98a;--bad:#ff7b7b;--acc:#6aa8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,-apple-system,sans-serif}
+main{max-width:980px;margin:0 auto;padding:16px}h1{font-size:20px;margin:4px 0 2px}h2{font-size:16px;margin:22px 0 8px}
+.mut{color:var(--mut)}.bad{color:var(--bad)}.ok{color:var(--ok)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+select,button{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font:inherit}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px}.tile small{color:var(--mut);display:block}.tile b{font-size:22px;font-variant-numeric:tabular-nums}
+.tw{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{color:var(--mut);font-weight:600;cursor:pointer;position:sticky;top:0;background:var(--card)}th:first-child,td:first-child{text-align:left;white-space:normal;min-width:180px}
+tr:last-child td{border-bottom:0}td small{color:var(--mut);display:block}
+.m{display:inline-block;height:6px;border-radius:3px;background:var(--acc);vertical-align:middle;margin-left:6px}
+code{background:#000;padding:2px 6px;border-radius:5px;word-break:break-all}
+</style></head><body><main>
+<h1>Tolerance stats</h1>
+<p class="mut" id="who">Signing in…</p>
+<div id="setup" hidden></div>
+<div id="ui" hidden>
+ <div class="bar"><label>Period <select id="per"><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option><option value="0">All time</option></select></label>
+ <label><input type="checkbox" id="mine"> Include my own device</label>
+ <button id="csv">Download events (CSV)</button></div>
+ <div class="tiles" id="tiles"></div>
+ <h2>Lessons</h2><p class="mut">Most attempted first. Tap a column to sort. Score is the average share of questions right on the first answer.</p><div class="tw" id="lessons"></div>
+ <h2>Hardest questions</h2><p class="mut">Seen at least 3 times, by share missed on the first answer.</p><div class="tw" id="qs"></div>
+ <h2>Where people quit</h2><div class="tw" id="quits"></div>
+ <h2>Saved progress (all time)</h2><p class="mut" id="pnote">From every device's backup, including activity before stats were added.</p><div class="tiles" id="ptiles"></div><div class="tw" id="pdone" style="margin-top:8px"></div>
+</div>
+</main>
+<script type="module">
+const SDK="https://www.gstatic.com/firebasejs/13.4.0/";
+const CFG={apiKey:"AIzaSyAWUOQLmKE26fCbYYNNuc1VffDaWgqrpCE",authDomain:"tolerance-fe244.firebaseapp.com",projectId:"tolerance-fe244",storageBucket:"tolerance-fe244.firebasestorage.app",messagingSenderId:"1009554687061",appId:"1:1009554687061:web:d2caeebf8155b19a0540dc"};
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pct=x=>isFinite(x)?Math.round(x*100)+"%":"–",avg=a=>a.length?a.reduce((s,v)=>s+v,0)/a.length:NaN;
+const dur=s=>!isFinite(s)?"–":s<60?Math.round(s)+" s":(s/60).toFixed(1)+" min";
+let FS,fs,ME,EV=[],PROG=[];
+
+/* window.STATS_MOCK lets the page be tested without Firebase */
+async function boot(){
+ if(window.STATS_MOCK){({FS,fs,ME}=await window.STATS_MOCK());}
+ else{const [a,b,c]=await Promise.all([import(SDK+"firebase-app.js"),import(SDK+"firebase-auth.js"),import(SDK+"firebase-firestore.js")]);
+  const app=a.initializeApp(CFG),auth=b.getAuth(app);try{await auth.authStateReady()}catch(e){}
+  const u=auth.currentUser||(await b.signInAnonymously(auth)).user;ME=u.uid;FS=c;fs=c.getFirestore(app)}
+ $("#who").innerHTML=`This device's ID: <code>${esc(ME)}</code> <button id="cp">Copy</button>`;
+ $("#cp").onclick=()=>navigator.clipboard&&navigator.clipboard.writeText(ME);
+ try{await load()}catch(e){
+  if(/permission/i.test(e.code||e.message||"")){$("#setup").hidden=false;$("#setup").innerHTML=`<h2>One-time setup</h2><ol>
+<li>Copy the device ID above.</li><li>In the repo's <code>firestore.rules</code>, replace <code>PASTE_DEVICE_ID_FROM_STATS_PAGE</code> with it.</li>
+<li>Paste the rules into Firebase console → Firestore → Rules and press Publish.</li><li>Reload this page.</li></ol>
+<p class="mut">Open this page in the same browser you'll keep using for it. Clearing that browser's site data gives it a new ID, and you'd repeat this.</p>`}
+  else $("#who").insertAdjacentHTML("beforeend",`<br><span class="bad">Couldn't load: ${esc(e.code||e.message||e)}</span>`)}
+}
+async function load(){
+ const days=+$("#per").value,since=days?Date.now()-days*864e5:0;
+ const col=FS.collection(fs,"ev"),q=since?FS.query(col,FS.where("ts",">=",since)):col;
+ const snap=await FS.getDocs(q);EV=snap.docs.map(d=>d.data());
+ if(!PROG.length){const ps=await FS.getDocs(FS.collection(fs,"people"));const ids=ps.docs.map(d=>d.id);
+  const got=await Promise.all(ids.slice(0,500).map(async id=>{try{const s=await FS.getDoc(FS.doc(fs,"data","users",id,"progress"));if(!s.exists())return null;const r=s.data();return {id,st:typeof r.st=="string"?JSON.parse(r.st):r.st||{}}}catch(e){return null}}));
+  PROG=got.filter(Boolean)}
+ $("#ui").hidden=false;render()}
+
+function render(){
+ const ev=EV.filter(e=>$("#mine").checked||e.u!==ME);
+ const devs=new Set(ev.map(e=>e.u)),done=ev.filter(e=>e.end=="done"),quit=ev.filter(e=>e.end=="quit");
+ const ls=ev.filter(e=>e.k=="lesson");
+ $("#tiles").innerHTML=[["Active devices",devs.size],["Sessions finished",done.length],["Sessions quit",quit.length],["Lesson pass rate",pct(avg(ls.filter(e=>e.end=="done").map(e=>e.pass?1:0)))],["Time learning",dur(ev.reduce((s,e)=>s+(+e.sec||0),0))]]
+  .map(([a,b])=>`<div class="tile"><small>${a}</small><b>${b}</b></div>`).join("");
+ /* titles for question keys "lessonId#j" */
+ const T={};ev.forEach(e=>{if(e.id&&e.t)T[e.id]=e.t});
+ /* lessons */
+ const L={};ev.filter(e=>e.k!="practice").forEach(e=>{const r=L[e.id]||(L[e.id]={t:e.t||e.id,sub:[e.sub,e.br].filter(Boolean).join(" › "),n:0,d:new Set(),fin:[],pass:[],sc:[],sec:[],quit:0});
+  r.n++;r.d.add(e.u);if(e.end=="quit")r.quit++;else{r.fin.push(1);if(e.pass!=null)r.pass.push(e.pass?1:0);if(e.n)r.sc.push((e.ok||[]).length/e.n);r.sec.push(+e.sec||0)}});
+ table("#lessons",["Lesson","Attempts","Devices","Pass","Score","Time","Quit"],Object.values(L).map(r=>[
+  [`${esc(r.t)}${r.sub?`<small>${esc(r.sub)}</small>`:""}`,r.t],[r.n],[r.d.size],[pct(avg(r.pass)),avg(r.pass)],[pct(avg(r.sc)),avg(r.sc)],[dur(avg(r.sec)),avg(r.sec)],[pct(r.quit/r.n),r.quit/r.n]]),1);
+ /* questions */
+ const Q={};ev.forEach(e=>{(e.ok||[]).forEach(k=>{(Q[k]=Q[k]||{s:0,m:0}).s++});(e.miss||[]).forEach(k=>{const r=Q[k]=Q[k]||{s:0,m:0};r.s++;r.m++})});
+ const qrows=Object.entries(Q).filter(([,r])=>r.s>=3).sort((a,b)=>b[1].m/b[1].s-a[1].m/a[1].s||b[1].s-a[1].s).slice(0,40).map(([k,r])=>{const [lid,j]=k.split("#");
+  return [[`${esc(T[lid]||lid)} · Q${(+j||0)+1}<small>${esc(k)}</small>`,k],[r.s],[r.m],[pct(r.m/r.s)+`<span class="m" style="width:${Math.round(r.m/r.s*60)}px"></span>`,r.m/r.s]]});
+ table("#qs",["Question","Seen","Missed","Miss rate"],qrows,3);
+ /* quits */
+ const Qt={};quit.forEach(e=>{const r=Qt[e.id]||(Qt[e.id]={t:e.t||e.id,n:0,at:[],of:[]});r.n++;r.at.push((+e.at||0)+1);if(e.n)r.of.push(e.n)});
+ table("#quits",["Lesson","Quits","Avg question reached"],Object.values(Qt).map(r=>[[esc(r.t),r.t],[r.n],[isFinite(avg(r.at))?avg(r.at).toFixed(1)+(r.of.length?" of "+Math.round(avg(r.of)):""):"–",avg(r.at)]]),1);
+ /* saved progress */
+ const P=PROG.filter(p=>$("#mine").checked||p.id!==ME),wk=Date.now()-7*864e5;
+ const active=P.filter(p=>p.st.last&&new Date(p.st.last).getTime()>=wk-864e5).length;
+ $("#ptiles").innerHTML=[["Devices with progress",P.length],["Played in last 7 days",active],["Median XP",med(P.map(p=>+p.st.xp||0))],["Median lessons done",med(P.map(p=>Object.keys(p.st.done||{}).length))]]
+  .map(([a,b])=>`<div class="tile"><small>${a}</small><b>${b}</b></div>`).join("");
+ const D={},M={};P.forEach(p=>{Object.keys(p.st.done||{}).forEach(k=>D[k]=(D[k]||0)+1);Object.keys(p.st.miss||{}).forEach(k=>M[k]=(M[k]||0)+1)});
+ table("#pdone",["Lesson or review","Devices that completed it","Devices with it in mistakes"],Object.keys(D).map(k=>{const mi=Object.keys(M).filter(q=>q.split("#")[0]==k).reduce((s,q)=>s+M[q],0);
+  return [[`${esc(T[k]||k)}${T[k]?`<small>${esc(k)}</small>`:""}`,T[k]||k],[D[k]],[mi]]}),1);
+}
+const med=a=>{if(!a.length)return 0;a=[...a].sort((x,y)=>x-y);const m=a.length>>1;return a.length%2?a[m]:Math.round((a[m-1]+a[m])/2)};
+function table(sel,head,rows,sortCol){const box=$(sel);let col=sortCol,dir=-1;
+ const draw=()=>{const r=[...rows].sort((a,b)=>{const x=a[col][1]??a[col][0],y=b[col][1]??b[col][0];const nx=typeof x=="number"&&isFinite(x),ny=typeof y=="number"&&isFinite(y);
+   if(nx&&ny)return (x-y)*dir;if(nx!=ny)return nx?-1:1;return String(x).localeCompare(String(y))*dir});
+  box.innerHTML=rows.length?`<table><thead><tr>${head.map((h,i)=>`<th data-i="${i}">${h}${i==col?(dir<0?" ↓":" ↑"):""}</th>`).join("")}</tr></thead><tbody>${r.map(c=>`<tr>${c.map(x=>`<td>${x[0]}</td>`).join("")}</tr>`).join("")}</tbody></table>`:`<p class="mut" style="padding:10px;margin:0">Nothing yet.</p>`;
+  box.querySelectorAll("th").forEach(th=>th.onclick=()=>{const i=+th.dataset.i;if(i==col)dir=-dir;else{col=i;dir=i==0?1:-1}draw()})};draw()}
+$("#per").onchange=()=>load().catch(e=>alert(e.message));$("#mine").onchange=render;
+$("#csv").onclick=()=>{const keys=["ts","d","u","k","id","t","sub","br","lv","n","sc","pass","sec","end","at","ok","miss","v"];
+ const cell=v=>{v=Array.isArray(v)?v.join(" "):v??"";v=String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+ const csv=[keys.join(",")].concat(EV.map(e=>keys.map(k=>cell(k=="ts"?new Date(e.ts).toISOString():e[k])).join(","))).join("\n");
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="tolerance-events.csv";a.click()};
+boot().catch(e=>{$("#who").innerHTML=`<span class="bad">Couldn't sign in: ${esc(e.code||e.message||e)}</span>`});
+</script></body></html>
