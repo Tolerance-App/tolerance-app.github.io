@@ -16,10 +16,12 @@ service cloud.firestore {
     }
 
     // Friend cards: a small public-ish row (chosen name, streak, XP, whether today is done).
-    // Any signed-in user can read one, which is what lets a friend code work; only the
-    // owner of the row can write it, and only the fields below.
+    // Any signed-in user can read one by its ID, which is what lets a friend code work (the app
+    // reads friends one document at a time, fbnet.js). Listing the whole collection is only for
+    // the stats page (isAdmin). Only the owner of the row can write it, and only the fields below.
     match /people/{uid} {
-      allow read: if request.auth != null;
+      allow get: if request.auth != null;
+      allow list: if isAdmin();
       allow write: if request.auth != null
                    && request.auth.uid == uid
                    && request.resource.data.keys().hasOnly(['streak','last','today','title','xp','nick'])

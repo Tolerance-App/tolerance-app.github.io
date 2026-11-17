@@ -36,7 +36,7 @@ don't rename anything in code or UI unless Seth asks.
   The last wrapper loaded wins, and every wrapper must call through to the one before it.
 - **A new build is a new file:** `vNN.js`, plus one `<script src="vNN.js">` tag placed after the previous one
   and before the boot line `<script>applyTheme();build();home();netInit();</script>`. Current order:
-  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → boot`.
+  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → boot`.
   - Don't rewrite or reformat old layers inside `index.html`. Prefer small, targeted wrappers in the new file.
   - Set `FB.ver="bNN"`, and add a "What's new" entry with `NEWS.unshift({d, t:[…]})` when testers would notice the change.
 - Because they're wrapped, functions declared with `function x(){}` get **reassigned** later (`x=function…`).
@@ -174,10 +174,8 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   - Re-create a `sethijacob/tolerance` Pages repo whose one page reads `localStorage.tol3` and forwards it to
     `https://tolerance-app.github.io/#import=…`.
   - Point the claude.ai "moved" card at the new URL.
-- Update `README.md` to the new URL and file list.
-- Lock down the `people` rule. Today any signed-in client can *list* every friend card; change it to `allow get` for
-  signed-in users and `allow list` only for `isAdmin()`. The app reads friends one document at a time
-  (`fbnet.js`), but `stats.html` lists the collection.
+- `people` rule: `firestore.rules` now has `allow get` for signed-in users and `allow list` only for
+  `isAdmin()` (b36 branch). It still has to be published by hand in the Firebase console.
 - Friends board has never been confirmed working on real devices.
 - Still unexplained: "Poke doesn't work after you answer and come back", and which lab the "recreate the
   shafts in torsion demo" request refers to.
