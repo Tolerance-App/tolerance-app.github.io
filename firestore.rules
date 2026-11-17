@@ -5,7 +5,7 @@ service cloud.firestore {
     // Seth's stats page (stats.html) signs in like the app. Paste the device ID it shows here,
     // then publish the rules. Only listed IDs can read lesson stats and saved progress.
     function isAdmin() {
-      return request.auth != null && request.auth.uid in ['WHBKG7KuQRSLpzV30OufPId1VRb2', 'P2jBBhX9biR9oE6z9bZtLtGGnUf2'];
+      return request.auth != null && request.auth.uid in ['WHBKG7KuQRSLpzV30OufPId1VRb2', 'P2jBBhX9biR9oE6z9bZtLtGGnUf2', 'u0izSBG81pVQ2pqO1EGF8RDzB3m2', '2XLhCOa10YY7DrCgB9CyG3a6Awn2'];
     }
 
     // Each device gets its own anonymous account. Progress is private to that account:
@@ -31,9 +31,19 @@ service cloud.firestore {
     }
 
     // In-app feedback. A tester can write and re-read their own feedback document.
-    // Nobody can read anyone else's; Seth reads them in the Firebase console.
+    // Nobody else can read it except the admin flags page (flags.html, isAdmin).
     match /fb/{uid} {
       allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow read: if isAdmin();
+    }
+
+    // Flag triage for flags.html: status, category, fixed-in build and a note per flag,
+    // keyed "{uid}_{itemId}". Admin devices only.
+    match /fbtri/{fid} {
+      allow read: if isAdmin();
+      allow write: if isAdmin()
+                   && request.resource.data.keys().hasOnly(['s','c','fix','note','at','by'])
+                   && (!('note' in request.resource.data) || (request.resource.data.note is string && request.resource.data.note.size() <= 500));
     }
 
     // Anonymous lesson stats (b34). Any device can add a record about itself; nobody can

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Tolerance flags</title>
+<!-- Admin-only list of every tester flag (Firestore fb/{uid}.items), with a status and category per flag.
+     Triage is stored in fbtri/{uid}_{itemId}: {s status, c category, fix build, note, at, by}. Readable and
+     writable only by isAdmin() devices, like stats.html. window.FLAGS_MOCK lets it be tested without Firebase. -->
+<style>
+:root{--bg:#101214;--card:#1a1d21;--line:#2a2f35;--tx:#e8eaed;--mut:#9aa1a9;--ok:#5cc98a;--bad:#ff7b7b;--acc:#6aa8ff;--or:#ffa94d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,-apple-system,sans-serif}
+main{max-width:860px;margin:0 auto;padding:16px}h1{font-size:20px;margin:4px 0 2px}h2{font-size:16px;margin:22px 0 8px}
+a{color:var(--acc)}.mut{color:var(--mut)}.bad{color:var(--bad)}.ok{color:var(--ok)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+select,button,input[type=text],textarea{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font:inherit}
+button{cursor:pointer}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:left;cursor:pointer}
+.tile small{color:var(--mut);display:block}.tile b{font-size:22px;font-variant-numeric:tabular-nums}.tile.on{border-color:var(--acc)}
+.fl{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--or);border-radius:10px;padding:12px;margin:10px 0}
+.fl.s-fixed{border-left-color:var(--ok);opacity:.8}.fl.s-wontfix,.fl.s-dup{border-left-color:var(--line);opacity:.7}
+.fl .tx{white-space:pre-wrap;word-break:break-word;font-size:15px;margin:6px 0}
+.fl .ctx{color:var(--mut);font-size:12.5px}.fl .ctx b{color:var(--tx);font-weight:600}
+.chip{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mut);margin-right:4px}
+.chip.me{color:var(--acc);border-color:var(--acc)}
+.ed{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.ed input[type=text]{flex:1;min-width:140px}.ed .fix{width:76px;flex:none;min-width:0}
+.sv{font-size:12px;color:var(--mut)}
+code{background:#000;padding:2px 6px;border-radius:5px;word-break:break-all}
+</style></head><body><main>
+<h1>Tolerance flags</h1>
+<p class="mut" id="who">Signing in…</p>
+<p class="mut"><a href="stats.html">Stats</a></p>
+<div id="setup" hidden></div>
+<div id="ui" hidden>
+ <div class="tiles" id="tiles"></div>
+ <div class="bar">
+  <label>Status <select id="fs"><option value="open">Open</option><option value="fixed">Fixed</option><option value="wontfix">Won't fix</option><option value="dup">Duplicate</option><option value="all">All</option></select></label>
+  <label>Category <select id="fc"></select></label>
+  <label><input type="checkbox" id="fp"> Price survey answers</label>
+ </div>
+ <div class="bar"><input type="text" id="fq" placeholder="Search text, lesson, build…" style="flex:1;min-width:180px"><button id="cpy">Copy list as text</button></div>
+ <p class="mut" id="cnt"></p>
+ <div id="list"></div>
+</div>
+</main>
+<script type="module">
+const SDK="https://www.gstatic.com/firebasejs/13.4.0/";
+const CFG={apiKey:"AIzaSyAWUOQLmKE26fCbYYNNuc1VffDaWgqrpCE",authDomain:"tolerance-fe244.firebaseapp.com",projectId:"tolerance-fe244",storageBucket:"tolerance-fe244.firebasestorage.app",messagingSenderId:"1009554687061",appId:"1:1009554687061:web:d2caeebf8155b19a0540dc"};
+/* Seth's own devices (same IDs as isAdmin() in firestore.rules); their flags get a "Seth" chip */
+const SETH=["WHBKG7KuQRSLpzV30OufPId1VRb2","P2jBBhX9biR9oE6z9bZtLtGGnUf2","u0izSBG81pVQ2pqO1EGF8RDzB3m2","2XLhCOa10YY7DrCgB9CyG3a6Awn2"];
+const STATUS={open:"Open",fixed:"Fixed",wontfix:"Won't fix",dup:"Duplicate"};
+const CATS={bug:"Bug",content:"Content error",ui:"Phone / UI",idea:"Idea",question:"Question",other:"Other"};
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let FS,fs,ME,FL=[],TRI={};
+
+async function boot(){
+ if(window.FLAGS_MOCK){({FS,fs,ME}=await window.FLAGS_MOCK());}
+ else{const [a,b,c]=await Promise.all([import(SDK+"firebase-app.js"),import(SDK+"firebase-auth.js"),import(SDK+"firebase-firestore.js")]);
+  const app=a.initializeApp(CFG),auth=b.getAuth(app);try{await auth.authStateReady()}catch(e){}
+  const u=auth.currentUser||(await b.signInAnonymously(auth)).user;ME=u.uid;FS=c;fs=c.getFirestore(app)}
+ $("#who").innerHTML=`This device's ID: <code>${esc(ME)}</code> <button id="cp">Copy</button>`;
+ $("#cp").onclick=()=>navigator.clipboard&&navigator.clipboard.writeText(ME);
+ $("#fc").innerHTML=`<option value="all">All</option><option value="none">Not sorted yet</option>`+Object.entries(CATS).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
+ try{await load()}catch(e){
+  if(/permission/i.test(e.code||e.message||"")){$("#setup").hidden=false;$("#setup").innerHTML=`<h2>Not an admin device</h2>
+<p>This browser's ID isn't in <code>isAdmin()</code> in <code>firestore.rules</code>, or the rules with the flags section haven't been published yet.
+Add the ID above to <code>isAdmin()</code>, paste the rules into Firebase console → Firestore → Rules, press Publish, then reload.</p>`}
+  else $("#who").insertAdjacentHTML("beforeend",`<br><span class="bad">Couldn't load: ${esc(e.code||e.message||e)}</span>`)}
+}
+async function load(){
+ const [fb,tr]=await Promise.all([FS.getDocs(FS.collection(fs,"fb")),FS.getDocs(FS.collection(fs,"fbtri"))]);
+ FL=[];fb.docs.forEach(d=>{const items=(d.data()||{}).items;if(!Array.isArray(items))return;
+  items.forEach((it,i)=>{if(!it||typeof it!="object")return;const iid=String(it.id||it.ts||i).replace(/[^A-Za-z0-9_-]/g,"");FL.push({...it,u:d.id,key:d.id+"_"+iid})})});
+ FL.sort((a,b)=>String(b.ts||"").localeCompare(String(a.ts||"")));
+ TRI={};tr.docs.forEach(d=>TRI[d.id]=d.data()||{});
+ $("#ui").hidden=false;render()}
+
+const st=f=>(TRI[f.key]||{}).s||"open",cat=f=>(TRI[f.key]||{}).c||"";
+const isPrice=f=>f.type=="price";
+const when=ts=>{const d=new Date(ts);return isNaN(d)?"":d.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" "+d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"})};
+function shown(){const s=$("#fs").value,c=$("#fc").value,q=$("#fq").value.trim().toLowerCase(),p=$("#fp").checked;
+ return FL.filter(f=>(p||!isPrice(f))&&(s=="all"||st(f)==s)&&(c=="all"||(c=="none"?!cat(f):cat(f)==c))
+  &&(!q||[f.text,f.reason,f.lesson,f.ltitle,f.part,f.qkey,f.view,f.ver,f.u].join(" ").toLowerCase().includes(q)))}
+function render(){
+ const base=FL.filter(f=>$("#fp").checked||!isPrice(f)),open=base.filter(f=>st(f)=="open"),cur=$("#fs").value,cc=$("#fc").value;
+ const tiles=[["open","Open",open.length,"all"],["open:none","Not sorted",open.filter(f=>!cat(f)).length,"none"]]
+  .concat(Object.entries(CATS).map(([k,v])=>["open:"+k,v,open.filter(f=>cat(f)==k).length,k]).filter(t=>t[2]))
+  .concat([["fixed","Fixed",base.filter(f=>st(f)=="fixed").length,"all"]]);
+ $("#tiles").innerHTML=tiles.map(([id,n,v,c])=>{const [s]=id.split(":");const on=s==cur&&c==cc;
+  return `<button class="tile${on?" on":""}" data-s="${s}" data-c="${c}"><small>${esc(n)}</small><b>${v}</b></button>`}).join("");
+ $("#tiles").querySelectorAll(".tile").forEach(t=>t.onclick=()=>{$("#fs").value=t.dataset.s;$("#fc").value=t.dataset.c;render()});
+ const L=shown();$("#cnt").textContent=`${L.length} flag${L.length==1?"":"s"} shown · ${FL.length} in total`;
+ $("#list").innerHTML=L.length?L.map(card).join(""):`<p class="mut">Nothing here.</p>`;
+ $("#list").querySelectorAll("[data-k]").forEach(el=>{const k=el.dataset.k;
+  el.querySelector(".s").onchange=e=>save(k,{s:e.target.value});
+  el.querySelector(".c").onchange=e=>save(k,{c:e.target.value});
+  el.querySelector(".fix").onchange=e=>save(k,{fix:e.target.value.trim().slice(0,12)});
+  el.querySelector(".note").onchange=e=>save(k,{note:e.target.value.trim().slice(0,500)})})}
+function card(f){const t=TRI[f.key]||{},s=st(f),seth=SETH.includes(f.u);
+ const ctx=[f.ltitle||f.lesson?`<b>${esc(f.ltitle||f.lesson)}</b>${f.ltitle&&f.lesson?` (${esc(f.lesson)})`:""}`:"",f.part?esc(f.part):"",f.qkey?`question ${esc(f.qkey)}`:"",
+  f.view?`screen ${esc(f.view)}`:"",f.ver?`build ${esc(f.ver)}`:"",f.vp?esc(f.vp):"",f.theme?esc(f.theme):""].filter(Boolean).join(" · ");
+ return `<div class="fl s-${s}" data-k="${esc(f.key)}">
+ <div>${seth?`<span class="chip me">Seth</span>`:`<span class="chip">${esc(String(f.u).slice(0,6))}</span>`}${f.who?`<span class="chip">${esc(f.who)}</span>`:""}${f.reason?`<span class="chip">${esc(f.reason)}</span>`:""}<span class="mut" style="font-size:12px">${esc(when(f.ts))}</span></div>
+ <div class="tx">${esc(f.text||"(no text)")}</div>
+ ${f.q?`<div class="ctx">Question: ${esc(String(f.q).slice(0,300))}</div>`:""}
+ <div class="ctx">${ctx}</div>
+ <div class="ed">
+  <select class="s">${Object.entries(STATUS).map(([k,v])=>`<option value="${k}"${k==s?" selected":""}>${v}</option>`).join("")}</select>
+  <select class="c"><option value="">Category…</option>${Object.entries(CATS).map(([k,v])=>`<option value="${k}"${k==t.c?" selected":""}>${v}</option>`).join("")}</select>
+  <input type="text" class="fix" placeholder="Fixed in" value="${esc(t.fix||"")}">
+  <input type="text" class="note" placeholder="Note" value="${esc(t.note||"")}">
+  <span class="sv"></span>
+ </div></div>`}
+async function save(k,patch){const el=document.querySelector(`[data-k="${CSS.escape(k)}"]`),sv=el&&el.querySelector(".sv");
+ const o={...(TRI[k]||{}),...patch,at:Date.now(),by:ME};if(patch.fix&&!patch.s&&(!TRI[k]||!TRI[k].s||TRI[k].s=="open"))o.s="fixed";
+ try{if(sv)sv.textContent="Saving…";await FS.setDoc(FS.doc(fs,"fbtri",k),o);TRI[k]=o;if(sv)sv.textContent="Saved";
+  if(patch.s||patch.c||patch.fix)setTimeout(render,500)}
+ catch(e){if(sv){sv.textContent="Not saved: "+(e.code||e.message);sv.className="sv bad"}}}
+["#fs","#fc","#fp"].forEach(s=>$(s).onchange=render);$("#fq").oninput=render;
+$("#cpy").onclick=()=>{const txt=shown().map(f=>{const t=TRI[f.key]||{};return `[${STATUS[st(f)]}${t.c?" · "+CATS[t.c]:""}${t.fix?" · "+t.fix:""}] ${String(f.ts||"").slice(0,10)} ${f.ver||""} ${f.u.slice(0,6)}${SETH.includes(f.u)?" (Seth)":""}
+${f.reason?f.reason+": ":""}${f.text||""}
+${[f.ltitle||f.lesson,f.lesson&&f.ltitle?"("+f.lesson+")":"",f.part,f.qkey,f.view?"screen "+f.view:""].filter(Boolean).join(" · ")}${t.note?"\nNote: "+t.note:""}
+key: ${f.key}`}).join("\n\n");
+ navigator.clipboard&&navigator.clipboard.writeText(txt).then(()=>{$("#cpy").textContent="Copied";setTimeout(()=>$("#cpy").textContent="Copy list as text",1500)})};
+boot().catch(e=>{$("#who").innerHTML=`<span class="bad">Couldn't sign in: ${esc(e.code||e.message||e)}</span>`});
+</script></body></html>

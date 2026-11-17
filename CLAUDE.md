@@ -121,8 +121,24 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   - Fields: `u k id t sub br lv n sc pass sec ok miss end at v d ts`. `ok` and `miss` hold first-answer question keys.
   - Records are queued in localStorage `tol_ev` while offline. Placement tests aren't logged.
 - `stats.html` is a private dashboard. Rules allow reading `ev` and progress docs only for the IDs listed in
-  `isAdmin()`: Seth's phone `WHBKG7KuQRSLpzV30OufPId1VRb2` and computer `P2jBBhX9biR9oE6z9bZtLtGGnUf2`.
+  `isAdmin()`: Seth's phone `WHBKG7KuQRSLpzV30OufPId1VRb2` (older phone ID; one browser or the Home Screen app), his phone's
+  stats.html ID `2XLhCOa10YY7DrCgB9CyG3a6Awn2` (added 2026-11-17), computer `P2jBBhX9biR9oE6z9bZtLtGGnUf2`, and the Chrome
+  profile Claude in Chrome uses `u0izSBG81pVQ2pqO1EGF8RDzB3m2` (added 2026-11-17 so Claude can read stats.html).
 - If you add a field to an `ev` record, add it to the `hasOnly([...])` list in the rules too.
+- Until 2026-11-17 the published rules refused `ev` writes, and v34 drops a record on a permission error, so
+  there are no lesson stats from before that date. A `diag-test` record (k "test") from the Chrome admin is in `ev`.
+- If you add an admin ID to `isAdmin()`, add it to `SETH` in `flags.html` too.
+
+## Tester flags (flags.html)
+
+- `flags.html` is the admin flags page (link at the top of stats.html). It lists every item in every `fb/{uid}`
+  doc, newest first, with its context (lesson, part, question key, screen, build, viewport).
+- Triage lives in `fbtri/{uid}_{itemId}`: `s` status (open, fixed, wontfix, dup), `c` category (bug, content, ui,
+  idea, question, other), `fix` build (typing one marks the flag fixed), `note`, `at`, `by`. Admin-only in the rules.
+- Price-survey answers (`type:"price"`) are hidden unless ticked. "Copy list as text" copies the filtered list.
+- Claude works the flags through Claude in Chrome on the admin Chrome profile: open flags.html, read the list,
+  suggest categories, and set "Fixed in bNN" after a fix ships. Ask Seth before marking another tester's flag
+  won't-fix.
 
 ## Design decisions (don't undo without asking)
 
