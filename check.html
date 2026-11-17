@@ -1,0 +1,37 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tolerance backup check</title>
+<style>body{font:15px/1.5 system-ui,sans-serif;margin:20px;background:#111;color:#eee}
+.ok{color:#6bd46b}.bad{color:#ff7b7b}pre{white-space:pre-wrap;word-break:break-word}</style>
+</head><body>
+<h2>Tolerance backup check</h2>
+<pre id="out">starting…</pre>
+<script src="fbsdk.js"></script>
+<script src="fbnet.js"></script>
+<script>
+var st={friends:[]};
+const out=document.getElementById("out");const L=[];
+const say=(s,c)=>{L.push(c?`<span class="${c}">${s}</span>`:s);out.innerHTML=L.join("\n")};
+addEventListener("error",e=>say("page error: "+(e.message||e),"bad"));
+(async()=>{
+ try{
+  say("0. Firebase SDK bundled in page: "+(window.FBSDK?"yes":"NO"), window.FBSDK?"ok":"bad");
+  say("1. signing in…");
+  const t0=Date.now();
+  const db=await TOLFB.use("db"), user=await TOLFB.use("user");
+  if(!db||!user){say("FAILED at step 1: "+(TOLFB.err||"unknown"),"bad");return}
+  const uid=await user.id();
+  say("   signed in, account "+uid.slice(0,10)+"…  ("+(Date.now()-t0)+" ms)","ok");
+  say("2. writing a test document…");
+  await db.doc("data/users/"+uid+"/probe").set({hello:"world",ts:Date.now()});
+  say("   write OK","ok");
+  say("3. reading it back…");
+  const s=await db.doc("data/users/"+uid+"/probe").get();
+  say("   read OK — "+JSON.stringify(s.data()),"ok");
+  say("4. checking the rules actually block other people…");
+  try{ await db.doc("data/users/SOMEONE_ELSE/progress").get(); say("   PROBLEM: rules let me read another account","bad") }
+  catch(e){ say("   blocked, as it should be ("+(e.code||"denied")+")","ok") }
+  say("\\nALL GOOD — the app can reach Firebase from here.","ok");
+ }catch(e){say("FAILED: "+(e&&(e.code||e.message)||e),"bad")}
+})();
+</script></body></html>
