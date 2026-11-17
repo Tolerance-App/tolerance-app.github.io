@@ -1,0 +1,183 @@
+# Tolerance — notes for Claude Code
+
+Duolingo-style app for engineers: short daily lessons across many engineering subjects (vocab, variables,
+equations, component design, design review, "how it sounds at work"). Owner: Seth (CU Boulder mechanical and
+aerospace student). Testers: engineers, engineering students and non-engineers, mostly on phones.
+
+The working name is **Tolerance**. A rename is undecided (Shim, Nominal and Epsilon were all set aside), so
+don't rename anything in code or UI unless Seth asks.
+
+## Where things live
+
+- **Live site:** https://tolerance-app.github.io/ — GitHub Pages from `main`, repo root (`.nojekyll` present).
+  Repo: `Tolerance-App/tolerance-app.github.io` (public). Pushing to `main` deploys in about 1–2 minutes.
+- **Old addresses:**
+  - `sethijacob.github.io/tolerance` is now a 404, because the repo moved to the Tolerance-App org on 2026-11-16.
+  - The old claude.ai artifact (`cdd7542b-…`) shows a "Tolerance has moved" card whose button still points
+    at that dead address. Fixing both is open (see "Open items").
+- **Backend:** Firebase project `tolerance-fe244` (free Spark plan). Anonymous auth only, plus Firestore.
+- **Security rules:** `firestore.rules` in the repo is the source of truth, but it is **published by hand** in
+  Firebase console → Firestore → Rules. There's no `firebase.json` yet. If the Firebase CLI is set up, deploy
+  with `firebase deploy --only firestore:rules` and check them in the emulator first.
+- **Project docs:** decision and build logs live in the claude.ai Project "Engineering Duolingo App"
+  (files like `PROGRESS_SYNC_…`, `MOVE_TO_OWN_SITE_B33_…`, `LESSON_STATS_B34_…`). `README.md` is out of date:
+  it still gives the old URL.
+
+## How the code is built (read this before editing)
+
+- `index.html` (~1.6 MB) is the whole app: CSS, one big script, and the lesson content. Inside it, builds are
+  **stacked layers** marked `/* ===== vNN … ===== */` (v4 through v30, plus b31). Each layer changes earlier
+  behavior by wrapping functions:
+  ```js
+  const _fin34 = finishSession;
+  finishSession = function () { /* before */ const r = _fin34.apply(this, arguments); /* after */ return r };
+  ```
+  The same function is often wrapped 5–9 times (`finishSession`, `home`, `showQ`, `settings`, `feedback`…).
+  The last wrapper loaded wins, and every wrapper must call through to the one before it.
+- **A new build is a new file:** `vNN.js`, plus one `<script src="vNN.js">` tag placed after the previous one
+  and before the boot line `<script>applyTheme();build();home();netInit();</script>`. Current order:
+  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → boot`.
+  - Don't rewrite or reformat old layers inside `index.html`. Prefer small, targeted wrappers in the new file.
+  - Set `FB.ver="bNN"`, and add a "What's new" entry with `NEWS.unshift({d, t:[…]})` when testers would notice the change.
+- Because they're wrapped, functions declared with `function x(){}` get **reassigned** later (`x=function…`).
+  Grep for `x=function` before assuming which version runs.
+- **Key globals:**
+  - `st`: user state, saved to localStorage `tol3`.
+  - `SS`: the current session (`kind`: lesson, review, practice or place; `qs`, `i`, `score`, `t0`, `l`, `u`).
+  - `LS`: all lessons after `build()`. `QX`: question lookup by key. `NODES` / `UNITS`: the path.
+  - `view`: the current screen. `NET`: db, uid, save status.
+  - `DEMOS`: lab registry. `QD30`: per-question equation map. `PASS={lo:.5,hi:.8}`.
+- `fbnet.js` makes the claude.ai artifact API (`claude.use("db")` / `claude.use("user")`, `db.doc(p).get/.set`,
+  `db.collection("people").onSnapshot`) work on top of Firebase. The app code still talks to that interface, so
+  keep new storage code on it (`NET.db.doc(path).set(...)`). That's what lets the app move backends without rewrites.
+- `fbsdk.js` is Firebase JS SDK 13.4.0 bundled with esbuild from `tools/sdkentry.js`. It exports only
+  initializeApp, getAuth, signInAnonymously, onAuthStateChanged, the persistence helpers, getFirestore, doc,
+  getDoc, setDoc, deleteDoc and onSnapshot. To use anything else, add it to `sdkentry.js` and rebuild with
+  esbuild. `stats.html` gets Firestore from the gstatic CDN instead.
+
+## Progress: rules that must not break
+
+Seth's top rule: **a new build must never reset anyone's progress.**
+
+1. Never rename the localStorage key `tol3` or the Firestore paths `data/users/{uid}/progress`, `progress_bak`,
+   `people/{uid}`, `fb/{uid}` or `ev/{id}`. You may add fields but never remove them. If a field's shape has
+   to change, migrate it when the app loads.
+2. **Sync only adds.** `mergeP28` (wrapped in v32) never lowers `done`, `xp`, `best`, `days`, `blind` or
+   `doneAt`. Streak and last-day come from the copy with the later day; everything else comes from the newer
+   copy. A blank start-up copy never counts as newer (`FR32`). Keep this behavior.
+3. Before the first push each day, the previous cloud copy is saved to `progress_bak`.
+4. **An anonymous account belongs to one origin.** Moving to a new domain or path gives every user a new,
+   empty account. Never change where the site is hosted without a move path. The existing move path is
+   `#import=<base64url JSON {tolerance:"move", st}>`, which the new site merges with `mergeP28` (see `v33.js`).
+5. **A Home Screen app on iPhone is a separate device** with its own empty storage and account. v35 asks
+   on its first open, "Played Tolerance before?", and offers to paste a progress code. Restoring onto a
+   blank copy fills in courses, placement and the welcome (a progress code carries only xp, streak, best,
+   last, done, miss, days and blind).
+6. Settings → Progress also has "Copy progress code" and "Restore progress", which work by hand.
+
+## Lesson content
+
+- **Where it lives:**
+  - Lessons are in `const BUNDLE=[…]` inside `index.html`, in "v8 format":
+    `{id, sub, subName, field, section, branch, lv, title, req, plain, cards, eqs, talk?, demoNeeded?, figNeeded?, qs}`.
+  - Older lessons come from `BASE` (array rows plus `NQ`).
+  - Later builds patch or add lessons by changing `BUNDLE` before `build()` runs. v32 uses `BUNDLE.push`
+    guarded by `bq32(id)`.
+- **Levels:** `lv` is 1–6 in content (Basics, Applied, Advanced, Expert, Professional, Specialist).
+  `build()` stores it as 0–5.
+- **Question types:**
+  - `mc`, `say`, `decode` (with `who`): exactly 3 wrong options.
+  - `fill`: a numeric `a` with relative `tol` and `unit`, or a text `a` given as a list.
+  - `order`: items listed in the correct order. `match`: 3–5 pairs. `spot`: `lines` plus a 0-based `bad`.
+- **Ids are permanent.** Progress (`st.done[id]`) uses the lesson id. Mistakes (`st.miss`), the equation map
+  (`QD30`) and stats use question keys `"<lessonId>#<index>"`, where index is the question's position. So
+  **never reorder or insert questions in the middle of an existing lesson.** Add new ones at the end. If you
+  really must restructure, migrate the old keys.
+- **Content rules** (from the handoff to ChatGPT, which writes most of the content):
+  - Re-derive every number yourself.
+  - Every card with a formula says what is held constant and what the model assumes.
+  - No "always", "much" or "exponentially" without stated conditions.
+  - Each objective is tested by at least 2 questions in different forms. The mistake queue asks a sibling
+    question after a correction.
+  - Each `why` names the specific mistake behind each wrong option.
+  - Use SI units with explicit `tol`, and 3–4 significant figures.
+  - Stress is never a safety verdict.
+- **Demos and figures:**
+  - The labs are in `DEMOS`, and v17 is the data-driven 2D demo engine.
+  - Seth wants every lesson to have a demo or visual. Any question that refers to a graph should show one.
+  - The **ideas in the existing demos must be kept** even when their visual style is redone.
+- Seth wants as much content as possible and will cut it back later. "Nothing is too specialized." Lessons
+  may appear in more than one place.
+
+## Lesson stats (b34)
+
+- `v34.js` writes one record per finished or quit lesson, review or practice session to `ev/{uid}_{rand}`.
+  - Fields: `u k id t sub br lv n sc pass sec ok miss end at v d ts`. `ok` and `miss` hold first-answer question keys.
+  - Records are queued in localStorage `tol_ev` while offline. Placement tests aren't logged.
+- `stats.html` is a private dashboard. Rules allow reading `ev` and progress docs only for the IDs listed in
+  `isAdmin()`: Seth's phone `WHBKG7KuQRSLpzV30OufPId1VRb2` and computer `P2jBBhX9biR9oE6z9bZtLtGGnUf2`.
+- If you add a field to an `ev` record, add it to the `hasOnly([...])` list in the rules too.
+
+## Design decisions (don't undo without asking)
+
+- **Top edge in the Home Screen app** (v35, class `sa35`): the strip under the clock and battery is solid
+  `--bg`, and the top bar is solid instead of translucent. Seth disliked the fading bar there.
+- **Feel:** calm, relaxing and easy to learn in, not doomscrolling. **Keep the existing UI and refresh it
+  (edges, colors, density); don't replace it.** Dark theme by default, blue `#3B8BFF` with an orange accent,
+  and monospace for numbers.
+- **First run:** plain text only (no logo or tagline splash), then tap into the clean steel-bar bending lab,
+  then the teaser question. It can be replayed from Settings.
+- **After a wrong answer:** Continue is lightly blocked (three taps get through, with a vibration on each),
+  because the explanation is where people learn.
+- **"Poke" hint:** using it rules out a perfect score but still lets you pass.
+- **Placement:** adaptive. Its progress bar never moves backward.
+- **Learn path:** builds bottom-up, with levels climbing upward.
+- **Friends:** you add them one at a time by code and only see the people you added. There's no global
+  leaderboard.
+- **Calculator:** Apple-style swipe left to delete, and tapping the entry box counts as Enter.
+- **Monetization (later, not built):**
+  - First unit of every course free.
+  - $3–5 a month for the rest, and nothing a user has done is lost if they cancel.
+  - Beta testers never pay.
+- **Not forgotten:**
+  - Reintroduce the time-of-day slider.
+  - Remove the classmate/professor framing from lessons.
+  - Add the ChatGPT mathematics book (Calc 1–3, diff eq).
+
+## Testing
+
+- No test suite is checked in. What has worked: Playwright with Chrome (`/usr/bin/google-chrome` or the local
+  Chrome) at a 390×844 mobile size, a local `python3 -m http.server`, and a request route that replaces
+  `fbsdk.js` with a mock `window.FBSDK` backed by an in-page object store.
+  - A fresh profile needs `st.subj=[...new Set(LS.map(l=>l.sub))]; st.placed=1; save()`, or `finishSession`
+    throws on `st.subj`.
+  - To drive a lesson: `startId(id)`, call `nextCard()` until `SS.qs` exists, then `feedback(good,'',2); nextQ()`
+    for each question. `feedback` adds to `SS.score` itself.
+- Run `check.html` on the live site to test the real Firebase connection.
+- Report exactly what ran: mock tests, real Firebase, or a real phone. Never say something was tested or
+  deployed unless it was.
+
+## Working with Seth
+
+- Order of work: real bugs first, then smaller changes, then new content.
+- Be concise. Explain what changed and what's still unverified. Use SI units.
+- Make small, targeted edits with no unrelated refactors, and keep his names, comments and working behavior.
+- Ask only when the answer changes correctness, scope or cost, or before anything irreversible: deleting
+  data, changing hosting, or rules that open up access.
+- **Feedback:** tester feedback is in Firestore `fb/{uid}`. Feedback from Seth's own devices is his. Feedback
+  from anyone else gets double-checked and raised with Seth before acting, unless it's an obvious fix.
+- Commit to `main` only when asked. Every push deploys straight to testers.
+
+## Open items (2026-11-16)
+
+- **Progress stranded by the repo move:**
+  - Re-create a `sethijacob/tolerance` Pages repo whose one page reads `localStorage.tol3` and forwards it to
+    `https://tolerance-app.github.io/#import=…`.
+  - Point the claude.ai "moved" card at the new URL.
+- Update `README.md` to the new URL and file list.
+- Lock down the `people` rule. Today any signed-in client can *list* every friend card; change it to `allow get` for
+  signed-in users and `allow list` only for `isAdmin()`. The app reads friends one document at a time
+  (`fbnet.js`), but `stats.html` lists the collection.
+- Friends board has never been confirmed working on real devices.
+- Still unexplained: "Poke doesn't work after you answer and come back", and which lab the "recreate the
+  shafts in torsion demo" request refers to.
