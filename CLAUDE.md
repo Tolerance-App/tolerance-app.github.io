@@ -124,7 +124,7 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   - Records are queued in localStorage `tol_ev` while offline. Placement tests aren't logged.
 - `stats.html` is a private dashboard. Rules allow reading `ev` and progress docs only for the IDs listed in
   `isAdmin()`: Seth's phone `WHBKG7KuQRSLpzV30OufPId1VRb2` (older phone ID; one browser or the Home Screen app), his phone's
-  stats.html ID `2XLhCOa10YY7DrCgB9CyG3a6Awn2` (added 2026-11-17), computer `P2jBBhX9biR9oE6z9bZtLtGGnUf2`, and the Chrome
+  stats.html ID `2XLhCOa10YY7DrCgB9CyG3a6Awn2` (added 2026-11-17), computer `P2jBBhX9biR9oE6z9bZtLtGGnUf2`, new phone ID `Qpuv5OLWVcSYxi6055NJi3TyfgI2` (added 2026-11-18), and the Chrome
   profile Claude in Chrome uses `u0izSBG81pVQ2pqO1EGF8RDzB3m2` (added 2026-11-17 so Claude can read stats.html).
 - If you add a field to an `ev` record, add it to the `hasOnly([...])` list in the rules too.
 - Until 2026-11-17 the published rules refused `ev` writes, and v34 drops a record on a permission error, so

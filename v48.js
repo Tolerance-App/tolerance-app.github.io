@@ -11,7 +11,7 @@
      entry to TF48 (newest first). */
 try{FB.ver="b48"}catch(e){}
 
-const ADM48=["WHBKG7KuQRSLpzV30OufPId1VRb2","2XLhCOa10YY7DrCgB9CyG3a6Awn2","P2jBBhX9biR9oE6z9bZtLtGGnUf2","u0izSBG81pVQ2pqO1EGF8RDzB3m2"];
+const ADM48=["WHBKG7KuQRSLpzV30OufPId1VRb2","2XLhCOa10YY7DrCgB9CyG3a6Awn2","P2jBBhX9biR9oE6z9bZtLtGGnUf2","u0izSBG81pVQ2pqO1EGF8RDzB3m2","Qpuv5OLWVcSYxi6055NJi3TyfgI2"];
 try{if(/(^|[#&])fixes\b/.test(location.hash)){localStorage.setItem("tol_tf48on","1");history.replaceState(null,"",location.pathname+location.search)}}catch(e){}
 const tfOn48=()=>{try{return ADM48.includes(FB.uid)||localStorage.getItem("tol_tf48on")=="1"}catch(e){return false}};
 
