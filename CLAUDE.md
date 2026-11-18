@@ -36,7 +36,7 @@ don't rename anything in code or UI unless Seth asks.
   The last wrapper loaded wins, and every wrapper must call through to the one before it.
 - **A new build is a new file:** `vNN.js`, plus one `<script src="vNN.js">` tag placed after the previous one
   and before the boot line `<script>applyTheme();build();home();netInit();</script>`. Current order:
-  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → v39.js → v40.js → v41.js → v42.js → v43.js → v44.js → v45.js → v46.js → v47.js → v48.js → v49.js → v50.js → v51.js → v52.js → v53.js → v54.js → v55.js → v56.js → v57.js → v58.js → v59.js → boot`.
+  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → v39.js → v40.js → v41.js → v42.js → v43.js → v44.js → v45.js → v46.js → v47.js → v48.js → v49.js → v50.js → v51.js → v52.js → v53.js → v54.js → v55.js → v56.js → v57.js → v58.js → v59.js → v60.js → boot`.
   - Don't rewrite or reformat old layers inside `index.html`. Prefer small, targeted wrappers in the new file.
   - Set `FB.ver="bNN"`, and add a "What's new" entry with `NEWS.unshift({d, t:[…]})` when testers would notice the change.
   - **Bump `version.json` to `{"v":"bNN"}`** with every build. Since v42 the app fetches it (no-store) on open
@@ -176,6 +176,11 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   auto-opens the question's equation (v46) and each card has "Use in calculator". Poke still has no Solve button. b57: the question's equation shows before answering again ("For this question"), and Graph opens with it
   (one input as x, the rest from the question's numbers; every card has "Graph it"). The only numbers people should
   memorize are typical ranges and orders of magnitude.
+- **Solver equation view (b60):** the solver typesets its equation with KaTeX 0.16.9 (cdnjs, loaded on first use like
+  mathjs) and puts each variable's box at its place in the equation (`math60Parse` → `math60Tex`, slots via
+  `\htmlClass`). Every new equation gets this for free; a tree that disagrees with `miniEval` (`math60Same`) or no
+  KaTeX falls back to the old box grid. Symbol TeX comes from `texSym60` rules; add overrides to `TEXS60`.
+  As of b60 all 493 solvable equations parse, match and render; 2 are wider than 375 px and scroll sideways.
 - **Paste target (b59):** chips paste on click, by which time iOS has blurred the box, so paste code must use
   `KB.t` (the app keyboard's target), not `document.activeElement`. Refocus with `preventScroll` or iOS jumps.
 - **Tools sheet (b57):** the question bar starts expanded (toggle bottom right). Paste chips paste on tap, not
