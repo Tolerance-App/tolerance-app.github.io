@@ -24,7 +24,7 @@ try{DEMOS.cruise51={t:"Cruise control on a hill",
  hint:"One car, one hill. Cruise off: nobody moves the pedal, so the hill takes the full speed loss. Cruise on: a sensor reads the speed and the controller presses the pedal harder the more speed is lost (throttle = Kp × error). That extra throttle cancels most of the hill, so the loss is divided by (1 + loop gain). A little error always remains: with no error, a P controller adds no throttle. Model: first-order car, 1% throttle ≈ 1 km/h.",
  ui:()=>pickc("cc","Cruise control",[["1","On"],["0","Off"]],"1")+slider("dd","Hill: speed lost with pedal held",0,20,.5,10)+slider("L","Loop gain Kp·K",0,50,.5,9),
  ro:()=>rof([["Hill speed, pedal held","o"],["Hill speed, cruise on","c"],["Loss cut by","r"]]),
- run(v){const on=+v.cc==1,O=cr51(0,v.dd),C=cr51(v.L,v.dd),S=on?C:O,mo=!RM50(),D=14,f=12/14,N=S.length-1;let g="";
+ run(v){const on=+v.cc==1,O=cr51(0,v.dd),C=cr51(v.L,v.dd),S=on?C:O,mo=!RM50(),D=14/1.5,f=12/14,N=S.length-1;let g="";
   const tn=.16*v.dd/20,road=`M24 96L66 96Q80 96 94 ${(96-14*tn).toFixed(1)}L296 ${(96-216*tn).toFixed(1)}`;
   g+=`<path d="${road}L296 104L24 104Z" fill="var(--s3)"/><path d="${road}" fill="none" stroke="var(--fa)" stroke-width="1.5"/>`;
   const col=on?"var(--blue)":"var(--orange)";
@@ -63,7 +63,7 @@ try{DEMOS.cruise51={t:"Cruise control on a hill",
   [40,60].forEach(u=>g+=`<path d="M${x0} ${Yt(u)}H${x1}" stroke="var(--line)"/>`+T50(x0-4,+Yt(u)+3,u,"end","var(--mu)",500,8.5));
   g+=T50(x0,ty0-3,"throttle (%)","start","var(--mu)",500,8.5)+pl(O,"u",Yt,"var(--orange)",on?1.6:2.6,on?.6:1)+pl(C,"u",Yt,"var(--blue)",on?2.6:1.6,on?1:.6);
   g+=T50(x1,296,"time (s)","end","var(--mu)",500,8.5);
-  if(mo)g+=`<line x1="${x0}" y1="${gy0}" x2="${x0}" y2="${ty1}" stroke="var(--tx)" stroke-width="1" opacity=".55"><animate attributeName="x1" values="${X(0)};${X(12)};${X(12)}" keyTimes="0;${f.toFixed(4)};1" dur="${D}s" repeatCount="indefinite"/><animate attributeName="x2" values="${X(0)};${X(12)};${X(12)}" keyTimes="0;${f.toFixed(4)};1" dur="${D}s" repeatCount="indefinite"/></line>`;
+  if(mo)[[gy0,gy1],[ty0,ty1]].forEach(([a,b])=>g+=`<line x1="${x0}" y1="${a}" x2="${x0}" y2="${b}" stroke="var(--tx)" stroke-width="1" opacity=".55"><animate attributeName="x1" values="${X(0)};${X(12)};${X(12)}" keyTimes="0;${f.toFixed(4)};1" dur="${D}s" repeatCount="indefinite"/><animate attributeName="x2" values="${X(0)};${X(12)};${X(12)}" keyTimes="0;${f.toFixed(4)};1" dur="${D}s" repeatCount="indefinite"/></line>`);
   const so=100-v.dd,sc=100-v.dd/(1+v.L);
   return {svg:`<svg viewBox="0 0 300 300" role="img" aria-label="A car drives onto a hill with cruise control ${on?"on":"off"}, with speed and throttle over time"><g stroke="none">${g}</g></svg>`,
    lab:{dd:sig(v.dd)+" km/h",L:sig(v.L)},out:{o:so.toFixed(1)+" km/h",c:sc.toFixed(1)+" km/h",r:sig(1+v.L)+"×"}}}};
@@ -89,11 +89,11 @@ try{(function(){const L=LES50("ctrl-feedback-2");if(!L||!L.demo||typeof L.demo!=
    [[1,sig(20+v.K)+" °C final","var(--tx)"],[.632,"63%: "+sig(20+.632*v.K)+" °C","var(--blue)"],[0,"start 20 °C","var(--mu)"]].forEach(([q,s,c])=>g+=`<path d="M103 ${ty(q).toFixed(1)}H119" stroke="${c}" stroke-width="1.3"/>`+T50(123,ty(q)+3,s,"start",c,600,9));
    /* gap left after each time constant */
    g+=T50(198,12,"gap left to final","start","var(--mu)",500,9);
-   const bw=54,row=(y,lab,q,c,bold)=>T50(198,y+7,lab,"start",bold?"var(--tx)":"var(--mu)",bold?700:500,9)+T50(238,y+7,sig(100*q,2)+"%","end",bold?"var(--tx)":"var(--mu)",bold?700:500,9)+
-    `<rect x="242" y="${y}" width="${bw}" height="8" rx="4" fill="var(--s3)"/><rect x="242" y="${y}" width="${(bw*q).toFixed(1)}" height="8" rx="4" fill="${c}"/>`;
+   const bw=50,row=(y,lab,q,c,bold)=>T50(198,y+7,lab,"start",bold?"var(--tx)":"var(--mu)",bold?700:500,9)+T50(242,y+7,(q>=.1?Math.round(100*q):q>=.001?(100*q).toFixed(1):"~0")+"%","end",bold?"var(--tx)":"var(--mu)",bold?700:500,9)+
+    `<rect x="246" y="${y}" width="${bw}" height="8" rx="4" fill="var(--s3)"/><rect x="246" y="${y}" width="${(bw*q).toFixed(1)}" height="8" rx="4" fill="${c}"/>`;
    ["0","τ","2τ","3τ","4τ"].forEach((lab,k)=>g+=row(20+k*15,lab,Math.exp(-k),"var(--fa)",Math.abs(n-k)<.03));
    g+=row(97,"now",1-fr,"var(--orange)",true);
-   let ov="";for(let k=1;k<=4;k++){const t=k*v.tau;if(t>480)break;const x=(44+t/480*246).toFixed(1);ov+=`<path d="M${x} 14V170" stroke="var(--fa)" stroke-dasharray="2 3"/>`+(x>70?`<text x="${x}" y="24" text-anchor="middle" class="m">${k>1?k:""}τ</text>`:"")}
+   let ov="";for(let k=1;k<=4;k++){const t=k*v.tau;if(t>480)break;const x=(44+t/480*246).toFixed(1);ov+=`<path d="M${x} 14V170" stroke="var(--fa)" stroke-dasharray="2 3"/>`+(x>60?`<text x="${(x>272?x-3:+x+3).toFixed(1)}" y="24" text-anchor="${x>272?"end":"start"}" class="m h52">${k>1?k:""}τ</text>`:"")}
    r.svg=`<svg viewBox="0 0 300 318" role="img" aria-label="A pot heating on a hot plate, a thermometer and the gap left after each time constant, above the step-response graph"><g stroke="none">${g}</g>${NEST50(r.svg,116,ov)}</svg>`;
    return r}};
  DEMO_OVR["ctrl-feedback-2"]="fo51"})()}catch(e){}
@@ -109,12 +109,12 @@ try{(function(){const L=LES50("ctrl-feedback-3");if(!L||!L.demo||typeof L.demo!=
    /* inflow pipe and valve */
    g+=`<rect x="8" y="10" width="122" height="8" fill="var(--s3)"/><rect x="122" y="10" width="8" height="16" fill="var(--s3)"/>`;
    g+=`<path d="M44 7L60 21V7L44 21Z" fill="color-mix(in srgb,var(--blue) ${Math.round(20+70*h/100)}%,var(--s2))" stroke="var(--tx)" stroke-width="1.2"/>`;
-   g+=T50(52,32,"valve "+sig(h,2)+"% open","middle","var(--tx)",600,9);
+   g+=T50(47,30,"valve","end","var(--tx)",600,9)+T50(47,40,sig(h,2)+"% open","end","var(--tx)",600,9);
    /* tank, water, setpoint */
    g+=`<rect x="105" y="${yw.toFixed(1)}" width="78" height="${(119-yw).toFixed(1)}" fill="color-mix(in srgb,var(--blue) 40%,transparent)"/>`;
    g+=`<path d="M104 24V120H184V24" fill="none" stroke="var(--fa)" stroke-width="2"/>`;
    g+=`<path d="M98 ${lv(100)}H190" stroke="var(--blue)" stroke-width="1.4" stroke-dasharray="4 3"/>`+T50(192,lv(100)-2,"setpoint","start","var(--blue)",700,9);
-   g+=T50(192,yw+12,"level "+sig(h,3)+"%","start","var(--tx)",700,9);
+   g+=T50(192,h<15?lv(15):yw+12,"level "+sig(h,3)+"%","start","var(--tx)",700,9);
    if(e>.5){g+=`<path d="M176 ${lv(100)}V${yw.toFixed(1)}" stroke="var(--orange)" stroke-width="2"/><path d="M172 ${lv(100)}H180M172 ${yw.toFixed(1)}H180" stroke="var(--orange)" stroke-width="1.5"/>`;
     g+=e>=14?T50(192,(lv(100)+yw)/2+3,"error "+sig(e,3)+"%","start","var(--orange)",700,9):T50(192,yw+23,"error "+sig(e,2)+"%","start","var(--orange)",700,9)}
    else g+=T50(192,yw+23,"error 0","start","var(--ok)",700,9);
@@ -130,7 +130,7 @@ try{(function(){const L=LES50("ctrl-feedback-3");if(!L||!L.demo||typeof L.demo!=
    g+=pi?T50(8,96,"The integral holds the","start","var(--ok)",600,9)+T50(8,107,"valve open at zero error.","start","var(--ok)",600,9)
         :T50(8,96,"The valve only opens","start","var(--orange)",600,9)+T50(8,107,"while there is error.","start","var(--orange)",600,9);
    if(pi){r.out.r0="0 %";r.out.r1="100 % of setpoint"}
-   const ov=pi?`<text x="290" y="40" text-anchor="end" style="fill:var(--ok)">P + I: no offset at any gain</text>`:"";
+   const ov=pi?`<text x="290" y="40" text-anchor="end" class="h52" style="fill:var(--ok)">P + I: no offset at any gain</text>`:"";
    r.svg=`<svg viewBox="0 0 300 350" role="img" aria-label="A draining tank with a controlled inflow valve, above the offset-versus-loop-gain graph"><g stroke="none">${g}</g>${NEST50(r.svg,150,ov)}</svg>`;
    return r}};
  DEMO_OVR["ctrl-feedback-3"]="pt51"})()}catch(e){}

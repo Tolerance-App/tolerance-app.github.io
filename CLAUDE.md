@@ -187,6 +187,15 @@ Seth's top rule: **a new build must never reset anyone's progress.**
     throws on `st.subj`.
   - To drive a lesson: `startId(id)`, call `nextCard()` until `SS.qs` exists, then `feedback(good,'',2); nextQ()`
     for each question. `feedback` adds to `SS.score` itself.
+- **Every build that adds or changes a demo runs the layout check** (`tools/demo-check.js`, b52). Seth: overlapping
+  text "makes it feel cheap". Load the app locally at 375 px wide (stub `fbsdk.js` so nothing reaches Firebase), add
+  the script, then `await demoCheck(["demoId"])` or `await demoCheck(null,{lessons:["lesson-id"]})`. It mounts each
+  demo at default, every slider's min and max, and every pill option, and reports labels that overlap each other
+  (`text-text`), sit on a straight line (`text-line`), or run off the picture (`clipped`). Ship with an empty report
+  for the demos you touched. Move labels beside their lines rather than on them; class `h52` (a halo in the card
+  colour, v52) is only for labels that must cross a gridline. Remember the `.demo svg` CSS strokes every shape with
+  `currentColor`, so picture layers go inside `<g stroke="none">` and set strokes explicitly.
+  - As of b52, 92 of 312 demos still fail it (29 text-text, 59 text-line, 33 clipped), mostly older demos.
 - Run `check.html` on the live site to test the real Firebase connection.
 - Report exactly what ran: mock tests, real Firebase, or a real phone. Never say something was tested or
   deployed unless it was.

@@ -119,7 +119,7 @@ try{(function(){const L=LES50("ctrl-feedback-4");if(!L||!L.demo||typeof L.demo!=
    g+=`<rect x="26" y="74" width="270" height="4" rx="2" fill="var(--s3)"/><path d="M26 61H296" stroke="var(--fa)" stroke-width="2" stroke-dasharray="2 2"/>`;
    g+=`<path d="M${x0} 30V82" stroke="var(--fa)" stroke-dasharray="3 3"/>`+T50(x0,26,"start","middle","var(--mu)",500,9);
    g+=`<path d="M${x1} 30V82" stroke="var(--blue)" stroke-width="1.4" stroke-dasharray="3 3"/>`+T50(x1,26,"setpoint","middle","var(--blue)",700,9);
-   const px=x1+Mp*S;if(Mp>.005)g+=`<rect x="${(px-16).toFixed(1)}" y="48" width="32" height="22" rx="3" fill="none" stroke="var(--orange)" stroke-dasharray="3 2"/>`+T50(px,42,"peak +"+sig(100*Mp,2)+"%","middle","var(--orange)",700,9);
+   const px=x1+Mp*S;if(Mp>.005)g+=`<rect x="${(px-16).toFixed(1)}" y="48" width="32" height="22" rx="3" fill="none" stroke="var(--orange)" stroke-dasharray="3 2"/>`+T50(Math.max(px-16,x1+5),42,"peak +"+sig(100*Mp,2)+"%","start","var(--orange)",700,9);
    const cart=`<rect x="-16" y="48" width="32" height="22" rx="3" fill="color-mix(in srgb,var(--blue) 35%,var(--s2))" stroke="var(--blue)" stroke-width="1.5"/><path d="M0 70V82" stroke="var(--orange)" stroke-width="2"/>`;
    if(mo){const vals=[],kt=[];for(let k=0;k<=N;k++){vals.push((x0+S*y(6*k/N)).toFixed(1)+" 0");kt.push((f*k/N).toFixed(4))}vals.push(vals[N]);kt.push("1");
     g+=`<g transform="translate(${x0} 0)">${cart}<animateTransform attributeName="transform" type="translate" values="${vals.join(";")}" keyTimes="${kt.join(";")}" dur="${D}s" repeatCount="indefinite"/></g>`;
