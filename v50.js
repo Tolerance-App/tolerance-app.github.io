@@ -72,7 +72,7 @@ try{(function(){const L=LES50("mech-machine-3");if(!L||!L.demo||typeof L.demo!="
         :T50(tx,48,"Fa/Fr ≤ 0.3,","start","var(--mu)",500,9)+T50(tx,59,"so P = Fr","start","var(--mu)",500,9);
    g+=T50(tx,82,"L10 life","start","var(--mu)",500,9)+T50(tx,97,sig(Lh)+" h","start",ok?"var(--ok)":"var(--bad)",700,12)+T50(tx,109,"goal 20,000 h","start","var(--mu)",500,9);
    const plot=plotSVG(sp,{...v,P});
-   return {svg:`<svg viewBox="0 0 300 336" role="img" aria-label="Ball bearing turning under radial load and thrust, above the life-versus-load graph">${g}${NEST50(plot,136)}</svg>`,
+   return {svg:`<svg viewBox="0 0 300 336" role="img" aria-label="Ball bearing turning under radial load and thrust, above the life-versus-load graph"><g stroke="none">${g}</g>${NEST50(plot,136)}</svg>`,
     lab:{C:sig(v.C)+" kN",Fr:sig(v.Fr)+" kN",Fa:sig(v.Fa)+" kN",n:sig(v.n)+" rpm"},
     out:{p:sig(P)+" kN",h:sig(Lh)+" h",fl:ok?"Meets 20,000 h":"Below 20,000 h"}}}};
  DEMO_OVR["mech-machine-3"]="bear50"})()}catch(e){}
@@ -102,7 +102,7 @@ try{DEMOS.cruise50={t:"Cruise control on a hill",
   const bar=(yy,lab,val,col)=>T50(4,yy,lab,"start","var(--mu)",500,9.5)+T50(296,yy,sig(val,3)+" km/h","end",col,700,9.5)+
    `<rect x="4" y="${yy+4}" width="292" height="8" rx="4" fill="var(--s3)"/><rect x="4" y="${yy+4}" width="${(292*Math.min(1,val/20)).toFixed(1)}" height="8" rx="4" fill="${col}"/>`;
   g+=bar(178,"Speed lost, fixed throttle (open loop)",eo,"var(--orange)")+bar(204,"Speed lost, cruise control (closed loop)",ec,"var(--blue)");
-  return {svg:`<svg viewBox="0 0 300 220" role="img" aria-label="Two cars on a hill, a feedback loop diagram and speed-loss bars">${g}</svg>`,
+  return {svg:`<svg viewBox="0 0 300 220" role="img" aria-label="Two cars on a hill, a feedback loop diagram and speed-loss bars"><g stroke="none">${g}</g></svg>`,
    lab:{dd:sig(v.dd)+" km/h",L:sig(v.L)},out:{s:sc.toFixed(1)+" km/h",r:sig(1+v.L)+"×"}}}};
  DEMO_OVR["ctrl-feedback-1"]="cruise50"}catch(e){}
 
@@ -127,6 +127,6 @@ try{(function(){const L=LES50("ctrl-feedback-4");if(!L||!L.demo||typeof L.demo!=
    else{g+=`<g transform="translate(${x1} 0)">${cart}</g>`;if(ts!=null)g+=T50(296,12,"within 2% at "+sig(ts,2)+" s","end","var(--ok)",700,9.5)}
    const X=t=>(44+t/6*246).toFixed(1);
    const cur=mo?`<line x1="44" y1="14" x2="44" y2="170" stroke="var(--orange)" stroke-width="1.2"><animate attributeName="x1" values="${X(0)};${X(6)};${X(6)}" keyTimes="0;${f};1" dur="${D}s" repeatCount="indefinite"/><animate attributeName="x2" values="${X(0)};${X(6)};${X(6)}" keyTimes="0;${f};1" dur="${D}s" repeatCount="indefinite"/></line>`:"";
-   r.svg=`<svg viewBox="0 0 300 296" role="img" aria-label="Positioning stage moving to its setpoint, above the step-response graph">${g}${NEST50(r.svg,94,cur)}</svg>`;
+   r.svg=`<svg viewBox="0 0 300 296" role="img" aria-label="Positioning stage moving to its setpoint, above the step-response graph"><g stroke="none">${g}</g>${NEST50(r.svg,94,cur)}</svg>`;
    return r}};
  DEMO_OVR["ctrl-feedback-4"]="osc50"})()}catch(e){}
