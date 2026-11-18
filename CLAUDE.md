@@ -195,7 +195,10 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   for the demos you touched. Move labels beside their lines rather than on them; class `h52` (a halo in the card
   colour, v52) is only for labels that must cross a gridline. Remember the `.demo svg` CSS strokes every shape with
   `currentColor`, so picture layers go inside `<g stroke="none">` and set strokes explicitly.
-  - As of b52, 92 of 312 demos still fail it (29 text-text, 59 text-line, 33 clipped), mostly older demos.
+  - As of b53 all 312 demos pass. b53 (`v53.js`) moves mk2D colour keys and y-axis names into a strip above the
+    plot, and `TIDY53` (wraps `demoU`) nudges any label that still collides after each redraw, so a new demo
+    usually passes on its own. Don't lean on that: place labels sensibly in the demo itself, and look at it at
+    375 px, since the checker ignores curves and the tidy pass only moves labels a few px off them.
 - Run `check.html` on the live site to test the real Firebase connection.
 - Report exactly what ran: mock tests, real Firebase, or a real phone. Never say something was tested or
   deployed unless it was.
