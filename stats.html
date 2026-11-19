@@ -40,15 +40,27 @@ const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>(
 const pct=x=>isFinite(x)?Math.round(x*100)+"%":"–",avg=a=>a.length?a.reduce((s,v)=>s+v,0)/a.length:NaN;
 const dur=s=>!isFinite(s)?"–":s<60?Math.round(s)+" s":(s/60).toFixed(1)+" min";
 let FS,fs,ME,EV=[],PROG=[];
+/* b66: Sign in with Google, so admin access follows Seth's Google account instead of one browser's anonymous ID.
+   Same uid logic as v66.js in the app: link the anonymous user, or switch to the uid the Google account already has. */
+let GA=null;
+function gBtn(){if(!GA)return;const u=GA.auth.currentUser,g=u&&(u.providerData||[]).find(p=>p&&p.providerId=="google.com");
+ $("#who").insertAdjacentHTML("beforeend",g?` <span class="mut">· Google: ${esc(g.email||"signed in")}</span>`:` <button id="gsi">Sign in with Google</button> <span id="gsm" class="mut"></span>`);
+ const btn=$("#gsi");if(btn)btn.onclick=gGo}
+async function gGo(){const {b,auth}=GA,p=new b.GoogleAuthProvider(),m=$("#gsm"),u=auth.currentUser;p.setCustomParameters({prompt:"select_account"});
+ try{if(u&&u.isAnonymous)await b.linkWithPopup(u,p);else await b.signInWithPopup(auth,p);location.reload()}
+ catch(e){const c=(e&&e.code)||"";
+  if(c=="auth/credential-already-in-use"||c=="auth/email-already-in-use"){const cr=b.GoogleAuthProvider.credentialFromError(e);if(cr){try{await b.signInWithCredential(auth,cr);location.reload();return}catch(x){e=x}}}
+  if(m)m.textContent="Couldn't sign in: "+((e&&e.code)||(e&&e.message)||e)}}
 
 /* window.STATS_MOCK lets the page be tested without Firebase */
 async function boot(){
  if(window.STATS_MOCK){({FS,fs,ME}=await window.STATS_MOCK());}
  else{const [a,b,c]=await Promise.all([import(SDK+"firebase-app.js"),import(SDK+"firebase-auth.js"),import(SDK+"firebase-firestore.js")]);
   const app=a.initializeApp(CFG),auth=b.getAuth(app);try{await auth.authStateReady()}catch(e){}
-  const u=auth.currentUser||(await b.signInAnonymously(auth)).user;ME=u.uid;FS=c;fs=c.getFirestore(app)}
+  const u=auth.currentUser||(await b.signInAnonymously(auth)).user;ME=u.uid;FS=c;fs=c.getFirestore(app);GA={b,auth}}
  $("#who").innerHTML=`This device's ID: <code>${esc(ME)}</code> <button id="cp">Copy</button>`;
  $("#cp").onclick=()=>navigator.clipboard&&navigator.clipboard.writeText(ME);
+ gBtn();
  try{await load()}catch(e){
   if(/permission/i.test(e.code||e.message||"")){$("#setup").hidden=false;$("#setup").innerHTML=`<h2>One-time setup</h2><ol>
 <li>Copy the device ID above.</li><li>In the repo's <code>firestore.rules</code>, replace <code>PASTE_DEVICE_ID_FROM_STATS_PAGE</code> with it.</li>

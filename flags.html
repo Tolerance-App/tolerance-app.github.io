@@ -52,14 +52,26 @@ const STATUS={open:"Open",fixed:"Fixed",wontfix:"Won't fix",dup:"Duplicate"};
 const CATS={bug:"Bug",content:"Content error",ui:"Phone / UI",idea:"Idea",question:"Question",other:"Other"};
 const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let FS,fs,ME,FL=[],TRI={};
+/* b66: Sign in with Google, so admin access follows Seth's Google account instead of one browser's anonymous ID.
+   Same uid logic as v66.js in the app: link the anonymous user, or switch to the uid the Google account already has. */
+let GA=null;
+function gBtn(){if(!GA)return;const u=GA.auth.currentUser,g=u&&(u.providerData||[]).find(p=>p&&p.providerId=="google.com");
+ $("#who").insertAdjacentHTML("beforeend",g?` <span class="mut">· Google: ${esc(g.email||"signed in")}</span>`:` <button id="gsi">Sign in with Google</button> <span id="gsm" class="mut"></span>`);
+ const btn=$("#gsi");if(btn)btn.onclick=gGo}
+async function gGo(){const {b,auth}=GA,p=new b.GoogleAuthProvider(),m=$("#gsm"),u=auth.currentUser;p.setCustomParameters({prompt:"select_account"});
+ try{if(u&&u.isAnonymous)await b.linkWithPopup(u,p);else await b.signInWithPopup(auth,p);location.reload()}
+ catch(e){const c=(e&&e.code)||"";
+  if(c=="auth/credential-already-in-use"||c=="auth/email-already-in-use"){const cr=b.GoogleAuthProvider.credentialFromError(e);if(cr){try{await b.signInWithCredential(auth,cr);location.reload();return}catch(x){e=x}}}
+  if(m)m.textContent="Couldn't sign in: "+((e&&e.code)||(e&&e.message)||e)}}
 
 async function boot(){
  if(window.FLAGS_MOCK){({FS,fs,ME}=await window.FLAGS_MOCK());}
  else{const [a,b,c]=await Promise.all([import(SDK+"firebase-app.js"),import(SDK+"firebase-auth.js"),import(SDK+"firebase-firestore.js")]);
   const app=a.initializeApp(CFG),auth=b.getAuth(app);try{await auth.authStateReady()}catch(e){}
-  const u=auth.currentUser||(await b.signInAnonymously(auth)).user;ME=u.uid;FS=c;fs=c.getFirestore(app)}
+  const u=auth.currentUser||(await b.signInAnonymously(auth)).user;ME=u.uid;FS=c;fs=c.getFirestore(app);GA={b,auth}}
  $("#who").innerHTML=`This device's ID: <code>${esc(ME)}</code> <button id="cp">Copy</button>`;
  $("#cp").onclick=()=>navigator.clipboard&&navigator.clipboard.writeText(ME);
+ gBtn();
  $("#fc").innerHTML=`<option value="all">All</option><option value="none">Not sorted yet</option>`+Object.entries(CATS).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
  try{await load()}catch(e){
   if(/permission/i.test(e.code||e.message||"")){$("#setup").hidden=false;$("#setup").innerHTML=`<h2>Not an admin device</h2>
