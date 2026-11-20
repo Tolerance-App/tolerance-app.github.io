@@ -143,6 +143,12 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   the Home Screen app). Each entry jumps to a lesson, an exact question (by key) or a Lab model.
   **Every build that fixes a lesson, question or model adds an entry to the top of `TF48`** so Seth can
   check it on his phone. Sessions opened from it skip lesson stats (`SS.logged34`).
+- Old flags: the 98 flags from the old claude.ai artifacts (all Seth's, b1–b30) were imported on 2026-11-19 into
+  `fb/i0Uu2YU1ZTbicAyENHoPmaRfqG13`, an import-only anonymous account nothing else writes to (`OLD_APP` in flags.html,
+  shown as "Seth · old app"). Seth's Google-account uid on the app is `ke1WMzWdqOV1J1fRo3wGLK85Osf1` (`SETH_ALSO`,
+  display only; it is not in `isAdmin()`).
+- Bulk triage hook: flags.html sets `window.FLAGS` (`list(all)`, `set([[key,{s,c,fix,note}],…])`, `reload()`). Claude in
+  Chrome's JS runs in an isolated world, so call it by injecting a `<script>` that writes results to `document.body.dataset`.
 - Claude works the flags through Claude in Chrome on the admin Chrome profile: open flags.html, read the list,
   suggest categories, and set "Fixed in bNN" after a fix ships. Ask Seth before marking another tester's flag
   won't-fix.
