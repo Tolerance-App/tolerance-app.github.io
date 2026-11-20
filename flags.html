@@ -48,6 +48,10 @@ const SDK="https://www.gstatic.com/firebasejs/13.4.0/";
 const CFG={apiKey:"AIzaSyAWUOQLmKE26fCbYYNNuc1VffDaWgqrpCE",authDomain:"tolerance-fe244.firebaseapp.com",projectId:"tolerance-fe244",storageBucket:"tolerance-fe244.firebasestorage.app",messagingSenderId:"1009554687061",appId:"1:1009554687061:web:d2caeebf8155b19a0540dc"};
 /* Seth's own devices (same IDs as isAdmin() in firestore.rules); their flags get a "Seth" chip */
 const SETH=["WHBKG7KuQRSLpzV30OufPId1VRb2","P2jBBhX9biR9oE6z9bZtLtGGnUf2","u0izSBG81pVQ2pqO1EGF8RDzB3m2","2XLhCOa10YY7DrCgB9CyG3a6Awn2","Qpuv5OLWVcSYxi6055NJi3TyfgI2"];
+/* Display only (not admin IDs): Seth's flags imported 2026-11-19 from the old claude.ai artifacts (Tolerance beta
+   and Tolerance web app, 98 items, all from Seth) into fb/{OLD_APP}, an import-only account nothing else writes to;
+   and Seth's Google-account uid on the app. */
+const OLD_APP="i0Uu2YU1ZTbicAyENHoPmaRfqG13",SETH_ALSO=[OLD_APP,"ke1WMzWdqOV1J1fRo3wGLK85Osf1"];
 const STATUS={open:"Open",fixed:"Fixed",wontfix:"Won't fix",dup:"Duplicate"};
 const CATS={bug:"Bug",content:"Content error",ui:"Phone / UI",idea:"Idea",question:"Question",other:"Other"};
 const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -86,6 +90,13 @@ async function load(){
  FL.sort((a,b)=>String(b.ts||"").localeCompare(String(a.ts||"")));
  TRI={};tr.docs.forEach(d=>TRI[d.id]=d.data()||{});
  $("#ui").hidden=false;render()}
+/* Console hook for bulk triage (Claude in Chrome on an admin profile). Firestore rules still decide what this
+   device may read or write, so it opens nothing up. FLAGS.list() → plain rows; FLAGS.set([[key,{s,c,fix,note}],…]). */
+window.FLAGS={
+ list:(all)=>FL.filter(f=>all||st(f)=="open").map(f=>({key:f.key,ts:f.ts,u:f.u.slice(0,6),seth:SETH.includes(f.u)||SETH_ALSO.includes(f.u),reason:f.reason||"",text:f.text||"",q:f.q?String(f.q).slice(0,160):"",lesson:f.lesson||"",part:f.part||"",qkey:f.qkey||"",view:f.view||"",ver:f.ver||"",s:st(f),c:cat(f),fix:(TRI[f.key]||{}).fix||"",note:(TRI[f.key]||{}).note||""})),
+ async set(rows){const done=[];for(const [k,p] of rows){const o={...(TRI[k]||{}),...p,at:Date.now(),by:ME};if(p.fix&&!p.s&&(!TRI[k]||!TRI[k].s||TRI[k].s=="open"))o.s="fixed";
+  try{await FS.setDoc(FS.doc(fs,"fbtri",k),o);TRI[k]=o;done.push(k)}catch(e){done.push("FAIL "+k+": "+(e.code||e.message))}}render();return done},
+ reload:()=>load()};
 
 const st=f=>(TRI[f.key]||{}).s||"open",cat=f=>(TRI[f.key]||{}).c||"";
 const isPrice=f=>f.type=="price";
@@ -108,11 +119,11 @@ function render(){
   el.querySelector(".c").onchange=e=>save(k,{c:e.target.value});
   el.querySelector(".fix").onchange=e=>save(k,{fix:e.target.value.trim().slice(0,12)});
   el.querySelector(".note").onchange=e=>save(k,{note:e.target.value.trim().slice(0,500)})})}
-function card(f){const t=TRI[f.key]||{},s=st(f),seth=SETH.includes(f.u);
+function card(f){const t=TRI[f.key]||{},s=st(f),seth=SETH.includes(f.u)||SETH_ALSO.includes(f.u);
  const ctx=[f.ltitle||f.lesson?`<b>${esc(f.ltitle||f.lesson)}</b>${f.ltitle&&f.lesson?` (${esc(f.lesson)})`:""}`:"",f.part?esc(f.part):"",f.qkey?`question ${esc(f.qkey)}`:"",
   f.view?`screen ${esc(f.view)}`:"",f.ver?`build ${esc(f.ver)}`:"",f.vp?esc(f.vp):"",f.theme?esc(f.theme):""].filter(Boolean).join(" · ");
  return `<div class="fl s-${s}" data-k="${esc(f.key)}">
- <div>${seth?`<span class="chip me">Seth</span>`:`<span class="chip">${esc(String(f.u).slice(0,6))}</span>`}${f.who?`<span class="chip">${esc(f.who)}</span>`:""}${f.reason?`<span class="chip">${esc(f.reason)}</span>`:""}<span class="mut" style="font-size:12px">${esc(when(f.ts))}</span></div>
+ <div>${seth?`<span class="chip me">Seth</span>`:`<span class="chip">${esc(String(f.u).slice(0,6))}</span>`}${f.u==OLD_APP?`<span class="chip">old app</span>`:""}${f.who?`<span class="chip">${esc(f.who)}</span>`:""}${f.reason?`<span class="chip">${esc(f.reason)}</span>`:""}<span class="mut" style="font-size:12px">${esc(when(f.ts))}</span></div>
  <div class="tx">${esc(f.text||"(no text)")}</div>
  ${f.q?`<div class="ctx">Question: ${esc(String(f.q).slice(0,300))}</div>`:""}
  <div class="ctx">${ctx}</div>
