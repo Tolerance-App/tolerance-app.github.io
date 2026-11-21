@@ -36,7 +36,7 @@ don't rename anything in code or UI unless Seth asks.
   The last wrapper loaded wins, and every wrapper must call through to the one before it.
 - **A new build is a new file:** `vNN.js`, plus one `<script src="vNN.js">` tag placed after the previous one
   and before the boot line `<script>applyTheme();build();home();netInit();</script>`. Current order:
-  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → v39.js → v40.js → v41.js → v42.js → v43.js → v44.js → v45.js → v46.js → v47.js → v48.js → v49.js → v50.js → v51.js → v52.js → v53.js → v54.js → v55.js → v56.js → v57.js → v58.js → v59.js → v60.js → v61.js → v62.js → v63.js → v64.js → v65.js → v66.js → v67.js → v68.js → v69.js → v70.js → v71.js → v72.js → v73.js → v74.js → boot`.
+  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → v39.js → v40.js → v41.js → v42.js → v43.js → v44.js → v45.js → v46.js → v47.js → v48.js → v49.js → v50.js → v51.js → v52.js → v53.js → v54.js → v55.js → v56.js → v57.js → v58.js → v59.js → v60.js → v61.js → v62.js → v63.js → v64.js → v65.js → v66.js → v67.js → v68.js → v69.js → v70.js → v71.js → v72.js → v73.js → v74.js → v75.js → boot`.
   - Don't rewrite or reformat old layers inside `index.html`. Prefer small, targeted wrappers in the new file.
   - Set `FB.ver="bNN"`, and add a "What's new" entry with `NEWS.unshift({d, t:[…]})` when testers would notice the change.
   - **Bump `version.json` to `{"v":"bNN"}`** with every build. Since v42 the app fetches it (no-store) on open
@@ -215,6 +215,10 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   reloads; netInit then merges local `tol3` in with `mergeP28`. Popup first, redirect fallback (`tol_g66` flag).
   stats.html and flags.html have the same button, so admin access follows Seth's Google account's uid.
   Needs Firebase console → Authentication: Google provider on, `tolerance-app.github.io` in Authorized domains.
+- **Offline (b75, `sw.js`):** network-first service worker. Online, every same-origin file comes fresh; the cache
+  (`tol-v1`) is used only offline or when a load stalls past 6 s. CDN libs/fonts cached in `tol-lib-v1`. version.json and
+  Firebase traffic pass through. New `<script>` tags are picked up automatically (install parses index.html). To retire
+  it, ship a sw.js that unregisters itself; never make it cache-first.
 - **Calculator:** Apple-style swipe left to delete, and tapping the entry box counts as Enter.
 - **Monetization (later, not built):**
   - First unit of every course free.
