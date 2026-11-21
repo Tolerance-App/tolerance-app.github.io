@@ -224,6 +224,13 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   - First unit of every course free.
   - $3–5 a month for the rest, and nothing a user has done is lost if they cancel.
   - Beta testers never pay.
+- **Backlog from flags (moved here 2026-11-21 so flags.html could reach zero; marked won't-fix with a "Backlog" note):**
+  more fun vocab demos (review-language); shorter review-language; better ctrl-feedback-3 and cs-data-structures-1 demos;
+  drag to reorder in order questions; rocket landing randomizer and more math; retry on ctrl-exam-1 #1; Poke after
+  answering and coming back (unreproduced); remove classmate/professor framing; Lab "all models in one list" mode;
+  "vote for this content next" button; in-depth worked solutions; spindle power-margin visual; Nyquist two-sine
+  overlay demo; graph axis/equation scaling; calculator toggle that fills the answer box; shaft stress gradient
+  cross-section; 3D reference figures with vectors; confirm Friends on real devices.
 - **Not forgotten:**
   - Reintroduce the time-of-day slider.
   - Remove the classmate/professor framing from lessons.
