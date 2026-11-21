@@ -12,9 +12,10 @@ don't rename anything in code or UI unless Seth asks.
 - **Live site:** https://tolerance-app.github.io/ — GitHub Pages from `main`, repo root (`.nojekyll` present).
   Repo: `Tolerance-App/tolerance-app.github.io` (public). Pushing to `main` deploys in about 1–2 minutes.
 - **Old addresses:**
-  - `sethijacob.github.io/tolerance` is now a 404, because the repo moved to the Tolerance-App org on 2026-11-16.
-  - The old claude.ai artifact (`cdd7542b-…`) shows a "Tolerance has moved" card whose button still points
-    at that dead address. Fixing both is open (see "Open items").
+  - `sethijacob.github.io/tolerance` was a 404 after the repo moved to the Tolerance-App org on 2026-11-16.
+    Since 2026-11-21 it is a forwarding page that carries progress over (see "Open items").
+  - The old claude.ai artifact (`cdd7542b-…`) shows a "Tolerance has moved" card whose button points at that
+    address, so it reaches the new site again through the forwarding page.
 - **Backend:** Firebase project `tolerance-fe244` (free Spark plan). Anonymous auth only, plus Firestore.
 - **Security rules:** `firestore.rules` in the repo is the source of truth, but it is **published by hand** in
   Firebase console → Firestore → Rules. There's no `firebase.json` yet. If the Firebase CLI is set up, deploy
@@ -274,10 +275,11 @@ Seth's top rule: **a new build must never reset anyone's progress.**
 
 ## Open items (2026-11-16)
 
-- **Progress stranded by the repo move:**
-  - Re-create a `sethijacob/tolerance` Pages repo whose one page reads `localStorage.tol3` and forwards it to
-    `https://tolerance-app.github.io/#import=…`.
-  - Point the claude.ai "moved" card at the new URL.
+- **Progress stranded by the repo move: done 2026-11-21.** `sethijacob/tolerance` (public, Pages, local copy in
+  `../tolerance-forward`) is one page (also its 404.html) that reads `localStorage.tol3` on the old origin and
+  forwards it to `https://tolerance-app.github.io/#import=…`; an incoming `#import=` (the old claude.ai "moved"
+  card's button) is passed straight through, so that card works again without editing it. Re-creating the repo
+  ended GitHub's automatic redirect from `sethijacob/tolerance` to the org repo (git remotes already use the org).
 - `people` rule: `firestore.rules` now has `allow get` for signed-in users and `allow list` only for
   `isAdmin()` (b36 branch). It still has to be published by hand in the Firebase console.
 - Friends board has never been confirmed working on real devices.
