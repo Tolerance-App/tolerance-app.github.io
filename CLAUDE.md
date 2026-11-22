@@ -37,7 +37,7 @@ don't rename anything in code or UI unless Seth asks.
   The last wrapper loaded wins, and every wrapper must call through to the one before it.
 - **A new build is a new file:** `vNN.js`, plus one `<script src="vNN.js">` tag placed after the previous one
   and before the boot line `<script>applyTheme();build();home();netInit();</script>`. Current order:
-  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → v39.js → v40.js → v41.js → v42.js → v43.js → v44.js → v45.js → v46.js → v47.js → v48.js → v49.js → v50.js → v51.js → v52.js → v53.js → v54.js → v55.js → v56.js → v57.js → v58.js → v59.js → v60.js → v61.js → v62.js → v63.js → v64.js → v65.js → v66.js → v67.js → v68.js → v69.js → v70.js → v71.js → v72.js → v73.js → v74.js → v75.js → v76.js → v77.js → v78.js → v79.js → v80.js → v81.js → v82.js → v83.js → v84.js → v85.js → v86.js → v87.js → v88.js → v89.js → v90.js → v91.js → v92.js → v93.js → v94.js → boot`.
+  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → v39.js → v40.js → v41.js → v42.js → v43.js → v44.js → v45.js → v46.js → v47.js → v48.js → v49.js → v50.js → v51.js → v52.js → v53.js → v54.js → v55.js → v56.js → v57.js → v58.js → v59.js → v60.js → v61.js → v62.js → v63.js → v64.js → v65.js → v66.js → v67.js → v68.js → v69.js → v70.js → v71.js → v72.js → v73.js → v74.js → v75.js → v76.js → v77.js → v78.js → v79.js → v80.js → v81.js → v82.js → v83.js → v84.js → v85.js → v86.js → v87.js → v88.js → v89.js → v90.js → v91.js → v92.js → v93.js → v94.js → v95.js → boot`.
   - Don't rewrite or reformat old layers inside `index.html`. Prefer small, targeted wrappers in the new file.
   - Set `FB.ver="bNN"`, and add a "What's new" entry with `NEWS.unshift({d, t:[…]})` when testers would notice the change.
   - **Bump `version.json` to `{"v":"bNN"}`** with every build. Since v42 the app fetches it (no-store) on open
@@ -226,6 +226,11 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   Style rules (from Seth rating 50 samples): plain words, no formulas, say what it is, not what the lesson teaches; an
   everyday link most of the time, ideally something people have felt or seen; a newcomer must be able to learn the word
   from the definition alone. Underline anything a smart non-engineer wouldn't know. Done: Mechanical (b89), Aerospace, Materials, Manufacturing (b90), Calculus I–III, Diff eq, Linear algebra (b91, shared math list MP91), Electrical, Controls, Digital hardware, Measurement (b92, shared electronics list EP92), Programming, Computer science, Machine learning (b93, shared list CP93), and the rest (b94). Every course is covered.
+- **App icon (b95):** the ± as two of the app's own buttons (flat face on a darker ledge) sitting on one big blue button
+  (face #4282EE→#2E6DE0, ledge #2051B0). Plus bar 0.828, end fillets 0.27× bar, inside corners 0.10× bar; gap between
+  plus and minus 0.57. Source `tools/icon.svg`; `icon-180/192/512.png` and the two `data:` icons in `<head>` are exports.
+  PNGs are full squares (iOS/Android mask the corners), so the big ledge runs straight across the bottom. iPhone Home Screen
+  copies never refresh their icon; re-adding one starts it with empty storage, so don't push testers to re-add.
 - **Calculator:** Apple-style swipe left to delete, and tapping the entry box counts as Enter.
 - **Monetization (later, not built):**
   - First unit of every course free.
