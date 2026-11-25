@@ -24,7 +24,7 @@ mechanical and aerospace student). Testers mostly on phones. Working name **Tole
   `const _x=fn; fn=function(){ … _x.apply(this,arguments) … }`. Functions get reassigned (`fn=function`), so check
   `docs/CODEMAP.md` for which layer's version runs.
 - **A new build = a new `vNN.js` file plus a script tag before the boot line.** The checklist is in the `new-build` skill
-  (FB.ver, version.json bump, NEWS, TF48, codemap). Current latest: v99.
+  (FB.ver, version.json bump, NEWS, TF48, codemap). Current latest: v100.
 - Key globals: `st` (user state, localStorage `tol3`), `SS` (current session), `LS` (lessons after `build()`),
   `QX` (question by key), `view`, `NET`, `DEMOS`, `QD30`. Storage code goes through `NET.db.doc(path).set(...)`,
   the artifact-style API from `fbnet.js`.

@@ -27,7 +27,7 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 | CAD | cad | 8 | 33 | 0 | to do | |
 | Engineering math | math | 4 | 16 | 16 | done | b99 |
 | Materials | mat | 4 | 16 | 0 | to do | |
-| Civil and structures | civil | 4 | 16 | 0 | to do | |
+| Civil and structures | civil | 4 | 16 | 16 | done | b100 |
 | Digital hardware | dig | 9 | 58 | 0 | to do | |
 | Measurement and data | daq | 6 | 39 | 0 | to do | |
 | Design review | design | 9 | 42 | 0 | to do | |
