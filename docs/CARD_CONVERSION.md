@@ -41,6 +41,49 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 | Numerical methods | numm | 5 | 30 | 0 | to do | |
 | **Total** | | **329** | **1,403** | **9** | | |
 
+## Course chat protocol (several chats can run at once)
+
+Seth's standing answers for course chats (2026-11-25), so a chat can finish without asking him:
+- **Push when clean.** If every check passes and the content-checker finds nothing left, push to `main` yourself.
+  If something truly needs Seth (a content question you can't settle, a check you can't make pass), don't push:
+  commit on your branch, set the course's status here to "blocked: <one line>", and put the question in your final
+  message.
+- Keep b98's behaviour as is: a card shows whole only when revisited in the same session; Guesses aren't logged
+  (no `ev` fields, no rules change). Don't change `v98.js`; if you find a renderer bug, describe it in your final
+  message and work around it in content.
+- Where a card's figure (`fig17` / `LFIG84`) already draws what a block would show, leave the block out.
+
+Steps:
+1. **Own worktree.** Other chats may be working in the main folder. Unless you're already in a worktree of your own:
+   `git fetch origin && git worktree add ../tol-cards-<code> -b cards-<code> origin/main`, then work only in that
+   folder (it has the same `tools/`). `tools/check.py` picks a free port, so parallel runs don't collide.
+2. **Build file.** Start it as `vNN.js` with NN = (highest `vNN.js` on origin/main) + 1, following the `new-build`
+   skill: header comment, `FB.ver`, script tag after the last one, `version.json`, one `TF48` entry
+   (`go:["lesson","<first lesson id>"]`), a one-line `NEWS` entry. Cards only: `rc98(id, ci, spec)` calls; never
+   touch `cards`, `qs`, ids or question order.
+3. **Convert every card** of every lesson in the course (lesson-cards skill: catalogue, Guess/Fill rules, rewriting
+   notes in `docs/LEARNING_DESIGN.md`). Re-derive every number in a comment above the card. About a third of cards
+   get a Guess, a third a Fill, the rest neither; never both on one card.
+4. **Checks**, all clean: `python tools/check.py cards course "<Name>"`, `python tools/check.py course "<Name>"`,
+   `python tools/check.py demolessons <the course's lesson ids>`, `python tools/check.py eval "FB.ver"`.
+5. **Review.** Screenshot every card finished (`cardshot <id> <ci> end <scratchpad>/x.png`) and every Guess open
+   (`cardshot <id> <ci> g0 …` shows it answered; use the tap count for open) and look at each one: overflow,
+   wrapping, a label that reads as a broken sentence. Reread every card as an engineer. Then run the
+   `content-checker` agent on the course's reveal cards (give it `vNN.js` and the lesson ids) and fix what it finds.
+6. **Update this file:** the course's row (Converted = the course's card count, Status "done", Build "bNN").
+7. **Integrate and push.** `python tools/codemap.py`; commit (`bNN: reveal cards for <Name>` + the attribution line).
+   Then `git fetch origin && git rebase origin/main`. If another chat pushed meanwhile:
+   - your build number must be the new highest + 1: `git mv` the file, and fix `FB.ver`, the script tag,
+     `version.json`, the `TF48` `b:` field, the tracker's Build cell and the commit message to match;
+   - conflicts: keep every chat's script tags in number order with yours last; keep every row's update in this
+     file; `version.json` = your number; `CLAUDE.md` "Current latest" = your number; regenerate `docs/CODEMAP.md`
+     instead of merging it.
+   Rerun step 4 after any renumber, then `git push origin HEAD:main`. If the push is rejected, repeat step 7.
+   Afterwards confirm `https://tolerance-app.github.io/version.json` shows your build (1–2 minutes), and remove the
+   worktree (`git worktree remove ../tol-cards-<code>`).
+8. **Report:** lessons and cards converted, which cards got a Guess or Fill, what the checks and content-checker
+   found and fixed, anything left for Seth. Post a one-line status about every 10 minutes while working.
+
 ## Done: the 9 test cards (b98)
 
 Card indices are 0-based (`idea i of n` on screen is index + 1).
