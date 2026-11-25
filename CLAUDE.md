@@ -13,7 +13,7 @@ mechanical and aerospace student). Testers mostly on phones. Working name **Tole
 
 ## Hosting
 - Live: https://tolerance-app.github.io/ (GitHub Pages from `main`, repo `Tolerance-App/tolerance-app.github.io`).
-  **Every push to `main` deploys to testers in 1–2 minutes. Commit or push only when Seth asks.**
+  **Every push to `main` deploys to testers in 1–2 minutes. Commit or push only when Seth asks; when he says "commit", commit and push.**
 - Firebase `tolerance-fe244` (Spark): anonymous auth (plus optional Google link) and Firestore. `firestore.rules` is
   published by hand in the console; ask before any rules change that opens access.
 
@@ -24,7 +24,7 @@ mechanical and aerospace student). Testers mostly on phones. Working name **Tole
   `const _x=fn; fn=function(){ … _x.apply(this,arguments) … }`. Functions get reassigned (`fn=function`), so check
   `docs/CODEMAP.md` for which layer's version runs.
 - **A new build = a new `vNN.js` file plus a script tag before the boot line.** The checklist is in the `new-build` skill
-  (FB.ver, version.json bump, NEWS, TF48, codemap). Current latest: v105.
+  (FB.ver, version.json bump, NEWS, TF48, codemap). Current latest: v106.
 - Key globals: `st` (user state, localStorage `tol3`), `SS` (current session), `LS` (lessons after `build()`),
   `QX` (question by key), `view`, `NET`, `DEMOS`, `QD30`. Storage code goes through `NET.db.doc(path).set(...)`,
   the artifact-style API from `fbnet.js`.

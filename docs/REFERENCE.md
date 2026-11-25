@@ -241,10 +241,12 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   b96 trims them (Seth: "wayyy overdoing"): each word underlined once per lesson, at most 2 per block, everyday words
   dropped (`DROPW96`: fit, heat, screw…), and an entry with no everyday link is skipped where its sentence already
   explains it (`explained96`). A word explained in its own sentence with no real-world link never needs a definition.
-- **App icon (b95):** the ± as two of the app's own buttons (flat face on a darker ledge) sitting on one big blue button
-  (face #4282EE→#2E6DE0, ledge #2051B0). Plus bar 0.828, end fillets 0.27× bar, inside corners 0.10× bar; gap between
+- **App icon (b95, fixed in b106):** the ± as two of the app's own buttons (flat face on a darker ledge) sitting on one
+  big blue button. b106: face #2961DE→#1A48C0, ledge #15368F→#0E2872 (Seth's "closer to royal"), and the face is the tile
+  **shifted up** 60/1024, never squashed (b95 squashed it, so the ledge climbed the sides). Dark mode: iOS can only
+  turn a flat single-colour tile dark grey; this gradient tile just dims (flat option K was offered, not chosen). Plus bar 0.828, end fillets 0.27× bar, inside corners 0.10× bar; gap between
   plus and minus 0.57. Source `tools/icon.svg`; `icon-180/192/512.png` and the two `data:` icons in `<head>` are exports.
-  PNGs are full squares (iOS/Android mask the corners), so the big ledge runs straight across the bottom. iPhone Home Screen
+  PNGs are full squares (iOS/Android mask the corners), so the big ledge runs across the bottom. iPhone Home Screen
   copies never refresh their icon; re-adding one starts it with empty storage, so don't push testers to re-add.
 - **Reveal cards (b98, `v98.js`):** the G+F card design from `docs/LEARNING_DESIGN.md`, stored as `l.rc[cardIndex]`
   through `rc98(id, ci, spec)`; `cards`/`qs` untouched, and a card without an entry renders as before. All pieces are

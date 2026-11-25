@@ -33,7 +33,8 @@ Guess or Fill. Progress tracker: `docs/CARD_CONVERSION.md`. Renderer, format and
   `vt {l, v, u}` value row · `pc {l, c, v, warn?}` compare panel (label, condition, value; warn = orange) ·
   `chain {items, hl}` process chain · `rel {x}` one-line relation under value rows · `take {x}` bold takeaway.
 - **Markup:** `$…$` inline math chip, `**…**` bold, `[[word]]` the one Fill word. Anywhere: `_e`, `_{0}`, `^3`, `^{-1}`
-  sub/superscripts, `√{…}` radical with a bar. Never stack scripts two deep: `exp(Δv / v_e)`. Write `vars` symbols,
+  sub/superscripts, `√{…}` radical with a bar (b106: the bar clears superscripts, so `√{a^2 + b^2}` is fine). Table
+  headers and formula labels are uppercased: put symbols there as `$ρ$` so they keep their case. Never stack scripts two deep: `exp(Δv / v_e)`. Write `vars` symbols,
   `eq`, `f`, `v`, `u` in this syntax; they render serif.
 - **Guess:** at most one, on about a third of cards, `at ≥ 1` (never the first piece), placed right before the piece
   that answers it, and that piece states the answer as a relation (highlighted table cell, `rel` line, takeaway).
