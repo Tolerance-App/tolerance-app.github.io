@@ -19,7 +19,7 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 | Electrical | elec | 20 | 70 | 2 | test cards only | b98 |
 | Computer science | cs | 10 | 29 | 1 | test cards only | b98 |
 | Manufacturing | mfg | 12 | 50 | 50 | done | b102 |
-| Drawings and GD&T | gdt | 8 | 33 | 0 | to do | |
+| Drawings and GD&T | gdt | 8 | 33 | 33 | done | b103 |
 | Programming | code | 16 | 65 | 0 | to do | |
 | CAM | cam | 8 | 36 | 0 | to do | |
 | Machine learning | ml | 12 | 49 | 0 | to do | |
