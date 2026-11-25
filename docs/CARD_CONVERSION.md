@@ -39,7 +39,7 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 | Differential equations | diffeq | 24 | 96 | 0 | to do | |
 | Linear algebra | linalg | 24 | 96 | 0 | to do | |
 | Numerical methods | numm | 5 | 30 | 0 | to do | |
-| **Total** | | **329** | **1,403** | **91** | | |
+| **Total** | | **329** | **1,403** | **124** | | |
 
 ## Course chat protocol (several chats can run at once)
 
@@ -70,7 +70,7 @@ Steps:
    (`cardshot <id> <ci> g0 …` shows it answered; use the tap count for open) and look at each one: overflow,
    wrapping, a label that reads as a broken sentence. Reread every card as an engineer. Then run the
    `content-checker` agent on the course's reveal cards (give it `vNN.js` and the lesson ids) and fix what it finds.
-6. **Update this file:** the course's row (Converted = the course's card count, Status "done", Build "bNN").
+6. **Update this file:** the course's row (Converted = the course's card count, Status "done", Build "bNN"), and the Total row's Converted (sum of the column).
 7. **Integrate and push.** `python tools/codemap.py`; commit (`bNN: reveal cards for <Name>` + the attribution line).
    Then `git fetch origin && git rebase origin/main`. If another chat pushed meanwhile:
    - your build number must be the new highest + 1: `git mv` the file, and fix `FB.ver`, the script tag,
