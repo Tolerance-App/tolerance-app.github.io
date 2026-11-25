@@ -18,7 +18,7 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 | Aerospace | aero | 16 | 64 | 3 | test cards only | b98 |
 | Electrical | elec | 20 | 70 | 2 | test cards only | b98 |
 | Computer science | cs | 10 | 29 | 1 | test cards only | b98 |
-| Manufacturing | mfg | 12 | 50 | 0 | to do | |
+| Manufacturing | mfg | 12 | 50 | 50 | done | b102 |
 | Drawings and GD&T | gdt | 8 | 33 | 0 | to do | |
 | Programming | code | 16 | 65 | 0 | to do | |
 | CAM | cam | 8 | 36 | 0 | to do | |
@@ -39,7 +39,7 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 | Differential equations | diffeq | 24 | 96 | 0 | to do | |
 | Linear algebra | linalg | 24 | 96 | 0 | to do | |
 | Numerical methods | numm | 5 | 30 | 0 | to do | |
-| **Total** | | **329** | **1,403** | **9** | | |
+| **Total** | | **329** | **1,403** | **91** | | |
 
 ## Course chat protocol (several chats can run at once)
 
