@@ -14,7 +14,10 @@
 import json, os, subprocess, sys, time
 from playwright.sync_api import sync_playwright
 HERE = os.path.dirname(os.path.abspath(__file__))
-PORT = 8790
+def _free_port():  # a free port each run, so checks from parallel chats don't collide
+    import socket
+    s = socket.socket(); s.bind(("127.0.0.1", 0)); p = s.getsockname()[1]; s.close(); return p
+PORT = _free_port()
 mode, args = sys.argv[1], sys.argv[2:]
 srv = subprocess.Popen([sys.executable, os.path.join(HERE, "serve.py"), str(PORT)])
 time.sleep(0.8)
