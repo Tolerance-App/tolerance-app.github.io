@@ -1,0 +1,51 @@
+﻿{
+    "version":  "0.0.1",
+    "configurations":  [
+                           {
+                               "name":  "mock-local",
+                               "runtimeExecutable":  "python",
+                               "runtimeArgs":  [
+                                                   "C:/Users/sethi/code/tolerance-app.github.io/tools/serve.py",
+                                                   "8766"
+                                               ],
+                               "port":  8766
+                           },
+                           {
+                               "name":  "legacy-import",
+                               "runtimeExecutable":  "python",
+                               "runtimeArgs":  [
+                                                   "-m",
+                                                   "http.server",
+                                                   "8771",
+                                                   "--bind",
+                                                   "127.0.0.1",
+                                                   "--directory",
+                                                   "C:/Users/sethi/AppData/Local/Temp/claude/39f3db4f33d0fe83/eb1cb716-4b46-490f-9c48-ec89cf2ac7f3/scratchpad/imp"
+                                               ],
+                               "port":  8771
+                           },
+                           {
+                               "name":  "icon-preview",
+                               "runtimeExecutable":  "python",
+                               "runtimeArgs":  [
+                                                   "-m",
+                                                   "http.server",
+                                                   "8781",
+                                                   "--bind",
+                                                   "127.0.0.1",
+                                                   "--directory",
+                                                   "C:/Users/sethi/AppData/Local/Temp/claude/8a9136198497ea9a/71b9854b-2a12-48c5-805e-1e8f14e9bb80/scratchpad"
+                                               ],
+                               "port":  8781
+                           },
+                           {
+                               "name":  "icon-save",
+                               "runtimeExecutable":  "python",
+                               "runtimeArgs":  [
+                                                   "C:/Users/sethi/AppData/Local/Temp/claude/8a9136198497ea9a/71b9854b-2a12-48c5-805e-1e8f14e9bb80/scratchpad/saveserve.py",
+                                                   "C:/Users/sethi/AppData/Local/Temp/claude/8a9136198497ea9a/71b9854b-2a12-48c5-805e-1e8f14e9bb80/scratchpad"
+                                               ],
+                               "port":  8782
+                           }
+                       ]
+}

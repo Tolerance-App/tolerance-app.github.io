@@ -1,0 +1,197 @@
+<title>Definition Ratings</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow column of popup-style cards, like the in-app tap-to-define card, each with a rating row. */
+:root{
+  --bg:#0E1420;--card:#172033;--line:#26324a;--fg:#E7ECF5;--mute:#8C99B3;
+  --blue:#3B8BFF;--orange:#FF9F43;--good:#3FCF8E;--bad:#FF6B6B;--chipbg:#1E2a42;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#F3F6FB;--card:#FFFFFF;--line:#D9E1EE;--fg:#172033;--mute:#5D6B85;--chipbg:#EAF0FA;
+  --blue:#1F6FE5;--orange:#D9730D;--good:#14945A;--bad:#D63B3B;color-scheme:light}}
+:root[data-theme="light"]{--bg:#F3F6FB;--card:#FFFFFF;--line:#D9E1EE;--fg:#172033;--mute:#5D6B85;--chipbg:#EAF0FA;
+  --blue:#1F6FE5;--orange:#D9730D;--good:#14945A;--bad:#D63B3B;color-scheme:light}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.5}
+.wrap{max-width:560px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:14px}
+h1{font-size:22px;margin:0;text-wrap:balance}
+.lead{color:var(--mute);margin:0}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mute)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.prog{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--blue);width:0;transition:width .2s}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.save{min-width:64px;text-align:right}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.term{font-weight:700;font-size:16px;text-decoration:underline;text-decoration-color:var(--blue);text-underline-offset:4px;text-decoration-thickness:1.5px}
+.course{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);white-space:nowrap}
+.pop{border-left:2px solid var(--blue);padding-left:10px;display:flex;flex-direction:column;gap:4px}
+.d{margin:0}
+.tie{margin:0;color:var(--mute);font-size:14px}
+.tie b{color:var(--orange);font-weight:600}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.lbl{font-size:12px;color:var(--mute);width:100%}
+button.c{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--chipbg);color:var(--fg);border-radius:999px;padding:6px 12px;cursor:pointer}
+button.c:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+button.c[aria-pressed="true"].up{background:var(--good);border-color:var(--good);color:#06140d}
+button.c[aria-pressed="true"].mid{background:var(--blue);border-color:var(--blue);color:#fff}
+button.c[aria-pressed="true"].down{background:var(--bad);border-color:var(--bad);color:#1c0606}
+button.c[aria-pressed="true"].lk{background:var(--orange);border-color:var(--orange);color:#1c1003}
+textarea{font:inherit;font-size:14px;width:100%;box-sizing:border-box;min-height:40px;resize:vertical;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:8px}
+textarea:focus{outline:2px solid var(--blue);outline-offset:0}
+.note{font-size:13px;color:var(--mute)}
+h2{font-size:17px;margin:10px 0 0}
+.tag{font-size:12px;color:var(--mute)}
+.tag.fx{color:var(--orange)}.tag.nw{color:var(--blue)}
+.rules ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+button.c[aria-pressed="true"]{outline:none}
+.warn{background:var(--chipbg);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:13px;color:var(--mute)}
+@media (prefers-reduced-motion: reduce){.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <h1>Definitions, round 2</h1>
+  <p class="lead">12 fixes to ones you didn’t like, then 13 new ones written to these rules. Round 1 ratings are kept.</p>
+  <div class="card rules">
+    <div class="lbl">What I took from round 1</div>
+    <ul>
+      <li>Plain words. An easy idea gets one short line.</li>
+      <li>No formulas, squares or exact relations; the lesson and demo teach those.</li>
+      <li>Say what it is, not why it’s hard or how it’s solved.</li>
+      <li>An everyday link most of the time, ideally something you’ve felt or seen yourself.</li>
+      <li>Skip the link only when every option is a stretch.</li>
+    </ul>
+    <div class="row" data-ov="rules"><button class="c up" data-v="yes">These are right</button><button class="c down" data-v="no">Something’s off (say below)</button></div>
+  </div>
+  <div class="bar"><div class="prog"><i id="pf"></i></div><span class="num" id="pc">0/25</span><span class="save" id="sv"></span></div>
+  <div id="warn" class="warn" hidden></div>
+  <div id="list" style="display:flex;flex-direction:column;gap:14px"></div>
+  <h2>Overall</h2>
+  <div class="card">
+    <div class="lbl">Length</div>
+    <div class="row" data-ov="len"><button class="c mid" data-v="shorter">Shorter</button><button class="c mid" data-v="right">About right</button><button class="c mid" data-v="longer">Longer</button></div>
+    <div class="lbl">How often should there be an everyday link?</div>
+    <div class="row" data-ov="freq"><button class="c lk" data-v="rare">Rarely</button><button class="c lk" data-v="when-real">When a good one exists</button><button class="c lk" data-v="most">Most of the time</button></div>
+    <div class="lbl">Anything else: tone, words to never use, what a great one looks like</div>
+    <textarea id="ovnote" placeholder="Optional"></textarea>
+  </div>
+</div>
+
+<script>
+const R2=[
+ ["burr","Burr","Shop vocab","The rough, sharp edge left after cutting or machining metal.","","Made it short and fixed what it means. Fine to leave this word out entirely."],
+ ["creep","Creep","Materials","Slow, permanent stretching of a part that carries a steady load for a long time. Heat makes it faster.","A plastic coat hook that droops a little more each week under a heavy bag.","New example."],
+ ["fillet","Fillet","CAD","A rounded inside corner where two faces meet.","The rounded inside corners of a metal baking pan: easier to clean and less likely to crack.","Link from a real part instead of a shower."],
+ ["hysteresis","Hysteresis","Controls","The output depends on which way you came from, not just where you are now.","A shower knob with some slack: turn it back to the same spot and the water isn’t the same temperature, because you came from the other side.","New link."],
+ ["impedance","Impedance","Electrical","How much a circuit resists AC current, in Ω.","For AC, it plays the role resistance plays for DC.","Less technical."],
+ ["bigo","Big-O","Computer science","How an algorithm slows down as its input gets bigger.","Reading every page of a book to find a word, versus jumping to the index.","Shorter def and link."],
+ ["moi","Moment of inertia","Mechanical","How hard it is to start or stop something spinning. It depends on how heavy it is and how far that weight sits from the axis.","A spinning skater speeds up by pulling their arms in.","No squares or exact relations."],
+ ["stiffode","Stiff equation","Differential equations","An equation with some parts that change very fast and others that change very slowly.","Like filming a hummingbird and a snail in the same shot.","Says only what it is, and has a link now."],
+ ["recursion","Recursion","Programming","A function that calls itself on a smaller version of the same problem.","Nesting dolls: open one and there’s a smaller one inside, until the last one doesn’t open.","Simpler definition."],
+ ["aoa","Angle of attack","Aerospace","The angle between a wing and the air coming at it.","Your hand out the car window: how far you tip the front edge up.","Simpler, with a link that ties to lift."],
+ ["stall","Stall","Aerospace","When a wing is tipped up too far, the air stops following its top surface and lift drops suddenly.","Tip your hand out the window too far and the lift gives way; it just gets shoved back.","Added a link."],
+ ["capacitor","Capacitor","Electrical","A part that stores electric charge and can release it quickly.","A camera flash whining as it charges, then dumping it all at once.","Felt example instead of the water tank."],
+ ["damping","Damping","Controls","Anything that soaks up motion so vibrations die out.","A car’s shock absorbers: hit a bump and it settles after one bounce instead of bouncing down the road.",""],
+ ["resonance","Resonance","Mechanical","When something is pushed at its own natural rhythm, so small pushes build into big motion.","Pushing someone on a swing at just the right moment each time.",""],
+ ["shear","Shear","Mechanical","Forces that try to slide one layer of a material past the next.","Pushing the top of a deck of cards sideways so the cards slide over each other.",""],
+ ["buckling","Buckling","Civil and structures","When a long, thin part being squeezed suddenly bows out sideways.","Press down on the ends of a plastic ruler until it snaps out into a curve.",""],
+ ["drag","Drag","Aerospace","The force from the air pushing back on something moving through it.","Riding a bike into a headwind.",""],
+ ["short","Short circuit","Electrical","A path that lets current skip the parts it should go through, so far too much current flows.","",""],
+ ["limit","Limit","Calculus I","The value a function heads toward as its input gets close to some point.","Walk halfway to a wall, then halfway again: you keep closing in on the wall.",""],
+ ["tolerance","Tolerance","Drawings and GD&T","How far a dimension can be off from its target and still be acceptable.","A recipe that says bake 25–30 minutes: anywhere in that range is fine.",""],
+ ["feed","Feed rate","CAM","How fast the cutter moves through the material.","Pushing a saw through wood: too fast and it binds, too slow and it just burns.",""],
+ ["lr","Learning rate","Machine learning","How big a step a model takes each time it corrects its mistakes.","Tuning a guitar string: crank too hard and you overshoot the note, tiny turns take forever.",""],
+ ["array","Array","Programming","A list of items stored in order, each found by its position number.","Numbered mailboxes in an apartment lobby.",""],
+ ["det","Determinant","Linear algebra","One number that says how much a matrix grows or shrinks areas, and whether it flips them over.","",""],
+ ["snr","Signal-to-noise ratio","Measurement and data","How strong the signal you want is compared with the random noise around it.","Hearing a friend talk across a loud restaurant.",""]
+];
+const DEFS1=[
+ ["torque","Torque","Mechanical","A twisting force: the force times its distance from the pivot, in N·m.","Why a longer wrench frees a stuck bolt with the same push."],
+ ["fillet","Fillet","CAD","A rounded inside corner where two faces meet.","Like the curved seam where a shower wall meets the floor."],
+ ["stiffness","Stiffness","Mechanical","How much force it takes to deflect a part by a given amount, in N/m. Higher means it bends less.","Push a diving board and a steel I-beam equally hard: same force, very different bend."],
+ ["fatigue","Fatigue","Materials","Failure from many repeated loads, each well below the load that would break the part in one go.","Bending a paperclip back and forth until it snaps."],
+ ["creep","Creep","Materials","Slow, permanent stretching under a steady load. It speeds up at high temperature.","A loaded bookshelf that sags a little more each year."],
+ ["lift","Lift","Aerospace","The force on a wing at right angles to the oncoming air.","Hold your flat hand out of a car window, tilt the front edge up, and it rises."],
+ ["aoa","Angle of attack","Aerospace","The angle between the wing’s chord line (front edge to back edge) and the oncoming air.",""],
+ ["stall","Stall","Aerospace","When the angle of attack gets too high, the air stops following the top of the wing and lift drops suddenly.",""],
+ ["impedance","Impedance","Electrical","Opposition to alternating current: resistance plus the effect of capacitors and inductors, in Ω.","For AC, it plays the role resistance plays for DC."],
+ ["capacitor","Capacitor","Electrical","A part that stores charge on two plates separated by an insulator.","Like a small water tank: it fills up, then can push flow back out."],
+ ["hysteresis","Hysteresis","Controls","The output depends on which way you came from, not just where you are now.","A thermostat that turns the heat on at 19 °C but off at 21 °C, so it doesn’t click on and off."],
+ ["overshoot","Overshoot","Controls","How far the output passes its target before settling, often given as a percent of the step.","Braking late and rolling past the stop line before backing up to it."],
+ ["derivative","Derivative","Calculus I","How fast something is changing at one instant: the slope of its graph at that point.","A speedometer reads the derivative of distance."],
+ ["integral","Integral","Calculus I","Adding up a quantity over an interval: the area under its graph.","An odometer adds up speed over time to give distance."],
+ ["eigenvector","Eigenvector","Linear algebra","A direction that a matrix only stretches or shrinks, never turns. The stretch factor is its eigenvalue.",""],
+ ["gradient","Gradient","Calculus III","A vector pointing the way a function climbs fastest, with length equal to the slope in that direction.","On a hillside, the exact opposite of the way water would run."],
+ ["recursion","Recursion","Programming","A function that solves a problem by calling itself on a smaller piece of the same problem, until the piece is trivial.","Like nesting dolls: open one, find a smaller one, until the last doll doesn’t open."],
+ ["overfitting","Overfitting","Machine learning","When a model learns the noise in its training data along with the pattern, so it does worse on new data.","Memorising last year’s exam answers instead of learning the subject."],
+ ["aliasing","Aliasing","Measurement and data","When a signal is sampled too slowly, a fast signal shows up as a false, slower one.","Car wheels that seem to spin backward on video."],
+ ["datum","Datum","Drawings and GD&T","A reference feature on the part that measurements are taken from.","Like measuring every shelf height from the floor, instead of from the shelf below."],
+ ["stepover","Stepover","CAM","How far the cutter moves sideways between passes, often as a percent of its diameter.","The overlap between stripes when you mow a lawn."],
+ ["burr","Burr","Shop vocab","The sharp little lip of metal a cut leaves on an edge. File it off before someone grabs it.",""],
+ ["moi","Moment of inertia","Mechanical","How hard it is to change something’s spin. It grows with mass, and with the square of how far that mass sits from the axis.","A spinning skater speeds up by pulling their arms in."],
+ ["stiffode","Stiff equation","Differential equations","An equation where some parts change very fast and others very slowly, so simple step-by-step solvers need tiny steps to stay stable even after the fast part has died out.",""],
+ ["bigo","Big-O","Computer science","How an algorithm’s running time grows as the input grows, ignoring constant factors.","Finding a word by flipping a dictionary in halves grows like log n; reading every page grows like n."]
+];
+const DEFS=R2.map(([id,...r])=>["r2_"+id,...r]);
+const $=s=>document.querySelector(s);
+const R={},OV={len:null,freq:null,rules:null,note:""};
+let db=null,canWrite=true;
+
+function card([id,term,course,d,tie,fix],i){
+  const el=document.createElement("div");el.className="card";el.dataset.id=id;
+  el.innerHTML=`<div class="top"><span class="term"></span><span class="course"></span></div>
+  <div class="tag ${fix?'fx':'nw'}"></div>
+  <div class="pop"><p class="d"></p>${tie?'<p class="tie"><b>↳ </b><span></span></p>':''}</div>
+  <div class="row" data-k="r"><button class="c up" data-v="up">Good</button><button class="c mid" data-v="ok">Okay</button><button class="c down" data-v="down">Not this</button></div>
+  ${tie?`<div class="row" data-k="tie"><span class="lbl">Everyday link</span><button class="c lk" data-v="helps">Helps</button><button class="c lk" data-v="meh">Neutral</button><button class="c lk" data-v="cut">Cut it</button></div>`
+       :`<div class="row" data-k="tie"><span class="lbl">No link on this one</span><button class="c lk" data-v="right">Right call</button><button class="c lk" data-v="want">Wanted one</button></div>`}
+  <textarea id="n_${id}" placeholder="Note (optional): what you'd change"></textarea>`;
+  el.querySelector(".tag").textContent=fix?"Fixed · "+fix:"New";
+  el.querySelector(".term").textContent=term;el.querySelector(".course").textContent=course;
+  el.querySelector(".d").textContent=d;if(tie)el.querySelector(".tie span").textContent=tie;
+  el.querySelectorAll(".row").forEach(row=>row.addEventListener("click",e=>{
+    const b=e.target.closest("button");if(!b)return;const k=row.dataset.k;
+    const cur=R[id]||{};cur[k]=cur[k]===b.dataset.v?null:b.dataset.v;R[id]=cur;paint(id);save(id)}));
+  const ta=el.querySelector("textarea");let t;
+  ta.addEventListener("input",()=>{clearTimeout(t);t=setTimeout(()=>{(R[id]=R[id]||{}).note=ta.value;save(id)},700)});
+  ta.addEventListener("blur",()=>{clearTimeout(t);const v=ta.value;if((R[id]||{}).note!==v){(R[id]=R[id]||{}).note=v;save(id)}});
+  return el}
+
+function paint(id){
+  const el=document.querySelector(`.card[data-id="${id}"]`);if(!el)return;const r=R[id]||{};
+  el.querySelectorAll(".row").forEach(row=>row.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(r[row.dataset.k]===b.dataset.v))));
+  const ta=el.querySelector("textarea");if(document.activeElement!==ta&&r.note!=null)ta.value=r.note;
+  const n=DEFS.filter(x=>R[x[0]]&&R[x[0]].r).length;$("#pc").textContent=n+"/"+DEFS.length;$("#pf").style.width=(n/DEFS.length*100)+"%"}
+function paintOv(){document.querySelectorAll("[data-ov]").forEach(row=>row.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(OV[row.dataset.ov]===b.dataset.v))));
+  const ta=$("#ovnote");if(document.activeElement!==ta)ta.value=OV.note||""}
+
+const q={};let busy={};
+async function write(path,data){
+  if(!db||!canWrite){status("Not saved");return}
+  if(busy[path]){q[path]=data;return}busy[path]=1;status("Saving…");
+  try{await db.doc(path).set(data);status("Saved")}
+  catch(e){if(e&&e.code==="invalid_argument"){canWrite=false;warn("This view can't save ratings. Open it signed in as the page's owner.")}else status("Not saved")}
+  busy[path]=0;if(q[path]){const d=q[path];delete q[path];write(path,d)}}
+function save(id){const r=R[id]||{};write("ratings/"+id,{r:r.r||null,tie:r.tie||null,note:r.note||"",at:new Date().toISOString()})}
+function saveOv(){write("overall/r2",{len:OV.len,freq:OV.freq,rules:OV.rules,note:OV.note||"",at:new Date().toISOString()})}
+function status(s){$("#sv").textContent=s}
+function warn(s){const w=$("#warn");w.textContent=s;w.hidden=false}
+
+DEFS.forEach((d,i)=>$("#list").appendChild(card(d,i)));DEFS.forEach(d=>paint(d[0]));paintOv();
+document.querySelectorAll("[data-ov]").forEach(row=>row.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  const k=row.dataset.ov;OV[k]=OV[k]===b.dataset.v?null:b.dataset.v;paintOv();saveOv()}));
+{let t;const ta=$("#ovnote");ta.addEventListener("input",()=>{clearTimeout(t);t=setTimeout(()=>{OV.note=ta.value;saveOv()},700)});
+ ta.addEventListener("blur",()=>{clearTimeout(t);if(OV.note!==ta.value){OV.note=ta.value;saveOv()}})}
+
+(async()=>{
+  try{db=await window.claude?.use("db")}catch(e){db=null}
+  if(!db){warn("Ratings can't be saved in this view. Open the page signed in to claude.ai.");return}
+  let loaded=false;const tm=setTimeout(()=>{if(!loaded)warn("Can't reach saved ratings yet. Anything you tap will still try to save.")},10000);
+  db.collection("ratings").onSnapshot(s=>{if(!s.metadata.fromCache){loaded=true;clearTimeout(tm);$("#warn").hidden=true}
+    s.docs.forEach(d=>{if(!d.id.startsWith("r2_"))return;const v=d.data();const cur=R[d.id]||{};R[d.id]={r:v.r,tie:v.tie,note:document.activeElement&&document.activeElement.id==="n_"+d.id?cur.note:v.note};paint(d.id)})},
+    e=>{clearTimeout(tm);warn("Saved ratings couldn't load.")});
+  db.doc("overall/r2").onSnapshot(s=>{if(s.exists){const v=s.data();OV.len=v.len;OV.freq=v.freq;OV.rules=v.rules;if(document.activeElement!==$("#ovnote"))OV.note=v.note;paintOv()}},()=>{});
+})();
+</script>
