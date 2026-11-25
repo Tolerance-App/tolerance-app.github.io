@@ -57,6 +57,10 @@ accent, monospace numbers. Never lock scrolling with `body{position:fixed}` (bre
 - `python tools/check.py demos <demoId…>` / `demolessons <lessonId…>`: demo layout check at 375 px. Ship demos with an
   empty report.
 - `python tools/check.py shot <lessonId> out.png`: a screenshot to look at. `eval "<js>"` runs anything.
+- Saving tokens: use `look <lessonId> [cardIndex]` for mid-work checks (visible text + overflow/clipping, no image).
+  It can't see canvas/SVG drawings, overlaps, colour or spacing, so **visual work always gets a real screenshot
+  before "done"** (2× when fine detail matters, e.g. small demo labels; `1x` otherwise, ~440 vs ~1,500 tokens).
+  Keep 2× for shots sent to Seth. Saving tokens must never mean missing bugs.
 - Exit code 1 means issues. Report exactly what ran (mock, real Firebase via `check.html`, or a real phone).
 
 ## Working with Seth

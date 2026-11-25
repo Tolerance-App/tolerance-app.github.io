@@ -6,7 +6,8 @@
 #   python tools/check.py demos bear50 fo51                    -> demoCheck([...])   (375 px)
 #   python tools/check.py demolessons ctrl-feedback-2          -> demoCheck(null,{lessons:[...]})
 #   python tools/check.py eval "LS.length"                     -> any expression
-#   python tools/check.py shot mech-beams-1 out.png            -> screenshot of a lesson's first card (2x)
+#   python tools/check.py shot mech1 out.png [1x]                -> screenshot of a lesson's first card (2x; 1x = cheap)
+#   python tools/check.py look mech1 [cardIndex]              -> text view: visible text + overflow/clipping (no image)
 #   python tools/check.py cards aero2 | cards course Aerospace | cards all   -> cardCheck (reveal cards, 375 x 812)
 #   python tools/check.py cardshot aero2 1 3 out.png [light]   -> reveal card 1 after 3 taps (2x, 375 x 812);
 #        taps: a number, "end" (finished), or "g0"/"g1"… (tap to the Guess and answer that option)
@@ -19,6 +20,8 @@ def _free_port():  # a free port each run, so checks from parallel chats don't c
     s = socket.socket(); s.bind(("127.0.0.1", 0)); p = s.getsockname()[1]; s.close(); return p
 PORT = _free_port()
 mode, args = sys.argv[1], sys.argv[2:]
+lo = "1x" in args  # 1x screenshot (~440 tokens vs ~1,500 at 2x): for shots only Claude looks at
+args = [a for a in args if a != "1x"]
 srv = subprocess.Popen([sys.executable, os.path.join(HERE, "serve.py"), str(PORT)])
 time.sleep(0.8)
 code = 0
@@ -28,7 +31,7 @@ try:
         except Exception: b = p.chromium.launch(channel="chrome")
         cardm = mode in ("cards", "cardshot")
         w = 375 if mode.startswith("demo") or cardm else 390
-        pg = b.new_page(viewport={"width": w, "height": 812 if cardm else 844}, device_scale_factor=2 if mode in ("shot", "cardshot") else 1)
+        pg = b.new_page(viewport={"width": w, "height": 812 if cardm else 844}, device_scale_factor=2 if mode in ("shot", "cardshot") and not lo else 1)
         errs = []
         pg.on("pageerror", lambda e: errs.append(str(e)))
         pg.goto(f"http://127.0.0.1:{PORT}/?b=test", wait_until="load")
@@ -57,6 +60,18 @@ try:
                         "if(/^g[0-9]$/.test(t)){for(let i=0;i<40&&!blocked98(R);i++)adv98();pick98(+t.slice(1));return}"
                         "for(let i=0;i<+t;i++)adv98()}", taps)
             pg.wait_for_timeout(600); pg.screenshot(path=out); print("saved", out)
+        elif mode == "look":  # text view of a card: visible text, overflow, offscreen/clipped elements (no image)
+            pg.evaluate(f"startId({j(args[0])})"); pg.wait_for_timeout(300)
+            if len(args) > 1: pg.evaluate(f"()=>{{SS.ci={int(args[1])};cardScreen()}}"); pg.wait_for_timeout(300)
+            r = pg.evaluate(r"""()=>{const W=innerWidth,H=innerHeight,d=document.scrollingElement,bad=[];
+              const nm=e=>e.tagName.toLowerCase()+(e.id?'#'+e.id:'')+(e.className&&typeof e.className=='string'?'.'+e.className.trim().split(/\s+/).slice(0,2).join('.'):'');
+              document.querySelectorAll('body *').forEach(e=>{const s=getComputedStyle(e);if(s.display=='none'||s.visibility=='hidden')return;
+                const b=e.getBoundingClientRect();if(!b.width||!b.height)return;
+                if(b.right>W+1||b.left<-1)bad.push(nm(e)+' x '+Math.round(b.left)+'..'+Math.round(b.right));
+                if(e.scrollWidth>e.clientWidth+1&&s.overflowX!='visible'&&!/auto|scroll/.test(s.overflowX))bad.push(nm(e)+' clips text');});
+              return {view:W+'x'+H,pageH:d.scrollHeight,hScroll:d.scrollWidth>W,text:document.body.innerText.replace(/\n{2,}/g,'\n').slice(0,2500),problems:[...new Set(bad)].slice(0,20)}}""")
+            print(json.dumps(r, indent=1, ensure_ascii=False))
+            if r["hScroll"] or r["problems"]: code = 1
         elif mode == "shot":
             pg.evaluate(f"startId({j(args[0])})"); pg.wait_for_timeout(500)
             pg.screenshot(path=args[1] if len(args) > 1 else "shot.png"); print("saved", args[1] if len(args) > 1 else "shot.png")
