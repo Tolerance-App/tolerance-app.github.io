@@ -1,5 +1,6 @@
 # Local test server (dev tool). Serves the repo and swaps fbsdk.js for tools/mockfb.js, so nothing reaches Firebase.
 # Usage: python tools/serve.py [port]   (default 8766) -> http://127.0.0.1:8766/
+#        python tools/serve.py 8766 0.0.0.0   -> also reachable from a phone on the same Wi-Fi (http://<PC IP>:8766/)
 import http.server, os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -20,4 +21,5 @@ class H(http.server.SimpleHTTPRequestHandler):
             s.end_headers(); s.wfile.write(b); return
         return super().do_GET()
     def log_message(s, *a): pass
-http.server.ThreadingHTTPServer(("127.0.0.1", PORT), H).serve_forever()
+HOST = sys.argv[2] if len(sys.argv) > 2 else "127.0.0.1"
+http.server.ThreadingHTTPServer((HOST, PORT), H).serve_forever()

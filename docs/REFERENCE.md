@@ -41,7 +41,7 @@ don't rename anything in code or UI unless Seth asks.
   The last wrapper loaded wins, and every wrapper must call through to the one before it.
 - **A new build is a new file:** `vNN.js`, plus one `<script src="vNN.js">` tag placed after the previous one
   and before the boot line `<script>applyTheme();build();home();netInit();</script>`. Current order:
-  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → v39.js → v40.js → v41.js → v42.js → v43.js → v44.js → v45.js → v46.js → v47.js → v48.js → v49.js → v50.js → v51.js → v52.js → v53.js → v54.js → v55.js → v56.js → v57.js → v58.js → v59.js → v60.js → v61.js → v62.js → v63.js → v64.js → v65.js → v66.js → v67.js → v68.js → v69.js → v70.js → v71.js → v72.js → v73.js → v74.js → v75.js → v76.js → v77.js → v78.js → v79.js → v80.js → v81.js → v82.js → v83.js → v84.js → v85.js → v86.js → v87.js → v88.js → v89.js → v90.js → v91.js → v92.js → v93.js → v94.js → v95.js → v96.js → v97.js → boot`.
+  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → v39.js → v40.js → v41.js → v42.js → v43.js → v44.js → v45.js → v46.js → v47.js → v48.js → v49.js → v50.js → v51.js → v52.js → v53.js → v54.js → v55.js → v56.js → v57.js → v58.js → v59.js → v60.js → v61.js → v62.js → v63.js → v64.js → v65.js → v66.js → v67.js → v68.js → v69.js → v70.js → v71.js → v72.js → v73.js → v74.js → v75.js → v76.js → v77.js → v78.js → v79.js → v80.js → v81.js → v82.js → v83.js → v84.js → v85.js → v86.js → v87.js → v88.js → v89.js → v90.js → v91.js → v92.js → v93.js → v94.js → v95.js → v96.js → v97.js → v98.js → boot`.
   - Don't rewrite or reformat old layers inside `index.html`. Prefer small, targeted wrappers in the new file.
   - Set `FB.ver="bNN"`, and add a "What's new" entry with `NEWS.unshift({d, t:[…]})` when testers would notice the change.
   - **Bump `version.json` to `{"v":"bNN"}`** with every build. Since v42 the app fetches it (no-store) on open
@@ -246,6 +246,16 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   plus and minus 0.57. Source `tools/icon.svg`; `icon-180/192/512.png` and the two `data:` icons in `<head>` are exports.
   PNGs are full squares (iOS/Android mask the corners), so the big ledge runs straight across the bottom. iPhone Home Screen
   copies never refresh their icon; re-adding one starts it with empty storage, so don't push testers to re-add.
+- **Reveal cards (b98, `v98.js`):** the G+F card design from `docs/LEARNING_DESIGN.md`, stored as `l.rc[cardIndex]`
+  through `rc98(id, ci, spec)`; `cards`/`qs` untouched, and a card without an entry renders as before. All pieces are
+  rendered once and shown by class (no re-render per tap), so the blank pop plays once and tap-to-define marks once;
+  v98 undoes definition underlines that land on labels or math (`NOMARK98`). Tap anywhere on `.lesson` advances,
+  except on buttons, the top bar, figures, demos and defined words; a tap that only closes a definition popup doesn't.
+  `#go` is hidden (`.foot.wait98`) and disabled until the card is finished, so the app's Enter→#go handler can't skip
+  it. A card finished earlier in the session (back button) shows whole without its Guess (`RS98`, per `SS`). Guesses
+  don't touch score/XP and aren't logged (no `ev` fields). Math font STIX Two Text from Google Fonts (cached by sw.js),
+  fallback `--math98` Cambria Math → Times New Roman → Georgia. Format, markup and workflow: the `lesson-cards` skill;
+  check: `python tools/check.py cards …`, screenshots: `cardshot`. Course progress: `docs/CARD_CONVERSION.md`.
 - **Chips paste their prefix (b97, `v97.js`):** a "Given" chip with a prefixed unit pastes its SI value in e-notation
   (200 GPa → `200e9`, 25 mm → `25e-3`) into the calculator line and into solver boxes with no known unit; boxes with a
   known unit keep v71's conversion. A result worked out from those numbers is SI, and `ansCarry` puts it in the answer's
