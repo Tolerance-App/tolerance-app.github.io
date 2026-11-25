@@ -25,7 +25,7 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 | Machine learning | ml | 12 | 49 | 0 | to do | |
 | Controls | ctrl | 12 | 56 | 0 | to do | |
 | CAD | cad | 8 | 33 | 0 | to do | |
-| Engineering math | math | 4 | 16 | 16 | done | b99 |
+| Engineering math | math | 4 | 16 | 16 | done | b99, b101 |
 | Materials | mat | 4 | 16 | 0 | to do | |
 | Civil and structures | civil | 4 | 16 | 16 | done | b100 |
 | Digital hardware | dig | 9 | 58 | 0 | to do | |
