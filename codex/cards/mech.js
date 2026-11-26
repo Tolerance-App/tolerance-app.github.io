@@ -24,3 +24,23 @@ rc98("mech1",2,{p:[
  {t:"p",x:"A **button head** is low and rounded. A **flat head** sits flush in a countersink, a cone-shaped recess."},
  {t:"p",x:"A **nyloc nut** has a nylon ring that grips the threads to resist loosening."},
  {t:"p",x:"A **jam nut** is a thin second nut tightened against the first. A **flange nut** has a built-in washer to spread the clamp load."}]});
+
+/* ---------- mech2 · Fits and gears ---------- */
+/* 0 · Compare fits, Fill “smaller”. */
+rc98("mech2",0,{p:[
+ {t:"p",x:"A **fit** describes how tightly a shaft sits in a hole. A tolerance is the range of sizes a part is allowed to have."},
+ {t:"p",x:"With a **clearance fit**, the shaft is always [[smaller]] than the hole."},
+ {t:"p",x:"Even the largest allowed shaft leaves a gap in the smallest allowed hole."},
+ {t:"p",x:"With an **interference fit** the shaft is larger at every allowed size. A **transition fit** can give either a gap or interference."}]});
+
+/* 1 · Legend → formula with Guess. Tooth engagement gives ωout/ωin = Nin/Nout = 1/3. With Tω conserved, Tout/Tin = 3. */
+rc98("mech2",1,{p:[
+ {t:"vars",vars:[["N","number of gear teeth"],["r","tooth ratio"],["ω","shaft speed magnitude"],["T","torque magnitude"]]},
+ {t:"eq",eq:"r = N_{out}/N_{in}",cap:"One meshing gear pair. In drives out."},
+ [{t:"eq",eq:"ω_{out} = ω_{in}/r",cap:"Meshing teeth pass at the same rate."},
+  {t:"eq",eq:"T_{out} = rT_{in}",cap:"At steady speed with negligible losses."}],
+ {t:"take",x:"A larger driven gear turns more slowly and delivers more torque."}],
+ g:{at:2,q:"The driven gear has three times the teeth. How do its speed and torque compare?",o:[
+  ["⅓ the speed, 3× the torque",1,"Three times the teeth means one turn for three input turns. With no losses, torque triples."],
+  ["⅓ the speed, ⅓ the torque",0,"The speed falls, but reducing torque too would lose power in an ideal pair."],
+  ["3× the speed, ⅓ the torque",0,"That reverses the driver and driven gears. The larger gear takes longer to make a turn."]]}});
