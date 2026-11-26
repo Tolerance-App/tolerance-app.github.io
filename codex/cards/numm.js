@@ -100,3 +100,49 @@ rc98("numm-opt-2",5,{p:[
   ["Yes",0,"A shared scale would preserve direction. Adam divides each coordinate by its own scale."],
   ["No",1,"Separate scales can change the ratio between components and turn the direction."]]}});
 
+/* ---------- numm-opt-3 · KKT conditions ---------- */
+/* 0 · Plain text, no interaction. */
+rc98("numm-opt-3",0,{p:[
+ {t:"p",x:"A constrained optimum has to be feasible. Your best move in the unconstrained problem might point outside the allowed region."},
+ {t:"take",x:"At a boundary optimum, there is no feasible direction that improves the objective to first order."}]});
+
+/* 1 · Terms → formula, Fill "active". At the boundary x₁=c, so g=c−c=0. */
+rc98("numm-opt-3",1,{p:[
+ {t:"p",x:"Minimize $f=(x_1+1)^2+x_2^2$ for coordinates $x_1,x_2$. A fixed upper bound $c$ limits $x_1$."},
+ {t:"p",x:"The constraint is [[active]] where the point touches that bound."},
+ {t:"eq",lab:"Feasible points",eq:"g = x_1 − c ≤ 0",cap:"g measures the signed offset from the boundary. All quantities are dimensionless."},
+ {t:"p",x:"Inside the feasible region, $g<0$. On the boundary, $g=0$."}]});
+
+/* 2 · Legend → conditions, Guess (inactive means zero multiplier). A nonzero g forces σ=0 in σg=0. */
+rc98("numm-opt-3",2,{p:[
+ {t:"vars",vars:[["f, g","differentiable objective and upper-bound constraint"],["∇f, ∇g","their gradients"],["σ","dimensionless multiplier for g"]]},
+ {t:"eq",lab:"Stationarity",eq:"∇f + σ ∇g = 0"},
+ {t:"eq",lab:"Feasibility and sign",eq:"g ≤ 0,   σ ≥ 0"},
+ [{t:"eq",lab:"Complementary slackness",eq:"σg = 0"},
+  {t:"p",x:"An inactive constraint has $g<0$, so its multiplier must be zero."}]],
+ g:{at:3,q:"Interior point. What must the multiplier be at a KKT point?",o:[
+  ["Zero",1,"The constraint has slack, so only a zero multiplier makes the product zero."],
+  ["Positive",0,"A positive multiplier can occur at an active constraint. In the interior it would make the product nonzero."]]}});
+
+/* 3 · Worked compare. c=1: ∂f/∂x₁ at x₁=1 is 2(1+1)=4, so σ=−4. At x₁=−1, ∇f=0 and g=−1−1=−2. */
+rc98("numm-opt-3",3,{p:[
+ {t:"p",x:"Fix the upper bound at $c=1$. Compare the boundary point $(1,0)$ with the unconstrained minimum $(−1,0)$."},
+ {t:"pc",l:"Boundary point",c:"Stationarity requires 4 + σ = 0.",v:"σ = −4",warn:1},
+ {t:"pc",l:"Interior point",c:"Zero objective gradient and g = −2.",v:"σ = 0"},
+ {t:"take",x:"The boundary point fails the multiplier sign test. The interior point satisfies all four conditions."}]});
+
+/* 4 · Plain text + Guess (inward helps). At (1,0), the inward direction (−1,0) has slope −4. */
+rc98("numm-opt-3",4,{p:[
+ {t:"p",x:"A candidate lies on the upper bound for $x_1$. The stationary multiplier comes out negative."},
+ {t:"take",x:"Move inward by lowering $x_1$. The objective falls locally, so the boundary point cannot be optimal."},
+ {t:"p",x:"The multiplier's sign tells you whether the boundary blocks improvement or leaves a feasible way to improve."}],
+ g:{at:1,q:"What happens to the objective if you move a little inward?",o:[
+  ["It falls",1,"The slope in the outward direction is positive, so reversing direction gives descent."],
+  ["It rises",0,"That would require a negative outward slope and a positive multiplier. Here the sign is the other way around."]]}});
+
+/* 5 · Rule in words → formula, Fill "zero". x₁*=min(c,−1), x₂*=0. At c=−1, x₁*+1=0, so σ=0 even with g=0. */
+rc98("numm-opt-3",5,{p:[
+ {t:"p",x:"The objective is convex and the constraint is affine, so a point satisfying KKT is optimal."},
+ {t:"p",x:"At $c=−1$ the bound just touches the unconstrained minimum. The constraint is active with a [[zero]] multiplier."},
+ {t:"eq",lab:"Optimum at fixed bound c",eq:"x_1^* = min(c, −1),   x_2^* = 0",cap:"The starred coordinates give the constrained minimum."},
+ {t:"p",x:"At the touching point the objective gradient vanishes, so stationarity needs no boundary correction."}]});
