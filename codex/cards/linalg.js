@@ -77,3 +77,27 @@ rc98("linalg-matrices-3",2,{p:[
 rc98("linalg-matrices-3",3,{p:[
  {t:"p",x:"**Rank** counts the coefficient pivots. Subtract it from the number of variables to count free variables."},
  {t:"p",x:"Each free choice is an unconstrained **degree of freedom**. A consistent system is unique when there are no free choices."}]});
+
+/* ---------- linalg-matrices-4 · Matrix products and composition ---------- */
+/* 0 · Plain text, Guess (rightmost map). */
+rc98("linalg-matrices-4",0,{p:[
+ {t:"p",x:"**Composition** means applying maps in succession. The product $AB$ acts on a column vector. The letters $A$ and $B$ name the two maps."},
+ {t:"p",x:"The rightmost map $B$ acts first. Map $A$ takes its output as input."}],
+ g:{at:1,q:"Which map acts first?",o:[
+  ["Rightmost map",1,"The vector is multiplied by B before A acts on the result."],
+  ["Leftmost map",0,"A is written first but acts on the intermediate result."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-matrices-4",1,{p:[
+ {t:"p",x:"**Associative** means you can regroup three compatible factors without changing their order or the result."},
+ {t:"p",x:"**Commutative** would mean you could swap factors. Matrix products generally change when you swap them."}]});
+
+/* 2 · Plain text, Fill "equal". */
+rc98("linalg-matrices-4",2,{p:[
+ {t:"p",x:"The inner dimensions must be [[equal]]."},
+ {t:"p",x:"The column count of the left matrix must match the row count of the right matrix. The outer counts give the product shape."}]});
+
+/* 3 · Plain text, no interaction. */
+rc98("linalg-matrices-4",3,{p:[
+ {t:"p",x:"To find one product entry, pick a row from the left matrix and a column from the right."},
+ {t:"p",x:"Take their dot product. Its paired entries run over the intermediate coordinates."}]});
