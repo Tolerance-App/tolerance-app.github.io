@@ -411,3 +411,28 @@ rc98("calc1-implicit-1",3,{p:[
  g:{at:1,q:"When differentiating with respect to x, does the y term include the rate of y?",o:[
   ["Yes",1,"The chain rule multiplies by the derivative of the inner function y."],
   ["No",0,"The derivative of the outer square alone misses how y responds to x."]]}});
+
+/* ---------- calc1-implicit-2 · Inverse-function derivatives ---------- */
+/* 0 · Inverse relationship · Fill "reciprocal" */
+rc98("calc1-implicit-2",0,{p:[
+ {t:"p",x:"A one-to-one relation lets you swap the roles of input and output."},
+ {t:"p",x:"The reverse local conversion factor is the [[reciprocal]] when the original rate is nonzero."}]});
+
+/* 1 · Inverse derivative · no interaction */
+rc98("calc1-implicit-2",1,{p:[
+ {t:"p",x:"Let $f$ have a differentiable local inverse near $y=f(x)$, with $f′(x)≠0$. Primes denote derivatives."},
+ {t:"eq",eq:"(f^{-1})′(y) = 1/f′(x)",cap:"evaluate the original rate at the matching input"}]});
+
+/* 2 · Worked inverse. d(tan θ)/dθ=sec² θ=1+tan² θ=1+x²; invert · no interaction */
+rc98("calc1-implicit-2",2,{p:[
+ {t:"p",x:"Restrict tangent to angles between $−π/2$ and $π/2$ to get a single-valued inverse."},
+ {t:"p",x:"With dimensionless input $x$ and angles in radians, its inverse has slope"},
+ {t:"eq",eq:"d(arctan(x))/dx = 1/(1+x^2)"}]});
+
+/* 3 · Identity · Guess */
+rc98("calc1-implicit-2",3,{p:[
+ {t:"p",x:"Applying a function and then its inverse gives the starting input. Assume both are differentiable at the matching points."},
+ {t:"take",x:"The chain rule makes the two rates multiply to one."}],
+ g:{at:1,q:"What is the product of their local derivatives at the paired points?",o:[
+  ["One",1,"The composite is the identity, which has slope one."],
+  ["Zero",0,"The composite changes by the same amount as the input."]]}});
