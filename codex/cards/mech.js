@@ -163,3 +163,16 @@ rc98("mech-beams-2",7,{p:[
  {t:"p",x:"Screen deflection and nominal stress [[separately]]. Each limit answers a different question."},
  {t:"p",x:"A deflection target limits motion. A stress target limits the calculated value, and a verified material allowable needs strength data."},
  {t:"take",x:"Check yielding, fatigue, local buckling, connections, and uncertain loads separately. Passing both screening targets cannot establish overall safety."}]});
+
+/* ---------- mech-thermodynamics-1 · Heat, work, and energy ---------- */
+/* 0 · Terms, Fill “can”. */
+rc98("mech-thermodynamics-1",0,{p:[
+ {t:"p",x:"A **closed system** contains a fixed amount of matter. Its boundary marks what is inside."},
+ {t:"p",x:"Energy [[can]] cross that boundary."},
+ {t:"p",x:"For example, a sealed piston can move and transfer energy without letting gas escape. An **isolated system** exchanges neither matter nor energy."},
+ {t:"term",s:"U",x:"**Internal energy** is energy stored in the system at the microscopic level, such as in molecular motion."}]});
+
+/* 2 · Rule in words, no interaction. Existing figure supplies ΔU = Q − W. */
+rc98("mech-thermodynamics-1",2,{p:[
+ {t:"p",x:"Heat input $Q$ is positive, and work output $W$ is positive. With negligible changes in motion and elevation, the difference is the change in internal energy $ΔU$."},
+ {t:"p",x:"**Adiabatic** means no heat crosses the boundary. Work can still change internal energy and temperature."}]});
