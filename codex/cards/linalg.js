@@ -125,3 +125,27 @@ rc98("linalg-spaces-1",2,{p:[
 rc98("linalg-spaces-1",3,{p:[
  {t:"p",x:"To extract a basis from a list, put the vectors into columns and find pivots by row reduction."},
  {t:"p",x:"Keep the corresponding columns from the original matrix. They span the same space as the original list and are independent."}]});
+
+/* ---------- linalg-spaces-2 · Null space and solution families ---------- */
+/* 0 · Plain text, Guess (it stays fixed). */
+rc98("linalg-spaces-2",0,{p:[
+ {t:"p",x:"The **null space** consists of inputs that the map sends to zero. The map adds outputs when you add inputs."},
+ {t:"p",x:"The output stays fixed. The added direction contributes nothing to it."}],
+ g:{at:1,q:"If you add a null-space vector to an input, what happens to its output?",o:[
+  ["It stays fixed",1,"The added input contributes zero to the output."],
+  ["It becomes zero",0,"Only the added direction is known to have zero output."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-spaces-2",1,{p:[
+ {t:"p",x:"The null space solves the **homogeneous system**, whose right-hand side is zero."},
+ {t:"p",x:"It is a **subspace** of the input space: it contains zero and stays closed under addition and scaling."}]});
+
+/* 2 · Plain text, Fill "within". */
+rc98("linalg-spaces-2",2,{p:[
+ {t:"p",x:"A **particular solution** is any one input with the requested output. You can move [[within]] the null space to find other solutions."},
+ {t:"p",x:"Add any null-space vector to that particular solution. The output remains the requested one."}]});
+
+/* 3 · Plain text, no interaction. */
+rc98("linalg-spaces-2",3,{p:[
+ {t:"p",x:"Two solutions with the same output have a difference that maps to zero."},
+ {t:"p",x:"This is why particular solution plus null-space vector describes every solution of a consistent system."}]});
