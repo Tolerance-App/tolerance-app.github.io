@@ -436,3 +436,28 @@ rc98("calc1-implicit-2",3,{p:[
  g:{at:1,q:"What is the product of their local derivatives at the paired points?",o:[
   ["One",1,"The composite is the identity, which has slope one."],
   ["Zero",0,"The composite changes by the same amount as the input."]]}});
+
+/* ---------- calc1-implicit-3 · Logarithmic differentiation ---------- */
+/* 0 · Log transform · Fill "sums" */
+rc98("calc1-implicit-3",0,{p:[
+ {t:"p",x:"A product or a variable power can be awkward to differentiate directly."},
+ {t:"p",x:"For positive expressions, logs turn products into [[sums]] and bring exponents down as factors."}]});
+
+/* 1 · Logarithmic differentiation · no interaction */
+rc98("calc1-implicit-3",1,{p:[
+ {t:"p",x:"For differentiable $y>0$, take the natural log of both sides of its defining expression."},
+ {t:"p",x:"Differentiate the transformed equation. On the left the chain rule gives $y′/y$, with $y′$ the rate of $y$."}]});
+
+/* 2 · Worked example. d(x ln x)/dx=ln x+x·(1/x)=ln x+1 · no interaction */
+rc98("calc1-implicit-3",2,{p:[
+ {t:"p",x:"Take $y=x^x$ for dimensionless $x>0$. Write $y′$ for $dy/dx$."},
+ {t:"eq",eq:"ln(y) = x ln(x)"},
+ {t:"eq",eq:"y′/y = ln(x)+1"}]});
+
+/* 3 · Both dependencies · Guess */
+rc98("calc1-implicit-3",3,{p:[
+ {t:"p",x:"In $x^x$, the same input appears in the base and the exponent."},
+ {t:"take",x:"Differentiate both factors of $x ln(x)$ after taking the log."}],
+ g:{at:1,q:"Can a constant-exponent power rule alone account for both changes?",o:[
+  ["Yes",0,"It treats the exponent as fixed and misses its change."],
+  ["No",1,"Taking the logarithm gives a product whose two factors both depend on the input."]]}});
