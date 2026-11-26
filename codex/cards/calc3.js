@@ -505,3 +505,24 @@ rc98("calc3-surface-theorems-2",2,{p:[
 rc98("calc3-surface-theorems-2",3,{p:[
  {"t":"p","x":"Divide the solid into little volumes. Each shared face has opposite outward normals for its two neighbors."},
  {"t":"p","x":"Their flux contributions cancel. Only flux through the outer boundary survives the sum."}]});
+
+/* ---------- calc3-surface-theorems-3 · Stokes’ theorem ---------- */
+/* 0 · Definition */
+rc98("calc3-surface-theorems-3",0,{p:[
+ {"t":"p","x":"**Circulation** is the work of a field along an oriented closed curve. **Curl** is the vector that measures local circulation about different axes."},
+ {"t":"p","x":"Surface flux of curl counts the part of that local rotation along the surface normal."}]});
+/* 1 · Rule, existing figure */
+rc98("calc3-surface-theorems-3",1,{p:[
+ {"t":"p","x":"**Stokes’ theorem** equates circulation around a surface boundary with the flux of curl through the surface."},
+ {"t":"p","x":"Use an oriented piecewise smooth surface and a continuously differentiable field on a neighborhood of it. Curl your right-hand fingers with the boundary direction so your thumb points along the corresponding normal."}]});
+/* 2 · Compare, Guess */
+rc98("calc3-surface-theorems-3",2,{p:[
+ {"t":"p","x":"Two suitable surfaces span the same boundary curve. A continuously differentiable field is defined near each surface. Both surfaces induce the same travel direction around the curve."},
+ {"t":"take","x":"With the same oriented boundary, both surfaces give the same flux of curl."}],
+ g:{at:1,q:"How do their flux integrals of curl compare?",o:[
+  ["They agree",1,"Both equal the circulation along the same oriented boundary."],
+  ["They can differ",0,"The surfaces can have different areas, but Stokes makes the boundary circulation determine this integral."]]}});
+/* 3 · Reason, Fill */
+rc98("calc3-surface-theorems-3",3,{p:[
+ {"t":"p","x":"When adding the circulations of neighboring patches, a shared edge is traversed in [[opposite]] directions."},
+ {"t":"p","x":"The interior edges cancel in pairs. Only circulation around the surface boundary remains."}]});
