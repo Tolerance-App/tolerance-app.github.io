@@ -303,3 +303,28 @@ rc98("linalg-determinants-4",2,{p:[
 rc98("linalg-determinants-4",3,{p:[
  {t:"p",x:"The output barely responds to inputs along a [[weakly stretched]] direction."},
  {t:"p",x:"A substantially wrong input in that direction can still fit the equations closely. Report the residual together with conditioning information."}]});
+
+/* ---------- linalg-eigenvalues-1 · Eigenpairs and invariant directions ---------- */
+/* 0 · Plain text, no interaction. */
+rc98("linalg-eigenvalues-1",0,{p:[
+ {t:"p",x:"A square map mixes coordinates. Some nonzero vectors map to a multiple of themselves."},
+ {t:"p",x:"The line is an **invariant subspace**: every point on it maps back onto that line, possibly to zero."}]});
+
+/* 1 · Rule in words → formula, no interaction. */
+rc98("linalg-eigenvalues-1",1,{p:[
+ {t:"p",x:"For square matrix $A$, a nonzero vector $v$ with this property is an **eigenvector**. The multiplier $λ$ is its **eigenvalue**."},
+ {t:"eq",lab:"Eigenpair condition",eq:"Av = λv"},
+ {t:"p",x:"Compute the image and verify the same multiplier works in every component."}]});
+
+/* 2 · Plain text, Guess (in the opposite direction). */
+rc98("linalg-eigenvalues-1",2,{p:[
+ {t:"p",x:"An eigenvalue can be positive, negative, or zero. Over complex coordinates it can also be complex."},
+ {t:"p",x:"A negative eigenvalue reverses the direction of a real eigenvector while keeping its line invariant."}],
+ g:{at:1,q:"For a real eigenvector with a negative eigenvalue, where does its image point?",o:[
+  ["In the original direction",0,"A positive multiplier would preserve the arrow's direction."],
+  ["In the opposite direction",1,"Multiplying by a negative real number reverses the arrow."]]}});
+
+/* 3 · Plain text, Fill "not invertible". */
+rc98("linalg-eigenvalues-1",3,{p:[
+ {t:"p",x:"A zero eigenvalue sends a nonzero vector to zero, so the map is [[not invertible]]."},
+ {t:"p",x:"The zero input has zero output too. An inverse could not distinguish the two inputs."}]});
