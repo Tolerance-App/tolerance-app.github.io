@@ -165,3 +165,26 @@ rc98("calc3-partials-3",3,{p:[
  {"t":"p","x":"**Differentiability** means the linear model’s error goes to zero [[faster]] than the displacement length."},
  {"t":"eq","eq":"error / ‖h‖ → 0","cap":"As nonzero displacement h tends to zero from any direction."},
  {"t":"p","x":"Partial derivatives alone describe the coordinate directions and cannot guarantee this error test."}]});
+
+/* ---------- calc3-partials-4 · Multivariable chain rule and Jacobians ---------- */
+/* 0 · Definition */
+rc98("calc3-partials-4",0,{p:[
+ {"t":"p","x":"Some outputs depend on intermediate variables, which in turn depend on the original inputs."},
+ {"t":"p","x":"The **chain rule** uses those dependencies to find how changes in the original inputs reach the outputs."}]});
+/* 1 · Definition, Fill */
+rc98("calc3-partials-4",1,{p:[
+ {"t":"p","x":"A **Jacobian** is a matrix of first partial derivatives. Its rows correspond to [[outputs]]."},
+ {"t":"p","x":"For a row, pick one output and write its derivative with respect to each input. Each column corresponds to one input."}]});
+/* 2 · Legend → formula, Guess */
+rc98("calc3-partials-4",2,{p:[
+ {"t":"p","x":"In $F∘G$, apply $G$ and then send its output into $F$. Write $J_F$ and $J_G$ for their Jacobians."},
+ {"t":"eq","eq":"J_{F∘G} = J_F J_G","cap":"For differentiable maps. Evaluate J_F at the output of G."},
+ {"t":"p","x":"Each product entry adds the contributions along the intermediate paths."}],
+ g:{at:1,q:"Which Jacobian goes on the left of the product?",o:[
+  ["The Jacobian of F",1,"The input change passes through G first, then F."],
+  ["The Jacobian of G",0,"That order acts on the original input change with F first."]]}});
+/* 3 · Rule → formula */
+rc98("calc3-partials-4",3,{p:[
+ {"t":"p","x":"A **mixed partial derivative** differentiates with respect to one input and then another."},
+ {"t":"p","x":"Write $f_{xy}$ for the y derivative of $f_x$ and $f_{yx}$ for the other order."},
+ {"t":"eq","eq":"f_{xy} = f_{yx}","cap":"If both mixed second partials exist and are continuous near the point."}]});
