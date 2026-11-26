@@ -454,3 +454,28 @@ rc98("linalg-orthogonality-2",2,{p:[
 rc98("linalg-orthogonality-2",3,{p:[
  {t:"p",x:"The earlier projections can be added back to recover the original column, with its length restored."},
  {t:"p",x:"So the new and old lists span the same space at each step. Independent inputs ensure a nonzero remainder."}]});
+
+/* ---------- linalg-orthogonality-3 · Least squares and normal equations ---------- */
+/* 0 · Plain text, Guess (the sum of squared mismatches). */
+rc98("linalg-orthogonality-3",0,{p:[
+ {t:"p",x:"An inconsistent system has no exact solution. Candidate predictions can miss the data above or below."},
+ {t:"p",x:"**Least squares** minimizes the sum of squared mismatches, also called the squared residual norm."}],
+ g:{at:1,q:"Which score prevents opposite mismatches from canceling?",o:[
+  ["The sum of squared mismatches",1,"Squaring counts mismatches of either sign and penalizes larger ones."],
+  ["The signed sum of mismatches",0,"Positive and negative mismatches can cancel without a close fit."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-orthogonality-3",1,{p:[
+ {t:"p",x:"The **residual** is the data minus the prediction. Each model column is the output pattern for one coefficient. The columns span all achievable predictions."},
+ {t:"p",x:"At a minimizer the prediction is the orthogonal projection of the data onto this column space."}]});
+
+/* 2 · Rule in words → formula, no interaction. */
+rc98("linalg-orthogonality-3",2,{p:[
+ {t:"p",x:"Let $A$ be the model matrix and $r$ the residual. Transposing $A$ makes each column into a row."},
+ {t:"eq",lab:"Normal-equation condition",eq:"A^T r = 0"},
+ {t:"p",x:"Every model column has zero dot product with the residual."}]});
+
+/* 3 · Plain text, Fill "within". */
+rc98("linalg-orthogonality-3",3,{p:[
+ {t:"p",x:"Changing coefficients only moves the prediction [[within]] the column space."},
+ {t:"p",x:"The perpendicular residual cannot be reduced that way. QR and SVD can solve the fit without forming $A^T A$, which squares the Euclidean condition number for a full-column-rank matrix."}]});
