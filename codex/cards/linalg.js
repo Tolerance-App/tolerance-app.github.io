@@ -355,3 +355,28 @@ rc98("linalg-eigenvalues-2",3,{p:[
  g:{at:1,q:"How do the successive scale factors combine?",o:[
   ["They add",0,"No separate outputs are being summed. The same coordinate is scaled repeatedly."],
   ["They multiply",1,"Each application scales the result of the preceding application."]]}});
+
+/* ---------- linalg-eigenvalues-3 · Complex modes and defective matrices ---------- */
+/* 0 · Plain text, no interaction. */
+rc98("linalg-eigenvalues-3",0,{p:[
+ {t:"p",x:"For a real matrix, a nonreal eigenvalue comes with its **complex conjugate**, obtained by flipping the sign of its imaginary part."},
+ {t:"p",x:"Conjugating the corresponding eigenvector gives an eigenvector for that partner."}]});
+
+/* 1 · Plain text, Guess (it decays). Repeated magnitude scales by its successive powers, which decay for a positive factor below one. */
+rc98("linalg-eigenvalues-3",1,{p:[
+ {t:"p",x:"A conjugate pair can describe rotation in a real plane. The magnitude of the eigenvalue controls how much lengths scale each step."},
+ {t:"p",x:"The mode decays because each step shrinks it, even while the direction rotates."}],
+ g:{at:1,q:"If that magnitude is below one, what happens to the mode under repeated steps?",o:[
+  ["It decays",1,"Every step multiplies its size by the same factor below one."],
+  ["It grows",0,"Growth requires a magnitude above one."],
+  ["It keeps its size",0,"An unchanged size requires unit magnitude."]]}});
+
+/* 2 · Plain text, Fill "too few". */
+rc98("linalg-eigenvalues-3",2,{p:[
+ {t:"p",x:"A **defective** matrix has [[too few]] independent eigenvectors to form a basis in the field being used."},
+ {t:"p",x:"A **generalized eigenvector** joins a chain whose next member is produced by subtracting the eigenvalue times that vector from its mapped image."}]});
+
+/* 3 · Plain text, no interaction. */
+rc98("linalg-eigenvalues-3",3,{p:[
+ {t:"p",x:"**Algebraic multiplicity** counts how many times a root repeats. Compare it with the number of independent eigenvectors for that root."},
+ {t:"p",x:"The **eigenspace** consists of those eigenvectors and zero. A **Jordan block** places the eigenvalue on the diagonal and links chain members above the diagonal. Repeated action can then produce polynomial factors multiplying the eigenvalue's powers."}]});
