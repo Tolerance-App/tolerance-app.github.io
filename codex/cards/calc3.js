@@ -482,3 +482,26 @@ rc98("calc3-surface-theorems-1",3,{p:[
  g:{at:1,q:"What is the local flux through the sheet?",o:[
   ["Zero",1,"The flow runs along the sheet and its normal component is zero."],
   ["Nonzero",0,"Motion along the sheet does not pass through it."]]}});
+
+/* ---------- calc3-surface-theorems-2 · Divergence theorem ---------- */
+/* 0 · Definition */
+rc98("calc3-surface-theorems-2",0,{p:[
+ {"t":"p","x":"A **closed surface** bounds a solid without an open edge. The outward normal points away from that solid."},
+ {"t":"p","x":"**Divergence** measures local net outflow per unit volume, positive for a net source and negative for a net sink."}]});
+/* 1 · Rule, Fill */
+rc98("calc3-surface-theorems-2",1,{p:[
+ {"t":"p","x":"The **divergence theorem** equates the net outward flux of a field through a closed boundary to divergence integrated over the [[interior]]."},
+ {"t":"p","x":"Use the theorem for a piecewise smooth closed boundary with a field whose first partial derivatives are continuous on a neighborhood of the solid."},
+ {"t":"p","x":"The volume integral sums the source and sink contributions throughout the solid."}]});
+/* 2 · Legend → formula, Guess */
+rc98("calc3-surface-theorems-2",2,{p:[
+ {"t":"p","x":"Let $P$, $Q$ and $R$ be the field components along $x$, $y$ and $z$. The subscripts denote partial derivatives."},
+ {"t":"eq","eq":"div F = P_x + Q_y + R_z","cap":"Each derivative varies its indicated coordinate alone."},
+ {"t":"p","x":"For an open surface, compute flux directly or close it and subtract the flux through the added pieces."}],
+ g:{at:1,q:"Which derivative belongs to the x component in the divergence sum?",o:[
+  ["Differentiate it along x",1,"Divergence compares flow through the pair of faces normal to the component’s axis."],
+  ["Differentiate it along y",0,"That is a sideways change and does not give the net flow through the x faces."]]}});
+/* 3 · Reason */
+rc98("calc3-surface-theorems-2",3,{p:[
+ {"t":"p","x":"Divide the solid into little volumes. Each shared face has opposite outward normals for its two neighbors."},
+ {"t":"p","x":"Their flux contributions cancel. Only flux through the outer boundary survives the sum."}]});
