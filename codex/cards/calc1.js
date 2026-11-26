@@ -123,3 +123,43 @@ rc98("calc1-limits-2",5,{p:[
  g:{at:1,q:"If one has a limit at a, what about the other?",o:[
   ["Same limit",1,"They agree for the nearby inputs used by the limit."],
   ["Possibly different",0,"The value at a is excluded from the limit."]]}});
+
+/* ---------- calc1-limits-3 · One-sided and infinite limits ---------- */
+/* 0 · One-sided behavior · no interaction */
+rc98("calc1-limits-3",0,{p:[
+ {t:"p",x:"You can approach a point from either side."},
+ {t:"p",x:"The outputs can approach different values or grow without bound."}]});
+
+/* 1 · Two-sided criterion · Fill "agree" */
+rc98("calc1-limits-3",1,{p:[
+ {t:"p",x:"Near the target input $a$, the left limit uses $x<a$ and the right limit uses $x>a$."},
+ {t:"p",x:"A finite two-sided limit needs both one-sided limits to [[agree]]."},
+ {t:"p",x:"Their shared value is the two-sided limit."}]});
+
+/* 2 · Piecewise procedure · Guess */
+rc98("calc1-limits-3",2,{p:[
+ {t:"p",x:"To compute a one-sided limit, use the branch for nearby inputs on that side."},
+ {t:"take",x:"A value assigned at the target affects neither approach."}],
+ g:{at:1,q:"If you change only the value at the target, do the side limits change?",o:[
+  ["Yes",0,"Neither side uses the exact target input."],
+  ["No",1,"The nearby branch values stay the same."]]}});
+
+/* 3 · Vertical asymptote · Fill "without bound" */
+rc98("calc1-limits-3",3,{p:[
+ {t:"p",x:"Suppose a quotient has numerator approaching a nonzero value and denominator approaching zero."},
+ {t:"p",x:"The magnitude grows [[without bound]]."},
+ {t:"p",x:"If the denominator keeps its sign on one side, the quotient tends to $+∞$ or $−∞$ there. This gives a vertical asymptote."}]});
+
+/* 4 · Sign comparison. x−2 changes sign at 2; its square is positive for x≠2 · no interaction */
+rc98("calc1-limits-3",4,{p:[
+ {t:"p",x:"For $1/(x−2)$, the denominator is negative on the left of $2$ and positive on the right."},
+ {t:"p",x:"The limits are $−∞$ on the left and $+∞$ on the right."},
+ {t:"p",x:"Squaring the denominator gives $1/(x−2)^2$, which tends to $+∞$ on both sides."}]});
+
+/* 5 · Indeterminate versus unbounded. The denominator tending to zero drives the nonzero numerator case · Guess */
+rc98("calc1-limits-3",5,{p:[
+ {t:"p",x:"When both parts approach zero, simplification may reveal a hole or different behavior."},
+ {t:"take",x:"The magnitude grows without bound, so there is no finite limit."}],
+ g:{at:1,q:"When the numerator approaches a nonzero value and the denominator approaches zero, can the quotient have a finite limit?",o:[
+  ["Yes",0,"Its magnitude grows beyond any finite bound."],
+  ["No",1,"A nonvanishing numerator over a vanishing denominator grows unbounded in magnitude."]]}});
