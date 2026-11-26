@@ -587,3 +587,27 @@ rc98("calc1-applications-4",2,{p:[
 rc98("calc1-applications-4",3,{p:[
  {t:"p",x:"Newton’s next estimate is the zero of the [[tangent line]]."},
  {t:"p",x:"A poor tangent model or tiny nonzero derivative can send the next estimate far away."}]});
+
+/* ---------- calc1-integrals-1 · Riemann sums and signed accumulation ---------- */
+/* 0 · Signed accumulation · Fill "sign" */
+rc98("calc1-integrals-1",0,{p:[
+ {t:"p",x:"A definite integral combines many small contributions."},
+ {t:"p",x:"Each contribution retains its [[sign]]."}]});
+
+/* 1 · Riemann sum. Figure: for sin x on [0,2π], the exact integral is −cos(2π)+cos(0)=−1+1=0 · no interaction */
+rc98("calc1-integrals-1",1,{p:[
+ {t:"p",x:"Give each subinterval a representative input and multiply the function value there by the subinterval width."},
+ {t:"p",x:"Add the contributions. A common limit as the widest subinterval shrinks defines the definite integral."}]});
+
+/* 2 · Area comparison · Guess */
+rc98("calc1-integrals-1",2,{p:[
+ {t:"p",x:"A function has both positive and negative regions over the integration interval."},
+ {t:"take",x:"Integrate the absolute value for geometric area."}],
+ g:{at:1,q:"What should you integrate to find total geometric area?",o:[
+  ["The function itself",0,"This subtracts contributions from below the axis."],
+  ["Its absolute value",1,"This counts both positive and negative regions as positive area."]]}});
+
+/* 3 · Cancellation · Fill "cancellation" */
+rc98("calc1-integrals-1",3,{p:[
+ {t:"p",x:"Contributions below the axis subtract from those above it in signed accumulation."},
+ {t:"p",x:"Taking absolute values removes the [[cancellation]]."}]});
