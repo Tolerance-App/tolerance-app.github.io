@@ -528,3 +528,27 @@ rc98("linalg-svd-1",2,{p:[
 rc98("linalg-svd-1",3,{p:[
  {t:"p",x:"Along a unit eigenvector of $A^T A$, the eigenvalue is the [[square]] of the output length."},
  {t:"p",x:"Taking its nonnegative square root converts squared output length to stretch."}]});
+
+/* ---------- linalg-svd-2 · Pseudoinverse and minimum-norm solutions ---------- */
+/* 0 · Plain text, Guess (set it to zero). */
+rc98("linalg-svd-2",0,{p:[
+ {t:"p",x:"Multiple inputs can give the same best fit when the map has **null directions**, which have zero output."},
+ {t:"p",x:"Set the null component to zero. The remaining perpendicular components keep the same fit."}],
+ g:{at:1,q:"Which change to a null component can reduce the input length while keeping the fit?",o:[
+  ["Make it larger",0,"That increases input length without affecting the output."],
+  ["Set it to zero",1,"The fit is unchanged, and removing a perpendicular null component reduces the length."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-svd-2",1,{p:[
+ {t:"p",x:"The **Moore–Penrose pseudoinverse** returns the least-squares solution with smallest Euclidean norm."},
+ {t:"p",x:"It also works for rectangular matrices and matrices with fewer independent columns than unknowns."}]});
+
+/* 2 · Plain text, Fill "left out". */
+rc98("linalg-svd-2",2,{p:[
+ {t:"p",x:"In singular-vector coordinates, divide by a nonzero singular stretch to undo it. Zero-stretch directions are [[left out]]."},
+ {t:"p",x:"A **rank threshold** is the cutoff below which software treats stretches as zero. State it, since it changes which directions are kept."}]});
+
+/* 3 · Plain text, no interaction. */
+rc98("linalg-svd-2",3,{p:[
+ {t:"p",x:"The **null space** is perpendicular to the input directions with nonzero stretch."},
+ {t:"p",x:"Changing the null part cannot improve the fit. It adds a nonnegative squared length to the solution, so setting it to zero gives the minimum norm."}]});
