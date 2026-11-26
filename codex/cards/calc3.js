@@ -188,3 +188,25 @@ rc98("calc3-partials-4",3,{p:[
  {"t":"p","x":"A **mixed partial derivative** differentiates with respect to one input and then another."},
  {"t":"p","x":"Write $f_{xy}$ for the y derivative of $f_x$ and $f_{yx}$ for the other order."},
  {"t":"eq","eq":"f_{xy} = f_{yx}","cap":"If both mixed second partials exist and are continuous near the point."}]});
+
+/* ---------- calc3-optimization-1 · Critical points and Hessians ---------- */
+/* 0 · Definition */
+rc98("calc3-optimization-1",0,{p:[
+ {"t":"p","x":"A **stationary point** is a point where the gradient, the vector of first derivatives, is zero."},
+ {"t":"p","x":"It is a candidate for a local maximum or minimum. A **saddle** has nearby points with higher and lower values."}]});
+/* 1 · Definition → rule */
+rc98("calc3-optimization-1",1,{p:[
+ {"t":"p","x":"A differentiable objective has zero gradient at an unconstrained interior optimum."},
+ {"t":"p","x":"The **Hessian** $H$ is the matrix of second partial derivatives. Diagonal entries differentiate twice in one coordinate. Off-diagonal entries mix coordinates."}]});
+/* 2 · Compare, Fill */
+rc98("calc3-optimization-1",2,{p:[
+ {"t":"p","x":"At a stationary point of a twice continuously differentiable function, a Hessian with positive curvature in every direction is **positive definite**. The point is a strict local [[minimum]]."},
+ {"t":"p","x":"Negative curvature in every direction means **negative definite**, giving a strict local maximum. Mixed signs mean **indefinite**, giving a saddle."}]});
+/* 3 · Rule → formula, Guess. A negative determinant means opposite signs of the two Hessian eigenvalues. */
+rc98("calc3-optimization-1",3,{p:[
+ {"t":"p","x":"For two inputs, let $D$ be the Hessian determinant. It is the product of the diagonal entries minus the product of the off-diagonal entries."},
+ {"t":"eq","eq":"D = f_{xx} f_{yy} − f_{xy}^2","cap":"Continuous second derivatives make the two mixed entries equal."},
+ {"t":"p","x":"If $D>0$, the sign of $f_{xx}$ distinguishes a minimum (positive) from a maximum (negative). If $D=0$, the quadratic test is inconclusive."}],
+ g:{at:1,q:"At a stationary point, what does a negative D imply?",o:[
+  ["A saddle",1,"The Hessian has curvature of both signs."],
+  ["A local minimum",0,"A minimum by this test requires positive curvature in every direction."]]}});
