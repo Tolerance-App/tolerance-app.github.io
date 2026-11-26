@@ -284,3 +284,29 @@ rc98("calc1-continuity-4",2,{p:[
 rc98("calc1-continuity-4",3,{p:[
  {t:"p",x:"If sensitivity grows without bound, a given input step can have larger effects farther along the domain."},
  {t:"p",x:"Some functions then need progressively [[smaller steps]] to keep the same output accuracy."}]});
+
+/* ---------- calc1-derivative-rules-1 · Derivative from a limit ---------- */
+/* 0 · Local rate · Fill "instantaneous" */
+rc98("calc1-derivative-rules-1",0,{p:[
+ {t:"p",x:"Change the input of a function by a small amount."},
+ {t:"p",x:"Its derivative measures the [[instantaneous]] output change per unit of input."}]});
+
+/* 1 · Difference quotient · no interaction */
+rc98("calc1-derivative-rules-1",1,{p:[
+ {t:"p",x:"Let $x$ be the input and $h$ a nonzero increment. The output change is $Δf=f(x+h)−f(x)$."},
+ {t:"p",x:"The average rate is the output change divided by $h$. Call it $Q(h)=Δf/h$."},
+ {t:"eq",eq:"f′(x) = lim_{h→0} Q(h)",cap:"when this limit exists"}]});
+
+/* 2 · Worked example. (x+h)²−x²=2xh+h²; divide by h≠0; h→0 leaves 2x · no interaction */
+rc98("calc1-derivative-rules-1",2,{p:[
+ {t:"p",x:"Take $f(x)=x^2$, with dimensionless input $x$ and nonzero increment $h$."},
+ {t:"step",f:"[f(x+h)−f(x)]/h",v:"(2xh+h^2)/h",u:""},
+ {t:"step",f:"2x+h as h→0",v:"2x",u:"",fin:1}]});
+
+/* 3 · Finite-step correction · Guess */
+rc98("calc1-derivative-rules-1",3,{p:[
+ {t:"p",x:"For the square function, $h$ is the extra term in the average rate over a step."},
+ {t:"take",x:"The derivative keeps the coefficient of the leading local change."}],
+ g:{at:1,q:"As the step tends to zero, what happens to this correction?",o:[
+  ["It vanishes",1,"It is the input increment itself."],
+  ["It remains fixed",0,"The correction shrinks with the input step."]]}});
