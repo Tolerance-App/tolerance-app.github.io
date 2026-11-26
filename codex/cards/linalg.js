@@ -225,3 +225,32 @@ rc98("linalg-determinants-1",3,{p:[
  {t:"p",x:"For a square matrix with top row $a,b$ and bottom row $c,d$, $D$ denotes its determinant."},
  {t:"eq",lab:"Two-by-two determinant",eq:"D = ad − bc"},
  {t:"p",x:"Multiply down each diagonal. Subtract the opposite-diagonal product from the main-diagonal product."}]});
+
+/* ---------- linalg-determinants-2 · Inverse maps and solving systems ---------- */
+/* 0 · Plain text, Guess (exactly one). */
+rc98("linalg-determinants-2",0,{p:[
+ {t:"p",x:"A square map has **full rank** when it reaches every output direction."},
+ {t:"p",x:"For every output there is exactly one input. The inverse takes that output back to the input."}],
+ g:{at:1,q:"How many inputs give a specified output for a square full-rank map?",o:[
+  ["None",0,"Full rank means every output is reachable."],
+  ["Infinitely many",0,"Multiple inputs would require a nonzero null-space direction."],
+  ["Exactly one",1,"Full rank in a square matrix leaves no null-space freedom."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-determinants-2",1,{p:[
+ {t:"p",x:"A square matrix with an inverse is **nonsingular**. Multiplying the matrix and its inverse in either order gives the identity map."},
+ {t:"p",x:"A diagonal matrix with nonzero diagonal entries is undone by reciprocating those entries. That shortcut does not apply entry by entry to a general matrix."}]});
+
+/* 2 · Plain text, Fill "reuse". */
+rc98("linalg-determinants-2",2,{p:[
+ {t:"p",x:"A **factorization** writes a matrix as a product of simpler matrices that are easy to solve with."},
+ {t:"p",x:"For several right-hand sides, [[reuse]] the same factors."},
+ {t:"p",x:"Each right-hand side needs new solves with the factors. The coefficient matrix and its factors stay the same."}]});
+
+/* 3 · Plain text, Guess (at the last equation). */
+rc98("linalg-determinants-2",3,{p:[
+ {t:"p",x:"Elimination yields triangular systems. An upper-triangular system has zeros below its diagonal."},
+ {t:"p",x:"Start with the last equation and work upward, substituting each known value. This is **back substitution**."}],
+ g:{at:1,q:"Where do you start solving an upper-triangular system?",o:[
+  ["At the last equation",1,"The last equation has only the last unknown left."],
+  ["At the first equation",0,"Earlier equations can still contain unknowns from later columns."]]}});
