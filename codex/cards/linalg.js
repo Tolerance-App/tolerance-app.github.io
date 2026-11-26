@@ -579,3 +579,27 @@ rc98("linalg-svd-3",3,{p:[
  g:{at:1,q:"Can changing one feature's scale change which direction PCA ranks first?",o:[
   ["No",0,"Centering removes offsets but does not undo rescaling."],
   ["Yes",1,"Rescaling changes that feature's variance relative to the others."]]}});
+
+/* ---------- linalg-svd-4 · Regularization and ill-posed inverses ---------- */
+/* 0 · Plain text, Guess (amplifies it). */
+rc98("linalg-svd-4",0,{p:[
+ {t:"p",x:"Suppose a map barely responds to a direction, but the measurements along its output direction contain noise."},
+ {t:"p",x:"Dividing by a tiny stretch amplifies noise. An inverse can therefore be very sensitive to data errors."}],
+ g:{at:1,q:"What does dividing by the tiny singular value do to that noise?",o:[
+  ["Amplifies it",1,"Division by a small positive stretch makes the inferred noise component larger."],
+  ["Suppresses it",0,"Suppression would require damping the inverse instead of fully dividing by the stretch."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-svd-4",1,{p:[
+ {t:"p",x:"**Tikhonov regularization** here adds a penalty proportional to squared solution length to the squared residual error."},
+ {t:"p",x:"The **residual** measures data minus prediction. The penalty discourages a large solution even when that solution would fit better."}]});
+
+/* 2 · Plain text, Fill "smaller". */
+rc98("linalg-svd-4",2,{p:[
+ {t:"p",x:"A stronger penalty favors [[smaller]] coefficients in weakly observed directions."},
+ {t:"p",x:"The solution becomes less sensitive to noisy measurements but can be pulled away from the true value even for clean data. That systematic shift is **bias**."}]});
+
+/* 3 · Plain text, no interaction. */
+rc98("linalg-svd-4",3,{p:[
+ {t:"p",x:"An **ill-posed** inverse may fail to have a unique solution or may change sharply under tiny data changes."},
+ {t:"p",x:"Regularization can stabilize the estimate by favoring some inputs. It cannot restore data about a direction that was never measured."}]});
