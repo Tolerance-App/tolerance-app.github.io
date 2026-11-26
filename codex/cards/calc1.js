@@ -42,3 +42,43 @@ rc98("calc1-functions-1",5,{p:[
  g:{at:1,q:"Can this rule still be a function?",o:[
   ["Yes",1,"Each input still has one output."],
   ["No",0,"Outputs may repeat across different inputs."]]}});
+
+/* ---------- calc1-limits-1 · Domains and composition ---------- */
+/* 0 · Domain check · Fill "allowed input" */
+rc98("calc1-limits-1",0,{p:[
+ {t:"p",x:"Before calculating, ask which inputs the formula accepts."},
+ {t:"p",x:"In a chain of formulas, every intermediate output must also be an [[allowed input]] for the next rule."}]});
+
+/* 1 · Terms · no interaction */
+rc98("calc1-limits-1",1,{p:[
+ {t:"p",x:"The **domain** is the set of inputs the function accepts."},
+ {t:"p",x:"The **range** is the set of outputs those inputs actually produce."}]});
+
+/* 2 · Domain comparisons. √0=0 since 0²=0. exp(u) stays positive for every real u · Guess */
+rc98("calc1-limits-1",2,{p:[
+ {t:"p",x:"For real-valued formulas, check denominators, square roots and logarithms."},
+ {t:"p",x:"A denominator must be nonzero. A square-root input may be zero or positive. A logarithm needs a positive input."}],
+ g:{at:1,q:"Which expression is defined at zero?",o:[
+  ["1 divided by zero",0,"Division requires a nonzero denominator."],
+  ["Square root",1,"The real square root accepts zero."],
+  ["Natural logarithm",0,"The real logarithm requires a positive input."]]}});
+
+/* 3 · Composition · Fill "inside out" */
+rc98("calc1-limits-1",3,{p:[
+ {t:"p",x:"In $f(g(x))$, $x$ enters the inner function $g$."},
+ {t:"p",x:"Evaluate from the [[inside out]]."},
+ {t:"p",x:"Feed the output $g(x)$ into the outer function $f$."}]});
+
+/* 4 · Worked domain. Adding 3 to x−3>0 gives x>3 · no interaction */
+rc98("calc1-limits-1",4,{p:[
+ {t:"p",x:"Let the inner rule be $g(x)=x−3$ and the outer rule be $f(u)=ln(u)$, where $u$ is its input."},
+ {t:"p",x:"The logarithm accepts only positive inputs, so $x−3>0$."},
+ {t:"eq",eq:"x>3"}]});
+
+/* 5 · Worked domain. Adding 4 to x−4≥0 gives x≥4 · Guess */
+rc98("calc1-limits-1",5,{p:[
+ {t:"p",x:"Take $g(x)=x−4$ and $f(u)=√{u}$, where $u$ is the outer input."},
+ {t:"p",x:"Keep only inputs with $x−4≥0$, so the composite domain is $x≥4$."}],
+ g:{at:1,q:"Does g need to produce only allowed inputs to f everywhere?",o:[
+  ["Yes",0,"Composition can restrict which x it accepts."],
+  ["No",1,"Use the x values where the output of g is allowed by f."]]}});
