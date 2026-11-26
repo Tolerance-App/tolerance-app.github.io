@@ -159,7 +159,7 @@ rc98("calc1-limits-3",4,{p:[
 /* 5 · Indeterminate versus unbounded. The denominator tending to zero drives the nonzero numerator case · Guess */
 rc98("calc1-limits-3",5,{p:[
  {t:"p",x:"When both parts approach zero, simplification may reveal a hole or different behavior."},
- {t:"take",x:"The magnitude grows without bound, so there is no finite limit."}],
+ {t:"take",x:"With a nonzero numerator limit and a denominator approaching zero, the magnitude grows without bound."}],
  g:{at:1,q:"When the numerator approaches a nonzero value and the denominator approaches zero, can the quotient have a finite limit?",o:[
   ["Yes",0,"Its magnitude grows beyond any finite bound."],
   ["No",1,"A nonvanishing numerator over a vanishing denominator grows unbounded in magnitude."]]}});
@@ -650,8 +650,8 @@ rc98("calc1-integrals-3",1,{p:[
 /* 2 · Endpoint evaluation · Guess */
 rc98("calc1-integrals-3",2,{p:[
  {t:"p",x:"Let $F$ be an antiderivative of a continuous integrand $f$ on the interval between $a$ and $b$."},
- {t:"eq",eq:"∫_{a}^{b} f(x) dx = F(b)−F(a)"},
- {t:"p",x:"Swapping the bounds negates the integral."}],
+ {t:"take",x:"Swapping the bounds negates the integral."},
+ {t:"eq",eq:"∫_{a}^{b} f(x) dx = F(b)−F(a)"}],
  g:{at:1,q:"If the integral is positive, what happens when you swap the bounds?",o:[
   ["It stays the same",0,"Swapping bounds reverses the order of subtraction."],
   ["It is negated",1,"The endpoint difference is reversed."]]}});
