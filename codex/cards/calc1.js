@@ -661,3 +661,27 @@ rc98("calc1-integrals-3",3,{p:[
  {t:"p",x:"A small increase in the upper bound adds a thin slice whose width is the input increase."},
  {t:"p",x:"By continuity, its height approaches the [[local integrand]]."},
  {t:"p",x:"Divide the added accumulation by the width to recover the derivative."}]});
+
+/* ---------- calc1-integrals-4 · Substitution and average value ---------- */
+/* 0 · Hidden chain rule · no interaction */
+rc98("calc1-integrals-4",0,{p:[
+ {t:"p",x:"Look for an inside expression and a differential that matches its rate of change."},
+ {t:"p",x:"Substitution gives the inside expression its own variable."}]});
+
+/* 1 · Substitution procedure · Fill "new variable" */
+rc98("calc1-integrals-4",1,{p:[
+ {t:"p",x:"Set $u$ equal to the inside expression $g(x)$, with $g$ differentiable, so $du=g′(x)dx$."},
+ {t:"p",x:"Rewrite the integrand and differential in $u$. In a definite integral, also evaluate the bounds in the [[new variable]]."}]});
+
+/* 2 · Average value · Guess */
+rc98("calc1-integrals-4",2,{p:[
+ {t:"p",x:"Let $f$ be integrable on $[a,b]$ with $b>a$. Let $I$ be its definite integral, the signed accumulation."},
+ {t:"eq",eq:"average = I/(b−a)"}],
+ g:{at:1,q:"What do you divide by to get the average value?",o:[
+  ["Number of subintervals",0,"That number depends on the partition used to approximate the integral."],
+  ["Interval length",1,"The length normalizes the total accumulation over the input span."]]}});
+
+/* 3 · Two purposes · no interaction */
+rc98("calc1-integrals-4",3,{p:[
+ {t:"p",x:"Substitution reverses the chain rule by transforming the differential along with the input."},
+ {t:"p",x:"Averaging divides total accumulation by the span over which it accumulated."}]});
