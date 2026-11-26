@@ -38,8 +38,8 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 | Calculus III | calc3 | 24 | 96 | 0 | reserved: Codex | |
 | Differential equations | diffeq | 24 | 96 | 0 | reserved: Codex | |
 | Linear algebra | linalg | 24 | 96 | 0 | reserved: Codex | |
-| Numerical methods | numm | 5 | 30 | 0 | reserved: Codex | |
-| **Total** | | **329** | **1,403** | **140** | | |
+| Numerical methods | numm | 5 | 30 | 30 | done (Codex) | b108 |
+| **Total** | | **329** | **1,403** | **170** | | |
 
 Rows marked **reserved: Codex** are converted by Codex (`codex/README.md`); Claude chats skip them. Claude ships
 them when Seth says "ship codex cards <code>".

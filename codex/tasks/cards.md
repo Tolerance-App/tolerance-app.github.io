@@ -57,9 +57,13 @@ Then screenshot **every card finished** and **every Guess answered** and look at
 python tools/check.py cardshot <id> <ci> end codex/shots/<id>-<ci>.png --extra codex/cards/<code>.js
 python tools/check.py cardshot <id> <ci> g0 codex/shots/<id>-<ci>-g.png --extra codex/cards/<code>.js
 ```
-Look for: text running off or wrapping badly, a label that reads as a broken sentence, math that renders wrong
+Look for: a worked `step` whose formula or value wraps onto a second line (keep `f` and `v` short enough for
+one line at 375 px; the checker doesn't catch this), text running off or wrapping badly, a label that reads as a broken sentence, math that renders wrong
 (raw `$` or `^`), a piece that gives away the Guess before it's asked. Fix and recheck. Reread every card as an
 engineer: is every number right and every assumption stated?
+
+Note: in `content-export/*.jsonl` a single backslash appears as `\\` (JSON escaping). Check the real text with
+`check.py eval` before reporting a doubled character.
 
 ## Report
 `codex/cards/<code>.md`: lessons and cards converted; which cards got a Guess or Fill; the check summary lines;
