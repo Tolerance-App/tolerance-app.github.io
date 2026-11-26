@@ -28,3 +28,27 @@ rc98("linalg-matrices-1",2,{p:[
 rc98("linalg-matrices-1",3,{p:[
  {t:"p",x:"A **coordinate basis vector** has a single entry equal to one, with the rest zero."},
  {t:"p",x:"The input coordinates weight the images of these basis vectors. Add the weighted images to get the output."}]});
+
+/* ---------- linalg-matrices-2 · Elimination and row operations ---------- */
+/* 0 · Plain text, Guess (you can lose a constraint). */
+rc98("linalg-matrices-2",0,{p:[
+ {t:"p",x:"In **elimination**, simplify the equations while keeping the same solutions. A **pivot** is the leading coefficient used to clear entries below it."},
+ {t:"p",x:"Scaling by zero can erase a constraint. A valid row operation can be undone."}],
+ g:{at:1,q:"What happens if you multiply one row by zero?",o:[
+  ["You can lose a constraint",1,"The old row cannot be recovered from a row of zeros."],
+  ["All constraints are preserved",0,"Scaling preserves an equation only when the scale is nonzero."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-matrices-2",1,{p:[
+ {t:"p",x:"Swap two rows, multiply a row by a nonzero number, or add a multiple of one row to another."},
+ {t:"p",x:"To undo these steps, swap back, divide by the multiplier, or subtract the same multiple."}]});
+
+/* 2 · Plain text, Fill "along with". */
+rc98("linalg-matrices-2",2,{p:[
+ {t:"p",x:"The right-hand side changes [[along with]] the coefficients during an operation."},
+ {t:"p",x:"An **augmented matrix** stores that right-hand side as an extra column, so apply the row operation to the whole row."}]});
+
+/* 3 · Plain text, no interaction. */
+rc98("linalg-matrices-2",3,{p:[
+ {t:"p",x:"Equations can be replaced by reversible combinations of one another."},
+ {t:"p",x:"Every old solution satisfies the new equations. Reversing the operations shows that every new solution satisfies the old ones."}]});
