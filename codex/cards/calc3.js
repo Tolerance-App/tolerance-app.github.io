@@ -439,3 +439,25 @@ rc98("calc3-line-integrals-3",3,{p:[
  g:{at:1,q:"What happens to contributions on a shared edge?",o:[
   ["They cancel",1,"The edge is traversed in opposite directions by its two patches."],
   ["They add in the same direction",0,"That would count the shared edge twice with the same orientation."]]}});
+
+/* ---------- calc3-line-integrals-4 · Curl-free fields and domain holes ---------- */
+/* 0 · Definition */
+rc98("calc3-line-integrals-4",0,{p:[
+ {"t":"p","x":"A field’s **curl** measures local circulation. Zero curl rules out a local spin detected by first derivatives."},
+ {"t":"p","x":"**Path independence** is a global statement: every pair of paths with the same endpoints gives the same work."}]});
+/* 1 · Rule, Fill */
+rc98("calc3-line-integrals-4",1,{p:[
+ {"t":"p","x":"A smooth **conservative** field is a gradient, so it has zero curl. The converse holds for continuously differentiable fields on a simply connected open domain."},
+ {"t":"p","x":"**Simply connected** means the domain is path-connected and each closed loop can be shrunk to a point [[within]] it."},
+ {"t":"p","x":"The contraction must stay in the domain throughout. A loop around a missing point can fail that test."}]});
+/* 2 · Compare, Guess */
+rc98("calc3-line-integrals-4",2,{p:[
+ {"t":"p","x":"Consider a curl-free field on the plane with the origin removed. A closed path winds around that missing point."},
+ {"t":"take","x":"A hole can allow nonzero circulation even when curl vanishes everywhere the field is defined."}],
+ g:{at:1,q:"Can this path have nonzero circulation?",o:[
+  ["Yes, it can",1,"The missing point blocks contraction, so local zero curl need not imply zero work around the loop."],
+  ["No, it cannot",0,"Zero curl gives the global conclusion only with additional domain conditions."]]}});
+/* 3 · Reason */
+rc98("calc3-line-integrals-4",3,{p:[
+ {"t":"p","x":"For a loop around a hole, filling its interior can require points where the field is undefined."},
+ {"t":"p","x":"A local derivative test never measures what happens at those missing points. Check the domain before inferring a potential."}]});
