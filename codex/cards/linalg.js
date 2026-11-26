@@ -479,3 +479,27 @@ rc98("linalg-orthogonality-3",2,{p:[
 rc98("linalg-orthogonality-3",3,{p:[
  {t:"p",x:"Changing coefficients only moves the prediction [[within]] the column space."},
  {t:"p",x:"The perpendicular residual cannot be reduced that way. QR and SVD can solve the fit without forming $A^T A$, which squares the Euclidean condition number for a full-column-rank matrix."}]});
+
+/* ---------- linalg-orthogonality-4 · Weighted fits and model sensitivity ---------- */
+/* 0 · Plain text, Guess (the lower-variance sensor). */
+rc98("linalg-orthogonality-4",0,{p:[
+ {t:"p",x:"Two independent sensors measure the same quantity but have different known **variances**, the expected squared spreads of their errors."},
+ {t:"p",x:"The lower-variance sensor gets the larger weight when the errors have zero mean and smaller spread reflects greater precision."}],
+ g:{at:1,q:"With inverse-variance weighting, which sensor gets the larger weight?",o:[
+  ["The higher-variance sensor",0,"A larger variance means more spread and gets a smaller reciprocal weight."],
+  ["The lower-variance sensor",1,"A smaller variance gives a larger reciprocal weight."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-orthogonality-4",1,{p:[
+ {t:"p",x:"Weighted least squares multiplies each squared mismatch by a weight before summing."},
+ {t:"p",x:"For independent errors with known positive variances, use the reciprocal of each variance. Variance is the square of standard deviation."}]});
+
+/* 2 · Plain text, Fill "separately". */
+rc98("linalg-orthogonality-4",2,{p:[
+ {t:"p",x:"If measurement errors are correlated, their mismatches cannot be weighted [[separately]] using only their own variances."},
+ {t:"p",x:"Use the inverse of the error covariance matrix when it is invertible. Covariance measures how errors vary together."}]});
+
+/* 3 · Plain text, no interaction. */
+rc98("linalg-orthogonality-4",3,{p:[
+ {t:"p",x:"Under the assumed error model, poorly measured directions receive smaller penalties."},
+ {t:"p",x:"A small fitting residual says the predictions match the measured data closely in that metric. It does not establish that the assumed physics is right."}]});
