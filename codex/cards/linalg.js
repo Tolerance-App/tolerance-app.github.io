@@ -101,3 +101,27 @@ rc98("linalg-matrices-4",2,{p:[
 rc98("linalg-matrices-4",3,{p:[
  {t:"p",x:"To find one product entry, pick a row from the left matrix and a column from the right."},
  {t:"p",x:"Take their dot product. Its paired entries run over the intermediate coordinates."}]});
+
+/* ---------- linalg-spaces-1 · Span, independence, and bases ---------- */
+/* 0 · Plain text, Guess (it stays the same). */
+rc98("linalg-spaces-1",0,{p:[
+ {t:"p",x:"A vector's **linear combination** with other vectors is a sum of those vectors with chosen weights. Their **span** is the set of all such sums."},
+ {t:"p",x:"The span stays the same. The new vector's weight just changes the weights on the old vectors."}],
+ g:{at:1,q:"If you add a vector already in the span, what happens to that span?",o:[
+  ["It grows",0,"Adding a vector expands the span only when it lies outside the old span."],
+  ["It stays the same",1,"The added vector can be replaced by a combination of the old ones."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-spaces-1",1,{p:[
+ {t:"p",x:"Vectors are **independent** if the only weighted sum that gives zero uses all-zero weights."},
+ {t:"p",x:"If some nonzero choice of weights gives zero, the vectors are **dependent**. One can be written as a combination of the others."}]});
+
+/* 2 · Plain text, Fill "both". */
+rc98("linalg-spaces-1",2,{p:[
+ {t:"p",x:"A basis must be [[both]] independent and spanning."},
+ {t:"p",x:"Its vectors cover the space with no redundant directions. The number of basis vectors is the **dimension**."}]});
+
+/* 3 · Plain text, no interaction. */
+rc98("linalg-spaces-1",3,{p:[
+ {t:"p",x:"To extract a basis from a list, put the vectors into columns and find pivots by row reduction."},
+ {t:"p",x:"Keep the corresponding columns from the original matrix. They span the same space as the original list and are independent."}]});
