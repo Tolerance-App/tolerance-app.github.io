@@ -210,3 +210,26 @@ rc98("calc3-optimization-1",3,{p:[
  g:{at:1,q:"At a stationary point, what does a negative D imply?",o:[
   ["A saddle",1,"The Hessian has curvature of both signs."],
   ["A local minimum",0,"A minimum by this test requires positive curvature in every direction."]]}});
+
+/* ---------- calc3-optimization-2 · Lagrange multipliers ---------- */
+/* 0 · Definition */
+rc98("calc3-optimization-2",0,{p:[
+ {"t":"p","x":"The **objective** is the function you want to maximize or minimize. An **equality constraint** limits the inputs to those satisfying an equation."},
+ {"t":"p","x":"At a constrained optimum, a small allowed move cannot improve the objective to first order."}]});
+/* 1 · Legend → formula, Fill */
+rc98("calc3-optimization-2",1,{p:[
+ {"t":"p","x":"Write $f$ for the objective and $g=c$ for the constraint. At a smooth constrained optimum with nonzero $∇g$, the gradients are [[parallel]] in the sense that one is a scalar multiple of the other."},
+ {"t":"eq","eq":"∇f = λ ∇g","cap":"At a stationary candidate on g = c with nonzero ∇g."},
+ {"t":"p","x":"The number $λ$ is a **Lagrange multiplier**. Solve the gradient equation and the constraint together, then compare candidates to find the best value."}]});
+/* 2 · Rule, Guess */
+rc98("calc3-optimization-2",2,{p:[
+ {"t":"p","x":"Suppose the optimum stays on a smooth branch as you vary the right-hand side $c$, using the sign convention above."},
+ {"t":"eq","eq":"Δf ≈ λ Δc","cap":"For a small change Δc along the regular optimum branch."},
+ {"t":"p","x":"The multiplier estimates how much changing the constraint level changes the best objective value."}],
+ g:{at:1,q:"What does the multiplier estimate?",o:[
+  ["How the best value changes",1,"It gives the slope of the optimal value with respect to c."],
+  ["How c itself changes",0,"The change in c is the input, so λ converts it to an estimated objective change."]]}});
+/* 3 · Reason */
+rc98("calc3-optimization-2",3,{p:[
+ {"t":"p","x":"A **tangent direction** follows the constraint surface locally. Along it, $g$ stays fixed to first order, so its direction is perpendicular to $∇g$."},
+ {"t":"p","x":"The objective also has zero slope along every tangent direction at a constrained optimum. Its gradient therefore lies along the constraint normal, the direction perpendicular to the tangent space."}]});
