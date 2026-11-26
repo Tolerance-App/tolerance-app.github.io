@@ -73,3 +73,26 @@ rc98("calc3-geometry-3",3,{p:[
  {"t":"p","x":"Let $p$ be a point in the plane, $r$ a candidate point and $n$ its nonzero normal."},
  {"t":"eq","eq":"n·(r − p) = 0","cap":"The displacement r − p must be perpendicular to n."},
  {"t":"p","x":"The dot product turns the geometric test into an equation linear in the coordinates of $r$."}]});
+
+/* ---------- calc3-geometry-4 · Space curves, curvature, and motion ---------- */
+/* 0 · Compare, no interaction */
+rc98("calc3-geometry-4",0,{p:[
+ {"t":"p","x":"**Velocity** describes how fast and in what direction a point moves."},
+ {"t":"p","x":"**Speed** is just the length of the velocity. A point can turn while keeping the same speed."}]});
+/* 1 · Legend → formulas, Fill “with respect to time” */
+rc98("calc3-geometry-4",1,{p:[
+ {"t":"p","x":"A **space curve** uses a vector $r(t)$ to give position at each time $t$. Velocity is the change in position [[with respect to time]]."},
+ {"t":"eq","eq":"v = dr/dt","cap":"For differentiable position r and time t."},
+ {"t":"eq","eq":"speed = ‖v‖","cap":"Use the length of the velocity vector v."}]});
+/* 2 · Definition → formula, no interaction. A circle turns 2π rad over arc length 2πR, giving 1/R. */
+rc98("calc3-geometry-4",2,{p:[
+ {"t":"p","x":"**Arc length** is distance measured along the curve. **Curvature** $κ$ measures how quickly the tangent direction turns per unit of that distance."},
+ {"t":"eq","eq":"κ = 1/R","cap":"For a circle of radius R, at any point."}]});
+/* 3 · Reason, Guess (nonzero). Uniform circular motion has inward acceleration of magnitude speed²/R. */
+rc98("calc3-geometry-4",3,{p:[
+ {"t":"p","x":"**Acceleration** is the rate of change of velocity. A point travels around a circle at constant nonzero speed."},
+ {"t":"take","x":"Acceleration is nonzero because the velocity keeps turning."},
+ {"t":"p","x":"For steady circular motion, that acceleration points inward."}],
+ g:{at:1,q:"Is the acceleration zero?",o:[
+  ["Yes, it is zero",0,"Constant speed fixes the length of velocity. Its direction still changes."],
+  ["No, it is nonzero",1,"A change of direction is a change in velocity."]]}});
