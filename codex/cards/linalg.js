@@ -405,3 +405,28 @@ rc98("linalg-eigenvalues-4",2,{p:[
 rc98("linalg-eigenvalues-4",3,{p:[
  {t:"p",x:"In orthonormal eigenvector coordinates, the quadratic form splits into a sum of [[separate]] contributions."},
  {t:"p",x:"Square each coordinate and multiply by its eigenvalue. Then add the weighted squares, with no cross terms."}]});
+
+/* ---------- linalg-orthogonality-1 · Inner products and orthogonal projection ---------- */
+/* 0 · Plain text, no interaction. */
+rc98("linalg-orthogonality-1",0,{p:[
+ {t:"p",x:"An **inner product** is a rule for computing lengths and angles. In ordinary Euclidean geometry it is the dot product."},
+ {t:"p",x:"The **orthogonal projection** is the closest point in the target subspace by Euclidean distance."}]});
+
+/* 1 · Rule in words → formula, no interaction. Set u·(b − cu) = 0 and solve for c; nonzero u ensures u·u > 0. */
+rc98("linalg-orthogonality-1",1,{p:[
+ {t:"p",x:"To project vector $b$ onto the line through nonzero vector $u$, let $c$ denote the weight on $u$. A dot denotes dot product."},
+ {t:"eq",lab:"Euclidean line projection",eq:"c = (u·b) / (u·u)"},
+ {t:"p",x:"The projected vector is $cu$. Subtract it from $b$ to get the residual."}]});
+
+/* 2 · Plain text, Guess (perpendicular). */
+rc98("linalg-orthogonality-1",2,{p:[
+ {t:"p",x:"The target is a subspace, so you can move along any of its directions from the projected point."},
+ {t:"p",x:"The residual is perpendicular to every direction in the subspace. It lies in the **orthogonal complement**."}],
+ g:{at:1,q:"At the closest point, how is the residual oriented relative to the subspace?",o:[
+  ["Perpendicular",1,"A component in the subspace could still be removed by moving toward the input."],
+  ["Parallel",0,"A parallel residual would let you keep moving toward the input along the subspace."]]}});
+
+/* 3 · Plain text, Fill "smaller". */
+rc98("linalg-orthogonality-1",3,{p:[
+ {t:"p",x:"If a residual still has a component in the target subspace, following that component makes the distance [[smaller]]."},
+ {t:"p",x:"Moving within the subspace cannot remove a perpendicular component. Any extra in-subspace displacement adds squared distance."}]});
