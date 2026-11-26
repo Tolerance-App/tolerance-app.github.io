@@ -526,3 +526,26 @@ rc98("calc3-surface-theorems-3",2,{p:[
 rc98("calc3-surface-theorems-3",3,{p:[
  {"t":"p","x":"When adding the circulations of neighboring patches, a shared edge is traversed in [[opposite]] directions."},
  {"t":"p","x":"The interior edges cancel in pairs. Only circulation around the surface boundary remains."}]});
+
+/* ---------- calc3-surface-theorems-4 · Choosing an integral theorem ---------- */
+/* 0 · Definition */
+rc98("calc3-surface-theorems-4",0,{p:[
+ {"t":"p","x":"Identify the object you are integrating over and how it is oriented before selecting a theorem."},
+ {"t":"p","x":"A closed curve may bound a plane region or a surface in space. A closed surface can bound a volume."}]});
+/* 1 · Compare, Fill */
+rc98("calc3-surface-theorems-4",1,{p:[
+ {"t":"p","x":"For **Green’s theorem**, use a plane region and its positively oriented boundary. For **Stokes’ theorem**, match an oriented surface to its boundary curve."},
+ {"t":"p","x":"For the **divergence theorem**, use a [[closed]] surface with outward normals and the volume that it encloses."},
+ {"t":"p","x":"In each case check that the field has continuous first derivatives on the region or surface required by the theorem."}]});
+/* 2 · Compare, Guess */
+rc98("calc3-surface-theorems-4",2,{p:[
+ {"t":"p","x":"A vector field is the gradient of a differentiable scalar **potential**. The path is piecewise smooth, lies in the domain of that potential, and may be open."},
+ {"t":"take","x":"Use the final potential minus the initial potential. The path can be open."}],
+ g:{at:1,q:"How can you find the work without integrating along the path?",o:[
+  ["Subtract endpoint potentials",1,"The derivative of the potential along the path is the work integrand."],
+  ["Use the curl across a spanning surface",0,"Stokes relates a surface to its full boundary. An open path alone is not that boundary."]]}});
+/* 3 · Rule → formula */
+rc98("calc3-surface-theorems-4",3,{p:[
+ {"t":"p","x":"Each boundary theorem trades a boundary integral for an integral one dimension higher. The geometry and the orientations determine the direction of the trade."},
+ {"t":"p","x":"For volume source accumulation, form divergence from the field components $P$, $Q$ and $R$. A subscript indicates the coordinate that varies."},
+ {"t":"eq","eq":"div F = P_x + Q_y + R_z","cap":"For F with components along x, y and z."}]});
