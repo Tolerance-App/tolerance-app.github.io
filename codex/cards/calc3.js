@@ -280,3 +280,26 @@ rc98("calc3-optimization-4",3,{p:[
  g:{at:1,q:"How does smaller curvature affect the predicted minimizer’s sensitivity to a slope error?",o:[
   ["It magnifies the shift",1,"The slope changes slowly along the flatter curve, so the point where it reaches zero moves farther."],
   ["It shrinks the shift",0,"A flatter curve needs a longer move to cancel the same slope error."]]}});
+
+/* ---------- calc3-multiple-integrals-1 · Double integrals and integration order ---------- */
+/* 0 · Definition */
+rc98("calc3-multiple-integrals-1",0,{p:[
+ {"t":"p","x":"A **double integral** adds up contributions from tiny areas of a flat region."},
+ {"t":"p","x":"One way to add them is to slice the region along one coordinate direction and then add the slice totals."}]});
+/* 1 · Rule, existing figure */
+rc98("calc3-multiple-integrals-1",1,{p:[
+ {"t":"p","x":"An **iterated integral** is an integral inside another integral. On each slice, integrate over the inside variable while the outside variable stays fixed."},
+ {"t":"p","x":"**Fubini’s theorem** permits this for continuous functions on rectangles. For a bounded region with slice bounds, the same method applies when the integrand extended by zero outside the region is integrable."}]});
+/* 2 · Process, Fill */
+rc98("calc3-multiple-integrals-1",2,{p:[
+ {"t":"p","x":"To swap the order, describe the [[same]] region using slices in the other direction."},
+ {"t":"p","x":"Find the new outside range, then the new inside limits for each outside value."},
+ {"t":"p","x":"Split the region wherever one bound formula cannot describe all the new slices."}]});
+/* 3 · Reason → transfer, Guess. A narrow polar sector has area r × angular width × radial thickness to first order. */
+rc98("calc3-multiple-integrals-1",3,{p:[
+ {"t":"p","x":"Coordinate slices can look different while adding the same area. In polar coordinates, an angular slice opens outward from the origin."},
+ {"t":"eq","eq":"dA = r dr dθ","cap":"r is radius, dr its radial increment, and dθ the angle increment in radians."},
+ {"t":"p","x":"Farther-out arcs are longer, so the polar area element grows with radius."}],
+ g:{at:1,q:"For equal small angle and radial increments, how does patch area change farther out?",o:[
+  ["It grows",1,"The same angle sweeps a longer arc at larger radius."],
+  ["It stays fixed",0,"Equal angle increments do not give equal arc lengths."]]}});
