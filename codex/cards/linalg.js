@@ -328,3 +328,30 @@ rc98("linalg-eigenvalues-1",2,{p:[
 rc98("linalg-eigenvalues-1",3,{p:[
  {t:"p",x:"A zero eigenvalue sends a nonzero vector to zero, so the map is [[not invertible]]."},
  {t:"p",x:"The zero input has zero output too. An inverse could not distinguish the two inputs."}]});
+
+/* ---------- linalg-eigenvalues-2 · Diagonalization and matrix powers ---------- */
+/* 0 · Plain text, Guess (no). */
+rc98("linalg-eigenvalues-2",0,{p:[
+ {t:"p",x:"An **eigenbasis** is a full basis made from eigenvectors."},
+ {t:"p",x:"In an eigenbasis each coordinate is scaled on its own. The axes do not mix."}],
+ g:{at:1,q:"In this basis, can one coordinate feed into a different coordinate when the map acts?",o:[
+  ["No",1,"An eigenvector maps to a multiple of itself, with no component in any other basis direction."],
+  ["Yes",0,"Mixing between coordinates is possible in a general basis, not in an eigenbasis."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-eigenvalues-2",1,{p:[
+ {t:"p",x:"A matrix is **diagonalizable** if it has an eigenbasis. The matrix of eigenvectors as columns maps eigenbasis coordinates to original coordinates."},
+ {t:"p",x:"The diagonal matrix of eigenvalues acts on eigenbasis coordinates, also called **modal coordinates**."}]});
+
+/* 2 · Plain text, Fill "compatible". */
+rc98("linalg-eigenvalues-2",2,{p:[
+ {t:"p",x:"Repeated eigenvalues are [[compatible]] with diagonalization."},
+ {t:"p",x:"**Algebraic multiplicity** counts how often the eigenvalue repeats as a root of the characteristic polynomial. **Geometric multiplicity** counts independent eigenvectors for that value."}]});
+
+/* 3 · Plain text, Guess (they multiply). */
+rc98("linalg-eigenvalues-2",3,{p:[
+ {t:"p",x:"A positive integer matrix power repeats the same map. In an eigenbasis each application multiplies a coordinate by its own eigenvalue."},
+ {t:"p",x:"The factors multiply. Raise each eigenvalue to the desired power, then convert back to original coordinates."}],
+ g:{at:1,q:"How do the successive scale factors combine?",o:[
+  ["They add",0,"No separate outputs are being summed. The same coordinate is scaled repeatedly."],
+  ["They multiply",1,"Each application scales the result of the preceding application."]]}});
