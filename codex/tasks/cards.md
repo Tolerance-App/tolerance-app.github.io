@@ -1,6 +1,7 @@
 # Task: convert one course to reveal cards
 
-Seth will say e.g. **"Do codex/tasks/cards.md for calc1."** `<code>` below is that course code.
+Seth will say e.g. **"Do codex/tasks/cards.md for calc1."** `<code>` below is that course code. After you, a second
+Codex chat reviews your branch with `codex/tasks/review.md`; read its checklist too and get ahead of it.
 
 ## Read first (in this order, fully)
 1. `AGENTS.md` (hard rules), then `CLAUDE.md`.
@@ -11,8 +12,9 @@ Seth will say e.g. **"Do codex/tasks/cards.md for calc1."** `<code>` below is th
 5. `docs/CARD_CONVERSION.md`: tracker. Your course must say "reserved: Codex".
 
 ## Setup
-**Codex cloud (chatgpt.com/codex):** skip the worktree commands below; work in the checkout you're given. Your
-changes become a pull request; that's fine. Continuing after a limit: read `codex/cards/<code>.js` if it exists.
+**Codex cloud (chatgpt.com/codex):** skip the worktree commands below; work on a branch named
+`codex-cards-<code>` in the checkout you're given, and **push that branch to GitHub when you finish** (never `main`,
+never merge). Continuing after a limit: read `codex/cards/<code>.js` if it exists.
 If you can't view screenshots there, say so in the report and rely on the checker.
 
 **Local Codex:** work in your own worktree, never in Seth's main folder (Claude sessions run there):
@@ -46,6 +48,11 @@ Rules that matter most:
   thing (three functions, not "1 divided by zero" vs "Square root"). Define every term before it's used, in plain words
   ("corner", "compact", "stationary point", "differential"); if a lesson's questions use a term, a card must teach it.
   A Fill hides a relation word ("equation", not a new term like "constraint").
+- Some courses already have a few reveal cards (the b98 test cards in `v98.js`, for mech, aero, elec, cs). Skip
+  any card that already has an `rc` entry (`LS.find(l=>l.id=='<id>').rc`).
+- Width margin: the cloud browser's fonts are narrower than Seth's PC, so a formula that just fits for you can
+  overflow there. Keep every `eq` and `step` line clearly short (aim for under ~26 characters of math); split long
+  ones.
 - 2–5 pieces per card. Every card must fit one phone screen in every reveal state (the checker tests this).
 - If a card has a figure (`fig17`/`LFIG84`) that already draws something, leave that block out.
 - Math notation: use the markup in the skill (`$…$`, `_{…}`, `^{…}`, `√{…}`); never stack scripts two deep.

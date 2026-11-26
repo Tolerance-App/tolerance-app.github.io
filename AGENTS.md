@@ -10,8 +10,8 @@ task brief Seth names, in `codex/tasks/`. Each brief says exactly which docs to 
 ## Hard rules (no exceptions)
 1. **Write only inside `codex/`.** Never edit `index.html`, any `vNN.js`, `tools/`, `docs/`, `firestore.rules`,
    `version.json`, `sw.js` or `CLAUDE.md`. If a task seems to need that, stop and write the need in your report.
-2. **Never push, and never commit to `main`.** (In Codex cloud, the pull request it opens for your branch is fine;
-   nobody merges it but Claude.) Locally, work on the branch the brief names, in your own worktree. Commit there
+2. **Never push to `main`, and never merge.** In Codex cloud, push your own `codex-…` branch when the task
+   is done (briefs say which); Claude ships it. Locally, work on the branch the brief names, in your own worktree. Commit there
    often (at least after each lesson) so work survives if you hit a usage limit. Every push to `main` deploys to
    testers within 2 minutes; only Claude does that.
 3. **Never read `index.html` whole** (1.6 MB). Lesson content as the app sees it is in

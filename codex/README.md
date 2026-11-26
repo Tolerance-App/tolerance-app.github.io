@@ -52,33 +52,27 @@ touching progress, sync, sign-in or Firebase, and shipping builds.
    Codex makes its own worktree (`..\tol-codex-numm`) and branch (`codex-cards-numm`), so your main folder and any
    Claude session are untouched.
 
-## Day to day
-- Start one task per Codex chat: `Do codex/tasks/cards.md for calc1.` or `Do codex/tasks/audit.md for mech.`
-  Suggested order: cards numm → calc1 → calc2 → calc3 → diffeq → linalg; audits mech, aero, elec, ctrl, then the rest.
-- The $20 plan has usage limits that reset every few hours. Codex commits after each lesson, so if it stops, open a
-  new chat later and say `Continue codex/tasks/cards.md for calc1.`
-- You can run an audit and a card conversion at the same time (separate worktrees), but each uses your limit.
-- When Codex says it's done, tell Claude: **"ship codex cards calc1"** or **"apply codex audit mech"**.
-- Optional later: Codex on the web (chatgpt.com/codex, connect the GitHub repo) can run audits in the cloud without
-  your PC on. It opens a PR; don't merge it yourself, give the PR to Claude.
+## Day to day (pipeline v2, from b112)
+Codex is fast and Seth's plan has plenty of Codex usage, so Codex both makes and reviews; Claude only ships.
+1. **Make** (one Codex chat per course, several at once is fine; different files):
+   `Do codex/tasks/cards.md for calc2.` It pushes branch `codex-cards-calc2` when done.
+2. **Review** (a *new* Codex chat, after step 1 finishes): `Do codex/tasks/review.md for calc2.` It fixes the cards
+   on the same branch, may add question fixes (`codex/fixes/calc2.js`), and pushes.
+3. **Ship**: tell Claude **"ship codex calc2 calc3 …"** (any number of reviewed courses at once).
+- Audits: `Do codex/tasks/audit.md for mech.` → branch `codex-audit-mech` with `codex/fixes/mech.js`; then a new
+  chat `Do codex/tasks/review.md for mech` isn't needed (audit fixes are small); tell Claude "ship codex fix:mech".
+- Courses for Codex: every row marked "reserved: Codex" in `docs/CARD_CONVERSION.md`. Aerospace and Controls belong
+  to Claude chats.
+- If a chat stops at a usage limit: new chat, `Continue codex/tasks/cards.md for calc2.`
 
-## For Claude: integrating Codex output
-Codex branches are local (shared repo, separate worktrees): `git log --oneline main..codex-cards-<code>`.
-
-**"ship codex cards <code>"**
-1. Read `codex/cards/<code>.md` on that branch first (open questions, question errors it found).
-2. In a worktree of your own per the CARD_CONVERSION course protocol, take the file:
-   `git show codex-cards-<code>:codex/cards/<code>.js > vNN.js` and add the build header, `FB.ver`, script tag,
-   `version.json`, `TF48`, `NEWS` (new-build skill). Don't rewrite Codex's cards wholesale; fix what's wrong.
-3. Run the protocol's checks (step 4), look at a sample of `cardshot`s (every Guess, plus a few dense cards), and run
-   `content-checker` on the file. Fix, then finish steps 6–8 (tracker row: Build bNN, note "Codex"). Push only if
-   everything is clean, as the protocol says; otherwise report to Seth.
-4. Remove Codex's worktree and branch once shipped: `git worktree remove ../tol-codex-<code>`,
-   `git branch -D codex-cards-<code>`.
-
-**"apply codex audit <code>"**
-1. `git show codex-audit-<code>:codex/audit/<code>.json`. Verify every `critical` and `major` yourself (re-run the
-   arithmetic; hand number-heavy ones to `content-checker`); `check` items need your call; skim `minor`.
-2. Apply the ones that hold up in a new build with `patchQ32`-style edits (`v32.js`), in place, never reordering
-   questions. Card fixes for courses with reveal cards go in their `rc98` entries.
-3. `python tools/check.py course <code>`, then report to Seth what was applied and what was rejected and why.
+## For Claude: shipping Codex output
+**"ship codex <code> [<code> …] [fix:<code> …]"**
+1. Fresh worktree of origin/main (`git worktree add ../tol-ship-<n> -b ship-<n> origin/main`), then
+   `python tools/ship_codex.py <codes…>`. It builds vNN.js from each branch (cards + any review fix file), adds the
+   tag, version, NEWS, TF48, tracker, CLAUDE.md, runs cards/course/demolessons checks per course, checks every card
+   has an rc entry and every fix applied, and regenerates codemap + export. Exit 1 = something to fix.
+2. Read each report (`## Review` section especially: anything unsettled). Spot-check: 3–4 `cardshot`s per course
+   (the densest cards and a Guess) at 1x. Don't re-review everything: the review chat did that. A full
+   `content-checker` pass only for a course whose review section looks thin.
+3. Fix what's needed in vNN.js, rerun the script's failing check, commit (`bNN: Codex: <courses>`), rebase on
+   origin/main (if someone pushed, rerun the script in a new worktree: it renumbers), push. Remove the worktree.

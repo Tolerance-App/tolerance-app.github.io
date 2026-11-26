@@ -27,7 +27,21 @@ Python** (don't do it in your head). Check it falls inside `tol`. Check each wro
 Report only real problems. A wording preference is not an issue. Never report ids, `key`s, `fig` or `demo` values.
 If you aren't sure, use severity `check` and show your working.
 
-## Output: `codex/audit/<code>.json`
+## Output 1: `codex/fixes/<code>.js` (ready to ship)
+For every `critical` and `major` issue you are sure of, write the fix as guarded JavaScript, so Claude can ship the
+file as-is. Questions: edit in place, never reorder or add mid-lesson.
+```js
+/* mech-beams-2#3 · critical · δ = F L³/(3EI) = 2000·1.2³/(3·200e9·1.04e-7) = 0.0554 m */
+qfix("mech-beams-2",3,/cantilever/,q=>{q.a=55.4;q.why="…"});
+```
+`qfix(lessonId, qIndex, guardRegExp, edit)` works for every lesson (it runs after `build()`). The guard must match
+the current `q` text, so the fix can't land on the wrong question. Card text fixes:
+if the lesson has an `rc` entry for that card, re-issue the whole `rc98(id, ci, {...})` with the fix; otherwise
+skip it and list it in the JSON. Test: `python tools/check.py eval "FIX32.filter(x=>/<code>/.test(x))" --extra
+codex/fixes/<code>.js` must list `ok` for every fix, and `python tools/check.py course <code> --extra
+codex/fixes/<code>.js` must be clean.
+
+## Output 2: `codex/audit/<code>.json` (every issue, including ones not in the fix file)
 ```json
 {
   "course": "<code>", "build": "b107", "lessons": 31, "questions": 140,
@@ -53,4 +67,5 @@ Sort issues by severity, then key. Make sure the file parses: `python -c "import
 ## Report: `codex/audit/<code>.md`
 Five lines max: lessons and questions checked, counts per severity, the 3 most serious issues in one line each.
 
-Commit on `codex-audit-<code>` (`codex audit <code>`). Don't push.
+Commit on `codex-audit-<code>` (`codex audit <code>`). In Codex cloud, push that branch to GitHub when done
+(never `main`, never merge). Locally, don't push.

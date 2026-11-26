@@ -14,25 +14,25 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 
 | Course | Code | Lessons | Cards | Converted | Status | Build |
 |---|---|---:|---:|---:|---|---|
-| Mechanical | mech | 31 | 138 | 3 | test cards only | b98 |
+| Mechanical | mech | 31 | 138 | 3 | reserved: Codex | b98 |
 | Aerospace | aero | 16 | 64 | 64 | done | b98, b113 |
 | Electrical | elec | 20 | 70 | 70 | done | b98, b109 |
-| Computer science | cs | 10 | 29 | 1 | test cards only | b98 |
+| Computer science | cs | 10 | 29 | 1 | reserved: Codex | b98 |
 | Manufacturing | mfg | 12 | 50 | 50 | done | b102 |
 | Drawings and GD&T | gdt | 8 | 33 | 33 | done | b103 |
-| Programming | code | 16 | 65 | 0 | to do | |
-| CAM | cam | 8 | 36 | 0 | to do | |
-| Machine learning | ml | 12 | 49 | 0 | to do | |
+| Programming | code | 16 | 65 | 0 | reserved: Codex | |
+| CAM | cam | 8 | 36 | 0 | reserved: Codex | |
+| Machine learning | ml | 12 | 49 | 0 | reserved: Codex | |
 | Controls | ctrl | 12 | 56 | 56 | done | b112 |
-| CAD | cad | 8 | 33 | 0 | to do | |
+| CAD | cad | 8 | 33 | 0 | reserved: Codex | |
 | Engineering math | math | 4 | 16 | 16 | done | b99, b101 |
 | Materials | mat | 4 | 16 | 16 | done | b105 |
 | Civil and structures | civil | 4 | 16 | 16 | done | b100 |
-| Digital hardware | dig | 9 | 58 | 0 | to do | |
-| Measurement and data | daq | 6 | 39 | 0 | to do | |
-| Design review | design | 9 | 42 | 0 | to do | |
-| Shop vocab | vocab | 12 | 57 | 0 | to do | |
-| Engineer, translated | plain | 2 | 14 | 0 | to do | |
+| Digital hardware | dig | 9 | 58 | 0 | reserved: Codex | |
+| Measurement and data | daq | 6 | 39 | 0 | reserved: Codex | |
+| Design review | design | 9 | 42 | 0 | reserved: Codex | |
+| Shop vocab | vocab | 12 | 57 | 0 | reserved: Codex | |
+| Engineer, translated | plain | 2 | 14 | 0 | reserved: Codex | |
 | Calculus I | calc1 | 25 | 108 | 108 | done (Codex) | b111 |
 | Calculus II | calc2 | 24 | 96 | 0 | reserved: Codex | |
 | Calculus III | calc3 | 24 | 96 | 0 | reserved: Codex | |
