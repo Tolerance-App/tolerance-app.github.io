@@ -24,3 +24,28 @@ rc98("calc3-geometry-1",3,{p:[
   ["5 units",1,"The two perpendicular legs are squared and added before taking the root."],
   ["7 units",0,"Adding the legs gives the distance walked around the corner."],
   ["25 units",0,"That is the squared distance. Take its square root."]]}});
+
+/* ---------- calc3-geometry-2 · Dot products and projections ---------- */
+/* 0 · Definition, no interaction */
+rc98("calc3-geometry-2",0,{p:[
+ {"t":"p","x":"A **dot product** combines two vectors into one number that measures alignment."},
+ {"t":"p","x":"A **projection** extracts the part of a vector along a chosen direction. The scalar projection gives the signed length of that part."}]});
+/* 1 · Legend → formula, Fill “perpendicular”. The dot is zero at a right angle. */
+rc98("calc3-geometry-2",1,{p:[
+ {"t":"vars","vars":[["a,b","vectors in perpendicular unit axes"],["a_x,b_x","their components along x"]]},
+ {"t":"p","x":"If two nonzero vectors have a zero dot product, they are [[perpendicular]]."},
+ {"t":"eq","eq":"a·b = a_x b_x + a_y b_y","cap":"In the plane, sum products along the same axis. Add a z term in space."},
+ {"t":"p","x":"At a right angle the component along the other vector vanishes."}]});
+/* 2 · Rule → formulas, no interaction */
+rc98("calc3-geometry-2",2,{p:[
+ {"t":"p","x":"Project $a$ onto direction $b$. First form the unit vector $u$ by dividing the nonzero $b$ by its length."},
+ {"t":"eq","eq":"u = b / ‖b‖","cap":"b specifies the direction."},
+ {"t":"eq","eq":"a·u","cap":"Signed scalar projection. Multiply by u for the projected vector."}]});
+/* 3 · Compare, Guess (unchanged) */
+rc98("calc3-geometry-2",3,{p:[
+ {"t":"p","x":"A cart moves east and north. You measure the eastward part of its displacement."},
+ {"t":"take","x":"Adding a purely northward displacement leaves the eastward projection unchanged."},
+ {"t":"p","x":"Only the component parallel to the chosen direction enters the dot product."}],
+ g:{at:1,q:"Add another displacement due north. What happens to the eastward projection?",o:[
+  ["It increases",0,"The overall displacement can grow without adding any eastward component."],
+  ["It stays the same",1,"North is perpendicular to east, so its eastward component is zero."]]}});
