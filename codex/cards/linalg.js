@@ -430,3 +430,27 @@ rc98("linalg-orthogonality-1",2,{p:[
 rc98("linalg-orthogonality-1",3,{p:[
  {t:"p",x:"If a residual still has a component in the target subspace, following that component makes the distance [[smaller]]."},
  {t:"p",x:"Moving within the subspace cannot remove a perpendicular component. Any extra in-subspace displacement adds squared distance."}]});
+
+/* ---------- linalg-orthogonality-2 · Gram–Schmidt and QR ---------- */
+/* 0 · Plain text, Guess (subtract its projection). */
+rc98("linalg-orthogonality-2",0,{p:[
+ {t:"p",x:"To make an **orthonormal** list, aim for mutually perpendicular vectors of unit length."},
+ {t:"p",x:"Subtract the projection onto the earlier direction. Resizing alone cannot remove it."}],
+ g:{at:1,q:"Which action removes the component along an earlier unit direction?",o:[
+  ["Divide by its length",0,"That changes the length while keeping the same direction."],
+  ["Subtract its projection",1,"This removes exactly the component in the earlier direction."]]}});
+
+/* 1 · Plain text, Fill "before". */
+rc98("linalg-orthogonality-2",1,{p:[
+ {t:"p",x:"In **Gram–Schmidt**, remove projections onto all earlier orthonormal directions [[before]] normalizing."},
+ {t:"p",x:"The remainder is perpendicular to the earlier vectors. Divide it by its own length to make a unit vector."}]});
+
+/* 2 · Plain text, no interaction. */
+rc98("linalg-orthogonality-2",2,{p:[
+ {t:"p",x:"In **QR factorization**, the factor $Q$ has orthonormal columns. The factor $R$ is upper triangular, with zeros below its diagonal."},
+ {t:"p",x:"A **Householder transformation** reflects vectors across a plane. Numerical QR often uses these reflections to zero entries while limiting rounding error."}]});
+
+/* 3 · Plain text, no interaction. */
+rc98("linalg-orthogonality-2",3,{p:[
+ {t:"p",x:"The earlier projections can be added back to recover the original column, with its length restored."},
+ {t:"p",x:"So the new and old lists span the same space at each step. Independent inputs ensure a nonzero remainder."}]});
