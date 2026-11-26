@@ -347,3 +347,27 @@ rc98("calc3-multiple-integrals-3",3,{p:[
  g:{at:1,q:"Keep the same horizontal patch and double the vertical increment. What happens to the tiny volume?",o:[
   ["It doubles",1,"The sector area is unchanged and the thickness doubles."],
   ["It quadruples",0,"That would require another factor of two from the horizontal patch."]]}});
+
+/* ---------- calc3-multiple-integrals-4 · Spherical coordinates and general transformations ---------- */
+/* 0 · Definition */
+rc98("calc3-multiple-integrals-4",0,{p:[
+ {"t":"p","x":"A coordinate change alters the amount of physical volume covered by equal increments of the new coordinates."},
+ {"t":"p","x":"In spherical coordinates the two angle directions can stretch by different amounts, depending on where you are."}]});
+/* 1 · Legend → formula */
+rc98("calc3-multiple-integrals-4",1,{p:[
+ {"t":"p","x":"**Spherical coordinates** use distance $ρ$ from the origin, azimuth $θ$ around the vertical axis, and polar angle $φ$ down from positive $z$."},
+ {"t":"eq","eq":"dV = ρ^2 sinφ dρ dφ dθ","cap":"ρ ≥ 0. Use radians and measure φ down from positive z."},
+ {"t":"p","x":"Each differential is a small increment of its coordinate."}]});
+/* 2 · Rule, Fill */
+rc98("calc3-multiple-integrals-4",2,{p:[
+ {"t":"p","x":"Angle conventions vary. Define which angle is measured from the pole before setting bounds."},
+ {"t":"p","x":"In a smooth coordinate substitution, take the [[absolute value]] of the Jacobian determinant, which measures signed volume scaling."},
+ {"t":"p","x":"Choose bounds or split the integral so that almost every physical point is counted once. Angular seams of zero volume do not add volume."}]});
+/* 3 · Reason, Guess. Azimuth arc radius is ρ sinφ; it tends to zero at φ=0. */
+rc98("calc3-multiple-integrals-4",3,{p:[
+ {"t":"p","x":"Hold $ρ$ fixed and compare how far the same small change in azimuth moves you near the north pole and near the equator."},
+ {"t":"p","x":"Near the pole the azimuth arc is shorter. Its length per radian is $ρ sinφ$, the distance to the vertical axis."},
+ {"t":"p","x":"The other angular arc has length per radian $ρ$. Multiplying both by radial thickness gives the volume factor."}],
+ g:{at:1,q:"Where is the azimuth step shorter?",o:[
+  ["Near the pole",1,"The circle around the vertical axis shrinks as you approach the pole."],
+  ["Near the equator",0,"The horizontal circle has its largest radius at the equator."]]}});
