@@ -486,3 +486,29 @@ rc98("calc1-implicit-4",3,{p:[
  g:{at:1,q:"When should you substitute that fixed value for the radius?",o:[
   ["Before differentiating",0,"Treating it as a constant erases its variation in time."],
   ["After differentiating",1,"First preserve the dependency, then evaluate at the instant."]]}});
+
+/* ---------- calc1-applications-1 · Mean value theorem ---------- */
+/* 0 · Mean value setup · Fill "attained" */
+rc98("calc1-applications-1",0,{p:[
+ {t:"p",x:"Over an interval, compare the overall average rate with the instantaneous rate inside."},
+ {t:"p",x:"With the right smoothness, the average rate is [[attained]] somewhere in the interior."}]});
+
+/* 1 · Mean value theorem · no interaction */
+rc98("calc1-applications-1",1,{p:[
+ {t:"p",x:"Let $f$ be continuous on $[a,b]$ with $a<b$, and differentiable on $(a,b)$."},
+ {t:"p",x:"At some interior input $c$, the instantaneous rate equals the endpoint average rate."},
+ {t:"eq",eq:"f′(c) = (f(b)−f(a))/(b−a)"}]});
+
+/* 2 · Rolle special case. Equal endpoint values give a zero numerator and b−a>0 · Guess */
+rc98("calc1-applications-1",2,{p:[
+ {t:"p",x:"Suppose the mean value theorem applies and the endpoints have equal outputs."},
+ {t:"take",x:"Rolle’s theorem guarantees at least one interior point with derivative zero."}],
+ g:{at:1,q:"What interior rate is guaranteed?",o:[
+  ["Zero",1,"The endpoint rise is zero, so the secant slope is zero."],
+  ["Positive",0,"The guaranteed rate equals the endpoint secant slope."]]}});
+
+/* 3 · Proof idea · no interaction */
+rc98("calc1-applications-1",3,{p:[
+ {t:"p",x:"Subtract the line through the endpoint values from the function."},
+ {t:"p",x:"The remainder has equal endpoint values. If it is constant, its rate is zero throughout."},
+ {t:"p",x:"Otherwise an interior extremum has zero derivative. There the original slope equals the slope of the line."}]});
