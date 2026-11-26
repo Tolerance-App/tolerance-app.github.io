@@ -44,3 +44,18 @@ rc98("mech2",1,{p:[
   ["⅓ the speed, 3× the torque",1,"Three times the teeth means one turn for three input turns. With no losses, torque triples."],
   ["⅓ the speed, ⅓ the torque",0,"The speed falls, but reducing torque too would lose power in an ideal pair."],
   ["3× the speed, ⅓ the torque",0,"That reverses the driver and driven gears. The larger gear takes longer to make a turn."]]}});
+
+/* ---------- mech3 · Joints and fatigue ---------- */
+/* 0 · Rule in words, no interaction. Existing figure shows the load path. */
+rc98("mech3",0,{p:[
+ {t:"p",x:"**Preload** is the bolt tension from tightening. It squeezes the plates together."},
+ {t:"p",x:"While stiffer plates stay clamped, a pull mainly reduces their squeeze and adds little bolt tension."}]});
+
+/* 1 · Terms → design change, Guess (larger fillet). */
+rc98("mech3",1,{p:[
+ {t:"p",x:"**Fatigue** is damage from repeated loading. Cracks often start at a **stress concentration**, a spot where local stress rises around a sharp corner, notch, or hole."},
+ {t:"p",x:"A **fillet** is the rounded transition at a shaft shoulder, where the diameter changes."},
+ {t:"take",x:"A larger fillet radius smooths the change in shape and reduces the local stress rise under the same load."}],
+ g:{at:2,q:"Which change spreads the stress around the shoulder more evenly?",o:[
+  ["Increase the fillet radius",1,"A gentler transition lowers the stress concentration."],
+  ["Decrease the fillet radius",0,"A smaller radius sharpens the transition and raises the local stress."]]}});
