@@ -635,3 +635,29 @@ rc98("calc1-integrals-2",2,{p:[
 rc98("calc1-integrals-2",3,{p:[
  {t:"p",x:"Differentiation removes an additive constant."},
  {t:"p",x:"The derivative alone leaves the original [[vertical offset]] undetermined."}]});
+
+/* ---------- calc1-integrals-3 · Fundamental theorem of calculus ---------- */
+/* 0 · Two operations · no interaction */
+rc98("calc1-integrals-3",0,{p:[
+ {t:"p",x:"Accumulation sums values over an interval. Differentiation extracts a local rate."},
+ {t:"p",x:"Under continuity, the rate of the accumulating total recovers the original integrand."}]});
+
+/* 1 · Variable upper bound · no interaction */
+rc98("calc1-integrals-3",1,{p:[
+ {t:"p",x:"Let $f$ be continuous, $a$ a fixed lower bound and $x$ the moving upper bound. The symbol $t$ runs through the integration inputs."},
+ {t:"eq",eq:"d/dx ∫_{a}^{x} f(t) dt = f(x)"}]});
+
+/* 2 · Endpoint evaluation · Guess */
+rc98("calc1-integrals-3",2,{p:[
+ {t:"p",x:"Let $F$ be an antiderivative of a continuous integrand $f$ on the interval between $a$ and $b$."},
+ {t:"eq",eq:"∫_{a}^{b} f(x) dx = F(b)−F(a)"},
+ {t:"p",x:"Swapping the bounds negates the integral."}],
+ g:{at:1,q:"If the integral is positive, what happens when you swap the bounds?",o:[
+  ["It stays the same",0,"Swapping bounds reverses the order of subtraction."],
+  ["It is negated",1,"The endpoint difference is reversed."]]}});
+
+/* 3 · Thin contribution · Fill "local integrand" */
+rc98("calc1-integrals-3",3,{p:[
+ {t:"p",x:"A small increase in the upper bound adds a thin slice whose width is the input increase."},
+ {t:"p",x:"By continuity, its height approaches the [[local integrand]]."},
+ {t:"p",x:"Divide the added accumulation by the width to recover the derivative."}]});
