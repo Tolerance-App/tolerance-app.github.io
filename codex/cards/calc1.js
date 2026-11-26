@@ -82,3 +82,44 @@ rc98("calc1-limits-1",5,{p:[
  g:{at:1,q:"Does g need to produce only allowed inputs to f everywhere?",o:[
   ["Yes",0,"Composition can restrict which x it accepts."],
   ["No",1,"Use the x values where the output of g is allowed by f."]]}});
+
+/* ---------- calc1-limits-2 · Limits and removable holes ---------- */
+/* 0 · Nearby values · Fill "missing" */
+rc98("calc1-limits-2",0,{p:[
+ {t:"p",x:"A limit describes the output a function approaches near a point."},
+ {t:"p",x:"The formula can approach a value even if the exact point is [[missing]]."}]});
+
+/* 1 · Limit notation · no interaction */
+rc98("calc1-limits-2",1,{p:[
+ {t:"p",x:"Let $a$ be the input approached and $L$ the proposed output limit."},
+ {t:"p",x:"As $x$ gets sufficiently close to $a$ with $x≠a$, $f(x)$ must get as close to $L$ as requested."},
+ {t:"eq",eq:"lim_{x→a} f(x) = L"}]});
+
+/* 2 · Undefined quotient. Direct substitution gives a numerator and denominator of zero · Guess */
+rc98("calc1-limits-2",2,{p:[
+ {t:"p",x:"Direct substitution into a quotient can make both numerator and denominator zero."},
+ {t:"take",x:"An indeterminate form calls for another step, such as factoring."}],
+ g:{at:1,q:"Does $0/0$ determine the limit?",o:[
+  ["Yes",0,"The expression is undefined and gives no limit value by itself."],
+  ["No",1,"Look at nearby inputs, often after simplifying."]]}});
+
+/* 3 · Worked example. Difference of squares factors; evaluating x+1 at x=1 gives 2 · no interaction */
+rc98("calc1-limits-2",3,{p:[
+ {t:"p",x:"Consider $(x^2−1)/(x−1)$ near $x=1$."},
+ {t:"p",x:"Factor the numerator as $(x−1)(x+1)$."},
+ {t:"p",x:"Cancel the common factor for $x≠1$."},
+ {t:"step",f:"lim_{x→1} (x+1)",v:"2",u:"",fin:1}]});
+
+/* 4 · Removable hole. The missing height is 1+1=2 · Fill "removable" */
+rc98("calc1-limits-2",4,{p:[
+ {t:"p",x:"The original quotient still excludes $x=1$."},
+ {t:"p",x:"The missing point is at $(1,2)$."},
+ {t:"p",x:"The discontinuity is [[removable]] because defining that value would join the nearby line."}]});
+
+/* 5 · Agreement near a point · Guess */
+rc98("calc1-limits-2",5,{p:[
+ {t:"p",x:"Two formulas agree near $a$ on both sides, with a possible exception at $a$."},
+ {t:"take",x:"Agreement on nearby inputs gives the same limit."}],
+ g:{at:1,q:"If one has a limit at a, what about the other?",o:[
+  ["Same limit",1,"They agree for the nearby inputs used by the limit."],
+  ["Possibly different",0,"The value at a is excluded from the limit."]]}});
