@@ -325,3 +325,25 @@ rc98("calc3-multiple-integrals-2",2,{p:[
 rc98("calc3-multiple-integrals-2",3,{p:[
  {"t":"p","x":"An angle increment $dθ$ sweeps out an arc of length $r dθ$."},
  {"t":"p","x":"Multiply that length by the radial thickness $dr$ for the tiny area. At a greater radius the same angle sweeps a longer arc."}]});
+
+/* ---------- calc3-multiple-integrals-3 · Triple integrals and cylindrical coordinates ---------- */
+/* 0 · Definition */
+rc98("calc3-multiple-integrals-3",0,{p:[
+ {"t":"p","x":"A **triple integral** adds up a scalar, a single number at each point, throughout a solid."},
+ {"t":"p","x":"You can group the tiny volumes into slices and add the slice totals."}]});
+/* 1 · Process */
+rc98("calc3-multiple-integrals-3",1,{p:[
+ {"t":"p","x":"The bounds describe the entire solid. In nested integrals, an inner bound can depend on variables integrated later."},
+ {"t":"p","x":"For example, fix the horizontal location and sweep vertically from the bottom to the top of the solid. Then integrate over the allowed horizontal locations."}]});
+/* 2 · Legend → formula, Fill */
+rc98("calc3-multiple-integrals-3",2,{p:[
+ {"t":"p","x":"**Cylindrical coordinates** use radius $r$ and angle $θ$ in the horizontal plane. They leave the height $z$ [[unchanged]]."},
+ {"t":"eq","eq":"dV = r dr dθ dz","cap":"r ≥ 0 and θ is measured in radians. dz is the vertical thickness."},
+ {"t":"p","x":"Only the horizontal increments need polar area scaling."}]});
+/* 3 · Reason, Guess. Doubling dz alone doubles dV. */
+rc98("calc3-multiple-integrals-3",3,{p:[
+ {"t":"p","x":"A horizontal patch is a small sector. Its area grows with radius because its angular side gets longer."},
+ {"t":"take","x":"Volume is sector area times thickness. Doubling the thickness alone doubles the volume."}],
+ g:{at:1,q:"Keep the same horizontal patch and double the vertical increment. What happens to the tiny volume?",o:[
+  ["It doubles",1,"The sector area is unchanged and the thickness doubles."],
+  ["It quadruples",0,"That would require another factor of two from the horizontal patch."]]}});
