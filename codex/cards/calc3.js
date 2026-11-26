@@ -49,3 +49,27 @@ rc98("calc3-geometry-2",3,{p:[
  g:{at:1,q:"Add another displacement due north. What happens to the eastward projection?",o:[
   ["It increases",0,"The overall displacement can grow without adding any eastward component."],
   ["It stays the same",1,"North is perpendicular to east, so its eastward component is zero."]]}});
+
+/* ---------- calc3-geometry-3 · Cross products, lines, and planes ---------- */
+/* 0 · Definition, no interaction */
+rc98("calc3-geometry-3",0,{p:[
+ {"t":"p","x":"A **plane** is a flat surface that extends without bound."},
+ {"t":"p","x":"Its **normal** is any nonzero vector perpendicular to the surface. It tells you the plane’s orientation."}]});
+/* 1 · Rule → geometry, Guess (reverses) */
+rc98("calc3-geometry-3",1,{p:[
+ {"t":"p","x":"In space, $a × b$ is the **cross product** of vectors $a$ and $b$. Point your right-hand fingers along $a$ and curl toward $b$. Your thumb gives the direction."},
+ {"t":"take","x":"Swapping the inputs reverses the cross product."},
+ {"t":"p","x":"It is perpendicular to both inputs. Its length is their parallelogram area, so parallel inputs give the zero vector."}],
+ g:{at:1,q:"For nonparallel inputs, what does swapping the order do?",o:[
+  ["Keeps the direction",0,"The area stays the same, but the right-hand curl reverses."],
+  ["Reverses the direction",1,"Curling from the second vector to the first reverses your thumb."]]}});
+/* 2 · Compare, Fill “along” */
+rc98("calc3-geometry-3",2,{p:[
+ {"t":"p","x":"A line needs a point and a nonzero vector pointing [[along]] the line."},
+ {"t":"p","x":"Starting from the given point, move any signed multiple of the direction vector."},
+ {"t":"p","x":"A plane also needs a point. Its nonzero normal sticks straight out of it."}]});
+/* 3 · Legend → formula, no interaction */
+rc98("calc3-geometry-3",3,{p:[
+ {"t":"p","x":"Let $p$ be a point in the plane, $r$ a candidate point and $n$ its nonzero normal."},
+ {"t":"eq","eq":"n·(r − p) = 0","cap":"The displacement r − p must be perpendicular to n."},
+ {"t":"p","x":"The dot product turns the geometric test into an equation linear in the coordinates of $r$."}]});
