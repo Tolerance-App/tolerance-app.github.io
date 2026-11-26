@@ -278,3 +278,28 @@ rc98("linalg-determinants-3",2,{p:[
 rc98("linalg-determinants-3",3,{p:[
  {t:"p",x:"To clear an entry, divide it by the pivot and subtract that multiple of the pivot row."},
  {t:"p",x:"Small pivots can produce large multipliers, magnifying rounding errors. Pivoting helps with elimination but cannot undo the map's inherent sensitivity."}]});
+
+/* ---------- linalg-determinants-4 · Condition numbers and residuals ---------- */
+/* 0 · Plain text, Guess (yes). */
+rc98("linalg-determinants-4",0,{p:[
+ {t:"p",x:"Imagine a square map that almost flattens one direction. Moving far along that direction hardly changes the output."},
+ {t:"p",x:"A small output mismatch can hide a large input error when the map nearly flattens a direction."}],
+ g:{at:1,q:"Can a small output mismatch coexist with a large input error?",o:[
+  ["Yes",1,"An input error in the nearly flattened direction barely shows in the output."],
+  ["No",0,"That would require the map to preserve lengths well in every direction."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-determinants-4",1,{p:[
+ {t:"p",x:"The **residual** is the observed right-hand side minus the output predicted by the computed solution."},
+ {t:"p",x:"**Forward error** compares the computed solution to the exact one directly."}]});
+
+/* 2 · Rule in words → formula, no interaction. */
+rc98("linalg-determinants-4",2,{p:[
+ {t:"p",x:"For an invertible matrix in Euclidean geometry, $κ$ is its condition number. The quantities $σ_{max}$ and $σ_{min}$ are its largest and smallest stretches of unit vectors."},
+ {t:"eq",lab:"Euclidean condition number",eq:"κ = σ_{max} / σ_{min}"},
+ {t:"p",x:"A large ratio permits large relative solution changes from small relative changes to the right-hand side."}]});
+
+/* 3 · Plain text, Fill "weakly stretched". */
+rc98("linalg-determinants-4",3,{p:[
+ {t:"p",x:"The output barely responds to inputs along a [[weakly stretched]] direction."},
+ {t:"p",x:"A substantially wrong input in that direction can still fit the equations closely. Report the residual together with conditioning information."}]});
