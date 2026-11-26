@@ -416,3 +416,26 @@ rc98("calc3-line-integrals-2",3,{p:[
  {"t":"p","x":"Along the path $r(t)$, the potential becomes a function of the path parameter $t$."},
  {"t":"eq","eq":"dφ/dt = ∇φ·r′(t)","cap":"By the chain rule, evaluated at r(t) on each smooth part."},
  {"t":"p","x":"Integrate this ordinary derivative over the path parameter to get the potential change."}]});
+
+/* ---------- calc3-line-integrals-3 · Green’s theorem ---------- */
+/* 0 · Definition */
+rc98("calc3-line-integrals-3",0,{p:[
+ {"t":"p","x":"**Circulation** measures how much a vector field pushes along an oriented closed curve. Orientation is the direction you travel."},
+ {"t":"p","x":"**Green’s theorem** moves the calculation from a plane region’s boundary to its interior."}]});
+/* 1 · Legend → formula, existing figure */
+rc98("calc3-line-integrals-3",1,{p:[
+ {"t":"p","x":"Write the horizontal and vertical components of the field as $P$ and $Q$. **Scalar curl** measures local counterclockwise circulation per unit area."},
+ {"t":"eq","eq":"curl = Q_x − P_y","cap":"Q_x differentiates Q along x. P_y differentiates P along y."},
+ {"t":"p","x":"Green’s circulation form integrates this curl over the region to get its boundary circulation. The region stays to your left as you follow the boundary."}]});
+/* 2 · Rule, Fill */
+rc98("calc3-line-integrals-3",2,{p:[
+ {"t":"p","x":"Require continuous first partial derivatives throughout an open neighborhood of the region and its piecewise smooth boundary."},
+ {"t":"p","x":"A positive boundary keeps the region on your left, so its inner and outer loops go in [[opposite]] senses."},
+ {"t":"p","x":"Travel counterclockwise around the outside and clockwise around holes."}]});
+/* 3 · Reason, Guess */
+rc98("calc3-line-integrals-3",3,{p:[
+ {"t":"p","x":"Imagine splitting the region into adjacent patches and adding their boundary circulations."},
+ {"t":"take","x":"Shared edges cancel because the patches traverse them in opposite directions. Only the region’s boundary remains."}],
+ g:{at:1,q:"What happens to contributions on a shared edge?",o:[
+  ["They cancel",1,"The edge is traversed in opposite directions by its two patches."],
+  ["They add in the same direction",0,"That would count the shared edge twice with the same orientation."]]}});
