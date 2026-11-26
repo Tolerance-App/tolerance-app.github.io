@@ -118,3 +118,26 @@ rc98("calc3-partials-1",2,{p:[
 rc98("calc3-partials-1",3,{p:[
  {"t":"p","x":"Infinitely many straight and curved paths can approach the same point."},
  {"t":"p","x":"To prove a limit, control the output error for every nearby input using its distance from the point."}]});
+
+/* ---------- calc3-partials-2 · Partial derivatives and the gradient ---------- */
+/* 0 · Definition */
+rc98("calc3-partials-2",0,{p:[
+ {"t":"p","x":"A **sensitivity** is a rate of output change as an input varies."},
+ {"t":"p","x":"For a scalar function, which gives one number, each input can have its own sensitivity."}]});
+/* 1 · Rule → formula, Fill */
+rc98("calc3-partials-2",1,{p:[
+ {"t":"p","x":"A **partial derivative** varies one input while holding the others [[fixed]]."},
+ {"t":"eq","eq":"∇f = (f_x, f_y)","cap":"For f(x,y), f_x varies x alone and f_y varies y alone."},
+ {"t":"p","x":"The **gradient** collects those first derivatives in a vector."}]});
+/* 2 · Definition → rule */
+rc98("calc3-partials-2",2,{p:[
+ {"t":"p","x":"For a differentiable function, a nonzero gradient points toward the steepest local increase per unit distance."},
+ {"t":"p","x":"A **level set** contains inputs with the same output. The gradient is perpendicular to the tangent of a level curve wherever that tangent exists."}]});
+/* 3 · Rule → formula, Guess. The dot product with the zero vector is zero. */
+rc98("calc3-partials-2",3,{p:[
+ {"t":"p","x":"A **directional derivative** measures the rate per unit distance in a direction given by a unit vector $u$."},
+ {"t":"eq","eq":"D_u f = ∇f·u","cap":"For differentiable f at the point."},
+ {"t":"p","x":"The zero gradient gives no first-order change. For a nonzero gradient the rate is greatest when $u$ points along it."}],
+ g:{at:1,q:"If the gradient is zero, what is the rate along a unit direction?",o:[
+  ["Zero in every direction",1,"The dot product with the zero vector is zero."],
+  ["Positive in some direction",0,"An increase here must come from changes beyond first order."]]}});
