@@ -371,3 +371,24 @@ rc98("calc3-multiple-integrals-4",3,{p:[
  g:{at:1,q:"Where is the azimuth step shorter?",o:[
   ["Near the pole",1,"The circle around the vertical axis shrinks as you approach the pole."],
   ["Near the equator",0,"The horizontal circle has its largest radius at the equator."]]}});
+
+/* ---------- calc3-line-integrals-1 · Scalar and vector line integrals ---------- */
+/* 0 · Definition */
+rc98("calc3-line-integrals-1",0,{p:[
+ {"t":"p","x":"A **line integral** adds contributions along a curve. A scalar line integral weights each little length of the curve by a number."},
+ {"t":"p","x":"A vector **work integral** counts the part of a vector field, such as force, pointing along the motion."}]});
+/* 1 · Rule, existing figure */
+rc98("calc3-line-integrals-1",1,{p:[
+ {"t":"p","x":"Write the position on the path as $r(t)$, where $t$ is a parameter increasing as you travel. For a piecewise smooth path, its derivative gives the directed motion per unit parameter."},
+ {"t":"p","x":"For a scalar integrand, weight it by the length of that derivative. For work, take the dot product of the field with the derivative."}]});
+/* 2 · Compare, Guess */
+rc98("calc3-line-integrals-1",2,{p:[
+ {"t":"p","x":"Traverse the same path backward through the same scalar and vector fields."},
+ {"t":"take","x":"Reversing the path reverses the sign of work. The scalar integral against arc length is unchanged."}],
+ g:{at:1,q:"What happens to the work integral?",o:[
+  ["It changes sign",1,"Each little directed displacement reverses."],
+  ["It stays the same",0,"That is true for the scalar integral against length."]]}});
+/* 3 · Reason, Fill */
+rc98("calc3-line-integrals-1",3,{p:[
+ {"t":"p","x":"A small step has the same length both ways, but its displacement points in the [[opposite]] direction on the return trip."},
+ {"t":"p","x":"The length weight stays the same. The dot product with the directed step changes sign."}]});
