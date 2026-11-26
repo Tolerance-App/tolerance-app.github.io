@@ -386,3 +386,28 @@ rc98("calc1-derivative-rules-4",3,{p:[
  g:{at:1,q:"Can a single derivative describe both sides?",o:[
   ["No",1,"A derivative needs matching limits of the difference quotient."],
   ["Yes",0,"The agreement of function values establishes continuity only."]]}});
+
+/* ---------- calc1-implicit-1 · Implicit differentiation ---------- */
+/* 0 · Constraint · Fill "constraint" */
+rc98("calc1-implicit-1",0,{p:[
+ {t:"p",x:"An equation can link two variables without isolating either one."},
+ {t:"p",x:"You can find how one responds to the other by differentiating the [[constraint]]."}]});
+
+/* 1 · Implicit setup · no interaction */
+rc98("calc1-implicit-1",1,{p:[
+ {t:"p",x:"An **implicit equation** relates $x$ and $y$ without writing an explicit output rule."},
+ {t:"p",x:"On a differentiable branch, treat $y$ as a function of $x$ and differentiate both sides."}]});
+
+/* 2 · Worked example. d(x²)/dx=2x; chain rule gives 2y·dy/dx; d(25)/dx=0 · no interaction */
+rc98("calc1-implicit-1",2,{p:[
+ {t:"p",x:"Let dimensionless $x$ and $y$ satisfy $x^2+y^2=25$."},
+ {t:"p",x:"Write $y′$ for $dy/dx$."},
+ {t:"eq",eq:"2x + 2y y′ = 0"}]});
+
+/* 3 · Chain-rule factor · Guess */
+rc98("calc1-implicit-1",3,{p:[
+ {t:"p",x:"The expression $y^2$ depends on $x$ through $y$."},
+ {t:"take",x:"Include the factor $dy/dx$ when differentiating a changing expression in $y$."}],
+ g:{at:1,q:"When differentiating with respect to x, does the y term include the rate of y?",o:[
+  ["Yes",1,"The chain rule multiplies by the derivative of the inner function y."],
+  ["No",0,"The derivative of the outer square alone misses how y responds to x."]]}});
