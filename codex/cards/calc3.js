@@ -256,3 +256,27 @@ rc98("calc3-optimization-3",2,{p:[
 rc98("calc3-optimization-3",3,{p:[
  {"t":"p","x":"A boundary can block the direction in which the objective improves most quickly."},
  {"t":"take","x":"The best allowed point may therefore have a nonzero objective gradient."}]});
+
+/* ---------- calc3-optimization-4 · Second-order models and sensitivity ---------- */
+/* 0 · Definition */
+rc98("calc3-optimization-4",0,{p:[
+ {"t":"p","x":"A **second-order model** approximates a function near a chosen input using slope and curvature."},
+ {"t":"p","x":"It captures more local behavior than a linear model. Its prediction can degrade as you move farther from the base input."}]});
+/* 1 · Legend → formula. The quadratic coefficient is 1/2 from the one-variable Taylor term 1/2! along the displacement. */
+rc98("calc3-optimization-4",1,{p:[
+ {"t":"p","x":"Let $h$ be the input displacement. Let $H$ be the Hessian (matrix of second derivatives) at the base input. The superscript $T$ turns the displacement column into a row."},
+ {"t":"eq","eq":"½ h^T H h","cap":"The quadratic correction for a twice continuously differentiable function."},
+ {"t":"p","x":"Add this correction to the base value plus the gradient dotted with $h$. This is the **second-order Taylor model**."}]});
+/* 2 · Rule, Fill */
+rc98("calc3-optimization-4",2,{p:[
+ {"t":"p","x":"**Conditioning** describes how sensitive a computed answer is to small changes in its inputs. Optimization can become poorly conditioned when coordinates have very [[different]] scales."},
+ {"t":"p","x":"It can also happen along a **flat direction**, where the objective curves only weakly."},
+ {"t":"p","x":"Check the proposed input against the original objective after optimizing the model."}]});
+/* 3 · Reason, Guess. For a one-dimensional quadratic with slope s and curvature k>0, h=−s/k and Δh=−Δs/k. */
+rc98("calc3-optimization-4",3,{p:[
+ {"t":"p","x":"Consider a local quadratic along one direction. Its initial slope is uncertain and its curvature is small but positive."},
+ {"t":"eq","eq":"h = −s/k","cap":"Offset h to the quadratic minimum for initial slope s and curvature k > 0."},
+ {"t":"p","x":"A small slope error shifts the predicted minimum farther when the direction is flatter."}],
+ g:{at:1,q:"How does smaller curvature affect the predicted minimizer’s sensitivity to a slope error?",o:[
+  ["It magnifies the shift",1,"The slope changes slowly along the flatter curve, so the point where it reaches zero moves farther."],
+  ["It shrinks the shift",0,"A flatter curve needs a longer move to cancel the same slope error."]]}});
