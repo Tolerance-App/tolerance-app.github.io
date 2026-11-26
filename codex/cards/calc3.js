@@ -233,3 +233,26 @@ rc98("calc3-optimization-2",2,{p:[
 rc98("calc3-optimization-2",3,{p:[
  {"t":"p","x":"A **tangent direction** follows the constraint surface locally. Along it, $g$ stays fixed to first order, so its direction is perpendicular to $∇g$."},
  {"t":"p","x":"The objective also has zero slope along every tangent direction at a constrained optimum. Its gradient therefore lies along the constraint normal, the direction perpendicular to the tangent space."}]});
+
+/* ---------- calc3-optimization-3 · Boundaries and inequality constraints ---------- */
+/* 0 · Definition */
+rc98("calc3-optimization-3",0,{p:[
+ {"t":"p","x":"A point is **feasible** if it satisfies every constraint."},
+ {"t":"p","x":"The best feasible value may occur inside the region, along an edge, or where edges meet. Check corners and intersections as well as smooth edges."}]});
+/* 1 · Rule, Fill */
+rc98("calc3-optimization-3",1,{p:[
+ {"t":"p","x":"Write an inequality as $g≤0$. It is **active** when the bound holds at equality. An inactive constraint has [[positive]] slack."},
+ {"t":"eq","eq":"slack = −g","cap":"At a feasible input with g ≤ 0."},
+ {"t":"p","x":"At an active bound the slack is zero. Otherwise you can loosen the slack without changing the point."}]});
+/* 2 · Rule → formula, Guess. If slack > 0 and λ·slack = 0 then λ = 0. */
+rc98("calc3-optimization-3",2,{p:[
+ {"t":"p","x":"For minimizing smooth $f$ with $g≤0$, the **KKT conditions** are first-order tests at a local optimum under suitable constraint regularity."},
+ {"t":"eq","eq":"∇f + λ ∇g = 0","cap":"Stationarity: the objective and weighted constraint slopes balance."},
+ {"t":"p","x":"Feasibility requires $g≤0$ and the multiplier sign is $λ≥0$. **Complementary slackness** requires multiplier times slack to be zero."}],
+ g:{at:1,q:"Can a constraint with positive slack have a positive KKT multiplier?",o:[
+  ["No, its multiplier is zero",1,"Their product must be zero."],
+  ["Yes, its multiplier can be positive",0,"A positive multiplier can occur only at a tight bound."]]}});
+/* 3 · Reason */
+rc98("calc3-optimization-3",3,{p:[
+ {"t":"p","x":"A boundary can block the direction in which the objective improves most quickly."},
+ {"t":"take","x":"The best allowed point may therefore have a nonzero objective gradient."}]});
