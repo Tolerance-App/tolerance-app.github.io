@@ -562,3 +562,28 @@ rc98("calc1-applications-3",3,{p:[
  g:{at:1,q:"Does this guarantee equally good accuracy far from the reference?",o:[
   ["No",1,"Curvature can make the tangent a poor model farther away."],
   ["Yes",0,"The derivative controls the leading behavior only near the reference."]]}});
+
+/* ---------- calc1-applications-4 · L’Hôpital and Newton iterations ---------- */
+/* 0 · Two derivative uses · no interaction */
+rc98("calc1-applications-4",0,{p:[
+ {t:"p",x:"A quotient limit and a root-finding iteration ask different questions."},
+ {t:"p",x:"The limit asks what values approach. The iteration asks where the function is zero."}]});
+
+/* 1 · L’Hôpital rule. Zero-over-zero and infinity-over-infinity are eligible forms only under the rule’s hypotheses · Guess */
+rc98("calc1-applications-4",1,{p:[
+ {t:"p",x:"For an eligible $0/0$ or $∞/∞$ limit, check differentiability near the target, a nonzero denominator derivative and a limit of the derivative ratio."},
+ {t:"take",x:"Take the limit of the ratio of the separate derivatives when the hypotheses hold."}],
+ g:{at:1,q:"Which derivative expression does the rule use?",o:[
+  ["Ratio of derivatives",1,"Differentiate numerator and denominator separately."],
+  ["Derivative of the original quotient",0,"That answers a different question under the quotient rule."]]}});
+
+/* 2 · Newton update · no interaction */
+rc98("calc1-applications-4",2,{p:[
+ {t:"p",x:"Let $x$ be the current root estimate for $f$, with derivative $f′(x)≠0$."},
+ {t:"eq",eq:"x_{next} = x−f(x)/f′(x)"},
+ {t:"p",x:"Convergence depends on the function and the starting point."}]});
+
+/* 3 · Tangent interpretation · Fill "tangent line" */
+rc98("calc1-applications-4",3,{p:[
+ {t:"p",x:"Newton’s next estimate is the zero of the [[tangent line]]."},
+ {t:"p",x:"A poor tangent model or tiny nonzero derivative can send the next estimate far away."}]});
