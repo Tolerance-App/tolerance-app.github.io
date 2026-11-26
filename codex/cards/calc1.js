@@ -211,3 +211,27 @@ rc98("calc1-continuity-1",3,{p:[
  g:{at:1,q:"Can you fix continuity by filling that point?",o:[
   ["Yes",1,"Assign the common limit at the missing point."],
   ["No",0,"The nearby values already agree on the needed value."]]}});
+
+/* ---------- calc1-continuity-2 · Intermediate value theorem ---------- */
+/* 0 · Intermediate values · Fill "intermediate value" */
+rc98("calc1-continuity-2",0,{p:[
+ {t:"p",x:"Imagine a continuous output changing between two endpoint values."},
+ {t:"p",x:"Every [[intermediate value]] is attained somewhere between the endpoints."}]});
+
+/* 1 · Theorem · no interaction */
+rc98("calc1-continuity-2",1,{p:[
+ {t:"p",x:"Take a continuous function on a closed interval."},
+ {t:"p",x:"The **intermediate value theorem** guarantees an input for every output between its endpoint outputs."}]});
+
+/* 2 · Root guarantee · Guess */
+rc98("calc1-continuity-2",2,{p:[
+ {t:"p",x:"A continuous function has opposite signs at two endpoints."},
+ {t:"take",x:"There is at least one zero in between. Uniqueness needs more information."}],
+ g:{at:1,q:"How many interior zeros are guaranteed?",o:[
+  ["At least one",1,"Zero lies between the endpoint outputs."],
+  ["Exactly one",0,"Continuity allows more than one crossing."]]}});
+
+/* 3 · Continuity matters · Fill "jump" */
+rc98("calc1-continuity-2",3,{p:[
+ {t:"p",x:"A continuous move from negative to positive must pass through zero."},
+ {t:"p",x:"A [[jump]] can skip zero, so opposite signs alone can fail to locate a root."}]});
