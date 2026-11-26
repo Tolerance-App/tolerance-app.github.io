@@ -173,3 +173,30 @@ rc98("linalg-spaces-3",2,{p:[
 rc98("linalg-spaces-3",3,{p:[
  {t:"p",x:"The **left null space** contains output-space vectors sent to zero by the transpose, which swaps rows and columns."},
  {t:"p",x:"Each such vector is perpendicular to every column, and therefore to the whole column space."}]});
+
+/* ---------- linalg-spaces-4 · Coordinates and change of basis ---------- */
+/* 0 · Plain text, Guess (the coordinate list). */
+rc98("linalg-spaces-4",0,{p:[
+ {t:"p",x:"A coordinate list gives weights on the vectors of a chosen basis."},
+ {t:"p",x:"The coordinate list can change even though the geometric vector stays fixed."}],
+ g:{at:1,q:"When you change bases while keeping the same vector, what can change?",o:[
+  ["The coordinate list",1,"The same vector can be built from different weights on different basis vectors."],
+  ["The geometric vector",0,"Changing the basis describes the same vector using a different list."]]}});
+
+/* 1 · Plain text, Fill "combine". */
+rc98("linalg-spaces-4",1,{p:[
+ {t:"p",x:"Basis coordinates are weights used to [[combine]] the basis vectors."},
+ {t:"p",x:"For a **change of basis**, convert between lists for the same vector. Stack the new basis vectors as columns. Multiplying by this basis matrix yields the vector in standard coordinates."}]});
+
+/* 2 · Plain text, Guess (solve for them). */
+rc98("linalg-spaces-4",2,{p:[
+ {t:"p",x:"Start with a vector in standard coordinates. You know the columns of the new basis matrix."},
+ {t:"p",x:"Solve the system with the basis matrix as the coefficient matrix. The unknowns are the new weights."}],
+ g:{at:1,q:"How do you find the weights for this new basis?",o:[
+  ["Multiply by the basis matrix",0,"Multiplication by the basis matrix goes from basis weights to standard coordinates."],
+  ["Solve for them",1,"The weights must reproduce the supplied vector as a combination of the columns."]]}});
+
+/* 3 · Plain text, no interaction. */
+rc98("linalg-spaces-4",3,{p:[
+ {t:"p",x:"An **orthonormal** basis uses mutually perpendicular unit vectors."},
+ {t:"p",x:"For an orthonormal basis matrix, swapping rows and columns gives its inverse. A general basis needs a solve."}]});
