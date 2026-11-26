@@ -23,7 +23,7 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 | Programming | code | 16 | 65 | 0 | to do | |
 | CAM | cam | 8 | 36 | 0 | to do | |
 | Machine learning | ml | 12 | 49 | 0 | to do | |
-| Controls | ctrl | 12 | 56 | 0 | to do | |
+| Controls | ctrl | 12 | 56 | 56 | done | b112 |
 | CAD | cad | 8 | 33 | 0 | to do | |
 | Engineering math | math | 4 | 16 | 16 | done | b99, b101 |
 | Materials | mat | 4 | 16 | 16 | done | b105 |
@@ -39,7 +39,7 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 | Differential equations | diffeq | 24 | 96 | 0 | reserved: Codex | |
 | Linear algebra | linalg | 24 | 96 | 0 | reserved: Codex | |
 | Numerical methods | numm | 5 | 30 | 30 | done (Codex) | b108 |
-| **Total** | | **329** | **1,403** | **346** | | |
+| **Total** | | **329** | **1,403** | **402** | | |
 
 Rows marked **reserved: Codex** are converted by Codex (`codex/README.md`); Claude chats skip them. Claude ships
 them when Seth says "ship codex cards <code>".
