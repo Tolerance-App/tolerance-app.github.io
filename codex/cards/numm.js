@@ -50,3 +50,53 @@ rc98("numm-opt-1",5,{p:[
  {t:"step",f:"f((1,2) + 0.5 · p)",v:"2",u:""},
  {t:"step",f:"6 + 0.0001 · 0.5 · (−32)",v:"5.9984",u:""},
  {t:"take",x:"Accept. The trial is below the bound. Backtracking only needs sufficient decrease."}]});
+
+/* ---------- numm-opt-2 · Gradient descent, Newton and Adam ---------- */
+/* 0 · Plain text + compare, Fill "rescales". */
+rc98("numm-opt-2",0,{p:[
+ {t:"p",x:"The gradient tells you how the objective changes near your current point."},
+ {t:"p",x:"Gradient descent scales the negative gradient as a whole. Newton uses curvature to choose its step."},
+ {t:"take",x:"Adam [[rescales]] the move separately in each coordinate."},
+ {t:"p",x:"Adam divides each coordinate's gradient average by a scale built from that coordinate's squared gradients."}]});
+
+/* 1 · Legend → formula, no interaction. ∂f/∂x₁=2ax₁, ∂f/∂x₂=2x₂, H=diag(2a,2). */
+rc98("numm-opt-2",1,{p:[
+ {t:"eq",lab:"Fixed quadratic",eq:"f(x) = ax_1^2 + x_2^2",cap:"a > 0 sets curvature along coordinate x₁."},
+ {t:"vars",vars:[["x","current coordinate vector"],["g","gradient of f at x"],["H","Hessian, the matrix of second derivatives"],["α","positive step size"],["x_{new}","next point"]]},
+ {t:"eq",lab:"Gradient descent",eq:"x_{new} = x − αg",cap:"All quantities are dimensionless."}]});
+
+/* 2 · Rule in words → formula, Guess (one step). For f=xᵀHx/2, g=Hx, so p=−x and x+p=0. */
+rc98("numm-opt-2",2,{p:[
+ {t:"p",x:"For this positive-definite quadratic, the local quadratic model is the whole objective."},
+ {t:"eq",lab:"Full Newton step",eq:"Hp = −g",cap:"H is the Hessian, g is the gradient and p is the step."},
+ {t:"take",x:"Add $p$ to the current point. The full Newton step reaches the unique minimum in one move."}],
+ g:{at:2,q:"Where does that full step land?",o:[
+  ["At the minimum",1,"The quadratic model is exact, and solving the Newton system minimizes it."],
+  ["Partway there",0,"A shortened step could stop partway. A full step minimizes the exact quadratic."]]}});
+
+/* 3 · Worked example. g=(4,4). GD: (1,2)−0.1(4,4)=(0.6,1.6). H diagonal=(4,2), so p=(−4/4,−4/2)=(−1,−2). */
+rc98("numm-opt-2",3,{p:[
+ {t:"p",x:"Set $a=2$ in the fixed quadratic and start at $x=(1,2)$. The gradient $g$ is $(4,4)$."},
+ {t:"step",f:"x − 0.1g",v:"(0.6, 1.6)",u:""},
+ {t:"p",x:"The Hessian is diagonal with entries $4$ and $2$. Divide the negative gradient by those entries to get Newton's step $p=(−1,−2)$."},
+ {t:"step",f:"x + p",v:"(0, 0)",u:"",fin:1},
+ {t:"p",x:"Newton lands exactly because the model is quadratic and the Hessian is nonsingular."}]});
+
+/* 4 · Legend → formula → worked step. First bias correction gives v̂=(4,4), ŝ=(16,16). Each update is −0.3·4/√16=−0.3. */
+rc98("numm-opt-2",4,{p:[
+ {t:"vars",vars:[["x, x_{new}","current and next points"],["α_A","Adam step size"],["v̂","bias-corrected gradient average"],["ŝ","bias-corrected squared-gradient average"],["ε","positive denominator stabilizer"]]},
+ {t:"eq",lab:"Adam, per coordinate",eq:"x_{new} = x − α_A v̂ / (√{ŝ} + ε)",cap:"All quantities are dimensionless."},
+ {t:"p",x:"Start with zero moments at $(1,2)$, where the gradient is $(4,4)$. After bias correction, each numerator is $4$ and each squared-gradient average is $16$."},
+ {t:"step",f:"(1,2) − 0.3 (1,1)",v:"(0.7, 1.7)",u:"",fin:1},
+ {t:"p",x:"This example neglects $ε$ because it is small beside $√{16}$."}]});
+
+/* 5 · Rule in words → formula, Guess (directions can differ). Factors 1−2aα and 1−2α must have magnitude <1; a≥1 gives 0<α<1/a. */
+rc98("numm-opt-2",5,{p:[
+ {t:"p",x:"For $f(x)=ax_1^2+x_2^2$ with fixed $a ≥ 1$, gradient descent converges from every start within this step-size range."},
+ {t:"eq",lab:"Gradient descent",eq:"0 < α < 1/a",cap:"α is the fixed step size. Each coordinate must contract."},
+ {t:"p",x:"Adam can point in a different direction. With zero initial moments and negligible stabilizer, each nonzero gradient component becomes its sign in the first step."},
+ {t:"take",x:"The directions agree when all nonzero gradient components have the same magnitude."}],
+ g:{at:2,q:"Must Adam's first step point along the negative gradient?",o:[
+  ["Yes",0,"A shared scale would preserve direction. Adam divides each coordinate by its own scale."],
+  ["No",1,"Separate scales can change the ratio between components and turn the direction."]]}});
+
