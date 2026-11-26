@@ -186,3 +186,28 @@ rc98("calc1-limits-4",3,{p:[
  {t:"p",x:"Given an output tolerance, each bound eventually stays inside it."},
  {t:"p",x:"Choose an input distance small enough for [[both bounds]]."},
  {t:"p",x:"All trapped values are then within that same output tolerance."}]});
+
+/* ---------- calc1-continuity-1 · Continuity at a point ---------- */
+/* 0 · Definition · Fill "actual value" */
+rc98("calc1-continuity-1",0,{p:[
+ {t:"p",x:"A function is continuous at an input when its nearby outputs approach the [[actual value]]."},
+ {t:"p",x:"The nearby prediction and the point value must agree."}]});
+
+/* 1 · Continuity test · no interaction */
+rc98("calc1-continuity-1",1,{p:[
+ {t:"p",x:"At the target input, the function must have a defined value."},
+ {t:"p",x:"Its two-sided limit must exist and be finite."},
+ {t:"p",x:"That limit must equal the function value."}]});
+
+/* 2 · Compare discontinuities · no interaction */
+rc98("calc1-continuity-1",2,{p:[
+ {t:"p",x:"A **jump** has different finite left and right limits."},
+ {t:"p",x:"A **removable discontinuity** has a finite limit and a missing or mismatched value."}]});
+
+/* 3 · Repair at a point · Guess */
+rc98("calc1-continuity-1",3,{p:[
+ {t:"p",x:"Suppose both sides approach the same finite value but the point is missing."},
+ {t:"take",x:"Filling a hole is possible. Changing one value cannot repair a jump."}],
+ g:{at:1,q:"Can you fix continuity by filling that point?",o:[
+  ["Yes",1,"Assign the common limit at the missing point."],
+  ["No",0,"The nearby values already agree on the needed value."]]}});
