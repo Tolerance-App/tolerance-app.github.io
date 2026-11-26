@@ -380,3 +380,28 @@ rc98("linalg-eigenvalues-3",2,{p:[
 rc98("linalg-eigenvalues-3",3,{p:[
  {t:"p",x:"**Algebraic multiplicity** counts how many times a root repeats. Compare it with the number of independent eigenvectors for that root."},
  {t:"p",x:"The **eigenspace** consists of those eigenvectors and zero. A **Jordan block** places the eigenvalue on the diagonal and links chain members above the diagonal. Repeated action can then produce polynomial factors multiplying the eigenvalue's powers."}]});
+
+/* ---------- linalg-eigenvalues-4 · Symmetric spectra and quadratic forms ---------- */
+/* 0 · Plain text, no interaction. */
+rc98("linalg-eigenvalues-4",0,{p:[
+ {t:"p",x:"A **symmetric** real matrix equals its transpose, so swapping its rows and columns leaves it unchanged."},
+ {t:"p",x:"Its eigenvalues are real. It has a basis of unit eigenvectors that are mutually perpendicular."}]});
+
+/* 1 · Rule in words → formula, no interaction. */
+rc98("linalg-eigenvalues-4",1,{p:[
+ {t:"p",x:"A **quadratic form** is a scalar built from a vector $x$ and a matrix $Q$. The superscript $T$ turns a column into a row."},
+ {t:"eq",lab:"Real quadratic form",eq:"x^T Qx"},
+ {t:"p",x:"For the symmetric form here, each eigenvalue gives its weight along one eigenvector. These weights can represent curvature or energy in a model."}]});
+
+/* 2 · Plain text, Guess (semidefinite only). */
+rc98("linalg-eigenvalues-4",2,{p:[
+ {t:"p",x:"A **positive definite** form is positive for every nonzero input. A **positive semidefinite** form is nonnegative for every input."},
+ {t:"p",x:"It is semidefinite only. The zero-eigenvalue direction prevents strict positivity."}],
+ g:{at:1,q:"If every eigenvalue is nonnegative but one is zero, which describes the form?",o:[
+  ["Strictly positive definite",0,"Strict positivity excludes zero along any nonzero direction."],
+  ["Semidefinite only",1,"The zero-eigenvalue direction gives a zero value even for a nonzero vector."]]}});
+
+/* 3 · Plain text, Fill "separate". */
+rc98("linalg-eigenvalues-4",3,{p:[
+ {t:"p",x:"In orthonormal eigenvector coordinates, the quadratic form splits into a sum of [[separate]] contributions."},
+ {t:"p",x:"Square each coordinate and multiply by its eigenvalue. Then add the weighted squares, with no cross terms."}]});
