@@ -334,3 +334,30 @@ rc98("calc1-derivative-rules-2",3,{p:[
  g:{at:1,q:"Does multiplying the two derivatives give the product derivative?",o:[
   ["Yes",0,"That misses the terms involving each factor's current value."],
   ["No",1,"First-order change comes from changing either factor while holding the other at its current value."]]}});
+
+/* ---------- calc1-derivative-rules-3 · Chain rule and elementary functions ---------- */
+/* 0 · Nested response · Fill "multiply" */
+rc98("calc1-derivative-rules-3",0,{p:[
+ {t:"p",x:"In a nested rule, the inner output becomes the outer input."},
+ {t:"p",x:"The local sensitivities [[multiply]]."}]});
+
+/* 1 · Chain rule · no interaction */
+rc98("calc1-derivative-rules-3",1,{p:[
+ {t:"p",x:"Let $g$ be the inner function and $f$ the outer function. Both must be differentiable at the inputs they receive."},
+ {t:"p",x:"Evaluate the outer derivative at the inner output $g(x)$."},
+ {t:"eq",eq:"(f(g(x)))′ = f′(g(x))g′(x)",cap:"prime denotes the derivative of each function with respect to its own input"}]});
+
+/* 2 · Elementary rules. The exponential has unit slope at zero; invert it for ln. Sine addition and the radian limits give cos · no interaction */
+rc98("calc1-derivative-rules-3",2,{p:[
+ {t:"p",x:"Let $x$ be dimensionless. For sine, measure the angle in radians."},
+ {t:"eq",eq:"d(exp(x))/dx = exp(x)"},
+ {t:"eq",eq:"d(ln(x))/dx = 1/x",cap:"x > 0"},
+ {t:"eq",eq:"d(sin(x))/dx = cos(x)"}]});
+
+/* 3 · Local conversion · Guess */
+rc98("calc1-derivative-rules-3",3,{p:[
+ {t:"p",x:"A small change in $x$ changes the inner output, and that change drives the outer output."},
+ {t:"take",x:"Multiply the inner rate by the outer rate evaluated at the inner output."}],
+ g:{at:1,q:"How do the two local conversion factors combine?",o:[
+  ["Add",0,"They act in sequence on different stages of the change."],
+  ["Multiply",1,"Each factor scales the change passed to it."]]}});
