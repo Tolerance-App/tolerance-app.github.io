@@ -611,3 +611,27 @@ rc98("calc1-integrals-1",2,{p:[
 rc98("calc1-integrals-1",3,{p:[
  {t:"p",x:"Contributions below the axis subtract from those above it in signed accumulation."},
  {t:"p",x:"Taking absolute values removes the [[cancellation]]."}]});
+
+/* ---------- calc1-integrals-2 · Antiderivatives and initial conditions ---------- */
+/* 0 · Undoing a derivative · Fill "arbitrary offset" */
+rc98("calc1-integrals-2",0,{p:[
+ {t:"p",x:"Recover a function whose derivative is given."},
+ {t:"p",x:"The result still has an [[arbitrary offset]]."}]});
+
+/* 1 · Antiderivative · no interaction */
+rc98("calc1-integrals-2",1,{p:[
+ {t:"p",x:"An antiderivative $F$ of $f$ satisfies $F′(x)=f(x)$, with prime denoting the derivative."},
+ {t:"p",x:"On an interval, any two antiderivatives differ by a constant, since their difference has derivative zero."}]});
+
+/* 2 · Choosing the constant · Guess */
+rc98("calc1-integrals-2",2,{p:[
+ {t:"p",x:"An indefinite integral describes a family of vertical shifts of an antiderivative."},
+ {t:"take",x:"Use the initial value to determine the additive constant."}],
+ g:{at:1,q:"Can one known function value select a single member on the interval?",o:[
+  ["Yes",1,"The known value fixes the required vertical offset."],
+  ["No",0,"All the members have the same slope, but their values differ by a constant."]]}});
+
+/* 3 · Reason · Fill "vertical offset" */
+rc98("calc1-integrals-2",3,{p:[
+ {t:"p",x:"Differentiation removes an additive constant."},
+ {t:"p",x:"The derivative alone leaves the original [[vertical offset]] undetermined."}]});
