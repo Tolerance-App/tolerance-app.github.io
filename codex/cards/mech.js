@@ -119,3 +119,47 @@ rc98("mech4",7,{p:[
  {t:"p",x:"With the same force, supports and geometry, a higher $E$ makes this elastic cantilever bend [[less]]."},
  {t:"p",x:"Nominal bending stress, the stress predicted by the beam model, depends on the imposed force and section geometry. It stays the same."},
  {t:"take",x:"Young's modulus is a stiffness measure. A strength check needs separate data, such as the stress at which the material yields."}]});
+
+/* ---------- mech-beams-2 · Beam calculations and design checks ---------- */
+/* 0 · Rule in words, no interaction. */
+rc98("mech-beams-2",0,{p:[
+ {t:"p",x:"A beam resists bending better when more of its cross-section lies far from the bending axis through its middle."},
+ {t:"take",x:"That is why adding height in the bending direction reduces deflection more than adding the same proportion of width."}]});
+
+/* 1 · Legend → formula, Guess (doubling span). At fixed P, E, I the ratio is (2L)³/L³ = 8. */
+rc98("mech-beams-2",1,{p:[
+ {t:"vars",vars:[["δ","tip deflection"],["P","tip force across the beam"],["L","length from fixed end to tip"],["E","Young's modulus, material stiffness"],["I","second moment of area"]]},
+ {t:"eq",eq:"δ = PL^3/(3EI)",cap:"Straight, slender, linear-elastic cantilever. Small deflection under a tip force."},
+ {t:"take",x:"Length enters cubed. With everything else fixed, twice the length gives eight times the deflection. A larger $E$ or $I$ reduces it."}],
+ g:{at:1,q:"With the same tip force, section and material, doubling the beam length makes deflection…",o:[
+  ["Twice as large",0,"That treats length as linear. Each factor of length gets doubled."],
+  ["Four times as large",0,"That treats length as squared. The tip displacement depends on length cubed."],
+  ["Eight times as large",1,"Deflection scales with length cubed when the load, section and material are fixed."]]}});
+
+/* 2 · Legend → formula, Fill “cubic”. Integrating y² over a rectangle gives bh³/12. */
+rc98("mech-beams-2",2,{p:[
+ {t:"p",x:"The second moment $I$ adds up the effect of area at different distances from the bending axis. Area farther out counts more."},
+ {t:"vars",vars:[["b","width parallel to the axis"],["h","depth across the axis"]]},
+ {t:"p",x:"A rectangular section has a [[cubic]] dependence on depth at fixed width."},
+ {t:"eq",eq:"I = bh^3/12",cap:"Rectangular section, about the axis through its center parallel to b."},
+ {t:"p",x:"A tube can put much of its area far from the axis without needing a solid center."}]});
+
+/* 3 · Legend → formulas, no interaction. */
+rc98("mech-beams-2",3,{p:[
+ {t:"vars",vars:[["M","bending moment, or turning effect"],["P","tip force"],["L","span"],["c","distance from the centerline to the edge"],["I","second moment of area"],["σ","outer-edge stress magnitude"]]},
+ [{t:"eq",eq:"M = PL",cap:"At the fixed end of a tip-loaded cantilever."},
+  {t:"eq",eq:"σ = Mc/I",cap:"Nominal bending stress of a slender, linear-elastic beam."}],
+ {t:"take",x:"Same force and shape: a higher modulus reduces deflection, and stress stays the same."}]});
+
+/* 6 · Compare equal-area sections, no interaction. (25²−15²)/20² = 1; (25⁴−15⁴)/20⁴ = 2.125. */
+rc98("mech-beams-2",6,{p:[
+ {t:"p",x:"A 25 mm outer-diameter tube with a 15 mm centered hole has the same area as a solid 20 mm rod."},
+ {t:"vars",vars:[["D","outside diameter"],["d","hole diameter, zero for a solid rod"]]},
+ {t:"eq",eq:"I = π(D^4 − d^4)/64",cap:"Circular section, bending about a diameter through the center."},
+ {t:"take",x:"The tube has 2.125 times the bending stiffness $EI$ at the same modulus. Its area lies farther from the bending axis."}]});
+
+/* 7 · Compare checks, Fill “separately”. */
+rc98("mech-beams-2",7,{p:[
+ {t:"p",x:"Screen deflection and nominal stress [[separately]]. Each limit answers a different question."},
+ {t:"p",x:"A deflection target limits motion. A stress target limits the calculated value, and a verified material allowable needs strength data."},
+ {t:"take",x:"Check yielding, fatigue, local buckling, connections, and uncertain loads separately. Passing both screening targets cannot establish overall safety."}]});
