@@ -12,12 +12,15 @@ mechanical and aerospace student). Testers mostly on phones. Working name **Tole
 - `codex/README.md`: Codex writes staged content in `codex/` on local `codex-*` branches; ship with `tools/ship_codex.py`
   ("ship codex <codes>").
 - Skills in `.claude/skills/`: `new-build`, `lesson-cards`, `demo-visual`, `fix`. Agents in `.claude/agents/`.
-- **Large or vague requests** (several steps, new feature, redesign, content batch, unclear "done"): follow the `fix`
-  skill first (ground in docs, blocking questions only, short brief, then do it). Small, clear requests: just do them.
+- **Use the `fix` skill more often than not** (ground in docs, ask all questions up front, short brief, then do the whole
+  task in one go). Skip it only for one-line fixes, plain questions, or when Seth says not to. Seth prefers questions
+  early over questions mid-work.
 
 ## Hosting
 - Live: https://tolerance-app.github.io/ (GitHub Pages from `main`, repo `Tolerance-App/tolerance-app.github.io`).
-  **Every push to `main` deploys to testers in 1–2 minutes. Commit or push only when Seth asks; when he says "commit", commit and push.**
+  **Every push to `main` deploys to testers in 1–2 minutes.** "Commit" means commit and push. When Seth's request is
+  direct and assertive, commit and push at the end without being asked, once checks pass. Hold and ask only when he
+  sounds unsure about a feature ("maybe", "try", "let me see it first") or checks failed.
 - Firebase `tolerance-fe244` (Spark): anonymous auth (plus optional Google link) and Firestore. `firestore.rules` is
   published by hand in the console; ask before any rules change that opens access.
 

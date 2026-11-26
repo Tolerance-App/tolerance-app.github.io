@@ -1,6 +1,6 @@
 ---
 name: fix
-description: Prompt Fixer. Turns Seth's rough request into a precise, repo-grounded task brief (asking only blocking questions), then does the task. Use when Seth types /fix, and on its own for large requests (several steps, new feature, redesign, content batch) or vague ones (unclear goal or unclear "done"). Skip for small, clear requests.
+description: Prompt Fixer. Turns Seth's rough request into a precise, repo-grounded task brief (all questions asked up front), then does the whole task in one go. Use more often than not, for any task beyond a one-line fix or plain question, and whenever Seth types /fix. Skip only when Seth says not to.
 ---
 
 # Prompt Fixer
@@ -15,9 +15,11 @@ Read only what the request touches. CLAUDE.md is already loaded; grep `docs/REFE
 feature name. Open `docs/LEARNING_DESIGN.md` or a skill (`lesson-cards`, `demo-visual`, `new-build`) only if the task
 is that kind of work. Find the real files, functions, lesson ids and checks involved. No wide reads of `index.html`.
 
-## 2. Ask only blocking questions
-If an answer would change what you build and the repo can't tell you, ask with AskUserQuestion (max 4, recommended
-option first). Anything with a sensible default: pick it and list it under Assumptions. Nothing blocks → skip.
+## 2. Ask every question now, not later
+Seth would rather answer questions early and have the work done in one go than be asked mid-work. So think ahead:
+anything you'd otherwise stop to ask during the work, ask now with AskUserQuestion (max 4 per call, recommended option
+first; a second call is fine if truly needed). Anything with a sensible default: pick it and list it under
+Assumptions. Nothing unclear → skip.
 
 If one of Seth's answers is a lasting preference (not specific to this task), save it as a memory so it is never asked
 again; check for an existing memory first.
