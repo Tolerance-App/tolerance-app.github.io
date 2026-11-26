@@ -392,3 +392,27 @@ rc98("calc3-line-integrals-1",2,{p:[
 rc98("calc3-line-integrals-1",3,{p:[
  {"t":"p","x":"A small step has the same length both ways, but its displacement points in the [[opposite]] direction on the return trip."},
  {"t":"p","x":"The length weight stays the same. The dot product with the directed step changes sign."}]});
+
+/* ---------- calc3-line-integrals-2 · Conservative fields and potentials ---------- */
+/* 0 · Definition */
+rc98("calc3-line-integrals-2",0,{p:[
+ {"t":"p","x":"An **endpoint** is the start or finish of a path. Work is **path independent** on a domain when all paths there with the same ordered endpoints have the same work."},
+ {"t":"p","x":"A function of position can store all the information you need to calculate that work."}]});
+/* 1 · Legend → formula, Fill */
+rc98("calc3-line-integrals-2",1,{p:[
+ {"t":"p","x":"A **conservative field** $F$ is the gradient of a scalar **potential** $φ$. Its work from $A$ to $B$ depends [[only on the endpoints]]."},
+ {"t":"eq","eq":"work = φ(B) − φ(A)","cap":"For a piecewise smooth path inside the domain of the potential."},
+ {"t":"p","x":"Compute the final potential minus the initial potential."}]});
+/* 2 · Compare, Guess. For B=A, φ(A)−φ(A)=0. */
+rc98("calc3-line-integrals-2",2,{p:[
+ {"t":"p","x":"A **closed path** returns to its starting point. **Circulation** is work around such a path."},
+ {"t":"take","x":"Closed paths in the domain have zero circulation because both endpoints are the same point."},
+ {"t":"p","x":"Check that the potential is defined everywhere on the path."}],
+ g:{at:1,q:"What circulation can a conservative field give on a closed path in its domain?",o:[
+  ["Zero",1,"The two endpoint potential values cancel."],
+  ["A nonzero value",0,"That could happen only if the field does not have a single potential on the path’s domain."]]}});
+/* 3 · Reason → formula */
+rc98("calc3-line-integrals-2",3,{p:[
+ {"t":"p","x":"Along the path $r(t)$, the potential becomes a function of the path parameter $t$."},
+ {"t":"eq","eq":"dφ/dt = ∇φ·r′(t)","cap":"By the chain rule, evaluated at r(t) on each smooth part."},
+ {"t":"p","x":"Integrate this ordinary derivative over the path parameter to get the potential change."}]});
