@@ -552,3 +552,30 @@ rc98("linalg-svd-2",2,{p:[
 rc98("linalg-svd-2",3,{p:[
  {t:"p",x:"The **null space** is perpendicular to the input directions with nonzero stretch."},
  {t:"p",x:"Changing the null part cannot improve the fit. It adds a nonnegative squared length to the solution, so setting it to zero gives the minimum norm."}]});
+
+/* ---------- linalg-svd-3 · Low-rank approximation and PCA ---------- */
+/* 0 · Plain text, Guess (the largest). */
+rc98("linalg-svd-3",0,{p:[
+ {t:"p",x:"A **rank limit** caps the number of independent directions the approximation can keep."},
+ {t:"p",x:"Keep the largest singular values and their paired directions. This is **truncated SVD**."}],
+ g:{at:1,q:"Which singular stretches should an optimal truncated SVD keep?",o:[
+  ["The largest",1,"Keeping the largest avoids throwing away the strongest contributions."],
+  ["The smallest",0,"That leaves the strongest contributions in the error."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-svd-3",1,{p:[
+ {t:"p",x:"The **spectral norm** measures the largest stretch of a matrix. The spectral error of truncation is the largest discarded stretch, or zero if none are lost."},
+ {t:"p",x:"The **Frobenius norm** is the root of the sum of squared entries. Squared Frobenius truncation error sums the squares of discarded stretches."}]});
+
+/* 2 · Plain text, Fill "before". */
+rc98("linalg-svd-3",2,{p:[
+ {t:"p",x:"In standard covariance **principal component analysis** (PCA), center each feature [[before]] finding variance directions."},
+ {t:"p",x:"Subtract each feature mean. With observations as rows, the centered matrix's right singular vectors give the **principal components**, ordered by decreasing variance."}]});
+
+/* 3 · Plain text, Guess (yes). */
+rc98("linalg-svd-3",3,{p:[
+ {t:"p",x:"PCA orders directions by variance. Features such as length and mass can have very different scales."},
+ {t:"p",x:"A change in feature scale can change which PCA directions dominate. Pick scales that make variance meaningful."}],
+ g:{at:1,q:"Can changing one feature's scale change which direction PCA ranks first?",o:[
+  ["No",0,"Centering removes offsets but does not undo rescaling."],
+  ["Yes",1,"Rescaling changes that feature's variance relative to the others."]]}});
