@@ -163,3 +163,26 @@ rc98("calc1-limits-3",5,{p:[
  g:{at:1,q:"When the numerator approaches a nonzero value and the denominator approaches zero, can the quotient have a finite limit?",o:[
   ["Yes",0,"Its magnitude grows beyond any finite bound."],
   ["No",1,"A nonvanishing numerator over a vanishing denominator grows unbounded in magnitude."]]}});
+
+/* ---------- calc1-limits-4 · Squeeze theorem and precise limits ---------- */
+/* 0 · Squeeze setup · no interaction */
+rc98("calc1-limits-4",0,{p:[
+ {t:"p",x:"A hard expression can be bounded above and below near a target input."},
+ {t:"p",x:"Matching limits of those bounds tell you what the expression approaches."}]});
+
+/* 1 · Squeeze theorem. Figure: abs(sin(1/x))≤1 gives bounds ±x², both tending to zero · no interaction */
+rc98("calc1-limits-4",1,{p:[
+ {t:"p",x:"Use lower and upper bounds that hold near the target input."},
+ {t:"p",x:"If the two bounds approach the same value, the trapped function has that limit too."}]});
+
+/* 2 · Terms · no interaction */
+rc98("calc1-limits-4",2,{p:[
+ {t:"p",x:"A positive $ε$ is the allowed output error from the proposed limit."},
+ {t:"p",x:"A positive $δ$ is an input distance from the target. Exclude the target itself."},
+ {t:"p",x:"Both distances are dimensionless in this setting."}]});
+
+/* 3 · Reason · Fill "both bounds" */
+rc98("calc1-limits-4",3,{p:[
+ {t:"p",x:"Given an output tolerance, each bound eventually stays inside it."},
+ {t:"p",x:"Choose an input distance small enough for [[both bounds]]."},
+ {t:"p",x:"All trapped values are then within that same output tolerance."}]});
