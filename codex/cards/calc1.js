@@ -235,3 +235,28 @@ rc98("calc1-continuity-2",2,{p:[
 rc98("calc1-continuity-2",3,{p:[
  {t:"p",x:"A continuous move from negative to positive must pass through zero."},
  {t:"p",x:"A [[jump]] can skip zero, so opposite signs alone can fail to locate a root."}]});
+
+/* ---------- calc1-continuity-3 · Extreme value theorem ---------- */
+/* 0 · Attained extrema · Fill "attained" */
+rc98("calc1-continuity-3",0,{p:[
+ {t:"p",x:"Take a continuous real-valued function on a closed, bounded interval."},
+ {t:"p",x:"Its highest and lowest values are both [[attained]] somewhere on the interval."}]});
+
+/* 1 · Theorem · no interaction */
+rc98("calc1-continuity-3",1,{p:[
+ {t:"p",x:"The **extreme value theorem** gives an absolute maximum and an absolute minimum under those conditions."},
+ {t:"p",x:"Either can occur inside the interval or at an included endpoint."}]});
+
+/* 2 · Lost guarantee · Guess */
+rc98("calc1-continuity-3",2,{p:[
+ {t:"p",x:"Suppose outputs approach an upper bound near an excluded endpoint."},
+ {t:"p",x:"A **supremum** is the least upper bound and can go unattained. Open endpoints, unbounded domains or discontinuities can remove the guarantee."}],
+ g:{at:1,q:"Must the function attain that bound?",o:[
+  ["Yes",0,"The excluded endpoint is unavailable, and no other point need reach it."],
+  ["No",1,"A supremum is a least upper bound and need not be attained."]]}});
+
+/* 3 · Reason · no interaction */
+rc98("calc1-continuity-3",3,{p:[
+ {t:"p",x:"Choose input points with values approaching the least upper bound."},
+ {t:"p",x:"Compactness gives a subsequence that converges to an input in the interval."},
+ {t:"p",x:"Continuity makes the function value at that input equal to the bound. Apply the same argument to the lower bound."}]});
