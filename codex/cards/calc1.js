@@ -361,3 +361,28 @@ rc98("calc1-derivative-rules-3",3,{p:[
  g:{at:1,q:"How do the two local conversion factors combine?",o:[
   ["Add",0,"They act in sequence on different stages of the change."],
   ["Multiply",1,"Each factor scales the change passed to it."]]}});
+
+/* ---------- calc1-derivative-rules-4 · Higher derivatives and smoothness ---------- */
+/* 0 · Smoothness setup · Fill "single local rate" */
+rc98("calc1-derivative-rules-4",0,{p:[
+ {t:"p",x:"At a point, nearby values may agree with the actual value."},
+ {t:"p",x:"That point can still lack a [[single local rate]]."}]});
+
+/* 1 · Higher derivatives · no interaction */
+rc98("calc1-derivative-rules-4",1,{p:[
+ {t:"p",x:"The second derivative is the derivative of the first. Repeat the operation wherever the needed derivatives exist."},
+ {t:"p",x:"Differentiability implies continuity at the point. A continuous function can still have a corner."}]});
+
+/* 2 · Absolute value. For h<0, abs(h)/h=−1; for h>0, abs(h)/h=+1 · no interaction */
+rc98("calc1-derivative-rules-4",2,{p:[
+ {t:"p",x:"Take $f(x)=∣x∣$ with dimensionless input $x$. Its graph meets at the origin."},
+ {t:"p",x:"The left-side difference quotient at zero is $−1$. The right-side quotient is $+1$."},
+ {t:"p",x:"The mismatch rules out a derivative there."}]});
+
+/* 3 · Corner · Guess */
+rc98("calc1-derivative-rules-4",3,{p:[
+ {t:"p",x:"At a corner, the output values meet, but the local rate from the left differs from the rate from the right."},
+ {t:"take",x:"Both approaches must give the same local rate for the derivative to exist."}],
+ g:{at:1,q:"Can a single derivative describe both sides?",o:[
+  ["No",1,"A derivative needs matching limits of the difference quotient."],
+  ["Yes",0,"The agreement of function values establishes continuity only."]]}});
