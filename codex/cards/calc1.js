@@ -536,3 +536,29 @@ rc98("calc1-applications-2",2,{p:[
 rc98("calc1-applications-2",3,{p:[
  {t:"p",x:"The sign of the first derivative indicates increasing or decreasing behavior on intervals where that sign holds."},
  {t:"p",x:"A stationary point can occur with [[no change]] in that behavior, so test before calling it an extremum."}]});
+
+/* ---------- calc1-applications-3 · Optimization and linearization ---------- */
+/* 0 · Two uses · no interaction */
+rc98("calc1-applications-3",0,{p:[
+ {t:"p",x:"A derivative can identify candidates for a best feasible choice."},
+ {t:"p",x:"It can also predict the output change from a small input adjustment."}]});
+
+/* 1 · Optimization · no interaction */
+rc98("calc1-applications-3",1,{p:[
+ {t:"p",x:"Define the objective and the feasible inputs first."},
+ {t:"p",x:"A zero derivative supplies an interior candidate. Check points with undefined derivative and any included endpoints too."},
+ {t:"take",x:"Compare feasible candidates to establish the best value."}]});
+
+/* 2 · Linearization · Fill "local" */
+rc98("calc1-applications-3",2,{p:[
+ {t:"p",x:"Near reference input $a$, let $Δx$ be a small input change. Use the local slope $f′(a)$."},
+ {t:"eq",eq:"f(a+Δx) ≈ f(a)+f′(a)Δx",cap:"differentiable at the reference input"},
+ {t:"p",x:"The approximation is [[local]], and accuracy can degrade away from $a$."}]});
+
+/* 3 · Error · Guess */
+rc98("calc1-applications-3",3,{p:[
+ {t:"p",x:"Differentiability makes the linearization error small compared with the input step as the step tends to zero."},
+ {t:"take",x:"A tangent approximation has a local error guarantee."}],
+ g:{at:1,q:"Does this guarantee equally good accuracy far from the reference?",o:[
+  ["No",1,"Curvature can make the tangent a poor model farther away."],
+  ["Yes",0,"The derivative controls the leading behavior only near the reference."]]}});
