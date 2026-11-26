@@ -141,3 +141,27 @@ rc98("calc3-partials-2",3,{p:[
  g:{at:1,q:"If the gradient is zero, what is the rate along a unit direction?",o:[
   ["Zero in every direction",1,"The dot product with the zero vector is zero."],
   ["Positive in some direction",0,"An increase here must come from changes beyond first order."]]}});
+
+/* ---------- calc3-partials-3 · Directional derivatives and tangent planes ---------- */
+/* 0 · Definition */
+rc98("calc3-partials-3",0,{p:[
+ {"t":"p","x":"A **local linear model** predicts how much a function changes for a small move from a base input."},
+ {"t":"p","x":"A first-order model keeps the part that scales linearly with the move, including changes in all coordinates."}]});
+/* 1 · Rule → formula, Guess. ∇f·(2u)=2∇f·u. */
+rc98("calc3-partials-3",1,{p:[
+ {"t":"p","x":"For differentiable $f$, the gradient $∇f$ collects the coordinate slopes. The directional derivative along a unit vector $u$ is the rate per unit distance."},
+ {"t":"eq","eq":"D_u f = ∇f·u","cap":"For a unit vector u."},
+ {"t":"p","x":"With twice the direction vector, the rate per parameter step doubles."}],
+ g:{at:1,q:"Double the direction vector for the same parameter step. What happens to the rate per parameter step?",o:[
+  ["It doubles",1,"The step now covers twice the distance."],
+  ["It stays the same",0,"That is the rate per unit distance."]]}});
+/* 2 · Legend → formula */
+rc98("calc3-partials-3",2,{p:[
+ {"t":"p","x":"Let $a$ be the base input and $h$ the displacement. Evaluate the gradient at $a$."},
+ {"t":"eq","eq":"f(a+h) ≈ f(a)+∇f(a)·h","cap":"For f differentiable at a and small h."},
+ {"t":"p","x":"With two inputs, the graph of this approximation is the **tangent plane**."}]});
+/* 3 · Rule, Fill */
+rc98("calc3-partials-3",3,{p:[
+ {"t":"p","x":"**Differentiability** means the linear model’s error goes to zero [[faster]] than the displacement length."},
+ {"t":"eq","eq":"error / ‖h‖ → 0","cap":"As nonzero displacement h tends to zero from any direction."},
+ {"t":"p","x":"Partial derivatives alone describe the coordinate directions and cannot guarantee this error test."}]});
