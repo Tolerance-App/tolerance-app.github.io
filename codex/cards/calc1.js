@@ -310,3 +310,27 @@ rc98("calc1-derivative-rules-1",3,{p:[
  g:{at:1,q:"As the step tends to zero, what happens to this correction?",o:[
   ["It vanishes",1,"It is the input increment itself."],
   ["It remains fixed",0,"The correction shrinks with the input step."]]}});
+
+/* ---------- calc1-derivative-rules-2 · Product and quotient rules ---------- */
+/* 0 · Product setup · Fill "each factor" */
+rc98("calc1-derivative-rules-2",0,{p:[
+ {t:"p",x:"Both factors of a product can vary with the input."},
+ {t:"p",x:"The total change contains a contribution from [[each factor]]."}]});
+
+/* 1 · Product rule · no interaction */
+rc98("calc1-derivative-rules-2",1,{p:[
+ {t:"p",x:"Let $u$ and $v$ be differentiable functions of the same input. Primes denote derivatives with respect to that input."},
+ {t:"eq",eq:"(uv)′ = u′v + uv′"}]});
+
+/* 2 · Quotient rule. Differentiating v·(u/v)=u and isolating the quotient derivative gives denominator v² · no interaction */
+rc98("calc1-derivative-rules-2",2,{p:[
+ {t:"p",x:"Let the numerator $u$ and denominator $v$ be differentiable, with $v≠0$. Primes denote derivatives."},
+ {t:"eq",eq:"(u/v)′ = (u′v−uv′)/v^2"}]});
+
+/* 3 · First-order terms · Guess */
+rc98("calc1-derivative-rules-2",3,{p:[
+ {t:"p",x:"When both factors change, each change acts against the current value of the other factor."},
+ {t:"take",x:"Add the two first-order contributions. The product of both small changes is of higher order."}],
+ g:{at:1,q:"Does multiplying the two derivatives give the product derivative?",o:[
+  ["Yes",0,"That misses the terms involving each factor's current value."],
+  ["No",1,"First-order change comes from changing either factor while holding the other at its current value."]]}});
