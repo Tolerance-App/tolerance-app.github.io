@@ -260,3 +260,27 @@ rc98("calc1-continuity-3",3,{p:[
  {t:"p",x:"Choose input points with values approaching the least upper bound."},
  {t:"p",x:"Compactness gives a subsequence that converges to an input in the interval."},
  {t:"p",x:"Continuity makes the function value at that input equal to the bound. Apply the same argument to the lower bound."}]});
+
+/* ---------- calc1-continuity-4 · Uniform continuity ---------- */
+/* 0 · Shared tolerance · no interaction */
+rc98("calc1-continuity-4",0,{p:[
+ {t:"p",x:"Ask for a fixed output accuracy everywhere on the domain."},
+ {t:"p",x:"Uniform continuity calls for one input tolerance shared across all locations."}]});
+
+/* 1 · Compare definitions · Fill "common tolerance" */
+rc98("calc1-continuity-4",1,{p:[
+ {t:"p",x:"Pointwise continuity lets the input tolerance depend on the location."},
+ {t:"p",x:"Uniform continuity needs a [[common tolerance]] for any two inputs close enough together."}]});
+
+/* 2 · Compactness theorem · Guess */
+rc98("calc1-continuity-4",2,{p:[
+ {t:"p",x:"A continuous function on a closed, bounded interval is uniformly continuous."},
+ {t:"take",x:"On an unbounded interval, continuity alone gives no global tolerance guarantee."}],
+ g:{at:1,q:"Does continuity alone guarantee the same on an unbounded interval?",o:[
+  ["Yes",0,"An unbounded interval can have increasingly sensitive regions."],
+  ["No",1,"One input tolerance may fail far from the origin."]]}});
+
+/* 3 · Reason · Fill "smaller steps" */
+rc98("calc1-continuity-4",3,{p:[
+ {t:"p",x:"If sensitivity grows without bound, a given input step can have larger effects farther along the domain."},
+ {t:"p",x:"Some functions then need progressively [[smaller steps]] to keep the same output accuracy."}]});
