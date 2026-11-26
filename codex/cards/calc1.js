@@ -461,3 +461,28 @@ rc98("calc1-implicit-3",3,{p:[
  g:{at:1,q:"Can a constant-exponent power rule alone account for both changes?",o:[
   ["Yes",0,"It treats the exponent as fixed and misses its change."],
   ["No",1,"Taking the logarithm gives a product whose two factors both depend on the input."]]}});
+
+/* ---------- calc1-implicit-4 · Related rates ---------- */
+/* 0 · Shared constraint · Fill "rates" */
+rc98("calc1-implicit-4",0,{p:[
+ {t:"p",x:"A geometric equation can hold throughout a motion."},
+ {t:"p",x:"Differentiate it to connect the [[rates]] of the linked quantities."}]});
+
+/* 1 · Snapshot procedure · no interaction */
+rc98("calc1-implicit-4",1,{p:[
+ {t:"p",x:"Write the constraint using variables that depend on the same independent variable, often time."},
+ {t:"p",x:"Differentiate with respect to that variable, then substitute the values at the instant of interest."}]});
+
+/* 2 · Circle. d(πr²)/dt=π·2r·dr/dt · no interaction */
+rc98("calc1-implicit-4",2,{p:[
+ {t:"p",x:"Let $A$ be circle area and $r$ radius, each dimensionless and depending on dimensionless time $t$."},
+ {t:"eq",eq:"A(t) = πr(t)^2"},
+ {t:"eq",eq:"dA/dt = 2πr · dr/dt"}]});
+
+/* 3 · Snapshot pitfall · Guess */
+rc98("calc1-implicit-4",3,{p:[
+ {t:"p",x:"A changing radius has a known value at one instant."},
+ {t:"take",x:"Keep the varying geometry through the differentiation step."}],
+ g:{at:1,q:"When should you substitute that fixed value for the radius?",o:[
+  ["Before differentiating",0,"Treating it as a constant erases its variation in time."],
+  ["After differentiating",1,"First preserve the dependency, then evaluate at the instant."]]}});
