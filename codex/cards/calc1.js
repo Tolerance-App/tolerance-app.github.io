@@ -512,3 +512,27 @@ rc98("calc1-applications-1",3,{p:[
  {t:"p",x:"Subtract the line through the endpoint values from the function."},
  {t:"p",x:"The remainder has equal endpoint values. If it is constant, its rate is zero throughout."},
  {t:"p",x:"Otherwise an interior extremum has zero derivative. There the original slope equals the slope of the line."}]});
+
+/* ---------- calc1-applications-2 · Extrema, concavity, and inflection ---------- */
+/* 0 · Two rates · Fill "rate changes" */
+rc98("calc1-applications-2",0,{p:[
+ {t:"p",x:"The first derivative tells how the function changes."},
+ {t:"p",x:"The second derivative tells how that [[rate changes]]."}]});
+
+/* 1 · Critical candidates. Figure: for x³−3x, f′=3x²−3 vanishes at ±1, and f″=6x changes sign at zero · no interaction */
+rc98("calc1-applications-2",1,{p:[
+ {t:"p",x:"At an interior **critical point**, the first derivative is zero or undefined."},
+ {t:"p",x:"For an absolute extremum, compare candidate values with values at included endpoints."}]});
+
+/* 2 · Concavity · Guess */
+rc98("calc1-applications-2",2,{p:[
+ {t:"p",x:"Over an interval, a positive second derivative gives upward concavity, and a negative one gives downward concavity."},
+ {t:"take",x:"A change of concavity is what marks an inflection."}],
+ g:{at:1,q:"At an isolated zero of the second derivative, is inflection guaranteed?",o:[
+  ["Yes",0,"The concavity can stay the same on both sides."],
+  ["No",1,"Check whether the concavity changes across the point."]]}});
+
+/* 3 · Stationary point · Fill "no change" */
+rc98("calc1-applications-2",3,{p:[
+ {t:"p",x:"The sign of the first derivative indicates increasing or decreasing behavior on intervals where that sign holds."},
+ {t:"p",x:"A stationary point can occur with [[no change]] in that behavior, so test before calling it an extremum."}]});
