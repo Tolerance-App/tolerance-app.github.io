@@ -59,3 +59,63 @@ rc98("mech3",1,{p:[
  g:{at:2,q:"Which change spreads the stress around the shoulder more evenly?",o:[
   ["Increase the fillet radius",1,"A gentler transition lowers the stress concentration."],
   ["Decrease the fillet radius",0,"A smaller radius sharpens the transition and raises the local stress."]]}});
+
+/* ---------- mech4 · Cantilevers, stiffness and section orientation ---------- */
+/* 0 · Terms → takeaway, Fill “together”. */
+rc98("mech4",0,{p:[
+ {t:"p",x:"**Deflection** is how far a beam moves under load. A **cross-section** is the shape you see when you cut across the beam."},
+ {t:"p",x:"Material stiffness and cross-section geometry work [[together]] to control how far it bends for a given support and load."},
+ {t:"take",x:"A beam can bend very little and still fail. Strength needs its own check."}]});
+
+/* 1 · Model conditions, Guess (elastic recovery). */
+rc98("mech4",1,{p:[
+ {t:"p",x:"A **cantilever** is fixed at one end and free at the other. This beam is straight, slender, and uniform along its length."},
+ {t:"p",x:"This model applies a **transverse tip force**, a force across the beam at its free end."},
+ {t:"take",x:"It assumes small deflection and a linear-elastic material, so stress is proportional to strain and the material recovers when unloaded."}],
+ g:{at:2,q:"What should happen after this model’s load is removed?",o:[
+  ["The beam returns to its original shape",1,"Elastic deformation reverses when the load goes away."],
+  ["The beam stays permanently bent",0,"A permanent bend means the material has left the elastic range."]]}});
+
+/* 2 · Legend → formula, no interaction. */
+rc98("mech4",2,{p:[
+ {t:"vars",vars:[["δ","tip deflection"],["P","tip force"],["L","beam length"],["E","Young's modulus, material stiffness"],["I","second moment of area about the bending axis"]]},
+ {t:"eq",eq:"δ = PL^3/(3EI)",cap:"Slender, linear-elastic cantilever with a tip force and small deflection."},
+ {t:"take",x:"At the same load and length, a larger $EI$ means less deflection."}]});
+
+/* 3 · Legend → formula, Fill “cubically”. Integrating y²dA gives b·h³/12; (2h)³/h³ = 8. */
+rc98("mech4",3,{p:[
+ {t:"vars",vars:[["b","rectangle width"],["h","depth in the bending direction"],["I","second moment of area, weighted by distance squared from the axis"]]},
+ {t:"p",x:"At fixed width, $I$ grows [[cubically]] with depth."},
+ {t:"eq",eq:"I = bh^3/12",cap:"Rectangular section. The axis passes through its center, parallel to b."},
+ {t:"p",x:"Double the depth at fixed width and $I$ grows eightfold."}]});
+
+/* 4 · Scaling table, Guess (both doubled). I ratios: 2, 2³ = 8, 2·2³ = 16; δ ratios are reciprocals. */
+rc98("mech4",4,{p:[
+ {t:"p",x:"Hold the tip force, beam length and material fixed. Change only the size of the rectangular section."},
+ {t:"tbl",head:["Change","Area moment","Deflection"],rows:[["Double width","×2","÷2"],["Double depth","×8","÷8"],["Double both","×16","÷16"]],hi:[2,2]},
+ {t:"rel",x:"Width counts once, depth counts three times: $δ ∝ 1/(bh^3)$."}],
+ g:{at:1,q:"Double both width and depth. What happens to tip deflection?",o:[
+  ["Drops to one sixteenth",1,"The width doubles I and the depth multiplies it by eight, so deflection falls by sixteen."],
+  ["Drops to one eighth",0,"That accounts for the depth change only. Doubling the width divides deflection by two again."],
+  ["Drops to one quarter",0,"That follows area. The second moment scales with width times depth cubed."]]}});
+
+/* 5 · Compare pair, no interaction. 20·40³/12 = 106666.7 mm⁴, 40·20³/12 = 26666.7 mm⁴; δ ratio is 1/4. */
+rc98("mech4",5,{p:[
+ {t:"p",x:"Turn a rectangular bar on its edge. Its area stays the same, but its depth in the bending direction doubles and its width halves."},
+ [{t:"vt",l:"Flat · 40 × 20 mm",v:"I ≈ 26,670",u:"mm^4"},
+  {t:"vt",l:"Upright · 20 × 40 mm",v:"I ≈ 106,700",u:"mm^4"}],
+ {t:"take",x:"Four times the second moment gives one quarter of the deflection at the same load, length and modulus."}]});
+
+/* 6 · Worked example, no interaction. I = .020·.040³/12 = 1.066667×10⁻⁷ m⁴; δ = 100·.500³/(3·200e9·I) = .0001953125 m. */
+rc98("mech4",6,{p:[
+ {t:"p",x:"Use the upright section for a slender elastic cantilever and assume the tip moves only a small distance."},
+ [{t:"giv",rows:[["P","100","N"],["L","500","mm"],["E","200","GPa"]]},
+  {t:"giv",rows:[["b","20","mm"],["h","40","mm"],["I","106,700","mm^4"]]}],
+ {t:"p",x:"In millimeter units, $E = 200,000$ N/mm². Use the unrounded second moment in the calculation."},
+ {t:"step",f:"δ = PL^3/(3EI)",v:"0.1953",u:"mm",fin:1}]});
+
+/* 7 · Rule in words → distinction, Fill “less”. */
+rc98("mech4",7,{p:[
+ {t:"p",x:"With the same force, supports and geometry, a higher $E$ makes this elastic cantilever bend [[less]]."},
+ {t:"p",x:"Nominal bending stress, the stress predicted by the beam model, depends on the imposed force and section geometry. It stays the same."},
+ {t:"take",x:"Young's modulus is a stiffness measure. A strength check needs separate data, such as the stress at which the material yields."}]});
