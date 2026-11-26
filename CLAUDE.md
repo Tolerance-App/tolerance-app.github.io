@@ -11,7 +11,9 @@ mechanical and aerospace student). Testers mostly on phones. Working name **Tole
 - `docs/LEARNING_DESIGN.md`: card layout and learning design. Required before any lesson-card or content work.
 - `codex/README.md`: Codex writes staged content in `codex/` on local `codex-*` branches; ship with `tools/ship_codex.py`
   ("ship codex <codes>").
-- Skills in `.claude/skills/`: `new-build`, `lesson-cards`, `demo-visual`. Agents in `.claude/agents/`.
+- Skills in `.claude/skills/`: `new-build`, `lesson-cards`, `demo-visual`, `fix`. Agents in `.claude/agents/`.
+- **Large or vague requests** (several steps, new feature, redesign, content batch, unclear "done"): follow the `fix`
+  skill first (ground in docs, blocking questions only, short brief, then do it). Small, clear requests: just do them.
 
 ## Hosting
 - Live: https://tolerance-app.github.io/ (GitHub Pages from `main`, repo `Tolerance-App/tolerance-app.github.io`).
