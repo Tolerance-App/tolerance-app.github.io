@@ -243,7 +243,9 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   explains it (`explained96`). A word explained in its own sentence with no real-world link never needs a definition.
 - **App icon (b95):** the ± as two of the app's own buttons (flat face on a darker ledge) sitting on one big blue button
   (face #4282EE→#2E6DE0, ledge #2051B0). Seth likes it as is: b106 tried a shifted face in royal blue and b107 put b95
-  back at his request (2026-11-25). Don't change the icon unless he asks. Plus bar 0.828, end fillets 0.27× bar, inside corners 0.10× bar; gap between
+  back at his request (2026-11-25). Don't change the icon unless he asks. Seth likes the b106 version too and is
+  thinking about it: it's kept in `tools/icon-royal/` (PNGs, `icon.svg`, `gen.js` that draws it, `preview.png`).
+  Shipping it = copy those PNGs over the root ones, swap the two `data:` icons in `<head>`, new build. Plus bar 0.828, end fillets 0.27× bar, inside corners 0.10× bar; gap between
   plus and minus 0.57. Source `tools/icon.svg`; `icon-180/192/512.png` and the two `data:` icons in `<head>` are exports.
   PNGs are full squares (iOS/Android mask the corners), so the big ledge runs across the bottom. iPhone Home Screen
   copies never refresh their icon; re-adding one starts it with empty storage, so don't push testers to re-add.

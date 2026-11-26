@@ -26,7 +26,7 @@ description: Checklist for shipping a new Tolerance build (vNN.js layer, script 
    - `python tools/check.py lessons <touched ids>`, or `course <Name>` for content changes.
    - `python tools/check.py demos <ids>` for any demo touched.
    - `python tools/check.py eval "FB.ver"` → "bNN" (proves the layer loads without throwing).
-10. `python tools/codemap.py`, then add a short feature note to `docs/REFERENCE.md` under "Design decisions" if
+10. `python tools/codemap.py` and `python tools/check.py export` (refreshes `content-export/`), then add a short feature note to `docs/REFERENCE.md` under "Design decisions" if
     the behavior is something a future session must not undo. Update the script order line in REFERENCE.md.
 11. Bump "Current latest" in `CLAUDE.md`.
 12. **Commit only when Seth asks.** Message style: `bNN: short summary` (see `git log --oneline -5`).

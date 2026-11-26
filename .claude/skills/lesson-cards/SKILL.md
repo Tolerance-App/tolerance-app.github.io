@@ -15,7 +15,9 @@ higher/lower, true/false) and **Fill** for words.
   Older lessons come from `BASE` (array rows plus `NQ`). `lv` is 1–6 in content; `build()` stores it as 0–5.
 - Later builds patch lessons by changing `BUNDLE` before `build()` (v32 pattern: `BUNDLE.push` guarded by `bq32(id)`).
 - Find a lesson: `grep -n '{id:"<id>"' index.html`, then read only that line range. `content-export/` has JSON
-  exports (`tolerance-lessons.jsonl`, one lesson per line) that are cheaper to grep than `index.html`.
+  exports (`tolerance-lessons.jsonl`, one lesson per line) that are cheaper to grep than `index.html`. They're made from
+  the built app (`LS`, every layer applied, reveal cards as `rc`) by `python tools/check.py export`; `meta.build` says
+  which build. In `LS`, `lv` is 0–5 and `sub` is the course name.
 - Card rendering: `cardScreen` (wrapped in ix:v17, ix:v18, v84, v98; see `docs/CODEMAP.md`). v98 renders reveal cards.
 
 ## Reveal cards (G+F format, b98)

@@ -14,6 +14,9 @@ mostly on phones. The tone is calm, plain and exact. Each lesson teaches one ide
 
 - `id` permanent lesson id. `sub`/`subName` course. `section`, `branch` where it sits in the path.
 - `lv` 1–6: Basics, Applied, Advanced, Expert, Professional, Specialist. Difficulty must match.
+  (The exported `tolerance-lessons.json(l)` comes from the built app, where `lv` is 0–5: add 1. Lessons there may also
+  carry `rc`, the reveal-card version of each card; format in `v98.js`, rules in `docs/LEARNING_DESIGN.md` and
+  `docs/CARD_CONVERSION.md`.)
 - `title`, `plain` (one-line plain-English summary), `cards` (short teaching cards, read in order).
 - `eqs` equation-bank topics. `demo`/`demoTitle` the interactive model shown with the lesson.
 - `qs` questions, in order. `key` is `"<lessonId>#<index>"`. `equations` = formulas offered in the

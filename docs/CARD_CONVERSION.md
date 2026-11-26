@@ -71,13 +71,13 @@ Steps:
    wrapping, a label that reads as a broken sentence. Reread every card as an engineer. Then run the
    `content-checker` agent on the course's reveal cards (give it `vNN.js` and the lesson ids) and fix what it finds.
 6. **Update this file:** the course's row (Converted = the course's card count, Status "done", Build "bNN"), and the Total row's Converted (sum of the column).
-7. **Integrate and push.** `python tools/codemap.py`; commit (`bNN: reveal cards for <Name>` + the attribution line).
+7. **Integrate and push.** `python tools/codemap.py` and `python tools/check.py export`; commit (`bNN: reveal cards for <Name>` + the attribution line).
    Then `git fetch origin && git rebase origin/main`. If another chat pushed meanwhile:
    - your build number must be the new highest + 1: `git mv` the file, and fix `FB.ver`, the script tag,
      `version.json`, the `TF48` `b:` field, the tracker's Build cell and the commit message to match;
    - conflicts: keep every chat's script tags in number order with yours last; keep every row's update in this
      file; `version.json` = your number; `CLAUDE.md` "Current latest" = your number; regenerate `docs/CODEMAP.md`
-     instead of merging it.
+     and `content-export/` (`python tools/check.py export`) instead of merging them.
    Rerun step 4 after any renumber, then `git push origin HEAD:main`. If the push is rejected, repeat step 7.
    Afterwards confirm `https://tolerance-app.github.io/version.json` shows your build (1–2 minutes), and remove the
    worktree (`git worktree remove ../tol-cards-<code>`).

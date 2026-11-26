@@ -6,6 +6,7 @@
 #   python tools/check.py demos bear50 fo51                    -> demoCheck([...])   (375 px)
 #   python tools/check.py demolessons ctrl-feedback-2          -> demoCheck(null,{lessons:[...]})
 #   python tools/check.py eval "LS.length"                     -> any expression
+#   python tools/check.py export                             -> rewrite content-export/ from the built app (run after each build)
 #   python tools/check.py shot mech1 out.png [1x]                -> screenshot of a lesson's first card (2x; 1x = cheap)
 #   python tools/check.py look mech1 [cardIndex]              -> text view: visible text + overflow/clipping (no image)
 #   python tools/check.py cards aero2 | cards course Aerospace | cards all   -> cardCheck (reveal cards, 375 x 812)
@@ -72,6 +73,18 @@ try:
               return {view:W+'x'+H,pageH:d.scrollHeight,hScroll:d.scrollWidth>W,text:document.body.innerText.replace(/\n{2,}/g,'\n').slice(0,2500),problems:[...new Set(bad)].slice(0,20)}}""")
             print(json.dumps(r, indent=1, ensure_ascii=False))
             if r["hScroll"] or r["problems"]: code = 1
+        elif mode == "export":  # fresh content-export/ from the built app (LS after every layer, reveal cards included)
+            r = pg.evaluate(r"""()=>{const ls=LS.map(l=>JSON.parse(JSON.stringify(l)));
+              const subs=[...new Set(LS.map(l=>l.sub))];
+              return {meta:{app:"Tolerance",build:FB.ver,exported:new Date().toISOString(),lessons:ls.length,
+                questions:ls.reduce((a,l)=>a+(l.qs||[]).length,0),cards:ls.reduce((a,l)=>a+(l.cards||[]).length,0),
+                revealCards:ls.reduce((a,l)=>a+(l.rc?Object.keys(l.rc).length:0),0),courses:subs,
+                note:"Lessons as the app sees them after build() (LS): every later layer's patches applied. lv is 0-5 here (content files use 1-6). rc = reveal cards keyed by card index (format in v98.js). Question keys are '<id>#<index>' and permanent."},lessons:ls}}""")
+            d = os.path.join(HERE, "..", "content-export")
+            with open(os.path.join(d, "tolerance-lessons.json"), "w", encoding="utf-8", newline="\n") as f: json.dump(r, f, ensure_ascii=False)
+            with open(os.path.join(d, "tolerance-lessons.jsonl"), "w", encoding="utf-8", newline="\n") as f:
+                for l in r["lessons"]: f.write(json.dumps(l, ensure_ascii=False) + "\n")
+            print(json.dumps({k: v for k, v in r["meta"].items() if k != "courses"}))
         elif mode == "shot":
             pg.evaluate(f"startId({j(args[0])})"); pg.wait_for_timeout(500)
             pg.screenshot(path=args[1] if len(args) > 1 else "shot.png"); print("saved", args[1] if len(args) > 1 else "shot.png")
