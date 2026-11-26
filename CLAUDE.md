@@ -9,6 +9,8 @@ mechanical and aerospace student). Testers mostly on phones. Working name **Tole
 - `docs/CODEMAP.md`: which layer wraps or defines which function or constant. Check it before grepping `index.html`.
   Regenerate it with `python tools/codemap.py` after each build.
 - `docs/LEARNING_DESIGN.md`: card layout and learning design. Required before any lesson-card or content work.
+- `codex/README.md`: Codex writes staged content in `codex/` on local `codex-*` branches; how to ship it ("ship codex
+  cards <code>", "apply codex audit <code>").
 - Skills in `.claude/skills/`: `new-build`, `lesson-cards`, `demo-visual`. Agents in `.claude/agents/`.
 
 ## Hosting

@@ -33,13 +33,16 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 | Design review | design | 9 | 42 | 0 | to do | |
 | Shop vocab | vocab | 12 | 57 | 0 | to do | |
 | Engineer, translated | plain | 2 | 14 | 0 | to do | |
-| Calculus I | calc1 | 25 | 108 | 0 | to do | |
-| Calculus II | calc2 | 24 | 96 | 0 | to do | |
-| Calculus III | calc3 | 24 | 96 | 0 | to do | |
-| Differential equations | diffeq | 24 | 96 | 0 | to do | |
-| Linear algebra | linalg | 24 | 96 | 0 | to do | |
-| Numerical methods | numm | 5 | 30 | 0 | to do | |
+| Calculus I | calc1 | 25 | 108 | 0 | reserved: Codex | |
+| Calculus II | calc2 | 24 | 96 | 0 | reserved: Codex | |
+| Calculus III | calc3 | 24 | 96 | 0 | reserved: Codex | |
+| Differential equations | diffeq | 24 | 96 | 0 | reserved: Codex | |
+| Linear algebra | linalg | 24 | 96 | 0 | reserved: Codex | |
+| Numerical methods | numm | 5 | 30 | 0 | reserved: Codex | |
 | **Total** | | **329** | **1,403** | **140** | | |
+
+Rows marked **reserved: Codex** are converted by Codex (`codex/README.md`); Claude chats skip them. Claude ships
+them when Seth says "ship codex cards <code>".
 
 ## Course chat protocol (several chats can run at once)
 

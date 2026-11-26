@@ -12,6 +12,7 @@
 #   python tools/check.py cards aero2 | cards course Aerospace | cards all   -> cardCheck (reveal cards, 375 x 812)
 #   python tools/check.py cardshot aero2 1 3 out.png [light]   -> reveal card 1 after 3 taps (2x, 375 x 812);
 #        taps: a number, "end" (finished), or "g0"/"g1"… (tap to the Guess and answer that option)
+#   Any mode: --extra codex/cards/calc1.js[,more.js] loads staged scripts as the newest layer (before build()).
 # Exit code 1 if anything is reported, so it works as a pass/fail gate. Needs: pip install playwright (already here).
 import json, os, subprocess, sys, time
 from playwright.sync_api import sync_playwright
@@ -23,7 +24,10 @@ PORT = _free_port()
 mode, args = sys.argv[1], sys.argv[2:]
 lo = "1x" in args  # 1x screenshot (~440 tokens vs ~1,500 at 2x): for shots only Claude looks at
 args = [a for a in args if a != "1x"]
-srv = subprocess.Popen([sys.executable, os.path.join(HERE, "serve.py"), str(PORT)])
+env = dict(os.environ)
+if "--extra" in args:
+    i = args.index("--extra"); env["TOL_EXTRA"] = args[i + 1]; del args[i:i + 2]
+srv = subprocess.Popen([sys.executable, os.path.join(HERE, "serve.py"), str(PORT)], env=env)
 time.sleep(0.8)
 code = 0
 try:

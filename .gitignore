@@ -2,3 +2,6 @@
 .claude/worktrees/
 .claude/settings.local.json
 __pycache__/
+
+# Codex screenshots
+codex/shots/
