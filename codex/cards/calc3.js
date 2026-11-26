@@ -461,3 +461,24 @@ rc98("calc3-line-integrals-4",2,{p:[
 rc98("calc3-line-integrals-4",3,{p:[
  {"t":"p","x":"For a loop around a hole, filling its interior can require points where the field is undefined."},
  {"t":"p","x":"A local derivative test never measures what happens at those missing points. Check the domain before inferring a potential."}]});
+
+/* ---------- calc3-surface-theorems-1 · Surface parameterization and flux ---------- */
+/* 0 · Definition */
+rc98("calc3-surface-theorems-1",0,{p:[
+ {"t":"p","x":"**Flux** measures how strongly a field passes through a surface."},
+ {"t":"p","x":"An **oriented** surface has a chosen normal direction, perpendicular to its tangent plane. Flow along that normal contributes positive flux."}]});
+/* 1 · Rule, existing figure */
+rc98("calc3-surface-theorems-1",1,{p:[
+ {"t":"p","x":"A **parameterization** gives each surface point as a position vector depending on two parameters."},
+ {"t":"p","x":"Vary one parameter at a time to get two tangent vectors. At a regular patch they are independent, so their cross product gives a nonzero oriented area vector."}]});
+/* 2 · Compare, Fill */
+rc98("calc3-surface-theorems-1",2,{p:[
+ {"t":"p","x":"For scalar area, use the [[length]] of the area vector. This discards its sign convention."},
+ {"t":"p","x":"For flux, dot the field with the oriented area vector instead. Reversing the normal changes the sign of that dot product."}]});
+/* 3 · Reason, Guess */
+rc98("calc3-surface-theorems-1",3,{p:[
+ {"t":"p","x":"Imagine a sheet in a moving fluid. The fluid velocity at the sheet lies entirely in the local tangent plane."},
+ {"t":"take","x":"Only the normal part of the field passes through the surface. A tangent field contributes zero flux."}],
+ g:{at:1,q:"What is the local flux through the sheet?",o:[
+  ["Zero",1,"The flow runs along the sheet and its normal component is zero."],
+  ["Nonzero",0,"Motion along the sheet does not pass through it."]]}});
