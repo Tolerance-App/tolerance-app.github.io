@@ -190,3 +190,54 @@ rc98("numm-opt-4",5,{p:[
  {t:"p",x:"For this convex model, that puts the augmented minimum exactly at the bound for any fixed penalty weight $μ>0$."},
  {t:"chain",items:["Minimize","Update multiplier","Check residuals"],hl:1},
  {t:"p",x:"Minimize with estimates fixed, project the updated multiplier onto nonnegative values, then check feasibility and stationarity."}]});
+
+/* ---------- numm-reg-1 · Linear fits and r² ---------- */
+/* 0 · Plain text + Guess (held-out data measure prediction). */
+rc98("numm-reg-1",0,{p:[
+ {t:"p",x:"A fitted line summarizes how the observed response varies with the input."},
+ {t:"take",x:"To assess prediction, test it on observations that were held out of the fit."},
+ {t:"p",x:"The training fit tells you how much variation the line explains in the observations it already saw."}],
+ g:{at:1,q:"Which data better test how the fitted line predicts new observations?",o:[
+  ["Held-out data",1,"These observations had no influence on the fitted coefficients, so they test prediction."],
+  ["Fitting data",0,"The coefficients were chosen to fit those data. Their error can understate new prediction error."]]}});
+
+/* 1 · Legend → formula → demo values. For 8 points at x=1…8: Σx=36, Σy=25.6, Σx²=204, Σxy=140.34.
+   a₁=(8·140.34−36·25.6)/(8·204−36²)=0.5985714; a₀=(25.6−36a₁)/8=0.5064286. */
+rc98("numm-reg-1",1,{p:[
+ {t:"p",x:"For eight fixed, dimensionless observations, ordinary least squares minimizes $S_r$, the sum of squared differences between observed and fitted responses."},
+ {t:"vars",vars:[["x","input"],["ŷ","fitted response"],["a_0","intercept"],["a_1","slope"]]},
+ {t:"eq",lab:"Fitted line",eq:"ŷ = a_0 + a_1 x"},
+ [{t:"vt",l:"Demo intercept",v:"0.5064",u:""},
+  {t:"vt",l:"Demo slope",v:"0.5986",u:""}]]});
+
+/* 2 · Legend → formula → worked value. ȳ=25.6/8=3.2. Σ(yᵢ−ȳ)²=15.5052, Σ(yᵢ−ŷᵢ)²=0.4571143.
+   1−0.4571143/15.5052=0.9705186. */
+rc98("numm-reg-1",2,{p:[
+ {t:"vars",vars:[["S_r","sum of squared residuals from the fit"],["S_t","sum of squared deviations from the observed mean"],["r^2","fraction of observed variation explained by the fitted line"]]},
+ {t:"eq",lab:"Goodness of fit",eq:"r^2 = 1 − S_r/S_t",cap:"For this fixed dataset and a fit with an intercept. Requires Sₜ > 0."},
+ {t:"p",x:"The demo gives $S_r≈0.4571$ and $S_t≈15.51$."},
+ {t:"step",f:"1 − S_r/S_t",v:"0.9705",u:"",fin:1},
+ {t:"p",x:"Use the unrounded sums to compute the ratio."}]});
+
+/* 3 · Legend → formula, Fill "increasing". From degree 0 through m there are m+1 columns. */
+rc98("numm-reg-1",3,{p:[
+ {t:"p",x:"In a polynomial fit, each observed input $x_i$ gives one row of design matrix $Z$. For fixed degree $m$, its powers appear in [[increasing]] order."},
+ {t:"eq",lab:"Design row i",eq:"[1, x_i, …, x_i^m]",cap:"For dimensionless inputs."},
+ {t:"eq",lab:"Normal equations",eq:"Z^T Z a = Z^T y",cap:"a holds the coefficients. y holds the observed responses."},
+ {t:"p",x:"If the columns of $Z$ are linearly independent, the least-squares coefficients are unique."}]});
+
+/* 4 · Rule in words → formula, Fill "held out". RMSE squared is the residual sum per observation. */
+rc98("numm-reg-1",4,{p:[
+ {t:"p",x:"Training RMSE uses the observations used for fitting. Test RMSE uses observations [[held out]] from fitting."},
+ {t:"vars",vars:[["S_r","sum of squared residuals on the set being scored"],["n","number of observations in that set"]]},
+ {t:"eq",lab:"Root-mean-square error",eq:"RMSE = √{S_r/n}",cap:"Use fixed predictions and a nonempty set."},
+ {t:"p",x:"RMSE has the same units as the response. Here it is dimensionless."}]});
+
+/* 5 · Compare pair, Guess (test error can rise). Larger nested model can reproduce the smaller fit with extra coefficients zero. */
+rc98("numm-reg-1",5,{p:[
+ {t:"p",x:"Fit nested polynomial models by exact, unregularized least squares on the same training data. The larger model can reproduce the smaller fit, so training error cannot rise."},
+ {t:"p",x:"Held-out error can rise. The extra terms may follow noise that will not repeat in new observations."},
+ {t:"take",x:"Use held-out error to choose the degree when prediction matters."}],
+ g:{at:1,q:"Can test error rise as you add polynomial terms?",o:[
+  ["Yes",1,"The extra terms can fit training noise and give worse predictions on unseen observations."],
+  ["No",0,"The smaller fit is available to the larger model, but the fit minimizes training error. Test error has no such guarantee."]]}});
