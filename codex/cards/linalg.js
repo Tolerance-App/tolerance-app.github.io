@@ -254,3 +254,27 @@ rc98("linalg-determinants-2",3,{p:[
  g:{at:1,q:"Where do you start solving an upper-triangular system?",o:[
   ["At the last equation",1,"The last equation has only the last unknown left."],
   ["At the first equation",0,"Earlier equations can still contain unknowns from later columns."]]}});
+
+/* ---------- linalg-determinants-3 · LU factorization and pivoting ---------- */
+/* 0 · Plain text, Guess (largest absolute value). */
+rc98("linalg-determinants-3",0,{p:[
+ {t:"p",x:"A **pivot** is the entry used as a divisor to compute an elimination multiplier. Partial pivoting can swap in a different row."},
+ {t:"p",x:"Choose an entry of largest absolute value among the remaining rows in the active column."}],
+ g:{at:1,q:"Which candidate does partial pivoting use in the current column?",o:[
+  ["Smallest absolute value",0,"A tiny divisor can make the multiplier unnecessarily large."],
+  ["Largest absolute value",1,"This avoids dividing by a smaller available entry."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-determinants-3",1,{p:[
+ {t:"p",x:"In **LU factorization**, the lower-triangular factor $L$ stores elimination multipliers. The upper-triangular factor $U$ stores the resulting coefficients."},
+ {t:"p",x:"A lower-triangular matrix has zeros above the diagonal. An upper-triangular one has zeros below it."}]});
+
+/* 2 · Plain text, Fill "in the same order". */
+rc98("linalg-determinants-3",2,{p:[
+ {t:"p",x:"A **permutation matrix** records the swaps. Apply them to the right-hand side [[in the same order]] as to the coefficient rows."},
+ {t:"p",x:"Then solve with the lower factor, followed by the upper factor."}]});
+
+/* 3 · Plain text, no interaction. */
+rc98("linalg-determinants-3",3,{p:[
+ {t:"p",x:"To clear an entry, divide it by the pivot and subtract that multiple of the pivot row."},
+ {t:"p",x:"Small pivots can produce large multipliers, magnifying rounding errors. Pivoting helps with elimination but cannot undo the map's inherent sensitivity."}]});
