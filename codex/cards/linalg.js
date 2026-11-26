@@ -200,3 +200,28 @@ rc98("linalg-spaces-4",2,{p:[
 rc98("linalg-spaces-4",3,{p:[
  {t:"p",x:"An **orthonormal** basis uses mutually perpendicular unit vectors."},
  {t:"p",x:"For an orthonormal basis matrix, swapping rows and columns gives its inverse. A general basis needs a solve."}]});
+
+/* ---------- linalg-determinants-1 · Determinants and volume scaling ---------- */
+/* 0 · Plain text, no interaction. */
+rc98("linalg-determinants-1",0,{p:[
+ {t:"p",x:"A determinant is a single signed number for a square matrix."},
+ {t:"p",x:"Its absolute value measures the factor by which the map scales full-dimensional volume."}]});
+
+/* 1 · Plain text, Guess (reverses it). */
+rc98("linalg-determinants-1",1,{p:[
+ {t:"p",x:"Volume scaling ignores sign. **Orientation** describes the handedness of an ordered set of axes."},
+ {t:"p",x:"A negative determinant reverses orientation. A positive one preserves it."}],
+ g:{at:1,q:"What does a negative determinant do to orientation?",o:[
+  ["Reverses it",1,"A negative sign means the transformed axes have opposite handedness."],
+  ["Preserves it",0,"Preserved orientation corresponds to a positive sign."]]}});
+
+/* 2 · Plain text, Fill "collapses". */
+rc98("linalg-determinants-1",2,{p:[
+ {t:"p",x:"A zero determinant means the map [[collapses]] full-dimensional volume."},
+ {t:"p",x:"The columns are dependent and their span has fewer dimensions than the input space. The square map is **singular**, meaning it has no inverse."}]});
+
+/* 3 · Rule in words → formula, no interaction. The signed area is ad − bc: the main product ad less the opposite product bc. */
+rc98("linalg-determinants-1",3,{p:[
+ {t:"p",x:"For a square matrix with top row $a,b$ and bottom row $c,d$, $D$ denotes its determinant."},
+ {t:"eq",lab:"Two-by-two determinant",eq:"D = ad − bc"},
+ {t:"p",x:"Multiply down each diagonal. Subtract the opposite-diagonal product from the main-diagonal product."}]});
