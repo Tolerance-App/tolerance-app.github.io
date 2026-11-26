@@ -96,3 +96,25 @@ rc98("calc3-geometry-4",3,{p:[
  g:{at:1,q:"Is the acceleration zero?",o:[
   ["Yes, it is zero",0,"Constant speed fixes the length of velocity. Its direction still changes."],
   ["No, it is nonzero",1,"A change of direction is a change in velocity."]]}});
+
+/* ---------- calc3-partials-1 · Multivariable limits and continuity ---------- */
+/* 0 · Definition */
+rc98("calc3-partials-1",0,{p:[
+ {"t":"p","x":"A **limit** is the value the output approaches as the inputs approach a point."},
+ {"t":"p","x":"Test approaches through the **domain**, the set of allowed inputs. The value at the point plays no role."}]});
+/* 1 · Rule, Fill */
+rc98("calc3-partials-1",1,{p:[
+ {"t":"p","x":"If the outputs approach [[different]] values on two paths, the limit fails to exist."},
+ {"t":"take","x":"A limit must have one value that works for every approach."}]});
+/* 2 · Example, Guess. Along y=x² the quotient is x⁴/(2x⁴)=1/2; along the axes it is zero. */
+rc98("calc3-partials-1",2,{p:[
+ {"t":"p","x":"Near the origin, divide $x^2y$ by $x^4+y^2$. The result is zero on both axes away from the origin."},
+ {"t":"p","x":"On the curve $y=x^2$, the numerator is $x^4$ and the denominator is $2x^4$. This gives $1/2$."},
+ {"t":"p","x":"**Continuity** requires the limit to exist and equal the value at the point."}],
+ g:{at:1,q:"Do these axis tests prove the limit is zero?",o:[
+  ["They leave it open",1,"A curved approach may behave differently."],
+  ["They prove it",0,"The axes cover only two approaches."]]}});
+/* 3 · Reason */
+rc98("calc3-partials-1",3,{p:[
+ {"t":"p","x":"Infinitely many straight and curved paths can approach the same point."},
+ {"t":"p","x":"To prove a limit, control the output error for every nearby input using its distance from the point."}]});
