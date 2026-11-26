@@ -303,3 +303,25 @@ rc98("calc3-multiple-integrals-1",3,{p:[
  g:{at:1,q:"For equal small angle and radial increments, how does patch area change farther out?",o:[
   ["It grows",1,"The same angle sweeps a longer arc at larger radius."],
   ["It stays fixed",0,"Equal angle increments do not give equal arc lengths."]]}});
+
+/* ---------- calc3-multiple-integrals-2 · Polar double integrals and Jacobian factors ---------- */
+/* 0 · Definition */
+rc98("calc3-multiple-integrals-2",0,{p:[
+ {"t":"p","x":"**Polar coordinates** locate a point by a radius $r$ from the origin and an angle $θ$ from the positive horizontal axis."},
+ {"t":"p","x":"A tiny rectangle in the radius and angle coordinates maps to a narrow sector in the plane."}]});
+/* 1 · Rule → formula, Fill */
+rc98("calc3-multiple-integrals-2",1,{p:[
+ {"t":"p","x":"For equal increments of radius and angle, the area per increment pair is [[proportional]] to radius."},
+ {"t":"eq","eq":"dA = r dr dθ","cap":"r ≥ 0, dr is the radial increment, and dθ is measured in radians."},
+ {"t":"p","x":"The extra factor of $r$ converts the coordinate increments to physical area."}]});
+/* 2 · Rule, Guess */
+rc98("calc3-multiple-integrals-2",2,{p:[
+ {"t":"p","x":"For a smooth, invertible coordinate change with smooth inverse, the **Jacobian determinant** describes local area scaling and orientation."},
+ {"t":"take","x":"Use the absolute value of the Jacobian determinant to scale area. A negative sign indicates reversed orientation."}],
+ g:{at:1,q:"If that determinant is negative, which factor scales area?",o:[
+  ["Its absolute value",1,"Area is positive even when orientation reverses."],
+  ["Its signed value",0,"The sign records orientation, which scalar area does not carry."]]}});
+/* 3 · Reason. Arc length is r times the angle in radians. */
+rc98("calc3-multiple-integrals-2",3,{p:[
+ {"t":"p","x":"An angle increment $dθ$ sweeps out an arc of length $r dθ$."},
+ {"t":"p","x":"Multiply that length by the radial thickness $dr$ for the tiny area. At a greater radius the same angle sweeps a longer arc."}]});
