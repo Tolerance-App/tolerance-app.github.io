@@ -52,3 +52,28 @@ rc98("linalg-matrices-2",2,{p:[
 rc98("linalg-matrices-2",3,{p:[
  {t:"p",x:"Equations can be replaced by reversible combinations of one another."},
  {t:"p",x:"Every old solution satisfies the new equations. Reversing the operations shows that every new solution satisfies the old ones."}]});
+
+/* ---------- linalg-matrices-3 · Consistency, pivots, and free variables ---------- */
+/* 0 · Plain text, no interaction. */
+rc98("linalg-matrices-3",0,{p:[
+ {t:"p",x:"A system is **consistent** if it has at least one solution. Row reduction makes that easier to check."},
+ {t:"p",x:"A **pivot** is the leading nonzero coefficient in a nonzero row of the reduced coefficient matrix."}]});
+
+/* 1 · Plain text, Guess (none). */
+rc98("linalg-matrices-3",1,{p:[
+ {t:"p",x:"Suppose a reduced equation has zero for every coefficient but a nonzero right-hand side."},
+ {t:"p",x:"That row is a contradiction. The system is **inconsistent**, meaning there is no common solution."}],
+ g:{at:1,q:"How many solutions satisfy that equation?",o:[
+  ["None",1,"The left side is zero for every input."],
+  ["Exactly one",0,"No choice of a variable can change a left side with all-zero coefficients."],
+  ["Infinitely many",0,"A row of zeros permits all inputs only when the right side is also zero."]]}});
+
+/* 2 · Plain text, Fill "freely". */
+rc98("linalg-matrices-3",2,{p:[
+ {t:"p",x:"In a consistent system, a variable without a pivot can vary [[freely]]."},
+ {t:"p",x:"Choose those free variables first. The pivot equations then determine the pivot variables."}]});
+
+/* 3 · Plain text, no interaction. */
+rc98("linalg-matrices-3",3,{p:[
+ {t:"p",x:"**Rank** counts the coefficient pivots. Subtract it from the number of variables to count free variables."},
+ {t:"p",x:"Each free choice is an unconstrained **degree of freedom**. A consistent system is unique when there are no free choices."}]});
