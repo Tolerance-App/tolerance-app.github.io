@@ -149,3 +149,27 @@ rc98("linalg-spaces-2",2,{p:[
 rc98("linalg-spaces-2",3,{p:[
  {t:"p",x:"Two solutions with the same output have a difference that maps to zero."},
  {t:"p",x:"This is why particular solution plus null-space vector describes every solution of a consistent system."}]});
+
+/* ---------- linalg-spaces-3 · Rank-nullity and fundamental spaces ---------- */
+/* 0 · Plain text, no interaction. */
+rc98("linalg-spaces-3",0,{p:[
+ {t:"p",x:"The **column space** is the span of the columns. It contains all reachable outputs."},
+ {t:"p",x:"Its dimension is the **rank**. The **nullity** is the dimension of the space of inputs that map to zero."}]});
+
+/* 1 · Plain text, Guess (column count). */
+rc98("linalg-spaces-3",1,{p:[
+ {t:"p",x:"Rank counts pivot variables. Nullity counts free variables in the zero-output system."},
+ {t:"p",x:"Rank plus nullity equals the column count, the number of input coordinates."}],
+ g:{at:1,q:"Which matrix count equals rank plus nullity?",o:[
+  ["Row count",0,"Rows index output coordinates, not the full list of input variables."],
+  ["Column count",1,"Every column represents either a pivot variable or a free variable."]]}});
+
+/* 2 · Plain text, Fill "perpendicular". */
+rc98("linalg-spaces-3",2,{p:[
+ {t:"p",x:"The **row space** contains combinations of rows. It is [[perpendicular]] to the null space under the ordinary dot product."},
+ {t:"p",x:"A null vector has zero dot product with each row, so it also has zero dot product with any row combination."}]});
+
+/* 3 · Plain text, no interaction. */
+rc98("linalg-spaces-3",3,{p:[
+ {t:"p",x:"The **left null space** contains output-space vectors sent to zero by the transpose, which swaps rows and columns."},
+ {t:"p",x:"Each such vector is perpendicular to every column, and therefore to the whole column space."}]});
