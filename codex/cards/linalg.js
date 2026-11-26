@@ -503,3 +503,28 @@ rc98("linalg-orthogonality-4",2,{p:[
 rc98("linalg-orthogonality-4",3,{p:[
  {t:"p",x:"Under the assumed error model, poorly measured directions receive smaller penalties."},
  {t:"p",x:"A small fitting residual says the predictions match the measured data closely in that metric. It does not establish that the assumed physics is right."}]});
+
+/* ---------- linalg-svd-1 · Singular values and principal stretches ---------- */
+/* 0 · Plain text, Guess (no). */
+rc98("linalg-svd-1",0,{p:[
+ {t:"p",x:"A matrix can send some input directions to zero. **Singular values** measure the stretch magnitudes of chosen unit input directions."},
+ {t:"p",x:"Singular values are nonnegative. A zero singular value represents a direction that collapses."}],
+ g:{at:1,q:"Can a stretch magnitude be negative?",o:[
+  ["No",1,"A stretch magnitude is an output length and may be zero."],
+  ["Yes",0,"A direction reversal changes orientation, but does not give a negative length."]]}});
+
+/* 1 · Plain text, no interaction. */
+rc98("linalg-svd-1",1,{p:[
+ {t:"p",x:"**Right singular vectors** are orthonormal input directions. **Left singular vectors** are orthonormal output directions."},
+ {t:"p",x:"The **singular value decomposition**, or **SVD**, pairs these directions using stretch factors."}]});
+
+/* 2 · Rule in words → formula, no interaction. For a unit eigenvector v, v^T A^T Av = λv^T v = λ, so its output norm is √λ. */
+rc98("linalg-svd-1",2,{p:[
+ {t:"p",x:"For real matrix $A$, $λ$ is an eigenvalue of $A^T A$, where $T$ swaps rows and columns. The associated stretch is $σ$."},
+ {t:"eq",lab:"Singular stretch",eq:"σ = √{λ}"},
+ {t:"p",x:"The product $A^T A$ is square even when $A$ is rectangular."}]});
+
+/* 3 · Plain text, Fill "square". */
+rc98("linalg-svd-1",3,{p:[
+ {t:"p",x:"Along a unit eigenvector of $A^T A$, the eigenvalue is the [[square]] of the output length."},
+ {t:"p",x:"Taking its nonnegative square root converts squared output length to stretch."}]});
