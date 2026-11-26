@@ -4,7 +4,7 @@
       Fill on 9 (opt1·1, opt1·2, opt2·0, opt3·1, opt3·5, opt4·1, opt4·3, reg1·3, reg1·4), 12 with neither. */
 
 /* ---------- numm-opt-1 · Backtracking and Armijo ---------- */
-/* 0 · Process chain, Guess (shorten the step). */
+/* 0 · Plain text, Guess (shorten the step). */
 rc98("numm-opt-1",0,{p:[
  {t:"p",x:"You have a direction to move in and a trial step along it. The trial does not improve the objective enough."},
  {t:"take",x:"Backtracking shortens the step along the same direction and tries again."},
@@ -24,7 +24,7 @@ rc98("numm-opt-1",1,{p:[
 rc98("numm-opt-1",2,{p:[
  {t:"p",x:"Armijo accepts a step only when the objective drops [[sufficiently]] compared with the drop predicted by the local slope."},
  {t:"vars",vars:[["f","objective"],["x, p","fixed base point and descent direction"],["α","positive trial step size"],["μ_1","required fraction of the predicted drop"],["∇f","gradient at the base point"]]},
- {t:"eq",eq:"f(x + αp) ≤ f(x) + μ_1 α ∇f^T p",cap:"All quantities are dimensionless. 0 < μ₁ < 1."}]});
+ {t:"eq",eq:"f(x+αp) ≤ f(x)+μ_1 α∇f^T p",cap:"All quantities are dimensionless. 0 < μ₁ < 1."}]});
 
 /* 3 · Rule in words → formula, Guess (eventually accepted). ρ^k α tends to 0 for 0 < ρ < 1. Local drop divided by predicted drop tends to 1 > μ₁. */
 rc98("numm-opt-1",3,{p:[
@@ -40,7 +40,7 @@ rc98("numm-opt-1",4,{p:[
  {t:"p",x:"Use $f(x)=2x_1^2+x_2^2$ with coordinates $x_1,x_2$ and start at $(1,2)$. All values are dimensionless."},
  {t:"p",x:"The starting value is $6$. The negative gradient gives direction $p=(−4,−4)$ and slope $−32$."},
  {t:"step",f:"f((1,2) + 1 · p)",v:"22",u:""},
- {t:"step",f:"6 + 0.0001 · 1 · (−32)",v:"5.9968",u:""},
+ {t:"step",f:"6 + 0.0001 · 1 · (−32)",v:"≈ 5.997",u:""},
  {t:"take",x:"Reject step size $1$. The trial exceeds the Armijo bound for decrease fraction $0.0001$."}]});
 
 /* 5 · Worked example. α=1·0.5=0.5, trial (−1,0) gives 2, bound=6−0.0016=5.9984. Exact α=8/24=1/3. */
@@ -48,7 +48,7 @@ rc98("numm-opt-1",5,{p:[
  {t:"p",x:"Keep the same quadratic, base point and direction. The base value stays $6$ and the slope stays $−32$."},
  {t:"p",x:"Use shrink factor $0.5$ to halve the rejected step size from $1$ to $0.5$."},
  {t:"step",f:"f((1,2) + 0.5 · p)",v:"2",u:""},
- {t:"step",f:"6 + 0.0001 · 0.5 · (−32)",v:"5.9984",u:""},
+ {t:"step",f:"6 + 0.0001 · 0.5 · (−32)",v:"≈ 5.998",u:""},
  {t:"take",x:"Accept. The trial is below the bound. Backtracking only needs sufficient decrease."}]});
 
 /* ---------- numm-opt-2 · Gradient descent, Newton and Adam ---------- */
@@ -84,11 +84,11 @@ rc98("numm-opt-2",3,{p:[
 
 /* 4 · Legend → formula → worked step. First bias correction gives v̂=(4,4), ŝ=(16,16). Each update is −0.3·4/√16=−0.3. */
 rc98("numm-opt-2",4,{p:[
- {t:"vars",vars:[["x, x_{new}","current and next points"],["α_A","Adam step size"],["v̂","bias-corrected gradient average"],["ŝ","bias-corrected squared-gradient average"],["ε","positive denominator stabilizer"]]},
- {t:"eq",lab:"Adam, per coordinate",eq:"x_{new} = x − α_A v̂ / (√{ŝ} + ε)",cap:"All quantities are dimensionless."},
- {t:"p",x:"Start with zero moments at $(1,2)$, where the gradient is $(4,4)$. After bias correction, each numerator is $4$ and each squared-gradient average is $16$."},
- {t:"step",f:"(1,2) − 0.3 (1,1)",v:"(0.7, 1.7)",u:"",fin:1},
- {t:"p",x:"This example neglects $ε$ because it is small beside $√{16}$."}]});
+ {t:"vars",vars:[["x, x_{new}","current and next points"],["α_A","step size"],["v̂, ŝ","bias-corrected averages of gradients and squared gradients"],["ε","small positive stabilizer"]]},
+ {t:"eq",lab:"Adam, per coordinate",eq:"x_{new} = x − α_A v̂/(√{ŝ}+ε)",cap:"All quantities are dimensionless."},
+ {t:"p",x:"At $(1,2)$ with zero initial moments, each first corrected average is $4$ and each squared average is $16$."},
+ {t:"step",f:"(1,2) − 0.3 (4/√{16}, 4/√{16})",v:"(0.7, 1.7)",u:"",fin:1},
+ {t:"p",x:"Here $α_A=0.3$ and $ε$ is negligible beside $√{16}$."}]});
 
 /* 5 · Rule in words → formula, Guess (directions can differ). Factors 1−2aα and 1−2α must have magnitude <1; a≥1 gives 0<α<1/a. */
 rc98("numm-opt-2",5,{p:[
@@ -128,7 +128,7 @@ rc98("numm-opt-3",2,{p:[
 rc98("numm-opt-3",3,{p:[
  {t:"p",x:"Fix the upper bound at $c=1$. Compare the boundary point $(1,0)$ with the unconstrained minimum $(−1,0)$."},
  {t:"pc",l:"Boundary point",c:"Stationarity requires 4 + σ = 0.",v:"σ = −4",warn:1},
- {t:"pc",l:"Interior point",c:"Zero objective gradient and g = −2.",v:"σ = 0"},
+ {t:"pc",l:"Interior point",c:"Zero gradient and $g=−2$.",v:"σ = 0"},
  {t:"take",x:"The boundary point fails the multiplier sign test. The interior point satisfies all four conditions."}]});
 
 /* 4 · Plain text + Guess (inward helps). At (1,0), the inward direction (−1,0) has slope −4. */
@@ -144,7 +144,7 @@ rc98("numm-opt-3",4,{p:[
 rc98("numm-opt-3",5,{p:[
  {t:"p",x:"The objective is convex and the constraint is affine, so a point satisfying KKT is optimal."},
  {t:"p",x:"At $c=−1$ the bound just touches the unconstrained minimum. The constraint is active with a [[zero]] multiplier."},
- {t:"eq",lab:"Optimum at fixed bound c",eq:"x_1^* = min(c, −1),   x_2^* = 0",cap:"The starred coordinates give the constrained minimum."},
+ {t:"eq",lab:"Optimum at fixed bound c",eq:"x_1^{*}=min(c,−1),  x_2^{*}=0",cap:"The starred coordinates give the constrained minimum."},
  {t:"p",x:"At the touching point the objective gradient vanishes, so stationarity needs no boundary correction."}]});
 
 /* ---------- numm-opt-4 · Penalty and augmented Lagrangian ---------- */
@@ -180,7 +180,7 @@ rc98("numm-opt-4",3,{p:[
 /* 4 · Worked update. μ=1, λ̄=0 gives x=−4/3, |−4/3−(−2)|=2/3; λ̄_new=max(0,0+1·2/3)=2/3. */
 rc98("numm-opt-4",4,{p:[
  {t:"p",x:"With weight $μ=1$ and multiplier estimate $λ̄=0$, the augmented objective reduces to the exterior penalty."},
- {t:"p",x:"Its minimizer violates the bound by about $0.6667$. That is also its distance from the true optimum $x^*=−2$."},
+ {t:"p",x:"Its minimizer violates the bound by about $0.6667$. That is also its distance from the true optimum $x^{*}=−2$."},
  {t:"eq",lab:"Update after minimizing",eq:"λ̄_{new} = max(0, λ̄ + μg)",cap:"Use the constraint value g at the current minimizer."},
  {t:"step",f:"max(0, 0 + 1 · g)",v:"≈ 0.6667",u:"",fin:1}]});
 
@@ -188,7 +188,7 @@ rc98("numm-opt-4",4,{p:[
 rc98("numm-opt-4",5,{p:[
  {t:"p",x:"At the true optimum $x=−2$, the objective slope is $−2$. A multiplier estimate $λ̄=2$ supplies the opposite slope."},
  {t:"p",x:"For this convex model, that puts the augmented minimum exactly at the bound for any fixed penalty weight $μ>0$."},
- {t:"chain",items:["Minimize","Update multiplier","Check residuals"],hl:1},
+ {t:"chain",items:["Minimize","Update λ̄","Check"],hl:1},
  {t:"p",x:"Minimize with estimates fixed, project the updated multiplier onto nonnegative values, then check feasibility and stationarity."}]});
 
 /* ---------- numm-reg-1 · Linear fits and r² ---------- */
@@ -237,7 +237,7 @@ rc98("numm-reg-1",4,{p:[
 rc98("numm-reg-1",5,{p:[
  {t:"p",x:"Fit nested polynomial models by exact, unregularized least squares on the same training data. The larger model can reproduce the smaller fit, so training error cannot rise."},
  {t:"p",x:"Held-out error can rise. The extra terms may follow noise that will not repeat in new observations."},
- {t:"take",x:"Use held-out error to choose the degree when prediction matters."}],
+ {t:"take",x:"Compare models on held-out data when prediction matters."}],
  g:{at:1,q:"Can test error rise as you add polynomial terms?",o:[
   ["Yes",1,"The extra terms can fit training noise and give worse predictions on unseen observations."],
   ["No",0,"The smaller fit is available to the larger model, but the fit minimizes training error. Test error has no such guarantee."]]}});
