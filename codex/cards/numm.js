@@ -146,3 +146,47 @@ rc98("numm-opt-3",5,{p:[
  {t:"p",x:"At $c=−1$ the bound just touches the unconstrained minimum. The constraint is active with a [[zero]] multiplier."},
  {t:"eq",lab:"Optimum at fixed bound c",eq:"x_1^* = min(c, −1),   x_2^* = 0",cap:"The starred coordinates give the constrained minimum."},
  {t:"p",x:"At the touching point the objective gradient vanishes, so stationarity needs no boundary correction."}]});
+
+/* ---------- numm-opt-4 · Penalty and augmented Lagrangian ---------- */
+/* 0 · Terms, Guess (a finite penalty can leave a violation). */
+rc98("numm-opt-4",0,{p:[
+ {t:"p",x:"A penalty adds a cost when a trial point breaks a constraint. The optimizer minimizes the objective plus that cost."},
+ {t:"p",x:"Some violation can remain if it saves more in the original objective than it costs in penalty."},
+ {t:"take",x:"A multiplier estimate adds a correction that can balance the objective's slope at the boundary."}],
+ g:{at:1,q:"Can the minimum of the penalized objective still violate the constraint?",o:[
+  ["Yes",1,"A small violation can cost less than the objective improvement it buys."],
+  ["No",0,"That would require enforcing a hard bound. A finite quadratic penalty charges for crossing it."]]}});
+
+/* 1 · Rule in words → formula, Fill "extra". On g≤0, max(0,g)=0. On g>0, the extra cost is μg²/2. */
+rc98("numm-opt-4",1,{p:[
+ {t:"p",x:"Minimize $f=(x+1)^2$ over scalar $x$ subject to $g=x+2≤0$. All values are dimensionless."},
+ {t:"p",x:"The exterior penalty charges [[extra]] for infeasible points and leaves feasible points at their original cost."},
+ {t:"eq",lab:"Penalized objective",eq:"f̂ = f + (μ/2) max(0,g)^2",cap:"Hold the positive penalty weight μ fixed."}]});
+
+/* 2 · Worked example. For x>−2, f̂′=2(x+1)+(x+2)=3x+4=0 → x=−4/3 and g=2/3. Strict convexity makes this the minimum. */
+rc98("numm-opt-4",2,{p:[
+ {t:"p",x:"Set penalty weight $μ=1$ for the fixed quadratic. On the violating side, $x>−2$, both the objective and penalty contribute to the slope."},
+ {t:"step",f:"2(x+1) + (x+2) = 0",v:"x ≈ −1.333",u:""},
+ {t:"step",f:"g = x + 2",v:"g ≈ 0.6667",u:"",fin:1},
+ {t:"take",x:"The finite penalty leaves a violation. The objective improves enough to pay for it."}]});
+
+/* 3 · Legend → formula, Fill "linearly". Completing the square in ḡ centers the correction at −λ̄/μ; the slope there is zero. */
+rc98("numm-opt-4",3,{p:[
+ {t:"p",x:"The augmented objective adds a term that varies [[linearly]] with the clipped constraint, alongside the quadratic penalty."},
+ {t:"vars",vars:[["f, f̂","original and augmented objectives"],["g","signed constraint value"],["λ̄","fixed nonnegative multiplier estimate"],["μ","fixed positive penalty weight"]]},
+ {t:"eq",lab:"Clipped constraint",eq:"ḡ = max(g, −λ̄/μ)"},
+ {t:"eq",lab:"Augmented objective",eq:"f̂ = f + λ̄ḡ + (μ/2)ḡ^2"}]});
+
+/* 4 · Worked update. μ=1, λ̄=0 gives x=−4/3, |−4/3−(−2)|=2/3; λ̄_new=max(0,0+1·2/3)=2/3. */
+rc98("numm-opt-4",4,{p:[
+ {t:"p",x:"With weight $μ=1$ and multiplier estimate $λ̄=0$, the augmented objective reduces to the exterior penalty."},
+ {t:"p",x:"Its minimizer violates the bound by about $0.6667$. That is also its distance from the true optimum $x^*=−2$."},
+ {t:"eq",lab:"Update after minimizing",eq:"λ̄_{new} = max(0, λ̄ + μg)",cap:"Use the constraint value g at the current minimizer."},
+ {t:"step",f:"max(0, 0 + 1 · g)",v:"≈ 0.6667",u:"",fin:1}]});
+
+/* 5 · Process chain. At x=−2, g=0 and f′=2(−2+1)=−2. λ̄=2 cancels that slope for any μ>0. The objective is strictly convex. */
+rc98("numm-opt-4",5,{p:[
+ {t:"p",x:"At the true optimum $x=−2$, the objective slope is $−2$. A multiplier estimate $λ̄=2$ supplies the opposite slope."},
+ {t:"p",x:"For this convex model, that puts the augmented minimum exactly at the bound for any fixed penalty weight $μ>0$."},
+ {t:"chain",items:["Minimize","Update multiplier","Check residuals"],hl:1},
+ {t:"p",x:"Minimize with estimates fixed, project the updated multiplier onto nonnegative values, then check feasibility and stationarity."}]});
