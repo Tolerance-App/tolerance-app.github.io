@@ -41,6 +41,11 @@ Rules that matter most:
 - Never touch `cards`, `qs`, ids or question order. You're only adding `rc98` entries.
 - About a third of cards get a Guess, a third a Fill, the rest neither; never both on one card. Guess at `at ≥ 1`,
   right before the piece that answers it. Fill = a relation word or short phrase, never a number, symbol or formula.
+- **Lessons from review (numm, calc1):** a Guess must not be answered by an earlier piece *or an earlier card in
+  the same lesson* (if card 0 says "inputs can share outputs", card 5 can't ask it). Options must be the same kind of
+  thing (three functions, not "1 divided by zero" vs "Square root"). Define every term before it's used, in plain words
+  ("corner", "compact", "stationary point", "differential"); if a lesson's questions use a term, a card must teach it.
+  A Fill hides a relation word ("equation", not a new term like "constraint").
 - 2–5 pieces per card. Every card must fit one phone screen in every reveal state (the checker tests this).
 - If a card has a figure (`fig17`/`LFIG84`) that already draws something, leave that block out.
 - Math notation: use the markup in the skill (`$…$`, `_{…}`, `^{…}`, `√{…}`); never stack scripts two deep.

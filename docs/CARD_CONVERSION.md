@@ -33,13 +33,13 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 | Design review | design | 9 | 42 | 0 | to do | |
 | Shop vocab | vocab | 12 | 57 | 0 | to do | |
 | Engineer, translated | plain | 2 | 14 | 0 | to do | |
-| Calculus I | calc1 | 25 | 108 | 0 | reserved: Codex | |
+| Calculus I | calc1 | 25 | 108 | 108 | done (Codex) | b111 |
 | Calculus II | calc2 | 24 | 96 | 0 | reserved: Codex | |
 | Calculus III | calc3 | 24 | 96 | 0 | reserved: Codex | |
 | Differential equations | diffeq | 24 | 96 | 0 | reserved: Codex | |
 | Linear algebra | linalg | 24 | 96 | 0 | reserved: Codex | |
 | Numerical methods | numm | 5 | 30 | 30 | done (Codex) | b108 |
-| **Total** | | **329** | **1,403** | **238** | | |
+| **Total** | | **329** | **1,403** | **346** | | |
 
 Rows marked **reserved: Codex** are converted by Codex (`codex/README.md`); Claude chats skip them. Claude ships
 them when Seth says "ship codex cards <code>".
