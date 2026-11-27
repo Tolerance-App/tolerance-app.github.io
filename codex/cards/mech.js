@@ -650,3 +650,48 @@ rc98("mech-vibration-resonance-1",5,{p:[
   ["Doubles",1,"With the mass fixed, frequency scales by the square root of four."],
   ["Halves",0,"That is what happens when mass quadruples with stiffness fixed."]]}});
 
+
+/* ---------- mech-vibration-resonance-2 · Estimate damping from ring-down ---------- */
+/* 0 · Plain text, no interaction */
+rc98("mech-vibration-resonance-2",0,{p:[
+ {t:"p",x:"Give a flexible part a push and let go. Watch how quickly its swings get smaller."},
+ {t:"take",x:"Decay tells you how strongly **damping** drains the energy of the vibration."}]});
+
+/* 1 · Terms → boundary, Fill "between". 0 is undamped; 1 is the critical damping ratio. */
+rc98("mech-vibration-resonance-2",1,{p:[
+ {t:"p",x:"A **ring-down** is the free motion after the driving force stops."},
+ {t:"term",s:"ζ",x:"The **damping ratio** is damping divided by the critical amount at which free oscillations stop. It has no units."},
+ {t:"p",x:"A linear mode still rings while it decays if the ratio is [[between]] zero and one. That is **underdamped** motion."},
+ {t:"eq",eq:"0 < ζ < 1",cap:"Underdamped motion"}]});
+
+/* 2 · Cause → effect, Guess (same ratio). In a single viscous mode the envelope is exponential, so equal cycle lengths give equal amplitude ratios. */
+rc98("mech-vibration-resonance-2",2,{p:[
+ {t:"p",x:"A **viscous damper** pushes against motion with a force proportional to speed. It turns mechanical energy into heat."},
+ {t:"p",x:"Compare successive peaks on the same side of the rest position. That measures one full cycle each time."},
+ {t:"take",x:"With one linear mode and viscous damping, each peak is the same fraction of the peak one cycle before it."}],
+ g:{at:2,q:"How does each peak compare with the preceding peak on the same side?",o:[
+  ["Same fraction each time",1,"A single mode has an exponentially decaying envelope."],
+  ["Same drop each time",0,"A fixed drop would make the envelope a straight line. Viscous free decay gives a fixed fraction."]]}});
+
+/* 3 · Definition → formula, no interaction. The existing figure illustrates counting periods, so no duplicate block. */
+rc98("mech-vibration-resonance-2",3,{p:[
+ {t:"p",x:"**Logarithmic decrement** $δ$ measures the decay per cycle. Use heights $x_1$ and $x_2$ from two chosen peaks on the same side of rest."},
+ {t:"eq",eq:"δ = ln(x_1/x_2)/n",cap:"One linear viscous mode. Use matching height units. n counts full cycles. ln is natural log."}]});
+
+/* 4 · Formula → worked example, no interaction. ln(0.00800/0.00200)/5 = 0.2772589; δ/√(4π² + δ²) = 0.0440842. */
+rc98("mech-vibration-resonance-2",4,{p:[
+ {t:"eq",lab:"From decrement to damping ratio",eq:"ζ = δ/√{4π^2 + δ^2}",cap:"Underdamped linear mode with viscous damping"},
+ {t:"giv",rows:[["x_1","8.00","mm"],["x_2","2.00","mm"],["n","5","cycles"]]},
+ {t:"step",f:"δ = ln(8.00/2.00)/5",v:"0.2773",u:""},
+ {t:"step",f:"ζ from unrounded δ",v:"0.04408",u:"",fin:1},
+ {t:"p",x:"Count the intervals between peaks. Both results are unitless. Keep extra digits until the final step."}]});
+
+/* 5 · Measurement checks, Guess (beating can make peaks grow). The decay model requires one mode. */
+rc98("mech-vibration-resonance-2",5,{p:[
+ {t:"p",x:"Two nearby modes can sometimes add and sometimes cancel. The resulting rise and fall is called **beating**."},
+ {t:"take",x:"Reject peaks that grow again during free decay. Their changing heights can reflect beating."},
+ {t:"p",x:"Also reject peaks while forcing continues, when the recorder cuts off the tops (**clipping**), or when the signal is as small as the noise."}],
+ g:{at:1,q:"Some peaks grow again after forcing stops. For a one-mode damping estimate, do you…",o:[
+  ["Keep the interval",0,"That treats peaks from different patterns as though they all belong to one freely decaying mode."],
+  ["Reject the interval",1,"The peak ratio can reflect beating instead of damping."]]}});
+
