@@ -380,3 +380,32 @@ rc98("mech-fluids-1",3,{p:[
  {t:"p",x:"The force from pressure acts [[perpendicular]] to the surface it pushes on."},
  {t:"p",x:"It pushes sideways on a vertical dam wall and down on a flat tank floor."},
  {t:"take",x:"The deepest spots see the greatest pressure. Total force also depends on how much area is loaded."}]});
+
+/* ---------- mech-fluids-2 · Continuity and flow rate ---------- */
+/* 0 · Rule in words → formula, Fill “the same”. 0.010·3 = 0.0300 m³/s; 1 m³ = 1000 L, so 30.0 L/s. */
+rc98("mech-fluids-2",0,{p:[
+ {t:"p",x:"Volume flow rate is the volume passing a cross-section each second. For steady flow at constant density, it is [[the same]] along an unbranched pipe."},
+ {t:"vars",vars:[["Q","volume flow rate (m^3/s)"],["A","flow area (m^2)"],["V","mean flow speed (m/s)"]]},
+ {t:"eq",eq:"Q = AV",cap:"mean speed normal to the cross-section"},
+ {t:"vt",l:"0.010 m² at 3.00 m/s",v:"30.0",u:"L/s"}]});
+
+/* 1 · Scaling, no interaction. The figure gives continuity. A₂/A₁ = (D₂/D₁)² = (1/2)² = 1/4; V₂/V₁ = 1/(1/4) = 4. */
+rc98("mech-fluids-2",1,{p:[
+ {t:"p",x:"Halve the diameter of a round pipe and the cross-sectional area falls to a quarter. The area scales with diameter squared."},
+ {t:"take",x:"If the volume flow stays fixed, the mean speed in that section rises fourfold."}]});
+
+/* 2 · Nozzle → branch comparison, Guess (same speed). Symmetric split: (Q/2)/(A/2) = Q/A. */
+rc98("mech-fluids-2",2,{p:[
+ {t:"p",x:"A hose nozzle narrows the exit, so at a given flow rate the water leaves faster than it moves in the hose."},
+ {t:"take",x:"With an equal flow split and half the area per branch, the branch speed matches the main pipe."}],
+ g:{at:1,q:"A pipe splits flow equally between two branches, each half the main pipe's area. The speed in each branch is…",o:[
+  ["Half as high",0,"That accounts for the flow split but leaves the area unchanged."],
+  ["The same",1,"Flow and area fall by the same factor, leaving their ratio unchanged."],
+  ["Twice as high",0,"That accounts for the smaller area but sends the full flow through each branch."]]}});
+
+/* 3 · Legend → formula, Fill “constant”. Mass conservation gives ρ₁Q₁ = ρ₂Q₂ in steady, sealed, unbranched flow. */
+rc98("mech-fluids-2",3,{p:[
+ {t:"p",x:"Gas density can change along a nozzle, changing the volume that passes per second."},
+ {t:"p",x:"In steady flow through a nozzle with no leaks, the mass passing per second stays [[constant]]."},
+ {t:"vars",vars:[["ṁ","mass flow rate (kg/s)"],["ρ","local density (kg/m^3)"],["Q","local volume flow rate (m^3/s)"]]},
+ {t:"eq",eq:"ṁ = ρQ",cap:"uniform density at the cross-section"}]});
