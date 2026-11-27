@@ -440,3 +440,39 @@ rc98("mech-fluids-3",3,{p:[
  {t:"p",x:"The outlet speed $V$ equals the speed gained in a free fall of depth $h$. Here $g$ is gravitational acceleration."},
  {t:"eq",eq:"V = √{2gh}",cap:"steady or slowly draining, small opening"},
  {t:"vt",l:"5.00 m below the surface",v:"9.90",u:"m/s"}]});
+
+/* ---------- mech-fluids-4 · Reynolds number and pipe losses ---------- */
+/* 0 · Legend → formula, Guess (lower Re). The 2,300 and 4,000 boundaries are empirical guides for round pipes. */
+rc98("mech-fluids-4",0,{p:[
+ {t:"p",x:"Reynolds number $Re$ compares inertia, the tendency to keep moving, with viscosity, a fluid's internal friction."},
+ {t:"vars",vars:[["ρ","density"],["V","mean flow speed"],["D","inside pipe diameter"],["μ","dynamic viscosity"]]},
+ {t:"eq",eq:"Re = ρVD/μ",cap:"round pipe; higher viscosity lowers Re at fixed density, speed and diameter"},
+ {t:"p",x:"Below about 2,300, flow is **laminar** (smooth layers). Above about 4,000, it is usually **turbulent** (fluctuating eddies). Between them, the flow is **transitional**."}],
+ g:{at:2,q:"At the same density and speed in the same pipe, what does greater viscosity do to Reynolds number?",o:[
+  ["Lowers it",1,"Viscosity is in the denominator. Raising it lowers Re."],
+  ["Raises it",0,"Viscosity strengthens the resistance to flow. That reduces the ratio of inertia to viscosity."],
+  ["Leaves it unchanged",0,"Density, speed and diameter are fixed, but viscosity still changes their ratio to viscous effects."]]}});
+
+/* 1 · Rule in words → formula, Fill “inversely”. The figure gives Δp. Laminar wall stress τ = 8μV/D gives Darcy f = 8τ/(ρV²) = 64/Re; smooth turbulent example at Re = 62,500 gives 0.3164/Re^0.25 = 0.02001. */
+rc98("mech-fluids-4",1,{p:[
+ {t:"p",x:"For developed laminar flow in a round pipe, the Darcy factor $f$ varies [[inversely]] with Reynolds number."},
+ {t:"p",x:"Laminar: $f = 64/Re$. In smooth turbulent pipe flow, $f$ is often near 0.020. It depends on $Re$ and wall roughness."}]});
+
+/* 2 · Scaling, Guess (1/32). At fixed Q, V ∝ D⁻²; f(L/D)ρV²/2 ∝ D⁻¹D⁻⁴ = D⁻⁵ for fixed f, L and ρ. 2⁵ = 32. */
+rc98("mech-fluids-4",2,{p:[
+ {t:"p",x:"Compare two round pipes carrying the same volume per second. Keep length and fluid density fixed, and approximate the turbulent Darcy friction factor as unchanged."},
+ {t:"take",x:"Doubling the diameter cuts the pressure drop to about one thirty-second."},
+ {t:"eq",eq:"V ∝ 1/D^2",cap:"the same flow passes an area proportional to D squared"},
+ {t:"eq",eq:"Δp ∝ 1/D^5",cap:"Darcy–Weisbach: one inverse power from L/D plus four from V squared"},
+ {t:"p",x:"At the same volume flow rate, less pressure drop means less power delivered by the pump to the fluid."}],
+ g:{at:1,q:"Double the diameter. What fraction of the original pressure drop remains?",o:[
+  ["One half",0,"That tracks the change in length over diameter but keeps speed fixed."],
+  ["One sixteenth",0,"The speed-squared term gives one sixteenth. Length over diameter adds another factor of one half."],
+  ["One thirty-second",1,"Speed drops to a quarter. Squaring gives one sixteenth, and length over diameter halves."]]}});
+
+/* 3 · Worked example, no interaction. D = 25 mm = 0.0250 m; Re = 1000·1.00·0.0250/0.00100 = 25,000. */
+rc98("mech-fluids-4",3,{p:[
+ {t:"giv",lab:"Water in a round pipe",rows:[["ρ","1,000","kg/m^3"],["V","1.00","m/s"],["D","25.0","mm"],["μ","0.00100","Pa·s"]]},
+ {t:"p",x:"Use metres in the formula: $D = 0.0250$ m."},
+ {t:"step",f:"Re = ρVD/μ",v:"25,000",u:"",fin:1},
+ {t:"take",x:"That is well into the turbulent regime. Many water plumbing flows are turbulent at everyday operating rates."}]});
