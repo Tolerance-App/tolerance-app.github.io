@@ -835,3 +835,50 @@ rc98("mech-vibration-resonance-5",5,{p:[
  {t:"p",x:"Equal, opposite forces in separate planes form a **couple**: they rock the rotor end to end with no net push."},
  {t:"take",x:"Use two planes when correcting both net unbalance and a couple."}]});
 
+
+/* ---------- mech-vibration-resonance-6 · Two-plane influence balancing and acceptance ---------- */
+/* 0 · Process overview, no interaction. */
+rc98("mech-vibration-resonance-6",0,{p:[
+ {t:"p",x:"A **correction plane** is a location along the shaft where you can add balance weight."},
+ {t:"p",x:"For a trial, add a known mass at a known radius and angle in one plane."},
+ {t:"take",x:"Measure how the trial changes the vibration at each end of the rotor."}]});
+
+/* 1 · Definitions → worked example, Fill "divided by". B=0 ⇒ x=−2y; A=−3y=−3.00 µm ⇒ y=1.00 g, x=−2.00 g. */
+rc98("mech-vibration-resonance-6",1,{p:[
+ {t:"p",x:"A complex vibration vector stores **amplitude** (size) and **phase** (angle from a shaft mark)."},
+ {t:"p",x:"At fixed speed and sensor setup, an **influence coefficient** is the vibration change [[divided by]] the trial unbalance."},
+ {t:"p",x:"Example with one phase axis and fixed radii. Masses $x$ and $y$ are grams, negative at the opposite angle. Targets: $A = −3.00$ µm, $B = 0.00$ µm."},
+ [{t:"step",f:"B = x + 2y = 0",v:"x = −2y",u:""},{t:"step",f:"A = 2x + y = −3y",v:"y = 1.00",u:"g"}],
+ {t:"step",f:"x = −2y",v:"−2.00",u:"g",fin:1}]});
+
+/* 2 · Plain text, no interaction. LFIG17 draws how both planes influence both bearings. */
+rc98("mech-vibration-resonance-6",2,{p:[
+ {t:"p",x:"Either plane can change both bearing readings. This is **cross-coupling**."},
+ {t:"take",x:"Solve both responses together and keep their phase as well as their amplitude."}]});
+
+/* 3 · Process chain, Guess (remove the first trial before measuring the second against the original baseline). */
+rc98("mech-vibration-resonance-6",3,{p:[
+ {t:"p",x:"The **baseline** is the original reading at each bearing. Record amplitude and phase before adding a trial."},
+ {t:"p",x:"For a common baseline, measure each trial by itself. Remove the first before the second unless the calculation accounts for it."},
+ {t:"take",x:"Remove trial weights before installing the computed correction, or include their effect in the final correction."}],
+ g:{at:1,q:"Both trials will be compared with the original baseline. What should you do with the first trial weight before measuring the second?",o:[
+  ["Remove it",1,"That isolates the vibration change due to the second plane."],
+  ["Leave it",0,"Without accounting for it, the second reading would include both trials."]]}});
+
+/* 4 · Cause and effect, Guess (small measurement errors can shift the correction). */
+rc98("mech-vibration-resonance-6",4,{p:[
+ {t:"p",x:"An **influence column** is one plane’s set of coefficients across the sensors. Two columns are nearly dependent if one looks like a scaled and phase-shifted copy of the other."},
+ {t:"p",x:"Similar response patterns make the planes hard to distinguish. Small measurement errors can then produce large changes in the calculated weights."},
+ {t:"take",x:"Check trial signal size, phase repeatability, sensor placement and correction-plane choice before trusting a large result."}],
+ g:{at:1,q:"If the planes produce nearly the same pattern at the sensors, how do small measurement errors affect the calculated correction?",o:[
+  ["They can have a large effect",1,"The calculation can trade one plane’s correction against the other."],
+  ["They have little effect",0,"Similar response patterns make the planes harder to tell apart, which magnifies error."]]}});
+
+/* 5 · Conditions → formula → value, Fill "same". For a sine wave, average sin²=1/2; 4.00/√2=2.828 mm/s. */
+rc98("mech-vibration-resonance-6",5,{p:[
+ {t:"p",x:"Record each required sensor location and direction, speed and load. Match the limit’s units and use the [[same]] amplitude convention."},
+ {t:"p",x:"**Peak** is the largest magnitude. **RMS** is the square root of the mean square. A peak displacement is a different quantity from RMS velocity."},
+ {t:"eq",eq:"v_{RMS} = v_{peak}/√{2}",cap:"Velocity for pure sinusoidal vibration only"},
+ {t:"vt",l:"Peak velocity 4.00 mm/s",v:"2.828",u:"mm/s"},
+ {t:"p",x:"A low-speed balance alone cannot establish how a flexible rotor responds at operating speed."}]});
+
