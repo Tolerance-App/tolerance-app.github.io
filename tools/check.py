@@ -8,6 +8,7 @@
 #   python tools/check.py eval "LS.length"                     -> any expression
 #   python tools/check.py export                             -> rewrite content-export/ from the built app (run after each build)
 #   python tools/check.py shot mech1 out.png [1x]                -> screenshot of a lesson's first card (2x; 1x = cheap)
+#   python tools/check.py demoshot mech1 out.png [1x] [0=3 …]    -> screenshot of a lesson's demo card (optional: slider index=value)
 #   python tools/check.py look mech1 [cardIndex]              -> text view: visible text + overflow/clipping (no image)
 #   python tools/check.py cards aero2 | cards course Aerospace | cards all   -> cardCheck (reveal cards, 375 x 812)
 #   python tools/check.py cardshot aero2 1 3 out.png [light]   -> reveal card 1 after 3 taps (2x, 375 x 812);
@@ -36,7 +37,7 @@ try:
         except Exception: b = p.chromium.launch(channel="chrome")
         cardm = mode in ("cards", "cardshot")
         w = 375 if mode.startswith("demo") or cardm else 390
-        pg = b.new_page(viewport={"width": w, "height": 812 if cardm else 844}, device_scale_factor=2 if mode in ("shot", "cardshot") and not lo else 1)
+        pg = b.new_page(viewport={"width": w, "height": 812 if cardm else 844}, device_scale_factor=2 if mode in ("shot", "cardshot", "demoshot") and not lo else 1)
         errs = []
         pg.on("pageerror", lambda e: errs.append(str(e)))
         pg.goto(f"http://127.0.0.1:{PORT}/?b=test", wait_until="load")
@@ -89,6 +90,16 @@ try:
             with open(os.path.join(d, "tolerance-lessons.jsonl"), "w", encoding="utf-8", newline="\n") as f:
                 for l in r["lessons"]: f.write(json.dumps(l, ensure_ascii=False) + "\n")
             print(json.dumps({k: v for k, v in r["meta"].items() if k != "courses"}))
+        elif mode == "demoshot":  # step a lesson's cards until its demo shows, then screenshot it
+            pg.evaluate(f"startId({j(args[0])})"); pg.wait_for_timeout(300)
+            pg.evaluate("()=>{for(let i=0;i<30&&!document.querySelector('.lesson .demo')&&!SS.qs;i++)nextCard()}")
+            pg.wait_for_timeout(600)
+            for kv in args[2:]:  # optional slider settings: nth=value, e.g. 0=3 sets the first slider to 3
+                k, v = kv.split("=")
+                pg.evaluate(f"()=>{{const i=document.querySelectorAll('.lesson .demo input[type=range]')[{int(k)}];if(i){{i.value={j(v)};i.dispatchEvent(new Event('input',{{bubbles:true}}))}}}}")
+                pg.wait_for_timeout(200)
+            pg.evaluate("()=>{const d=document.querySelector('.lesson .demo');if(d)d.scrollIntoView({block:'start'})}")
+            pg.wait_for_timeout(300); pg.screenshot(path=args[1]); print("saved", args[1])
         elif mode == "shot":
             pg.evaluate(f"startId({j(args[0])})"); pg.wait_for_timeout(500)
             pg.screenshot(path=args[1] if len(args) > 1 else "shot.png"); print("saved", args[1] if len(args) > 1 else "shot.png")

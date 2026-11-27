@@ -310,6 +310,9 @@ Seth's top rule: **a new build must never reset anyone's progress.**
     plot, and `TIDY53` (wraps `demoU`) nudges any label that still collides after each redraw, so a new demo
     usually passes on its own. Don't lean on that: place labels sensibly in the demo itself, and look at it at
     375 px, since the checker ignores curves and the tidy pass only moves labels a few px off them.
+  - b115 (`KEY115`, wraps `demoU` after TIDY53): a label right after a key swatch (rect ≤ 12 × 4) is never nudged, so
+    a legend entry stays beside its colour even when it crosses a curve (it keeps its h52 halo). Seth flagged "volume factor
+    shifted right" in math-found-1.
   - `.demo svg text` sets `font:600 11px`, so a `font-size` attribute on a demo label is ignored (H85.t's `fs`
     included); put the size in `style` (`tx110` in v110.js does). Picture demos built at "9px" were really 11px.
   - **b110 backlog visuals** (registered demos, mapped through `DEMO_OVR`, old demos left underneath):
