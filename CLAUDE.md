@@ -9,6 +9,8 @@ mechanical and aerospace student). Testers mostly on phones. Working name **Tole
 - `docs/CODEMAP.md`: which layer wraps or defines which function or constant. Check it before grepping `index.html`.
   Regenerate it with `python tools/codemap.py` after each build.
 - `docs/LEARNING_DESIGN.md`: card layout and learning design. Required before any lesson-card or content work.
+- `docs/PHYSICS.md`: physics courses (algebra and calculus tracks, `phys/` module, syllabus, demo list, workflow).
+  Physics is a module edited in place (`phys/*.js`), not stacked layers.
 - `codex/README.md`: Codex writes staged content in `codex/` on local `codex-*` branches; ship with `tools/ship_codex.py`
   ("ship codex <codes>").
 - Skills in `.claude/skills/`: `new-build`, `lesson-cards`, `demo-visual`, `fix`. Agents in `.claude/agents/`.
@@ -31,7 +33,7 @@ mechanical and aerospace student). Testers mostly on phones. Working name **Tole
   `const _x=fn; fn=function(){ … _x.apply(this,arguments) … }`. Functions get reassigned (`fn=function`), so check
   `docs/CODEMAP.md` for which layer's version runs.
 - **A new build = a new `vNN.js` file plus a script tag before the boot line.** The checklist is in the `new-build` skill
-  (FB.ver, version.json bump, NEWS, TF48, codemap). Current latest: v119.
+  (FB.ver, version.json bump, NEWS, TF48, codemap). Current latest: v120.
 - Key globals: `st` (user state, localStorage `tol3`), `SS` (current session), `LS` (lessons after `build()`),
   `QX` (question by key), `view`, `NET`, `DEMOS`, `QD30`. Storage code goes through `NET.db.doc(path).set(...)`,
   the artifact-style API from `fbnet.js`.

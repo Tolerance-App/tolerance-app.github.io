@@ -41,7 +41,7 @@ don't rename anything in code or UI unless Seth asks.
   The last wrapper loaded wins, and every wrapper must call through to the one before it.
 - **A new build is a new file:** `vNN.js`, plus one `<script src="vNN.js">` tag placed after the previous one
   and before the boot line `<script>applyTheme();build();home();netInit();</script>`. Current order:
-  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → v39.js → v40.js → v41.js → v42.js → v43.js → v44.js → v45.js → v46.js → v47.js → v48.js → v49.js → v50.js → v51.js → v52.js → v53.js → v54.js → v55.js → v56.js → v57.js → v58.js → v59.js → v60.js → v61.js → v62.js → v63.js → v64.js → v65.js → v66.js → v67.js → v68.js → v69.js → v70.js → v71.js → v72.js → v73.js → v74.js → v75.js → v76.js → v77.js → v78.js → v79.js → v80.js → v81.js → v82.js → v83.js → v84.js → v85.js → v86.js → v87.js → v88.js → v89.js → v90.js → v91.js → v92.js → v93.js → v94.js → v95.js → v96.js → v97.js → v98.js → v99.js → v100.js → v101.js → v102.js → v103.js → v104.js → v105.js → v106.js → v107.js → v108.js → v109.js → v110.js → v111.js → v112.js → v113.js → v114.js → v115.js → v116.js → v117.js → v118.js → v119.js → boot`.
+  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → v39.js → v40.js → v41.js → v42.js → v43.js → v44.js → v45.js → v46.js → v47.js → v48.js → v49.js → v50.js → v51.js → v52.js → v53.js → v54.js → v55.js → v56.js → v57.js → v58.js → v59.js → v60.js → v61.js → v62.js → v63.js → v64.js → v65.js → v66.js → v67.js → v68.js → v69.js → v70.js → v71.js → v72.js → v73.js → v74.js → v75.js → v76.js → v77.js → v78.js → v79.js → v80.js → v81.js → v82.js → v83.js → v84.js → v85.js → v86.js → v87.js → v88.js → v89.js → v90.js → v91.js → v92.js → v93.js → v94.js → v95.js → v96.js → v97.js → v98.js → v99.js → v100.js → v101.js → v102.js → v103.js → v104.js → v105.js → v106.js → v107.js → v108.js → v109.js → v110.js → v111.js → v112.js → v113.js → v114.js → v115.js → v116.js → v117.js → v118.js → v119.js → phys/kit.js → phys/demos-motion.js → phys/p1-1d.js → v120.js → boot`.
   - Don't rewrite or reformat old layers inside `index.html`. Prefer small, targeted wrappers in the new file.
   - Set `FB.ver="bNN"`, and add a "What's new" entry with `NEWS.unshift({d, t:[…]})` when testers would notice the change.
   - **Bump `version.json` to `{"v":"bNN"}`** with every build. Since v42 the app fetches it (no-store) on open
@@ -291,6 +291,13 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   "vote for this content next" button; in-depth worked solutions; Nyquist two-sine
   overlay demo; graph axis/equation scaling; calculator toggle that fills the answer box;
   3D reference figures with vectors; confirm Friends on real devices; "brake snake in a circle" random demo (b116).
+- **Physics courses (b120, `phys/`, `docs/PHYSICS.md`):** Physics 1 (algebra) `phys1a` and Physics 1 (calculus)
+  `phys1c`, field Physics. Core lessons (`p1-…`) live in the algebra course and are listed in the calculus one with the
+  same id (`also`), calculus-only lessons are `p1c-…`. A module, not stacked layers: later builds edit `phys/*.js` in
+  place. Lessons are born as reveal cards (`rc` array, no `plain`), figures and equation banks live in the unit data,
+  and units with `ready:false` load only on a dev host (127.0.0.1/localhost), so testers see nothing until a unit is
+  flipped ready. Demos are shared between tracks; `PH.mode()` switches labels (slope/area ↔ dx/dt, ∫v dt). Codex
+  writes units in `codex/phys/` (`codex/tasks/physics.md`); Claude ships them and builds the demos.
 - **Old-app flags rechecked 2026-11-27:** all 47 triaged (35 already fixed by later builds, 10 won't-fix with a
   reason, 2 left open: collapse other sections on Learn so Friends is reachable without scrolling, and more setup
   figures for Joints and fatigue (mech3), done in b117).

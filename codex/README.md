@@ -65,6 +65,12 @@ Codex is fast and Seth's plan has plenty of Codex usage, so Codex both makes and
   to Claude chats.
 - If a chat stops at a usage limit: new chat, `Continue codex/tasks/cards.md for calc2.`
 
+## Physics units (from b118)
+New physics lessons are written from scratch, one unit per chat: `Do codex/tasks/physics.md for p1-vec.` → branch
+`codex-phys-vec` with `codex/phys/p1-vec.js`. Then a new chat: `Do codex/tasks/physics.md review p1-vec.` Then tell
+Claude **"ship physics vec"**. Unit order and the syllabus are in `docs/PHYSICS.md`. Several units can run at once
+(different files). Claude ships each one hidden, builds its demos and pictures, and makes it live when it's ready.
+
 ## For Claude: shipping Codex output
 **"ship codex <code> [<code> …] [fix:<code> …]"**
 1. Fresh worktree of origin/main (`git worktree add ../tol-ship-<n> -b ship-<n> origin/main`), then
