@@ -265,3 +265,33 @@ rc98("diffeq-second-order-4",3,{p:[
  g:{at:1,q:"Your fundamental pair has a nonzero Wronskian at one point. Where can you start matching the forcing?",o:[
   ["Only at the checked point.",0,"For this equation the determinant stays nonzero as you move along the interval."],
   ["Anywhere in that regular interval.",1,"Regular linear evolution preserves the pair's independence throughout that interval."]]}});
+
+/* ---------- diffeq-laplace-1 · Laplace transforms and initial values ---------- */
+/* 0 · Process chain, Fill "algebraically". */
+rc98("diffeq-laplace-1",0,{p:[
+ {t:"p",x:"An initial-value problem gives a differential equation and starting values. The **Laplace transform** replaces each time function with an integral representation."},
+ {t:"p",x:"For a linear equation with constant coefficients, solve [[algebraically]] for the transform."},
+ {t:"chain",items:["transform with starting values","solve for the transform","invert to recover time"],hl:1},
+ {t:"p",x:"To **invert** is to recover the original function of time from its transform."}]});
+
+/* 1 · Legend → formula. The constant 1 gives [−exp(−st)/s]₀^∞ = 1/s for real s > 0; s = 2 gives 0.500. */
+rc98("diffeq-laplace-1",1,{p:[
+ {t:"p",x:"**Unilateral** means the integral uses only nonnegative time. For real positive $s$, the exponential weight decays."},
+ {t:"vars",vars:[["t","time"],["y(t)","function being transformed"],["s","transform variable, replacing time"],["Y(s)","resulting transform"]]},
+ {t:"eq",lab:"Laplace transform",eq:"Y(s) = ∫_0^{∞} y(t)e^{−st} dt",cap:"where the integral converges"},
+ {t:"p",x:"For $y(t) = 1$ and real $s > 0$, the integral gives $Y(s) = 1/s$. In dimensionless time, $s = 2$ gives $0.500$."}]});
+
+/* 2 · Legend → formula, Guess (subtract the start value). Integration by parts gives [ye^(−st)]₀^∞ + sY; the lower endpoint contributes −y(0). */
+rc98("diffeq-laplace-1",2,{p:[
+ {t:"p",x:"To transform the first derivative $y′(t)$, take $Y(s)$ times $s$ and include a term from the starting value $y(0)$. The symbol $ℒ$ means take the transform."},
+ {t:"eq",lab:"Derivative rule",eq:"ℒ{y′} = sY(s) − y(0)",cap:"both transforms converge and the upper endpoint term vanishes"},
+ {t:"p",x:"The starting value appears with a minus sign."}],
+ g:{at:1,q:"The upper endpoint contributes zero. How does the starting value enter the derivative transform?",o:[
+  ["It is added.",0,"The endpoint at the start is the lower endpoint, so it is subtracted."],
+  ["It is subtracted.",1,"An endpoint difference is upper minus lower. At the start the exponential weight is one."]]}});
+
+/* 3 · Process chain, no interaction. d(e^(−st))/dt = −se^(−st); by parts gives +sY and the lower value −y(0)·1. */
+rc98("diffeq-laplace-1",3,{p:[
+ {t:"p",x:"Integration by parts moves the derivative from $y(t)$ to the exponential weight $e^{−st}$, also called the **kernel**."},
+ {t:"p",x:"The derivative of the weight brings down $−s$. The minus sign in integration by parts changes this to the $+sY(s)$ term."},
+ {t:"take",x:"The **initial boundary term** comes from subtracting the lower endpoint. The weight there is one, so the term is $−y(0)$."}]});
