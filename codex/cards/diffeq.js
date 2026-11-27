@@ -76,3 +76,34 @@ rc98("diffeq-first-order-2",3,{p:[
  g:{at:1,q:"Does the zero rate at the start make $y = 1$ an equilibrium?",o:[
   ["Yes, it stays at 1.",0,"The rate must stay zero throughout an interval. Zero rate at a single point is insufficient."],
   ["No, only the starting slope is zero.",1,"At other times the rate evaluated at $y = 1$ is $t$, so $y$ cannot stay at 1."]]}});
+
+/* ---------- diffeq-first-order-3 · Linear equations and integrating factors ---------- */
+/* 0 · Plain text, Fill "a product". */
+rc98("diffeq-first-order-3",0,{p:[
+ {t:"p",x:"A first-order linear equation can have both a derivative term and a term proportional to the unknown."},
+ {t:"p",x:"A carefully chosen multiplier turns their sum into the derivative of [[a product]]."},
+ {t:"take",x:"That multiplier is the **integrating factor**. Once the left side is a single derivative, integrate to recover the product."}]});
+
+/* 1 · Terms → normalization, Guess (negative p). Dividing 2y′−4y=6 by 2 gives y′−2y=3; −4/2=−2 and 6/2=3. */
+rc98("diffeq-first-order-3",1,{p:[
+ {t:"p",x:"Here $t$ is the input and $y′$ means $dy/dt$. To **normalize**, divide every term by the coefficient of $y′$ where that coefficient is nonzero."},
+ {t:"eq",eq:"y′ + p(t)y = q(t)",cap:"normalized form for dimensionless variables",vars:[["p(t)","coefficient of y"],["q(t)","forcing, a given input independent of y"]]},
+ {t:"p",x:"Dividing $2y′ − 4y = 6$ by $2$ gives $y′ − 2y = 3$. The coefficient $p(t)$ is $−2$."}],
+ g:{at:2,q:"After normalizing $2y′ − 4y = 6$, what is $p(t)$?",o:[
+  ["$−4$",0,"That is the coefficient before dividing the whole equation by 2."],
+  ["$+2$",0,"Division by positive 2 keeps the negative sign."],
+  ["$−2$",1,"Dividing the $y$ coefficient by 2 gives $−4/2 = −2$."]]}});
+
+/* 2 · Rule in words → formulas, Fill "every term". μ′=p μ, so (μy)′=μy′+μ′y=μ(y′+py)=μq. */
+rc98("diffeq-first-order-3",2,{p:[
+ {t:"p",x:"On an interval where the normalized coefficient $p(t)$ is continuous, build the integrating factor $μ$ by exponentiating an antiderivative of $p$."},
+ {t:"eq",eq:"μ = exp(∫ p(t) dt)",cap:"choose any one antiderivative of p"},
+ {t:"p",x:"Multiply [[every term]] of $y′ + p(t)y = q(t)$ by $μ$. Since $μ′ = p(t)μ$, the product rule combines the two terms on the left."},
+ {t:"eq",eq:"(μy)′ = μq(t)",cap:"after multiplying both sides"}]});
+
+/* 3 · Worked example, no interaction. μ=exp(2t); ∫6exp(2t)dt=3exp(2t); 1=3+C gives C=−2; at t=ln(2)/2, exp(−2t)=1/2 and y=3−1=2. */
+rc98("diffeq-first-order-3",3,{p:[
+ {t:"p",x:"Solve $y′ + 2y = 6$ with $y(0) = 1$. The integrating factor is $μ = exp(2t)$ because an antiderivative of $2$ is $2t$."},
+ {t:"p",x:"Multiply by $μ$ to get $(μy)′ = 6μ$. Integration gives $μy = 3μ + C$, where $C$ is a constant."},
+ {t:"p",x:"At $t = 0$, $μ = 1$ and $y = 1$, so $C = −2$. Divide by $μ$ to get $y = 3 − 2 exp(−2t)$."},
+ {t:"step",f:"y at t = ln(2)/2",v:"3 − 2/2 = 2",u:"",fin:1}]});
