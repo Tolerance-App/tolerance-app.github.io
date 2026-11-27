@@ -248,3 +248,28 @@ rc98("mech-thermodynamics-4",2,{p:[
   ["Possible",0,"Energy conservation alone allows it, but the second law also has to hold."],
   ["Impossible",1,"The second law requires entropy generation to be zero or positive."]]}});
 
+
+/* ---------- mech-heat-transfer-1 · Heat transfer mechanisms ---------- */
+/* 0 · Definitions, Guess (radiation across vacuum). */
+rc98("mech-heat-transfer-1",0,{p:[
+ {t:"p",x:"**Conduction** transfers heat through matter without bulk motion, as in a stationary metal bar."},
+ {t:"p",x:"**Convection** transfers heat between a surface and moving fluid. A fan can force motion; buoyancy can drive natural convection."},
+ {t:"p",x:"**Radiation** transfers heat by electromagnetic waves."},
+ {t:"take",x:"Radiation can carry heat across empty space."}],
+ g:{at:3,q:"Which mechanism can carry heat between two surfaces with a vacuum between them?",o:[
+  ["Conduction",0,"Conduction across the gap needs material between the surfaces."],
+  ["Convection",0,"Convection needs a fluid in contact with a surface."],
+  ["Radiation",1,"Electromagnetic waves can carry energy across a vacuum."]]}});
+
+/* 1 · Symbols and model assumptions, no interaction. Formula is in the slab figure. */
+rc98("mech-heat-transfer-1",1,{p:[
+ {t:"p",x:"$Q̇$ is heat rate, $k$ is conductivity, $A$ is face area and $L$ is thickness."},
+ {t:"p",x:"$ΔT$ is the temperature drop straight through the slab. Assume steady flow, uniform material and insulated edges."}]});
+
+/* 2 · Scaling, Fill "halves". At fixed k, A and ΔT, Q̇(2L)/Q̇(L) = 1/2. */
+rc98("mech-heat-transfer-1",2,{p:[
+ {t:"p",x:"For steady conduction, fix conductivity, face area and the temperature difference. Double the slab thickness."},
+ {t:"p",x:"The conductive heat rate [[halves]]."},
+ {t:"rel",x:"At fixed $k$, $A$ and $ΔT$, $Q̇ ∝ 1/L$."},
+ {t:"p",x:"A hot object can lose heat by several mechanisms at once. Across a vacuum gap, radiation can still carry heat."}]});
+
