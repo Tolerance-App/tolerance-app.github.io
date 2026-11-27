@@ -882,3 +882,49 @@ rc98("mech-vibration-resonance-6",5,{p:[
  {t:"vt",l:"Peak velocity 4.00 mm/s",v:"2.828",u:"mm/s"},
  {t:"p",x:"A low-speed balance alone cannot establish how a flexible rotor responds at operating speed."}]});
 
+
+/* ---------- mech-shear-1 · Pins and bolts in shear ---------- */
+/* 0 · Plain text, no interaction. Symmetric load sharing on a pin gives F/2 on each of two cuts. */
+rc98("mech-shear-1",0,{p:[
+ {t:"p",x:"Pull two joined plates sideways in opposite directions. They push on the pin where they meet."},
+ {t:"p",x:"The pin can fail across that cut. A joint can spread the same force over two cuts through the pin instead of one."}]});
+
+/* 1 · Rule in words → formula, Fill "parallel". A circle of radius d/2 has A = π(d/2)² = πd²/4. */
+rc98("mech-shear-1",1,{p:[
+ {t:"p",x:"The force creating **shear stress** acts [[parallel]] to the surface it acts on."},
+ {t:"eq",eq:"τ_{avg} = V/A",cap:"Average across one shear plane",vars:[["τ_{avg}","average shear stress"],["V","sideways force across that cut"],["A","area resisting the force"]]},
+ {t:"p",x:"If a cut crosses a round pin of diameter $d$, the area is $πd^2/4$."}]});
+
+/* 2 · Compare joints, Guess. Symmetry puts F/2 on each double-shear plane, so τ_avg = F/(2A). */
+rc98("mech-shear-1",2,{p:[
+ {t:"p",x:"A **lap joint** overlaps two plates, so the pin takes the total force $F$ across one cut. This is single shear."},
+ {t:"p",x:"A **clevis** is a fork with a plate between its ears. A centered load puts half of $F$ across each cut. This is double shear."},
+ {t:"eq",eq:"τ_{avg} = F/(2A)",cap:"Symmetric double shear, with area A per cut"}],
+ g:{at:1,q:"If both ears of a symmetric clevis share the load evenly, how much force crosses each cut through its pin?",o:[
+  ["Half the total force",1,"The two cuts carry equal shares, which add to the total force."],
+  ["One third of the total force",0,"There are three plates, but the load crosses two cuts through the pin."],
+  ["All of the total force",0,"That is the single-shear result. Two equal load paths each carry only half."]]}});
+
+/* 3 · Worked comparison, no interaction. π·10²/4 = 78.54 mm²; 8,000/78.54 = 101.9 MPa; 4,000/78.54 = 50.93 MPa. */
+rc98("mech-shear-1",3,{p:[
+ {t:"p",x:"Compare a 10.0 mm pin carrying 8.00 kN in single shear and symmetric double shear."},
+ {t:"step",f:"A = πd^2/4",v:"78.54",u:"mm^2"},
+ {t:"step",f:"F/A",v:"101.9",u:"MPa"},
+ {t:"step",f:"F/(2A)",v:"50.93",u:"MPa",fin:1},
+ {t:"p",x:"With the same pin and load, double shear halves the average stress. That's why a forked joint is useful on a heavily loaded pivot."}]});
+
+/* 4 · Definition → application, Fill "average". In round-section beam theory the center stress is 4/3 of V/A; bearing's projected area for diameter d and plate thickness t is d·t. */
+rc98("mech-shear-1",4,{p:[
+ {t:"p",x:"The stress from $V/A$ is an [[average]] across the cut."},
+ {t:"p",x:"The local stress can be higher. In the ideal round beam model it peaks at mid-depth, away from the outside faces."},
+ {t:"p",x:"Also check **bearing**, the contact pressure on a hole wall. Average bearing stress uses the contact force divided by pin diameter times plate thickness."}]});
+
+/* 5 · Shop language → takeaway, Guess. At fixed load split, doubling d and t gives A_shear ∝ d² → 4A_shear and A_bearing ∝ d·t → 4A_bearing. Both average stresses become one quarter. */
+rc98("mech-shear-1",5,{p:[
+ {t:"p",x:"“The pin passes the double-shear check. Check bearing on the clevis holes too.”"},
+ {t:"take",x:"Both averages fall to a quarter of their original values. The pin area grows with $d^2$ and the projected hole area with diameter times thickness."},
+ {t:"p",x:"Check both failure modes. A pin can pass a shear check while pressure at a hole deforms its plate."}],
+ g:{at:1,q:"Double the pin diameter and plate thickness. Keep the force and load split fixed. Which average stress falls by a larger fraction?",o:[
+  ["Hole bearing stress",0,"Bearing area quadruples, but the pin's cross-section quadruples too."],
+  ["Pin shear stress",0,"The pin's cross-section quadruples. The projected bearing area also quadruples because both dimensions double."],
+  ["They fall by the same fraction",1,"Both resisting areas quadruple under the same force."]]}});
