@@ -273,3 +273,27 @@ rc98("mech-heat-transfer-1",2,{p:[
  {t:"rel",x:"At fixed $k$, $A$ and $ΔT$, $Q̇ ∝ 1/L$."},
  {t:"p",x:"A hot object can lose heat by several mechanisms at once. Across a vacuum gap, radiation can still carry heat."}]});
 
+
+/* ---------- mech-heat-transfer-2 · Thermal resistance networks ---------- */
+/* 0 · Definition → formula, Fill "less". */
+rc98("mech-heat-transfer-2",0,{p:[
+ {t:"p",x:"**Thermal resistance** $R$ measures how much temperature difference a path needs per watt of heat flow. Its unit is K/W."},
+ {t:"p",x:"At a fixed temperature difference $ΔT$, larger resistance passes [[less]] heat per second."},
+ {t:"eq",eq:"Q̇ = ΔT/R",cap:"Steady heat flow, from the hot side to the cold side."}]});
+
+/* 1 · Legend → formula, Guess (slab resistance falls). At fixed L and A, R_cond(2k)/R_cond(k) = 1/2. */
+rc98("mech-heat-transfer-2",1,{p:[
+ {t:"vars",vars:[["L","slab thickness"],["k","thermal conductivity"],["A","area perpendicular to heat flow"],["h","convection coefficient: heat rate per area per kelvin"]]},
+ {t:"eq",eq:"R_{cond} = L/(kA)",cap:"Steady, straight-through conduction in a uniform slab."},
+ {t:"eq",eq:"R_{conv} = 1/(hA)",cap:"Uniform h and surface temperature over area A."}],
+ g:{at:1,q:"Double only the slab conductivity k. What happens to the slab's thermal resistance?",o:[
+  ["It halves",1,"Conductivity is in the denominator. Doubling k cuts the slab's resistance in half."],
+  ["It doubles",0,"Better conductivity makes heat easier to transfer, so resistance falls."],
+  ["It stays the same",0,"The size is unchanged, but the material property k matters too."]]}});
+
+/* 2 · Worked value, no interaction. 60 K/(3 K/W) = 20.0 W. Series figure shows the same rate and each drop. */
+rc98("mech-heat-transfer-2",2,{p:[
+ {t:"p",x:"Resistances in **series** lie one after another on the same steady heat path. Use their sum as the total resistance."},
+ {t:"step",f:"Q̇ = 60 K/(3 K/W)",v:"20.0",u:"W",fin:1},
+ {t:"p",x:"Multiply the heat rate by a layer's resistance to find that layer's temperature drop."}]});
+
