@@ -695,3 +695,50 @@ rc98("mech-vibration-resonance-2",5,{p:[
   ["Keep the interval",0,"That treats peaks from different patterns as though they all belong to one freely decaying mode."],
   ["Reject the interval",1,"The peak ratio can reflect beating instead of damping."]]}});
 
+
+/* ---------- mech-vibration-resonance-3 · Select isolation mounts ---------- */
+/* 0 · Plain text, Fill "amplify" */
+rc98("mech-vibration-resonance-3",0,{p:[
+ {t:"p",x:"A soft mount can keep a vibrating base from shaking the machine it supports. That reduction in motion is **isolation**."},
+ {t:"p",x:"At some speeds, the same mount can [[amplify]] the motion."},
+ {t:"p",x:"Near a natural frequency, a small motion of the base can make the machine move farther than the base."}]});
+
+/* 1 · Definition → comparisons, no interaction. Equal amplitudes give TR = 1; one fifth of the base motion gives 1/5 = 0.200. */
+rc98("mech-vibration-resonance-3",1,{p:[
+ {t:"p",x:"For a sinusoidally moving base, **transmissibility** $TR$ compares the size of the machine's motion with the size of the base motion."},
+ {t:"eq",eq:"TR = X/Y",vars:[["X","machine amplitude from a fixed reference"],["Y","base amplitude from the same reference"]],cap:"Use the same units for both amplitudes"},
+ {t:"p",x:"$TR < 1$ means isolation. $TR > 1$ means amplification. At $TR = 1$, the amplitudes match."},
+ {t:"p",x:"If the machine moves a fifth as far as the base, $TR = 0.200$."}]});
+
+/* 2 · Legend → formula, Fill "higher than". Hz cancels in f/f_n; r > 1 iff f > f_n for positive f_n. */
+rc98("mech-vibration-resonance-3",2,{p:[
+ {t:"p",x:"The **frequency ratio** $r$ is greater than one when the excitation frequency is [[higher than]] the natural frequency."},
+ {t:"vars",vars:[["f","excitation frequency (Hz)"],["f_n","natural frequency without damping (Hz)"],["ζ","damping ratio, a fraction of critical damping"]]},
+ {t:"eq",eq:"r = f/f_n",cap:"The hertz cancel, so r is unitless."}]});
+
+/* 3 · Legend → formula, no interaction. Squaring 2ζr gives the damping term in both N and D. */
+rc98("mech-vibration-resonance-3",3,{p:[
+ {t:"p",x:"Use one linear mass–spring–damper mode with steady sinusoidal base motion. A viscous damper resists motion in proportion to relative speed."},
+ {t:"eq",lab:"Shared damping term",eq:"d = 2ζr"},
+ {t:"eq",lab:"Numerator and denominator",eq:"N = 1 + d^2"},
+ {t:"eq",eq:"D = (1 − r^2)^2 + d^2"},
+ {t:"eq",lab:"Displacement transmissibility",eq:"TR = √{N/D}"}]});
+
+/* 4 · Threshold + Guess (natural frequency falls when stiffness drops). N < D iff 1 < (1 − r²)², so r > √2 ≈ 1.414 for r ≥ 0. f_n ∝ √k at fixed mass. */
+rc98("mech-vibration-resonance-3",4,{p:[
+ {t:"p",x:"The machine moves less than its base when $r > √{2}$. Inertia, the resistance of the mass to a change in motion, keeps it from following the base closely."},
+ {t:"take",x:"Softer mounts lower the natural frequency, so $r$ rises at the same forcing frequency."},
+ {t:"p",x:"Allow more travel under the load. A softer spring compresses farther under the same weight."}],
+ g:{at:1,q:"Keep the machine mass fixed and choose softer mounts. What happens to its natural frequency?",o:[
+  ["It falls",1,"A softer spring restores the mass less strongly, so it oscillates more slowly."],
+  ["It rises",0,"The frequency ratio can rise because the natural frequency in the denominator falls."]]}});
+
+/* 5 · Trade-off, Guess (TR rises above √2). At fixed r with (1 − r²)² > 1, adding the same positive d² to N and D drives N/D up toward one. */
+rc98("mech-vibration-resonance-3",5,{p:[
+ {t:"p",x:"More damping lowers the steady response peak near resonance. During startup, forcing may pass through that region."},
+ {t:"take",x:"At fixed $r > √{2}$, more damping transmits more motion because the damper couples the machine to the base."},
+ {t:"p",x:"Check startup travel and look for stiff bypasses such as pipes or cables that carry vibration around the mounts. Verify the installed motion."}],
+ g:{at:1,q:"Hold $r$ fixed above $√{2}$. With more damping, what happens to transmissibility?",o:[
+  ["It rises",1,"The damper transmits more of the base motion to the isolated mass."],
+  ["It falls",0,"That extends the resonance benefit into the isolation region, where the effect reverses."]]}});
+
