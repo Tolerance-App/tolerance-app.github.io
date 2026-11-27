@@ -14,7 +14,7 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 
 | Course | Code | Lessons | Cards | Converted | Status | Build |
 |---|---|---:|---:|---:|---|---|
-| Mechanical | mech | 31 | 138 | 3 | reserved: Codex | b98 |
+| Mechanical | mech | 31 | 138 | 138 | done (Codex) | b98, b118 |
 | Aerospace | aero | 16 | 64 | 64 | done | b98, b113 |
 | Electrical | elec | 20 | 70 | 70 | done | b98, b109 |
 | Computer science | cs | 10 | 29 | 1 | reserved: Codex | b98 |
@@ -35,11 +35,11 @@ course code, e.g. `mech`, as `subName`); `cards course <Name>` covers them. Reco
 | Engineer, translated | plain | 2 | 14 | 0 | reserved: Codex | |
 | Calculus I | calc1 | 25 | 108 | 108 | done (Codex) | b111 |
 | Calculus II | calc2 | 24 | 96 | 0 | reserved: Codex | |
-| Calculus III | calc3 | 24 | 96 | 0 | reserved: Codex | |
-| Differential equations | diffeq | 24 | 96 | 0 | reserved: Codex | |
-| Linear algebra | linalg | 24 | 96 | 0 | reserved: Codex | |
+| Calculus III | calc3 | 24 | 96 | 96 | done (Codex) | b118 |
+| Differential equations | diffeq | 24 | 96 | 96 | done (Codex) | b118 |
+| Linear algebra | linalg | 24 | 96 | 96 | done (Codex) | b118 |
 | Numerical methods | numm | 5 | 30 | 30 | done (Codex) | b108 |
-| **Total** | | **329** | **1,403** | **463** | | |
+| **Total** | | **329** | **1,403** | **887** | | |
 
 Rows marked **reserved: Codex** are converted by Codex (`codex/README.md`); Claude chats skip them. Claude ships
 them when Seth says "ship codex cards <code>".

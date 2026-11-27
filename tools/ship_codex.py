@@ -26,9 +26,7 @@ for it in items:
     if r.returncode: sys.exit(f"missing {br}:{path}")
     if kind == "cards":
         rf = sh("git", "show", f"{br}:codex/fixes/{code}.js")
-        if rf.returncode == 0: r.stdout += "
-/* question fixes from review */
-" + rf.stdout; fixes.append(code)
+        if rf.returncode == 0: r.stdout += "\n/* question fixes from review */\n" + rf.stdout; fixes.append(code)
     parts.append(f"\n/* ======== {kind} · {code} (from {br}, {sh('git','rev-parse','--short',br).stdout.strip()}) ======== */\n" + r.stdout.strip() + "\n")
     (fixes if kind == "fix" else cards).append(code)
     reports.append(f"{br}:{path[:-3]}.md")
