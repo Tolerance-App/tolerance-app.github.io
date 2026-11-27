@@ -286,7 +286,7 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   3D reference figures with vectors; confirm Friends on real devices; "brake snake in a circle" random demo (b116).
 - **Old-app flags rechecked 2026-11-27:** all 47 triaged (35 already fixed by later builds, 10 won't-fix with a
   reason, 2 left open: collapse other sections on Learn so Friends is reachable without scrolling, and more setup
-  figures for Joints and fatigue (mech3)).
+  figures for Joints and fatigue (mech3), done in b117).
 - **Not forgotten:**
   - Reintroduce the time-of-day slider.
   - Remove the classmate/professor framing from lessons.
