@@ -584,3 +584,35 @@ rc98("diffeq-numerical-series-2",3,{p:[
  {t:"step",f:"m = 1 − 10(0.150)",v:"−0.500",u:"",fin:1},
  {t:"p",x:"This step flips the sign and halves the magnitude. If $|m| > 1$, the step would instead amplify a mode the equation damps."},
  {t:"take",x:"A stable step can still distort the solution. Here the exact decay stays the same sign."}]});
+
+/* ---------- diffeq-numerical-series-3 · Power-series solutions and Frobenius ---------- */
+/* 0 · Plain text → takeaway, Fill "near". */
+rc98("diffeq-numerical-series-3",0,{p:[
+ {t:"p",x:"Some differential equations have no solution formula in elementary functions such as polynomials, exponentials or sines."},
+ {t:"p",x:"A **power series** adds terms that are successive powers of the distance from a chosen point, each multiplied by a coefficient."},
+ {t:"p",x:"When the series converges, it can describe the solution [[near]] that point."},
+ {t:"take",x:"The distance from the chosen point matters. The series can stop converging farther away."}]});
+
+/* 1 · Rule → process, no interaction. */
+rc98("diffeq-numerical-series-3",1,{p:[
+ {t:"p",x:"For a linear equation, first divide by the coefficient of the highest derivative. This is the **normalized** equation."},
+ {t:"p",x:"At an **ordinary point**, the normalized coefficients have convergent power series there. Try a power series for the solution as well."},
+ {t:"chain",items:["differentiate","substitute","align powers"],hl:2},
+ {t:"take",x:"The resulting rule relating series coefficients is a **recurrence**. Use the initial data to set the starting coefficients."}]});
+
+/* 2 · Definition → formula, Guess (a leading power can be fractional). For normalized y″ + P y′ + Q y = 0, multiply by x² to get analytic coefficients xP and x²Q next to xy′ and y. A Frobenius trial has x^r S(x) near x = 0; r follows from the lowest-power balance. */
+rc98("diffeq-numerical-series-3",2,{p:[
+ {t:"p",x:"At a **regular singular point**, some normalized coefficients fail to have a power series there. For a second-order equation at the origin, multiplying the coefficient of $y′$ by $x$ and the coefficient of $y$ by $x^2$ restores power series for both."},
+ {t:"eq",lab:"Frobenius trial",eq:"y = x^r S(x)",cap:"near a regular singular point at the origin, on the positive side",vars:[["x","distance from the origin"],["r","leading exponent"],["S(x)","ordinary power series"]]},
+ {t:"p",x:"The lowest power in the substituted equation gives the **indicial equation** for $r$. It can allow fractional exponents."}],
+ g:{at:2,q:"What can the equation for the leading exponent allow?",o:[
+  ["Only whole-number exponents",0,"The ordinary series has whole-number powers, but the separate leading power is set by the differential equation."],
+  ["Fractional exponents too",1,"The lowest-power balance can give a fractional root. The series multiplying that power still uses whole-number powers."]]}});
+
+/* 3 · Worked example, no interaction. Shift the derivative index to match x^n: (n + 1)a_(n+1) = a_n. Starting at 1 gives 1/1, 1/2, 1/6. */
+rc98("diffeq-numerical-series-3",3,{p:[
+ {t:"p",x:"For dimensionless $y′ = y$ with $y(0) = 1$, let $a_n$ be the coefficient of $x^n$ in $y$."},
+ {t:"p",x:"Differentiation lowers each power by one. Shift the derivative's index so both sides use $x^n$, then match its coefficients."},
+ {t:"eq",lab:"Coefficient recurrence",eq:"a_{n+1} = a_n / (n + 1)",cap:"$n$ is a nonnegative whole number. $a_0 = 1$ gives $a_1 = 1$."},
+ {t:"step",f:"a_2 = a_1 / 2",v:"1/2",u:""},
+ {t:"step",f:"a_3 = (1/2) / 3",v:"1/6",u:"",fin:1}]});
