@@ -174,3 +174,32 @@ rc98("diffeq-second-order-1",3,{p:[
  g:{at:1,q:"How many independent weights do the two copies actually give you?",o:[
   ["One weight",1,"Only the sum of the weights changes the resulting exponential."],
   ["Two weights",0,"Changing one weight and undoing that change in the other leaves the result identical."]]}});
+
+/* ---------- diffeq-second-order-2 · Particular solutions and superposition ---------- */
+/* 0 · Terms, no interaction. Linearity lets one forced solution be shifted by any solution with zero forcing. */
+rc98("diffeq-second-order-2",0,{p:[
+ {t:"p",x:"A **particular solution** is any one function that solves the equation with its given input, also called forcing."},
+ {t:"p",x:"The **homogeneous family** is all the solutions obtained with the input set to zero."},
+ {t:"take",x:"Keep the same forcing and vary the freely adjustable part to match the starting values."}]});
+
+/* 1 · Rule → worked value, Fill "add". A constant makes y″=0; 4y=8 leaves y=8/4=2. */
+rc98("diffeq-second-order-2",1,{p:[
+ {t:"p",x:"For a linear equation, [[add]] one particular solution to the homogeneous family to obtain the full family. This is **superposition**."},
+ {t:"eq",eq:"y = y_h + y_p",cap:"linear equation with fixed forcing",vars:[["y_h","any homogeneous solution"],["y_p","one particular solution"]]},
+ {t:"p",x:"For the dimensionless equation $y″ + 4y = 8$, try a constant. Its second derivative $y″$ is zero."},
+ {t:"step",f:"y_p = 8 / 4",v:"2",fin:1}]});
+
+/* 2 · Rule → example, Guess (multiply by time). For characteristic polynomial P with simple root 1, P(D)exp(t)=0 and P(D)[t exp(t)]=P′(1)exp(t)≠0. */
+rc98("diffeq-second-order-2",2,{p:[
+ {t:"p",x:"**Undetermined coefficients** tries a form like the forcing, then solves for its unknown weights. Use it with constant coefficients and inputs such as polynomials, exponentials or sinusoids."},
+ {t:"p",x:"If the trial overlaps a homogeneous mode, multiply the trial by a power of time. The power equals the multiplicity of the overlapping root."},
+ {t:"take",x:"For a simple root (one copy), one factor of $t$ moves the trial outside the homogeneous family."}],
+ g:{at:1,q:"The forcing is $exp(t)$ and its rate is a simple root. Which trial can work? $A$ is a weight to fit.",o:[
+  ["$A exp(t)$",0,"The differential equation sends that homogeneous mode to zero for any A."],
+  ["$A t exp(t)$",1,"The extra factor of t makes differentiation produce a term proportional to the input."]]}});
+
+/* 3 · Rule → difference, Fill "subtract". Applying the same linear equation to the difference gives forcing minus itself, hence zero. */
+rc98("diffeq-second-order-2",3,{p:[
+ {t:"p",x:"Take two particular solutions of the same linear equation with the same input. To find how they differ, [[subtract]] one from the other."},
+ {t:"p",x:"The two copies of the input cancel. Their difference satisfies the zero-input equation."},
+ {t:"take",x:"Each choice of particular solution gives the same full family once all homogeneous solutions are included."}]});
