@@ -41,7 +41,7 @@ don't rename anything in code or UI unless Seth asks.
   The last wrapper loaded wins, and every wrapper must call through to the one before it.
 - **A new build is a new file:** `vNN.js`, plus one `<script src="vNN.js">` tag placed after the previous one
   and before the boot line `<script>applyTheme();build();home();netInit();</script>`. Current order:
-  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → v39.js → v40.js → v41.js → v42.js → v43.js → v44.js → v45.js → v46.js → v47.js → v48.js → v49.js → v50.js → v51.js → v52.js → v53.js → v54.js → v55.js → v56.js → v57.js → v58.js → v59.js → v60.js → v61.js → v62.js → v63.js → v64.js → v65.js → v66.js → v67.js → v68.js → v69.js → v70.js → v71.js → v72.js → v73.js → v74.js → v75.js → v76.js → v77.js → v78.js → v79.js → v80.js → v81.js → v82.js → v83.js → v84.js → v85.js → v86.js → v87.js → v88.js → v89.js → v90.js → v91.js → v92.js → v93.js → v94.js → v95.js → v96.js → v97.js → v98.js → v99.js → v100.js → v101.js → v102.js → v103.js → v104.js → v105.js → v106.js → v107.js → v108.js → v109.js → v110.js → boot`.
+  `fbsdk.js → fbnet.js → v32.js → v33.js → v34.js → v35.js → v36.js → v37.js → v38.js → v39.js → v40.js → v41.js → v42.js → v43.js → v44.js → v45.js → v46.js → v47.js → v48.js → v49.js → v50.js → v51.js → v52.js → v53.js → v54.js → v55.js → v56.js → v57.js → v58.js → v59.js → v60.js → v61.js → v62.js → v63.js → v64.js → v65.js → v66.js → v67.js → v68.js → v69.js → v70.js → v71.js → v72.js → v73.js → v74.js → v75.js → v76.js → v77.js → v78.js → v79.js → v80.js → v81.js → v82.js → v83.js → v84.js → v85.js → v86.js → v87.js → v88.js → v89.js → v90.js → v91.js → v92.js → v93.js → v94.js → v95.js → v96.js → v97.js → v98.js → v99.js → v100.js → v101.js → v102.js → v103.js → v104.js → v105.js → v106.js → v107.js → v108.js → v109.js → v110.js → v111.js → v112.js → v113.js → v114.js → v115.js → v116.js → v117.js → v118.js → v119.js → boot`.
   - Don't rewrite or reformat old layers inside `index.html`. Prefer small, targeted wrappers in the new file.
   - Set `FB.ver="bNN"`, and add a "What's new" entry with `NEWS.unshift({d, t:[…]})` when testers would notice the change.
   - **Bump `version.json` to `{"v":"bNN"}`** with every build. Since v42 the app fetches it (no-store) on open
@@ -167,6 +167,13 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   won't-fix.
 
 ## Design decisions (don't undo without asking)
+
+- **Demo pictures with colour and motion** (v119, `stack119`, `K119`, `G119`): flat graph-only demos get a picture
+  of the real thing above the graph (or in place of an older drawing), with gradients and slow CSS-keyframe loops.
+  Keyframes live in a `<style>` inside the demo SVG with unique names; the delay is negative from the clock so a
+  slider drag (which redraws the SVG) keeps the phase. Class `m119` = stops under prefers-reduced-motion, and the
+  static pose is the end state. Motion stays calm: loops of 5–8 s, no flashing. Batch 1: mat-basics-2,
+  mfg-sheet-3, elec-mcu-2, diffeq-pde-3, ctrl-pid-1. The remaining graph-only demos are listed in the v119 notes.
 
 - **Top edge in the Home Screen app** (v35, class `sa35`): the strip under the clock and battery is solid
   `--bg`, and the top bar is solid instead of translucent. Seth disliked the fading bar there.
