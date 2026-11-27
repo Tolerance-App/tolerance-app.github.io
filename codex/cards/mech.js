@@ -176,3 +176,27 @@ rc98("mech-thermodynamics-1",0,{p:[
 rc98("mech-thermodynamics-1",2,{p:[
  {t:"p",x:"Heat input $Q$ is positive, and work output $W$ is positive. With negligible changes in motion and elevation, the difference is the change in internal energy $ΔU$."},
  {t:"p",x:"**Adiabatic** means no heat crosses the boundary. Work can still change internal energy and temperature."}]});
+
+/* ---------- mech-thermodynamics-2 · Closed-system energy balances ---------- */
+/* 0 · Legend → formula, Fill "subtract". */
+rc98("mech-thermodynamics-2",0,{p:[
+ {t:"p",x:"A **closed system** keeps the same matter inside its boundary. Heat and work can cross it."},
+ {t:"vars",vars:[["ΔU","change in internal energy"],["Q","net heat into the system"],["W","net work out of the system"]]},
+ {t:"p",x:"To find the change in internal energy, [[subtract]] work out from heat in."},
+ {t:"eq",eq:"ΔU = Q − W",cap:"Neglect changes in bulk speed and elevation."}]});
+
+/* 1 · Rule in words, no interaction. The piston figure gives the constant-pressure work formula. */
+rc98("mech-thermodynamics-2",1,{p:[
+ {t:"p",x:"For an ideal gas, $m$ is mass and $ΔT$ is final minus initial temperature."},
+ {t:"p",x:"If the specific heat at constant volume $c_v$ stays fixed, $ΔU = mc_v ΔT$."}]});
+
+/* 2 · Signs and units, Guess (work enters). (10³ N/m²)·m³ = 10³ N·m = 1 kJ. */
+rc98("mech-thermodynamics-2",2,{p:[
+ {t:"p",x:"In compression, volume decreases, so $ΔV$ is negative. The pressure is positive."},
+ {t:"take",x:"At constant pressure, compression makes $pΔV$ negative. That is work entering the gas."},
+ {t:"p",x:"Use $1$ kPa·m³ = $1$ kJ. Include any other work, such as energy delivered by a turning shaft."},
+ {t:"p",x:"An **adiabatic** boundary passes no heat. A rigid tank cannot do moving-boundary work."}],
+ g:{at:1,q:"Which way does the piston transfer work during compression?",o:[
+  ["Into the gas",1,"The volume falls, so pΔV is negative. The sign convention counts work into the gas as negative."],
+  ["Out of the gas",0,"That is the sign for expansion. A contracting volume makes pΔV negative."]]}});
+
