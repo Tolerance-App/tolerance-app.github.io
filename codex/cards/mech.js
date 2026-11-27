@@ -1,6 +1,8 @@
 /* ===== Mechanical reveal cards · staged against b114 =====
-   New entries use rc98 (format in v98.js; style catalogue in docs/LEARNING_DESIGN.md).
-   The three b98 entries stay in v98.js: mech-beams-2 cards 4 and 5, mech-thermodynamics-1 card 1. */
+   1. 135 cards in 31 lessons (rc98, format in v98.js; style catalogue in docs/LEARNING_DESIGN.md).
+      Guess on 42 cards, Fill on 44 cards, 49 with neither.
+      The three b98 entries stay in v98.js: mech-beams-2 cards 4 and 5, mech-thermodynamics-1 card 1.
+      See mech.md for the per-lesson interaction list. */
 
 /* ---------- mech1 · Fasteners and keys ---------- */
 /* 0 · Terms → takeaway, Guess (transmits torque). */
@@ -200,7 +202,6 @@ rc98("mech-thermodynamics-2",2,{p:[
   ["Into the gas",1,"The volume falls, so pΔV is negative. The sign convention counts work into the gas as negative."],
   ["Out of the gas",0,"That is the sign for expansion. A contracting volume makes pΔV negative."]]}});
 
-
 /* ---------- mech-thermodynamics-3 · Flowing energy and enthalpy ---------- */
 /* 0 · Legend → formula, Fill "includes". */
 rc98("mech-thermodynamics-3",0,{p:[
@@ -225,7 +226,6 @@ rc98("mech-thermodynamics-3",2,{p:[
   ["Into the fluid",1,"The enthalpy rises and neither speed nor elevation changes. The shaft supplies the energy increase."],
   ["Out of the fluid",0,"Work output would require a drop in the energy carried by the flow, as in a turbine."]]}});
 
-
 /* ---------- mech-thermodynamics-4 · Heat-engine feasibility ---------- */
 /* 0 · Legend → formula, Fill "difference". */
 rc98("mech-thermodynamics-4",0,{p:[
@@ -247,7 +247,6 @@ rc98("mech-thermodynamics-4",2,{p:[
  g:{at:2,q:"A proposal balances heat and work but needs negative entropy generation. Is the proposal possible?",o:[
   ["Possible",0,"Energy conservation alone allows it, but the second law also has to hold."],
   ["Impossible",1,"The second law requires entropy generation to be zero or positive."]]}});
-
 
 /* ---------- mech-heat-transfer-1 · Heat transfer mechanisms ---------- */
 /* 0 · Definitions, Guess (radiation across vacuum). */
@@ -273,7 +272,6 @@ rc98("mech-heat-transfer-1",2,{p:[
  {t:"rel",x:"At fixed $k$, $A$ and $ΔT$, $Q̇ ∝ 1/L$."},
  {t:"p",x:"A hot object can lose heat by several mechanisms at once. Across a vacuum gap, radiation can still carry heat."}]});
 
-
 /* ---------- mech-heat-transfer-2 · Thermal resistance networks ---------- */
 /* 0 · Definition → formula, Fill "less". */
 rc98("mech-heat-transfer-2",0,{p:[
@@ -296,7 +294,6 @@ rc98("mech-heat-transfer-2",2,{p:[
  {t:"p",x:"Resistances in **series** lie one after another on the same steady heat path. Use their sum as the total resistance."},
  {t:"step",f:"Q̇ = 60 K/(3 K/W)",v:"20.0",u:"W",fin:1},
  {t:"p",x:"Multiply the heat rate by a layer's resistance to find that layer's temperature drop."}]});
-
 
 /* ---------- mech-heat-transfer-3 · Transient temperature response ---------- */
 /* 0 · Legend → formula, Fill "small". Bi < 0.1 is a conventional lumped-capacitance guideline, not a derived limit. */
@@ -322,7 +319,6 @@ rc98("mech-heat-transfer-3",2,{p:[
   ["Both fall",0,"Area grows, but volume grows faster. Both ratios increase."],
   ["Both stay fixed",0,"Keeping material fixed keeps its properties fixed, not the ratio of volume to area."]]}});
 
-
 /* ---------- mech-heat-transfer-4 · Cooling bottleneck decisions ---------- */
 /* 0 · Definition → formula, no interaction. Add conductances 1/R_eq = 1/R_1 + 1/R_2. Figure draws the two paths and shared contact. */
 rc98("mech-heat-transfer-4",0,{p:[
@@ -346,7 +342,6 @@ rc98("mech-heat-transfer-4",2,{p:[
   ["Zero",0,"Zero downstream resistance removes only the downstream drop. The contact still carries 10 W."],
   ["20 K",1,"The contact alone takes a 10 W × 2 K/W temperature drop."],
   ["40 K",0,"That would require another 2 K/W downstream, but the example sets it to zero."]]}});
-
 
 /* ---------- mech-fluids-1 · Hydrostatic pressure ---------- */
 /* 0 · Legend → formula, Guess (equal pressures). Equal surface pressure, density, gravity and depth give equal p. */
@@ -415,7 +410,7 @@ rc98("mech-fluids-2",3,{p:[
 rc98("mech-fluids-3",0,{p:[
  {t:"p",x:"A **streamline** follows the local flow direction. Each term below is a form of mechanical energy per unit volume along it."},
  {t:"vars",vars:[["p","static pressure, the pressure the fluid exerts locally"],["ρ","mass per volume"],["V","flow speed"],["g","gravitational acceleration"],["z","height above a reference level"]]},
- {t:"eq",lab:"Bernoulli’s equation",eq:"p + ½ρV^2 + ρgz = const.",cap:"along one streamline, steady, incompressible flow with negligible friction and no shaft work"}]});
+ {t:"eq",lab:"Bernoulli’s equation",eq:"p + ½ρV^2 + ρgz = C",cap:"C is constant along a streamline in steady, incompressible flow with negligible friction and no shaft work."}]});
 
 /* 1 · Compare pair, Guess (pressure falls). With ρ = 1000 kg/m³, Δp = ½·1000·(3² − 1²) Pa = 4.00 kPa. */
 rc98("mech-fluids-3",1,{p:[
@@ -650,7 +645,6 @@ rc98("mech-vibration-resonance-1",5,{p:[
   ["Doubles",1,"With the mass fixed, frequency scales by the square root of four."],
   ["Halves",0,"That is what happens when mass quadruples with stiffness fixed."]]}});
 
-
 /* ---------- mech-vibration-resonance-2 · Estimate damping from ring-down ---------- */
 /* 0 · Plain text, no interaction */
 rc98("mech-vibration-resonance-2",0,{p:[
@@ -675,13 +669,13 @@ rc98("mech-vibration-resonance-2",2,{p:[
 
 /* 3 · Definition → formula, no interaction. The existing figure illustrates counting periods, so no duplicate block. */
 rc98("mech-vibration-resonance-2",3,{p:[
- {t:"p",x:"**Logarithmic decrement** $δ$ measures the decay per cycle. Use heights $x_1$ and $x_2$ from two chosen peaks on the same side of rest."},
- {t:"eq",eq:"δ = ln(x_1/x_2)/n",cap:"One linear viscous mode. Use matching height units. n counts full cycles. ln is natural log."}]});
+ {t:"p",x:"**Logarithmic decrement** $δ$ measures the decay per cycle. Use heights $x_a$ and $x_b$ from an earlier and a later peak on the same side of rest."},
+ {t:"eq",eq:"δ = ln(x_a/x_b)/n",cap:"One linear viscous mode. Use matching height units. n counts full cycles. ln is natural log."}]});
 
 /* 4 · Formula → worked example, no interaction. ln(0.00800/0.00200)/5 = 0.2772589; δ/√(4π² + δ²) = 0.0440842. */
 rc98("mech-vibration-resonance-2",4,{p:[
  {t:"eq",lab:"From decrement to damping ratio",eq:"ζ = δ/√{4π^2 + δ^2}",cap:"Underdamped linear mode with viscous damping"},
- {t:"giv",rows:[["x_1","8.00","mm"],["x_2","2.00","mm"],["n","5","cycles"]]},
+ {t:"giv",rows:[["x_a","8.00","mm"],["x_b","2.00","mm"],["n","5","cycles"]]},
  {t:"step",f:"δ = ln(8.00/2.00)/5",v:"0.2773",u:""},
  {t:"step",f:"ζ from unrounded δ",v:"0.04408",u:"",fin:1},
  {t:"p",x:"Count the intervals between peaks. Both results are unitless. Keep extra digits until the final step."}]});
@@ -694,7 +688,6 @@ rc98("mech-vibration-resonance-2",5,{p:[
  g:{at:1,q:"Some peaks grow again after forcing stops. For a one-mode damping estimate, do you…",o:[
   ["Keep the interval",0,"That treats peaks from different patterns as though they all belong to one freely decaying mode."],
   ["Reject the interval",1,"The peak ratio can reflect beating instead of damping."]]}});
-
 
 /* ---------- mech-vibration-resonance-3 · Select isolation mounts ---------- */
 /* 0 · Plain text, Fill "amplify" */
@@ -742,7 +735,6 @@ rc98("mech-vibration-resonance-3",5,{p:[
   ["It rises",1,"The damper transmits more of the base motion to the isolated mass."],
   ["It falls",0,"That extends the resonance benefit into the isolation region, where the effect reverses."]]}});
 
-
 /* ---------- mech-vibration-resonance-4 · Critical shaft speed and support stiffness ---------- */
 /* 0 · Terms, no interaction. */
 rc98("mech-vibration-resonance-4",0,{p:[
@@ -771,12 +763,12 @@ rc98("mech-vibration-resonance-4",3,{p:[
 rc98("mech-vibration-resonance-4",4,{p:[
  {t:"p",x:"The installed rotor rests on bearings and pedestals. A pedestal is the base that supports a bearing."},
  {t:"p",x:"Support **compliance** is how easily the support deflects under load. Added compliance can lower the first bending frequency and its critical speed."},
- {t:"p",x:"For one mode without gyroscopic effects, let stiffness $k$ be 200 kN/m and modal mass $m$ be 5.00 kg."},
+ {t:"p",x:"For one mode with negligible gyroscopic effects, use stiffness $k$ of 200 kN/m and effective mass $m$ of 5.00 kg."},
  [{t:"step",f:"f_n = √{k/m}/(2π)",v:"31.83",u:"Hz"},{t:"step",f:"N_c = 60f_n",v:"1.910 × 10^3",u:"rpm",fin:1}],
  {t:"p",x:"Use bearing properties at operating temperature and account for gyroscopic effects from shaft spin in the installed model."}],
- g:{at:1,q:"In a simple rotor model, if the pedestals get more flexible at the same modal mass, how does the first critical speed tend to change?",o:[
+ g:{at:1,q:"In a simple rotor model, if the pedestals get more flexible at the same effective mass, how does the first critical speed tend to change?",o:[
   ["It falls",1,"Softer supports reduce the restoring stiffness for sideways motion."],
-  ["It rises",0,"That is the trend for stiffer supports at the same modal mass."]]}});
+  ["It rises",0,"That is the trend for stiffer supports at the same effective mass."]]}});
 
 /* 5 · Operating range → verification, Guess (check startup). (2400 − 1800)/1800 = 1/3 ≈ 0.3333. */
 rc98("mech-vibration-resonance-4",5,{p:[
@@ -787,7 +779,6 @@ rc98("mech-vibration-resonance-4",5,{p:[
  g:{at:3,q:"The rotor starts from rest and runs supercritically. When must you verify the crossing response?",o:[
   ["During startup",1,"Speed passes through the critical on the way to the running range."],
   ["Only at steady speed",0,"A steady test above the critical misses the crossing on the way up."]]}});
-
 
 /* ---------- mech-vibration-resonance-5 · Unbalance vectors and correction planes ---------- */
 /* 0 · Plain text, Fill "reduce". */
@@ -835,7 +826,6 @@ rc98("mech-vibration-resonance-5",5,{p:[
  {t:"p",x:"Equal, opposite forces in separate planes form a **couple**: they rock the rotor end to end with no net push."},
  {t:"take",x:"Use two planes when correcting both net unbalance and a couple."}]});
 
-
 /* ---------- mech-vibration-resonance-6 · Two-plane influence balancing and acceptance ---------- */
 /* 0 · Process overview, no interaction. */
 rc98("mech-vibration-resonance-6",0,{p:[
@@ -847,7 +837,7 @@ rc98("mech-vibration-resonance-6",0,{p:[
 rc98("mech-vibration-resonance-6",1,{p:[
  {t:"p",x:"A complex vibration vector stores **amplitude** (size) and **phase** (angle from a shaft mark)."},
  {t:"p",x:"At fixed speed and sensor setup, an **influence coefficient** is the vibration change [[divided by]] the trial unbalance."},
- {t:"p",x:"Example with one phase axis and fixed radii. Masses $x$ and $y$ are grams, negative at the opposite angle. Targets: $A = −3.00$ µm, $B = 0.00$ µm."},
+ {t:"p",x:"At fixed radii, the coefficients below are 1 or 2 µm/g. Use signed masses $x$ and $y$ in grams for changes $A = −3.00$ µm and $B = 0$ µm."},
  [{t:"step",f:"B = x + 2y = 0",v:"x = −2y",u:""},{t:"step",f:"A = 2x + y = −3y",v:"y = 1.00",u:"g"}],
  {t:"step",f:"x = −2y",v:"−2.00",u:"g",fin:1}]});
 
@@ -881,7 +871,6 @@ rc98("mech-vibration-resonance-6",5,{p:[
  {t:"eq",eq:"v_{RMS} = v_{peak}/√{2}",cap:"Velocity for pure sinusoidal vibration only"},
  {t:"vt",l:"Peak velocity 4.00 mm/s",v:"2.828",u:"mm/s"},
  {t:"p",x:"A low-speed balance alone cannot establish how a flexible rotor responds at operating speed."}]});
-
 
 /* ---------- mech-shear-1 · Pins and bolts in shear ---------- */
 /* 0 · Plain text, no interaction. Symmetric load sharing on a pin gives F/2 on each of two cuts. */
@@ -1013,7 +1002,6 @@ rc98("mech-mohr-1",4,{p:[
  {t:"eq",lab:"Angle magnitudes",eq:"30° → 60°"},
  {t:"p",x:"The direction $θ_p$ of $σ_1$ is measured from the x axis. With the shear convention on these cards, use **atan2**, the arctangent that uses both signs to pick the direction."},
  {t:"eq",eq:"2θ_p = atan2(τ_{xy}, d)",cap:"d is the signed gap defined earlier. For R = 0, every orientation is principal."}]});
-
 
 /* ---------- mech-fluids-re-1 · Reynolds number: laminar or turbulent ---------- */
 /* 0 · Plain text, no interaction. */
