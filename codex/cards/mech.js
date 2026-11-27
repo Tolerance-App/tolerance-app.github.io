@@ -347,3 +347,36 @@ rc98("mech-heat-transfer-4",2,{p:[
   ["20 K",1,"The contact alone takes a 10 W × 2 K/W temperature drop."],
   ["40 K",0,"That would require another 2 K/W downstream, but the example sets it to zero."]]}});
 
+
+/* ---------- mech-fluids-1 · Hydrostatic pressure ---------- */
+/* 0 · Legend → formula, Guess (equal pressures). Equal surface pressure, density, gravity and depth give equal p. */
+rc98("mech-fluids-1",0,{p:[
+ {t:"p",x:"Two open containers hold still water. One is wide and one is narrow. Both water surfaces are at atmospheric pressure."},
+ {t:"take",x:"At the same depth, both pressures are equal."},
+ {t:"vars",vars:[["p","pressure at depth"],["p_0","pressure at the surface"],["ρ","fluid mass per volume"],["g","gravitational acceleration"],["h","depth below the surface"]]},
+ {t:"eq",lab:"Hydrostatic pressure",eq:"p = p_0 + ρgh",cap:"still fluid, uniform density and gravity"}],
+ g:{at:1,q:"How do the pressures compare at the same depth?",o:[
+  ["Higher in the wide one",0,"More water can increase the total force on a wider floor. Pressure is force per unit area."],
+  ["Higher in the narrow one",0,"The smaller width leaves the depth, density and surface pressure unchanged."],
+  ["Equal in both",1,"Equal depth, density and surface pressure give equal pressure."]]}});
+
+/* 1 · Worked example, no interaction. ρg = 1000·9.81 Pa/m = 9.81 kPa/m; ×10 m = 98.1 kPa; standard atmosphere = 101.325 kPa. */
+rc98("mech-fluids-1",1,{p:[
+ {t:"p",x:"Fresh water adds about 9.81 kPa per metre. Find the pressure increase $Δp$ at 10 m."},
+ {t:"giv",lab:"Still fresh water · uniform density",rows:[["ρ","1,000","kg/m^3"],["g","9.81","m/s^2"],["h","10","m"]]},
+ {t:"step",f:"Δp = ρgh",v:"98.1",u:"kPa",fin:1},
+ {t:"p",x:"That is roughly one standard atmosphere (101 kPa) of extra pressure. A denser fluid, such as mercury, adds more pressure per metre."}]});
+
+/* 2 · Rule in words → formula, Fill “relative to”. 220 + 101 = 321 kPa using rounded standard atmospheric pressure. */
+rc98("mech-fluids-1",2,{p:[
+ {t:"p",x:"A tire or tank gauge reads pressure [[relative to]] the surrounding atmosphere."},
+ {t:"p",x:"Absolute pressure is measured from a vacuum. Add the local atmospheric pressure to the gauge reading."},
+ {t:"eq",eq:"p_a = p_g + p_{atm}",vars:[["p_a","absolute pressure"],["p_g","gauge pressure"],["p_{atm}","local atmospheric pressure"]]},
+ {t:"vt",l:"220 kPa gauge + 101 kPa air",v:"321",u:"kPa absolute"}]});
+
+/* 3 · Plain text, Fill “perpendicular”. Local p increases with depth; force on an area integrates p over that area. */
+rc98("mech-fluids-1",3,{p:[
+ {t:"p",x:"In a still fluid, pressure at a point has the same value in every direction."},
+ {t:"p",x:"The force from pressure acts [[perpendicular]] to the surface it pushes on."},
+ {t:"p",x:"It pushes sideways on a vertical dam wall and down on a flat tank floor."},
+ {t:"take",x:"The deepest spots see the greatest pressure. Total force also depends on how much area is loaded."}]});
