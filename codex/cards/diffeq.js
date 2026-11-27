@@ -203,3 +203,34 @@ rc98("diffeq-second-order-2",3,{p:[
  {t:"p",x:"Take two particular solutions of the same linear equation with the same input. To find how they differ, [[subtract]] one from the other."},
  {t:"p",x:"The two copies of the input cancel. Their difference satisfies the zero-input equation."},
  {t:"take",x:"Each choice of particular solution gives the same full family once all homogeneous solutions are included."}]});
+
+/* ---------- diffeq-second-order-3 · Damping, resonance, and transient response ---------- */
+/* 0 · Terms → analysis chain, no interaction. The initial conditions apply to the sum of the free and forced contributions. */
+rc98("diffeq-second-order-3",0,{p:[
+ {t:"p",x:"A **transient** is the part of the motion that adjusts to the initial conditions. The **steady forced response** is the part sustained by a continuing input."},
+ {t:"p",x:"For a linear model, find the free motion with zero input and one particular response to the input."},
+ {t:"chain",items:["free motion","forced solution","fit their sum","separate the parts"],hl:2},
+ {t:"p",x:"Match the initial position and velocity to the sum, then separate the decaying and persistent parts if the system is stable."}]});
+
+/* 1 · Rule → energy change, Fill "decays". Positive viscous damping c removes mechanical energy at rate c(y′)². */
+rc98("diffeq-second-order-3",1,{p:[
+ {t:"p",x:"**Damping** takes mechanical energy out of the oscillation. A viscous damper pushes against the velocity."},
+ {t:"p",x:"With stable damped motion, the transient [[decays]] after startup."},
+ {t:"take",x:"The free part tends to zero. If a sinusoidal input keeps driving the system, its steady oscillation remains."}]});
+
+/* 2 · Legend → formula → worked value, no interaction. ω₀ > 0, ω₀²=4, so ω₀=√4=2. At undamped resonance the response contains t sin(ω₀t). */
+rc98("diffeq-second-order-3",2,{p:[
+ {t:"p",x:"The **angular natural frequency** $ω_0$ is the oscillation rate with no damping and no forcing. Time is $t$ and $y″$ is the second time derivative of $y$."},
+ {t:"eq",eq:"y″ + ω_0^2 y = 0",cap:"undamped free motion"},
+ [{t:"p",x:"If the coefficient of $y$ is $4$ in a dimensionless equation, match it to $ω_0^2$."},
+  {t:"step",f:"ω_0 = √{4}",v:"2",fin:1}],
+ {t:"p",x:"Drive an undamped system at its natural frequency and the amplitude can grow with time. A growing factor multiplying an oscillation is a **secular term**."}]});
+
+/* 3 · Energy comparison, Guess (bounded amplitude). At fixed nonzero drive ω and positive damping c, the response denominator has nonzero cω. */
+rc98("diffeq-second-order-3",3,{p:[
+ {t:"p",x:"Resonant forcing can add energy cycle after cycle when its push is in step with the velocity."},
+ {t:"p",x:"With positive damping, amplitude approaches a finite steady value under constant-amplitude sinusoidal forcing. The damper dissipates the energy added over each steady cycle."},
+ {t:"take",x:"A damped linear oscillator can still have a resonance peak. Its steady amplitude stays finite."}],
+ g:{at:1,q:"Add positive damping to a linear oscillator driven at its undamped natural frequency. What happens to the amplitude over time?",o:[
+  ["It grows without bound.",0,"That needs the undamped case. Energy loss grows as the motion grows."],
+  ["It settles to a finite value.",1,"Dissipation balances the input energy over each steady cycle."]]}});
