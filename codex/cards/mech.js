@@ -973,3 +973,44 @@ rc98("mech-shear-2",5,{p:[
  {t:"p",x:"For transverse shear on a thin-walled round tube, the peak is [[greater than]] the average $V/A$."},
  {t:"vt",l:"Thin round tube peak",v:"≈ 2V/A",u:""},
  {t:"rel",x:"Use the factor for the shape you're checking. A solid rectangle peaks at $1.50 V/A$."}]});
+
+/* ---------- mech-mohr-1 · Mohr’s circle ---------- */
+/* 0 · Terms, Fill "change with" */
+rc98("mech-mohr-1",0,{p:[
+ {t:"p",x:"Imagine a tiny square around a point in a loaded part. This **stress element** shows what acts across its faces."},
+ {t:"p",x:"**Normal stress** acts perpendicular to a face. Call it $σ_x$ on the x face and $σ_y$ on the y face."},
+ {t:"p",x:"**Shear stress** acts along the face. Let $τ_{xy}$ be shear in the y direction on the x face."},
+ {t:"take",x:"The stress components [[change with]] the square's orientation. You're looking at the same load on differently angled faces."}]});
+
+/* 1 · Coordinates → geometry, no interaction. X and Y have equal and opposite offsets about their midpoint. */
+rc98("mech-mohr-1",1,{p:[
+ {t:"p",x:"**Mohr's circle** collects the normal and shear stress pairs for every orientation in the x–y plane. Normal stress is horizontal and shear is vertical."},
+ {t:"eq",lab:"x face",eq:"X = (σ_x, τ_{xy})"},
+ {t:"eq",eq:"Y = (σ_y, −τ_{xy})"},
+ {t:"take",x:"Draw the line from $X$ to $Y$. It is a **diameter**, a straight line across the circle through its center."}]});
+
+/* 2 · Geometry → formula, no interaction. C is the midpoint. R is the hypotenuse with legs half the normal-stress difference and the shear stress. */
+rc98("mech-mohr-1",2,{p:[
+ {t:"p",x:"The center $C$ is the average normal stress. The signed gap $d$ from the center to point $X$ is half the normal-stress difference. Here $τ$ is the x-face shear."},
+ {t:"eq",lab:"Center",eq:"C = (σ_x + σ_y)/2"},
+ {t:"eq",lab:"Horizontal gap",eq:"d = (σ_x − σ_y)/2"},
+ {t:"eq",lab:"Radius from center to X",eq:"R = √{d^2 + τ^2}",cap:"Use the same stress units on both axes."}]});
+
+/* 3 · Geometry → formulas, Guess (zero shear). σ runs C − R to C + R; the vertical coordinate spans −R to +R. */
+rc98("mech-mohr-1",3,{p:[
+ {t:"p",x:"For a circle with nonzero radius, follow it to the left and right ends, where it meets the horizontal axis."},
+ {t:"p",x:"Shear is zero at both crossings. The normal stresses there are the **principal stresses**, $σ_1$ on the right and $σ_2$ on the left."},
+ {t:"eq",eq:"σ_1 = C + R"},
+ {t:"eq",eq:"σ_2 = C − R"},
+ {t:"p",x:"The largest in-plane shear magnitude is $R$. The top and bottom have signed shear $+R$ and $−R$."}],
+ g:{at:1,q:"What is the shear stress where the circle crosses the horizontal axis?",o:[
+  ["Zero",1,"Shear is the vertical coordinate. The horizontal axis has no vertical offset."],
+  ["The radius",0,"The radius is the shear magnitude at the top and bottom of the circle."]]}});
+
+/* 4 · Rule → angle, Fill "twice". 2 × 30° = 60°. Half of atan2(2τ_xy, σ_x − σ_y) keeps the correct quadrant. */
+rc98("mech-mohr-1",4,{p:[
+ {t:"p",x:"Rotate the x face by an angle $θ$. On Mohr's circle the angle swept from $X$ is [[twice]] that angle in magnitude."},
+ {t:"eq",lab:"Angle magnitudes",eq:"30° → 60°"},
+ {t:"p",x:"The direction $θ_p$ of $σ_1$ is measured from the x axis. With the shear convention on these cards, use **atan2**, the arctangent that uses both signs to pick the direction."},
+ {t:"eq",eq:"2θ_p = atan2(τ_{xy}, d)",cap:"d is the signed gap defined earlier. For R = 0, every orientation is principal."}]});
+
