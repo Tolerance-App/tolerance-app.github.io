@@ -484,3 +484,37 @@ rc98("diffeq-systems-3",3,{p:[
  {t:"p",x:"Both rates below have zero slope at the equilibrium $y=0$, but the higher powers of $y$ drive opposite motion."},
  [{t:"pc",l:"Points toward zero",c:"small positive or negative displacement",v:"y′ = −y^3"},
   {t:"pc",l:"Points away from zero",c:"small positive or negative displacement",v:"y′ = y^3",warn:1}]]});
+
+/* ---------- diffeq-systems-4 · Matrix exponentials and forced systems ---------- */
+/* 0 · Legend → formula, no interaction. At t=0, exp(A·0)=I, so x(0)=x₀. */
+rc98("diffeq-systems-4",0,{p:[
+ {t:"p",x:"The **matrix exponential** maps the whole initial state through time when the state matrix is constant and there is no input."},
+ {t:"vars",lab:"First, the symbols",vars:[["x_0","initial state"],["x(t)","state at time $t$"],["A","constant square matrix of rate coefficients"]]},
+ {t:"eq",lab:"State transition",eq:"x(t) = exp(At)x_0",cap:"starts at time zero, with $x′=Ax$"},
+ {t:"take",x:"The **state transition** is the map $exp(At)$ that propagates the initial state."}]});
+
+/* 1 · Rule in words → formula + Guess. In exp(B)=Σ Bⁿ/n!, the zeroth term is I, the first B, the second B²/2, with B=At. */
+rc98("diffeq-systems-4",1,{p:[
+ {t:"p",x:"The scalar exponential has a **power series**, an infinite sum built from successive powers. A square matrix $B$ can take the scalar's place, even with nonzero entries off its main diagonal."},
+ {t:"take",x:"Build powers by **matrix multiplication**. Exponentiating entries separately skips the coupling between coordinates."},
+ {t:"eq",lab:"First terms",eq:"exp(B)=I+B+B^2/2+⋯",cap:"$B=At$; $I$ is the identity matrix, which leaves a vector unchanged"},
+ {t:"p",x:"Each positive power is divided by the factorial of its exponent: multiply the positive integers up to that exponent."}],
+ g:{at:1,q:"How should you build the matrix powers in that series?",o:[
+  ["Power each entry separately.",0,"That loses the products between entries that describe how coordinates are coupled."],
+  ["Multiply the matrix by itself.",1,"Each higher power is the previous matrix power times the original matrix."]]}});
+
+/* 2 · Rule in words → formula, Fill "adding". Each u(s) propagates for time t−s; integration sums the contributions from 0 to t. */
+rc98("diffeq-systems-4",2,{p:[
+ {t:"p",x:"A **forced** system has rate $Ax+u(t)$, with constant $A$. Input $u(s)$ at time $s$ propagates for $t−s$."},
+ {t:"p",x:"Find the state by [[adding]] the input response to the propagated initial state."},
+ {t:"eq",eq:"g(s) = exp(A(t−s))u(s)"},
+ {t:"p",x:"Integrate $g(s)$ from $0$ to $t$ to get the input response $r(t)$."},
+ {t:"eq",eq:"x(t) = exp(At)x_0 + r(t)",cap:"$x_0$ is the state at time zero"}]});
+
+/* 3 · Rule in words → worked value, no interaction. d(I+At+A²t²/2+⋯)/dt=A+A²t+⋯=A exp(At). exp(−ln 2)=1/2=0.500. */
+rc98("diffeq-systems-4",3,{p:[
+ {t:"p",x:"Differentiate $exp(At)$ term by term. Each time power drops by one, leaving a factor of $A$ times the original series."},
+ {t:"eq",lab:"Transition rate",eq:"d exp(At)/dt = A exp(At)",cap:"constant state matrix $A$"},
+ {t:"p",x:"For a **diagonal matrix**, all entries off the main diagonal are zero. Exponentiate the diagonal entries individually and keep the other entries zero."},
+ {t:"p",x:"For dimensionless diagonal rates $−1$ and $−2$ at $t=ln(2)$, the first entry is:"},
+ {t:"step",f:"exp(−ln(2))",v:"0.500",u:"",fin:1}]});
