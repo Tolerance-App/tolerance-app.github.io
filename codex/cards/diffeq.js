@@ -452,3 +452,35 @@ rc98("diffeq-systems-2",3,{p:[
  g:{at:2,q:"For two modes with real eigenvalues −2 and −5, which takes longer to reach the same fraction of its starting amplitude?",o:[
   ["The −2 mode",1,"The decay rate has smaller magnitude, so the time constant is larger."],
   ["The −5 mode",0,"The more negative rate makes the exponential fall faster."]]}});
+
+/* ---------- diffeq-systems-3 · Nonlinear equilibria and linearization ---------- */
+/* 0 · Plain text, Fill "nearby". */
+rc98("diffeq-systems-3",0,{p:[
+ {t:"p",x:"A **nonlinear** state equation can have rates that curve with the state, so one constant matrix cannot describe the whole system."},
+ {t:"p",x:"An **equilibrium** is a state where every rate is zero. A linear model there describes the motion of [[nearby]] states."},
+ {t:"take",x:"This approximation uses the slopes at that equilibrium. Farther away, the slopes can change enough to give different motion."}]});
+
+/* 1 · Worked example, no interaction. y−y²=y(1−y), so y=1 is fixed. The derivative with respect to y is 1−2y, giving −1 at y=1. */
+rc98("diffeq-systems-3",1,{p:[
+ {t:"p",x:"The **vector field** gives the rate at each state. Its **Jacobian** is the matrix of slopes of each rate with respect to each state coordinate."},
+ {t:"p",x:"Evaluating those slopes at an equilibrium gives the **linearization**, a first-order model for a small displacement from that equilibrium."},
+ {t:"eq",lab:"Example rate",eq:"F(y) = y − y^2",cap:"one dimensionless state $y$ with rate $y′=F(y)$; $F(1)=0$"},
+ {t:"step",f:"F′(1) = 1 − 2(1)",v:"−1",u:"",fin:1},
+ {t:"p",x:"Here $F′$ is the slope with respect to $y$. The negative slope makes a small displacement decay."}]});
+
+/* 2 · Stability rule + Guess (one growing direction suffices). */
+rc98("diffeq-systems-3",2,{p:[
+ {t:"p",x:"For smooth rates, examine the eigenvalues of the Jacobian at the equilibrium. The equilibrium is **hyperbolic** if none has zero real part."},
+ {t:"take",x:"One positive real part makes the equilibrium unstable. Decay in other directions cannot remove the growing direction."},
+ {t:"p",x:"If all real parts are negative, small displacements decay back to the equilibrium: it is locally asymptotically stable."}],
+ g:{at:1,q:"Near an equilibrium, one linear mode grows exponentially and the others decay. Is the nonlinear equilibrium stable?",o:[
+  ["It is stable.",0,"Decay in most directions is insufficient. A growing direction lets some nearby states leave."],
+  ["It is unstable.",1,"The growing mode dominates small displacements along that direction."]]}});
+
+/* 3 · Rule in words → compare pair, Fill "inconclusive". At y=0, ±y³=0 and d(±y³)/dy=±3y²=0; −y³ points toward zero on both sides and +y³ away. */
+rc98("diffeq-systems-3",3,{p:[
+ {t:"p",x:"A **neutral direction** has zero eigenvalue real part, so its linear mode gives no exponential growth or decay."},
+ {t:"p",x:"With a neutral direction and no positive real parts, the linearized stability test is [[inconclusive]]."},
+ {t:"p",x:"Both rates below have zero slope at the equilibrium $y=0$, but the higher powers of $y$ drive opposite motion."},
+ [{t:"pc",l:"Points toward zero",c:"small positive or negative displacement",v:"y′ = −y^3"},
+  {t:"pc",l:"Points away from zero",c:"small positive or negative displacement",v:"y′ = y^3",warn:1}]]});
