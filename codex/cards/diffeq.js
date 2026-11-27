@@ -616,3 +616,32 @@ rc98("diffeq-numerical-series-3",3,{p:[
  {t:"eq",lab:"Coefficient recurrence",eq:"a_{n+1} = a_n / (n + 1)",cap:"$n$ is a nonnegative whole number. $a_0 = 1$ gives $a_1 = 1$."},
  {t:"step",f:"a_2 = a_1 / 2",v:"1/2",u:""},
  {t:"step",f:"a_3 = (1/2) / 3",v:"1/6",u:"",fin:1}]});
+
+/* ---------- diffeq-numerical-series-4 · Boundary-value problems and shooting ---------- */
+/* 0 · Terms → takeaway, Fill "different locations". */
+rc98("diffeq-numerical-series-4",0,{p:[
+ {t:"p",x:"An **initial-value problem** gives the needed conditions at one starting location."},
+ {t:"p",x:"A **boundary-value problem** gives conditions at [[different locations]] in the independent variable."},
+ {t:"p",x:"You might know a beam's displacement at both ends while its slope at the first end is unknown."}]});
+
+/* 1 · Plain text, Guess (solutions need not be unique). */
+rc98("diffeq-numerical-series-4",1,{p:[
+ {t:"p",x:"A boundary condition at the far end tests which starting slopes give a solution that meets both ends."},
+ {t:"p",x:"There may be no suitable starting slope, exactly one, or several. The equation and the boundary data determine which case you have."}],
+ g:{at:1,q:"Can several starting slopes satisfy the same boundary conditions?",o:[
+  ["Yes, they can",1,"Different solution curves starting at the same value can reach the same target."],
+  ["No, a target fixes one slope",0,"A unique solution for each full set of starting data does not guarantee a unique slope that hits a target."]]}});
+
+/* 2 · Process chain, no interaction. */
+rc98("diffeq-numerical-series-4",2,{p:[
+ {t:"p",x:"In **shooting**, the **shooting parameter** is the missing starting value you guess, such as the initial slope."},
+ {t:"chain",items:["guess the slope","integrate","compare","adjust"],hl:2},
+ {t:"p",x:"Integrate the equation as an initial-value problem for that guess. Subtract the required far-end value from the value you reach."},
+ {t:"take",x:"That difference is the **boundary residual**. Use it to adjust the guess until the residual is near zero."}]});
+
+/* 3 · Worked example, no interaction. y″ = 0 gives constant slope s and y = 1 + sx. The residual 1 + 2s − 5 = 0 gives s = (5 − 1)/(2 − 0) = 2. */
+rc98("diffeq-numerical-series-4",3,{p:[
+ {t:"giv",lab:"Dimensionless problem",rows:[["y″","0","second derivative"],["y(0)","1","start"],["y(2)","5","target"]]},
+ {t:"p",x:"Zero second derivative gives a constant slope $s$. Over the distance from $0$ to $2$, the solution ends at $1 + 2s$."},
+ {t:"step",f:"s = (5 − 1) / (2 − 0)",v:"2",u:"",fin:1},
+ {t:"take",x:"Shooting can be **ill-conditioned** on other equations. A tiny error in the starting value can grow into a large error at the far end."}]});
