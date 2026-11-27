@@ -32,10 +32,10 @@ rc98("calc3-geometry-2",0,{p:[
  {t:"p",x:"A **projection** extracts the part of a vector along a chosen direction. The scalar projection gives the signed length of that part."}]});
 /* 1 · Legend → formula, Fill “perpendicular”. The dot is zero at a right angle. */
 rc98("calc3-geometry-2",1,{p:[
- {t:"vars",vars:[["a,b","vectors in perpendicular unit axes"],["a_x,b_x","their components along x"]]},
+ {t:"vars",vars:[["a,b","vectors in perpendicular unit axes"],["a_x,b_x","their components along x"],["a_y,b_y","their components along y"]]},
  {t:"p",x:"Nonzero vectors with zero dot product are [[perpendicular]]."},
- {t:"eq",eq:"a·b = a_x b_x + a_y b_y",cap:"In the plane, sum products along the same axis. Add a z term in space."},
- {t:"p",x:"Each product pairs coordinates along the same axis."}]});
+ {t:"eq",eq:"a·b = a_x b_x + a_y b_y",cap:"In the plane, use the components along x and y. Add the matching z product in space."},
+ {t:"p",x:"**Orthogonal** means perpendicular in this dot product."}]});
 /* 2 · Rule → formulas, no interaction */
 rc98("calc3-geometry-2",2,{p:[
  {t:"p",x:"Project $a$ onto direction $b$. First form the unit vector $u$ by dividing the nonzero $b$ by its length."},
@@ -54,11 +54,12 @@ rc98("calc3-geometry-2",3,{p:[
 /* 0 · Definition, no interaction */
 rc98("calc3-geometry-3",0,{p:[
  {t:"p",x:"A **plane** is a flat surface that extends without bound."},
- {t:"p",x:"Its **normal** is any nonzero vector perpendicular to the surface. It tells you the plane’s orientation."}]});
-/* 1 · Rule → geometry, existing figure. Swapping cross-product inputs negates the result. */
+ {t:"p",x:"Its **normal** is a nonzero vector perpendicular to the surface. It tells you the plane’s orientation."},
+ {t:"p",x:"Given three points that don’t lie on one line, form two displacements from the same point. Their cross product, introduced next, gives a normal."}]});
+/* 1 · Rule → geometry, existing figure, no interaction. Swapping cross-product inputs negates the result. */
 rc98("calc3-geometry-3",1,{p:[
- {t:"p",x:"The **cross product** $a × b$ points perpendicular to both nonparallel inputs. Swapping the inputs reverses it."},
- {t:"p",x:"Its length is their parallelogram area. Parallel inputs give the zero vector."}]});
+ {t:"p",x:"The **cross product** has length equal to the parallelogram area. Parallel inputs give zero. Swapping the inputs reverses the vector."},
+ {t:"eq",eq:"(a × b)_z = a_x b_y − a_y b_x",cap:"In right-handed axes, subscripts pick components."}]});
 /* 2 · Compare, Fill “along” */
 rc98("calc3-geometry-3",2,{p:[
  {t:"p",x:"A line needs a point and a nonzero vector pointing [[along]] the line."},
@@ -90,13 +91,13 @@ rc98("calc3-geometry-4",2,{p:[
 rc98("calc3-geometry-4",3,{p:[
  {t:"p",x:"**Acceleration** is the rate of change of velocity. A point travels around a circle at constant nonzero speed."},
  {t:"take",x:"Acceleration is nonzero because the velocity keeps turning."},
- {t:"p",x:"For steady circular motion, that acceleration points inward."}],
+ {t:"p",x:"For steady circular motion, the acceleration points inward. This is **normal acceleration**: the component perpendicular to velocity that changes its direction."}],
  g:{at:1,q:"Is the acceleration zero?",o:[
   ["Yes, it is zero",0,"Constant speed fixes the length of velocity. Its direction still changes."],
   ["No, it is nonzero",1,"A change of direction is a change in velocity."]]}});
 
 /* ---------- calc3-partials-1 · Multivariable limits and continuity ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-partials-1",0,{p:[
  {t:"p",x:"A **limit** is the value the output approaches as the inputs approach a point."},
  {t:"p",x:"Test approaches through the **domain**, the set of allowed inputs. The value at the point plays no role."}]});
@@ -108,18 +109,18 @@ rc98("calc3-partials-1",1,{p:[
 rc98("calc3-partials-1",2,{p:[
  {t:"p",x:"Near the origin, divide $x^2y$ by $x^4+y^2$. The result is zero on both axes away from the origin."},
  {t:"p",x:"On the curve $y=x^2$, the numerator is $x^4$ and the denominator is $2x^4$. This gives $1/2$."},
- {t:"p",x:"**Continuity** requires the limit to exist and equal the value at the point."}],
+ {t:"p",x:"These two approaches give different values, so the limit fails to exist. **Continuity** requires a limit equal to the value at the point."}],
  g:{at:1,q:"What value do you get along y = x² away from the origin?",o:[
   ["1/2",1,"Substitution makes the denominator twice the numerator."],
   ["0",0,"Zero applies on the axes. Here both coordinates are nonzero."],
   ["1",0,"The denominator has two equal x⁴ terms."]]}});
-/* 3 · Reason */
+/* 3 · Reason, no interaction */
 rc98("calc3-partials-1",3,{p:[
  {t:"p",x:"Infinitely many straight and curved paths can approach the same point."},
  {t:"p",x:"To prove a limit, control the output error for every nearby input using its distance from the point."}]});
 
 /* ---------- calc3-partials-2 · Partial derivatives and the gradient ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-partials-2",0,{p:[
  {t:"p",x:"A **sensitivity** is a rate of output change as an input varies."},
  {t:"p",x:"For a scalar function, which gives one number, each input can have its own sensitivity."}]});
@@ -128,7 +129,7 @@ rc98("calc3-partials-2",1,{p:[
  {t:"p",x:"A **partial derivative** varies one input while holding the others [[fixed]]."},
  {t:"eq",eq:"∇f = (f_x, f_y)",cap:"For f(x,y), f_x varies x alone and f_y varies y alone."},
  {t:"p",x:"The **gradient** collects those first derivatives in a vector."}]});
-/* 2 · Definition → rule */
+/* 2 · Definition → rule, no interaction */
 rc98("calc3-partials-2",2,{p:[
  {t:"p",x:"For a differentiable function, a nonzero gradient points toward the steepest local increase per unit distance."},
  {t:"p",x:"A **level set** contains inputs with the same output. The gradient is perpendicular to the tangent of a level curve wherever that tangent exists."}]});
@@ -142,7 +143,7 @@ rc98("calc3-partials-2",3,{p:[
   ["Positive in some direction",0,"An increase here must come from changes beyond first order."]]}});
 
 /* ---------- calc3-partials-3 · Directional derivatives and tangent planes ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-partials-3",0,{p:[
  {t:"p",x:"A **local linear model** predicts how much a function changes for a small move from a base input."},
  {t:"p",x:"A first-order model keeps the part that scales linearly with the move, including changes in all coordinates."}]});
@@ -154,7 +155,7 @@ rc98("calc3-partials-3",1,{p:[
  g:{at:1,q:"Double the direction vector for the same parameter step. What happens to the rate per parameter step?",o:[
   ["It doubles",1,"The step now covers twice the distance."],
   ["It stays the same",0,"That is the rate per unit distance."]]}});
-/* 2 · Legend → formula */
+/* 2 · Legend → formula, no interaction */
 rc98("calc3-partials-3",2,{p:[
  {t:"p",x:"Let $a$ be the base input and $h$ the displacement. Evaluate the gradient at $a$."},
  {t:"eq",eq:"f(a+h) ≈ f(a)+∇f(a)·h",cap:"For f differentiable at a and small h."},
@@ -166,7 +167,7 @@ rc98("calc3-partials-3",3,{p:[
  {t:"p",x:"Partial derivatives alone describe the coordinate directions and cannot guarantee this error test."}]});
 
 /* ---------- calc3-partials-4 · Multivariable chain rule and Jacobians ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-partials-4",0,{p:[
  {t:"p",x:"Some outputs depend on intermediate variables, which in turn depend on the original inputs."},
  {t:"p",x:"The **chain rule** uses those dependencies to find how changes in the original inputs reach the outputs."}]});
@@ -182,18 +183,18 @@ rc98("calc3-partials-4",2,{p:[
  g:{at:1,q:"Which Jacobian goes on the left of the product?",o:[
   ["The Jacobian of F",1,"The input change passes through G first, then F."],
   ["The Jacobian of G",0,"That order acts on the original input change with F first."]]}});
-/* 3 · Rule → formula */
+/* 3 · Rule → formula, no interaction */
 rc98("calc3-partials-4",3,{p:[
  {t:"p",x:"A **mixed partial derivative** differentiates with respect to one input and then another."},
  {t:"p",x:"Write $f_{xy}$ for the y derivative of $f_x$ and $f_{yx}$ for the other order."},
  {t:"eq",eq:"f_{xy} = f_{yx}",cap:"If both mixed second partials exist and are continuous near the point."}]});
 
 /* ---------- calc3-optimization-1 · Critical points and Hessians ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-optimization-1",0,{p:[
  {t:"p",x:"A **stationary point** is a point where the gradient, the vector of first derivatives, is zero."},
  {t:"p",x:"It is a candidate for a local maximum or minimum. A **saddle** has nearby points with higher and lower values."}]});
-/* 1 · Definition → rule */
+/* 1 · Definition → rule, no interaction */
 rc98("calc3-optimization-1",1,{p:[
  {t:"p",x:"A differentiable objective has zero gradient at an unconstrained interior optimum."},
  {t:"p",x:"The **Hessian** $H$ is the matrix of second partial derivatives. Diagonal entries differentiate twice in one coordinate. Off-diagonal entries mix coordinates."}]});
@@ -211,7 +212,7 @@ rc98("calc3-optimization-1",3,{p:[
   ["A local minimum",0,"A minimum by this test requires positive curvature in every direction."]]}});
 
 /* ---------- calc3-optimization-2 · Lagrange multipliers ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-optimization-2",0,{p:[
  {t:"p",x:"The **objective** is the function you want to maximize or minimize. An **equality constraint** limits the inputs to those satisfying an equation."},
  {t:"p",x:"At a constrained optimum, a small allowed move cannot improve the objective to first order."}]});
@@ -228,16 +229,16 @@ rc98("calc3-optimization-2",2,{p:[
  g:{at:1,q:"What does the multiplier estimate?",o:[
   ["How the best value changes",1,"It gives the slope of the optimal value with respect to c."],
   ["How c itself changes",0,"The change in c is the input, so λ converts it to an estimated objective change."]]}});
-/* 3 · Reason */
+/* 3 · Reason, no interaction */
 rc98("calc3-optimization-2",3,{p:[
  {t:"p",x:"A **tangent direction** follows the constraint surface locally. Along it, $g$ stays fixed to first order, so its direction is perpendicular to $∇g$."},
  {t:"p",x:"The objective also has zero slope along every tangent direction at a constrained optimum. Its gradient therefore lies along the constraint normal, the direction perpendicular to the tangent space."}]});
 
 /* ---------- calc3-optimization-3 · Boundaries and inequality constraints ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-optimization-3",0,{p:[
  {t:"p",x:"A point is **feasible** if it satisfies every constraint."},
- {t:"p",x:"The best feasible value may occur inside the region, along an edge, or where edges meet. Check corners and intersections as well as smooth edges."}]});
+ {t:"p",x:"The best feasible value may occur inside the region, along an edge, or where edges meet. Check corners and intersections as well as smooth edges. Compare objective values across all feasible candidates."}]});
 /* 1 · Rule, Fill */
 rc98("calc3-optimization-3",1,{p:[
  {t:"p",x:"Write an inequality as $g≤0$. It is **active** when the bound holds at equality. An inactive constraint has [[positive]] slack."},
@@ -245,23 +246,23 @@ rc98("calc3-optimization-3",1,{p:[
  {t:"p",x:"Slack is how far you can tighten the bound before the current point reaches it. An active bound has zero slack."}]});
 /* 2 · Rule → formula, Guess. If slack > 0 and λ·slack = 0 then λ = 0. */
 rc98("calc3-optimization-3",2,{p:[
- {t:"p",x:"For minimizing smooth $f$ with $g≤0$, the **KKT conditions** are first-order tests at a local optimum under suitable constraint regularity."},
+ {t:"p",x:"To minimize smooth $f$ subject to $g≤0$, give the bound a weight $λ$, its **multiplier**. The **KKT conditions** are first-order tests at a local optimum under suitable constraint regularity."},
  {t:"eq",eq:"∇f + λ ∇g = 0",cap:"Stationarity: the objective and weighted constraint slopes balance."},
- {t:"p",x:"Feasibility requires $g≤0$ and the multiplier sign is $λ≥0$. **Complementary slackness** requires multiplier times slack to be zero."}],
+ {t:"p",x:"Feasibility requires $g≤0$ and the multiplier sign is $λ≥0$. **Complementary slackness** requires multiplier times slack to be zero. Positive slack therefore forces a zero multiplier."}],
  g:{at:1,q:"Can a constraint with positive slack have a positive KKT multiplier?",o:[
   ["No, its multiplier is zero",1,"Their product must be zero."],
   ["Yes, its multiplier can be positive",0,"A positive multiplier can occur only at a tight bound."]]}});
-/* 3 · Reason */
+/* 3 · Reason, no interaction */
 rc98("calc3-optimization-3",3,{p:[
  {t:"p",x:"A boundary can block the direction in which the objective improves most quickly."},
  {t:"take",x:"The best allowed point may therefore have a nonzero objective gradient."}]});
 
 /* ---------- calc3-optimization-4 · Second-order models and sensitivity ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-optimization-4",0,{p:[
  {t:"p",x:"A **second-order model** approximates a function near a chosen input using slope and curvature."},
  {t:"p",x:"It captures more local behavior than a linear model. Its prediction can degrade as you move farther from the base input."}]});
-/* 1 · Legend → formula. The quadratic coefficient is 1/2 from the one-variable Taylor term 1/2! along the displacement. */
+/* 1 · Legend → formula, no interaction. The quadratic coefficient is 1/2 from the one-variable Taylor term 1/2! along the displacement. */
 rc98("calc3-optimization-4",1,{p:[
  {t:"p",x:"Let $h$ be the input displacement. Let $H$ be the Hessian (matrix of second derivatives) at the base input. The superscript $T$ turns the displacement column into a row."},
  {t:"eq",eq:"½ h^T H h",cap:"The quadratic correction for a twice continuously differentiable function."},
@@ -281,11 +282,11 @@ rc98("calc3-optimization-4",3,{p:[
   ["It shrinks the shift",0,"A flatter curve needs a longer move to cancel the same slope error."]]}});
 
 /* ---------- calc3-multiple-integrals-1 · Double integrals and integration order ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-multiple-integrals-1",0,{p:[
  {t:"p",x:"A **double integral** adds up contributions from tiny areas of a flat region."},
  {t:"p",x:"One way to add them is to slice the region along one coordinate direction and then add the slice totals."}]});
-/* 1 · Rule, existing figure */
+/* 1 · Rule, existing figure, no interaction */
 rc98("calc3-multiple-integrals-1",1,{p:[
  {t:"p",x:"An **iterated integral** is an integral inside another integral. On each slice, integrate over the inside variable while the outside variable stays fixed."},
  {t:"p",x:"**Fubini’s theorem** permits this for continuous functions on rectangles."}]});
@@ -304,7 +305,7 @@ rc98("calc3-multiple-integrals-1",3,{p:[
   ["It stays fixed",0,"Equal angle increments do not give equal arc lengths."]]}});
 
 /* ---------- calc3-multiple-integrals-2 · Polar double integrals and Jacobian factors ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-multiple-integrals-2",0,{p:[
  {t:"p",x:"**Polar coordinates** locate a point by a radius $r$ from the origin and an angle $θ$ from the positive horizontal axis."},
  {t:"p",x:"A tiny rectangle in the radius and angle coordinates maps to a narrow sector in the plane."}]});
@@ -320,17 +321,17 @@ rc98("calc3-multiple-integrals-2",2,{p:[
  g:{at:1,q:"If that determinant is negative, which factor scales area?",o:[
   ["Its absolute value",1,"Area is positive even when orientation reverses."],
   ["Its signed value",0,"The sign records orientation, which scalar area does not carry."]]}});
-/* 3 · Reason. Arc length is r times the angle in radians. */
+/* 3 · Reason, no interaction. Arc length is r times the angle in radians. */
 rc98("calc3-multiple-integrals-2",3,{p:[
  {t:"p",x:"An angle increment $dθ$ sweeps out an arc of length $r dθ$."},
  {t:"p",x:"Multiply that length by the radial thickness $dr$ for the tiny area. At a greater radius the same angle sweeps a longer arc."}]});
 
 /* ---------- calc3-multiple-integrals-3 · Triple integrals and cylindrical coordinates ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-multiple-integrals-3",0,{p:[
  {t:"p",x:"A **triple integral** adds up a scalar, a single number at each point, throughout a solid."},
  {t:"p",x:"You can group the tiny volumes into slices and add the slice totals."}]});
-/* 1 · Process */
+/* 1 · Process, no interaction */
 rc98("calc3-multiple-integrals-3",1,{p:[
  {t:"p",x:"The bounds describe the entire solid. In nested integrals, an inner bound can depend on variables integrated later."},
  {t:"p",x:"For example, fix the horizontal location and sweep vertically from the bottom to the top of the solid. Then integrate over the allowed horizontal locations."}]});
@@ -348,11 +349,11 @@ rc98("calc3-multiple-integrals-3",3,{p:[
   ["It quadruples",0,"That would require another factor of two from the horizontal patch."]]}});
 
 /* ---------- calc3-multiple-integrals-4 · Spherical coordinates and general transformations ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-multiple-integrals-4",0,{p:[
  {t:"p",x:"A coordinate change alters the amount of physical volume covered by equal increments of the new coordinates."},
  {t:"p",x:"In spherical coordinates the two angle directions can stretch by different amounts, depending on where you are."}]});
-/* 1 · Legend → formula */
+/* 1 · Legend → formula, no interaction */
 rc98("calc3-multiple-integrals-4",1,{p:[
  {t:"p",x:"**Spherical coordinates** use distance $ρ$ from the origin, azimuth $θ$ around the vertical axis, and polar angle $φ$ down from positive $z$."},
  {t:"eq",eq:"dV = ρ^2 sinφ dρ dφ dθ",cap:"ρ ≥ 0. Use radians and measure φ down from positive z."},
@@ -361,7 +362,7 @@ rc98("calc3-multiple-integrals-4",1,{p:[
 rc98("calc3-multiple-integrals-4",2,{p:[
  {t:"p",x:"Angle conventions vary. Define which angle is measured from the pole before setting bounds."},
  {t:"p",x:"In a smooth coordinate substitution, take the [[absolute value]] of the Jacobian determinant, which measures signed volume scaling."},
- {t:"p",x:"Choose bounds or split the integral so that almost every physical point is counted once. Angular seams of zero volume do not add volume."}]});
+ {t:"p",x:"Choose bounds or split the integral so that almost every physical point is counted once. A nonzero determinant only gives local invertibility. For example, azimuths a full turn apart can describe the same points."}]});
 /* 3 · Reason, Guess. Azimuth arc radius is ρ sinφ; it tends to zero at φ=0. */
 rc98("calc3-multiple-integrals-4",3,{p:[
  {t:"p",x:"Hold $ρ$ fixed and compare how far the same small change in azimuth moves you near the north pole and near the equator."},
@@ -372,11 +373,11 @@ rc98("calc3-multiple-integrals-4",3,{p:[
   ["Near the equator",0,"The horizontal circle has its largest radius at the equator."]]}});
 
 /* ---------- calc3-line-integrals-1 · Scalar and vector line integrals ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-line-integrals-1",0,{p:[
  {t:"p",x:"A **line integral** adds contributions along a curve. A scalar line integral weights each little length of the curve by a number."},
  {t:"p",x:"A vector **work integral** counts the part of a vector field, such as force, pointing along the motion."}]});
-/* 1 · Rule, existing figure */
+/* 1 · Rule, existing figure, no interaction */
 rc98("calc3-line-integrals-1",1,{p:[
  {t:"p",x:"For a piecewise smooth path $r(t)$, the derivative gives the directed motion per unit increase in the path parameter $t$."},
  {t:"p",x:"For a scalar integrand, weight it by the length of that derivative. For work, take the dot product of the field with the derivative."}]});
@@ -393,7 +394,7 @@ rc98("calc3-line-integrals-1",3,{p:[
  {t:"p",x:"The length weight stays the same. The dot product with the directed step changes sign."}]});
 
 /* ---------- calc3-line-integrals-2 · Conservative fields and potentials ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-line-integrals-2",0,{p:[
  {t:"p",x:"An **endpoint** is the start or finish of a path. Work is **path independent** on a domain when all paths there with the same ordered endpoints have the same work."},
  {t:"p",x:"A function of position can store all the information you need to calculate that work."}]});
@@ -410,20 +411,20 @@ rc98("calc3-line-integrals-2",2,{p:[
  g:{at:1,q:"What circulation can a conservative field give on a closed path in its domain?",o:[
   ["Zero",1,"The two endpoint potential values cancel."],
   ["A nonzero value",0,"That could happen only if the field does not have a single potential on the path’s domain."]]}});
-/* 3 · Reason → formula */
+/* 3 · Reason → formula, no interaction */
 rc98("calc3-line-integrals-2",3,{p:[
  {t:"p",x:"Along the path $r(t)$, the potential becomes a function of the path parameter $t$."},
  {t:"eq",eq:"dφ/dt = ∇φ·r′(t)",cap:"By the chain rule, evaluated at r(t) on each smooth part."},
  {t:"p",x:"Integrate this ordinary derivative over the path parameter to get the potential change."}]});
 
 /* ---------- calc3-line-integrals-3 · Green’s theorem ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-line-integrals-3",0,{p:[
  {t:"p",x:"**Circulation** measures how much a vector field pushes along an oriented closed curve. Orientation is the direction you travel."},
  {t:"p",x:"**Green’s theorem** moves the calculation from a plane region’s boundary to its interior."},
  {t:"p",x:"Write the field’s horizontal and vertical components as $P$ and $Q$. **Scalar curl** measures local counterclockwise circulation per unit area."},
  {t:"eq",eq:"curl = Q_x − P_y",cap:"Q_x differentiates Q along x. P_y differentiates P along y."}]});
-/* 1 · Legend → formula, existing figure */
+/* 1 · Legend → formula, existing figure, no interaction */
 rc98("calc3-line-integrals-3",1,{p:[
  {t:"p",x:"Add the scalar curl over the plane region."},
  {t:"take",x:"The result is the circulation along the oriented boundary shown."}]});
@@ -441,15 +442,15 @@ rc98("calc3-line-integrals-3",3,{p:[
   ["They add in the same direction",0,"That would count the shared edge twice with the same orientation."]]}});
 
 /* ---------- calc3-line-integrals-4 · Curl-free fields and domain holes ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-line-integrals-4",0,{p:[
  {t:"p",x:"A field’s **curl** measures local circulation. Zero curl rules out a local spin detected by first derivatives."},
  {t:"p",x:"**Path independence** is a global statement: every pair of paths with the same endpoints gives the same work."}]});
 /* 1 · Rule, Fill */
 rc98("calc3-line-integrals-4",1,{p:[
- {t:"p",x:"A smooth **conservative** field is a gradient, so it has zero curl. The converse holds for continuously differentiable fields on a simply connected open domain."},
+ {t:"p",x:"A smooth **conservative** field is a gradient, so it has zero curl."},
  {t:"p",x:"**Simply connected** means the domain is path-connected and each closed loop can be shrunk to a point [[within]] it."},
- {t:"p",x:"The contraction must stay in the domain throughout. A loop around a missing point can fail that test."}]});
+ {t:"p",x:"On a simply connected open domain, the converse holds: a continuously differentiable field with zero curl is conservative."}]});
 /* 2 · Compare, Guess */
 rc98("calc3-line-integrals-4",2,{p:[
  {t:"p",x:"Consider a curl-free field on the plane with the origin removed. A closed path winds around that missing point."},
@@ -457,17 +458,17 @@ rc98("calc3-line-integrals-4",2,{p:[
  g:{at:1,q:"Can this path have nonzero circulation?",o:[
   ["Yes, it can",1,"The missing point blocks contraction, so local zero curl need not imply zero work around the loop."],
   ["No, it cannot",0,"Zero curl gives the global conclusion only with additional domain conditions."]]}});
-/* 3 · Reason */
+/* 3 · Reason, no interaction */
 rc98("calc3-line-integrals-4",3,{p:[
  {t:"p",x:"For a loop around a hole, filling its interior can require points where the field is undefined."},
  {t:"p",x:"A local derivative test never measures what happens at those missing points. Check the domain before inferring a potential."}]});
 
 /* ---------- calc3-surface-theorems-1 · Surface parameterization and flux ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-surface-theorems-1",0,{p:[
  {t:"p",x:"**Flux** measures how strongly a field passes through a surface."},
  {t:"p",x:"An **oriented** surface has a chosen normal direction, perpendicular to its tangent plane. Flow along that normal contributes positive flux."}]});
-/* 1 · Rule, existing figure */
+/* 1 · Rule, existing figure, no interaction */
 rc98("calc3-surface-theorems-1",1,{p:[
  {t:"p",x:"A **parameterization** gives each surface point as a position vector depending on two parameters."},
  {t:"p",x:"Vary one parameter at a time to get two tangent vectors. At a regular patch they are independent, so their cross product gives a nonzero oriented area vector."}]});
@@ -484,7 +485,7 @@ rc98("calc3-surface-theorems-1",3,{p:[
   ["Nonzero",0,"Motion along the sheet does not pass through it."]]}});
 
 /* ---------- calc3-surface-theorems-2 · Divergence theorem ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-surface-theorems-2",0,{p:[
  {t:"p",x:"A **closed surface** bounds a solid without an open edge. The outward normal points away from that solid."},
  {t:"p",x:"**Divergence** measures local net outflow per unit volume, positive for a net source and negative for a net sink."}]});
@@ -497,27 +498,27 @@ rc98("calc3-surface-theorems-2",1,{p:[
 rc98("calc3-surface-theorems-2",2,{p:[
  {t:"p",x:"Let $P$, $Q$ and $R$ be the field components along $x$, $y$ and $z$. The subscripts denote partial derivatives."},
  {t:"eq",eq:"div F = P_x + Q_y + R_z",cap:"Each derivative varies its indicated coordinate alone."},
- {t:"p",x:"For an open surface, compute flux directly or close it and subtract the flux through the added pieces."}],
+ {t:"p",x:"For an open surface, compute flux directly or close it with extra pieces. Subtract their flux using the outward orientation, then match the requested normal."}],
  g:{at:1,q:"Which derivative belongs to the x component in the divergence sum?",o:[
   ["Differentiate it along x",1,"Divergence compares flow through the pair of faces normal to the component’s axis."],
   ["Differentiate it along y",0,"That is a sideways change and does not give the net flow through the x faces."]]}});
-/* 3 · Reason */
+/* 3 · Reason, no interaction */
 rc98("calc3-surface-theorems-2",3,{p:[
  {t:"p",x:"Divide the solid into little volumes. Each shared face has opposite outward normals for its two neighbors."},
  {t:"p",x:"Their flux contributions cancel. Only flux through the outer boundary survives the sum."}]});
 
 /* ---------- calc3-surface-theorems-3 · Stokes’ theorem ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-surface-theorems-3",0,{p:[
  {t:"p",x:"**Circulation** is the work of a field along an oriented closed curve. **Curl** is the vector that measures local circulation about different axes."},
  {t:"p",x:"Surface flux of curl counts the part of that local rotation along the surface normal."}]});
-/* 1 · Rule, existing figure */
+/* 1 · Rule, existing figure, no interaction */
 rc98("calc3-surface-theorems-3",1,{p:[
  {t:"p",x:"**Stokes’ theorem** equates circulation around a surface boundary with the flux of curl through the surface."},
  {t:"p",x:"Use an oriented piecewise smooth surface and a field with continuous first derivatives near it. Match the boundary to the normal by the right-hand rule."}]});
 /* 2 · Compare, Guess */
 rc98("calc3-surface-theorems-3",2,{p:[
- {t:"p",x:"Two suitable surfaces span the same oriented boundary. Their curl fluxes are equal and nonzero. Now reverse the normal on just one surface."},
+ {t:"p",x:"A **spanning surface** has the given curve as its boundary. Two suitable surfaces span the same oriented curve. Their curl fluxes are equal and nonzero. Now reverse the normal on just one surface."},
  {t:"take",x:"Reversing just one normal negates that surface’s curl flux. The fluxes now have opposite signs."}],
  g:{at:1,q:"How do their curl fluxes compare now?",o:[
   ["They have opposite signs",1,"Reversing a normal negates its flux and reverses its boundary direction."],
@@ -528,7 +529,7 @@ rc98("calc3-surface-theorems-3",3,{p:[
  {t:"p",x:"The interior edges cancel in pairs. Only circulation around the surface boundary remains."}]});
 
 /* ---------- calc3-surface-theorems-4 · Choosing an integral theorem ---------- */
-/* 0 · Definition */
+/* 0 · Definition, no interaction */
 rc98("calc3-surface-theorems-4",0,{p:[
  {t:"p",x:"Identify the object you are integrating over and how it is oriented before selecting a theorem."},
  {t:"p",x:"A closed curve may bound a plane region or a surface in space. A closed surface can bound a volume."}]});
@@ -544,7 +545,7 @@ rc98("calc3-surface-theorems-4",2,{p:[
  g:{at:1,q:"How can you find the work without integrating along the path?",o:[
   ["Subtract endpoint potentials",1,"The derivative of the potential along the path is the work integrand."],
   ["Use the curl across a spanning surface",0,"Stokes relates a surface to its full boundary. An open path alone is not that boundary."]]}});
-/* 3 · Rule → formula */
+/* 3 · Rule → formula, no interaction */
 rc98("calc3-surface-theorems-4",3,{p:[
  {t:"p",x:"Each boundary theorem trades a boundary integral for an integral one dimension higher. The geometry and the orientations determine the direction of the trade."},
  {t:"p",x:"For volume source accumulation, form divergence from the field components $P$, $Q$ and $R$. A subscript indicates the coordinate that varies."},
