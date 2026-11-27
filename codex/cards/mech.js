@@ -542,3 +542,33 @@ rc98("mech-machine-2",3,{p:[
  g:{at:1,q:"Which loses a larger fraction of its original value when the shaft is bored?",o:[
   ["Mass per length",1,"Removing the low-stress core saves mass with a smaller loss of torque capacity."],
   ["Torque capacity",0,"That would favor the core. Material farther from the axis makes the larger contribution to torsion."]]}});
+
+/* ---------- mech-machine-3 · Bearing life ---------- */
+/* 0 · Definition → meaning, Fill "at least". The 10th-percentile fatigue life leaves a nominal 100% − 10% = 90% survival fraction. */
+rc98("mech-machine-3",0,{p:[
+ {t:"p",x:"Repeated rolling contact can cause **surface fatigue**. Small pits form on the rolling elements or the tracks they run on."},
+ {t:"p",x:"Under the same operating conditions, 90% of comparable bearings are expected to last [[at least]] $L_{10}$ revolutions."},
+ {t:"take",x:"That makes $L_{10}$ the **basic rating life**. About 10% of the group is expected to fail from fatigue sooner."}]});
+
+/* 1 · Legend → formula, no interaction. ISO 281 rating exponents are 3 for balls and 10/3 for rollers (model coefficients). */
+rc98("mech-machine-3",1,{p:[
+ {t:"vars",vars:[["L_{10}","basic rating life in millions of turns"],["C","dynamic load rating listed by the maker"],["P","equivalent steady load for bearing life"]]},
+ {t:"eq",eq:"L_{10} = (C/P)^p",cap:"Basic fatigue rating at constant equivalent load"},
+ {t:"p",x:"Use the same force units for $C$ and $P$. The exponent $p$ is 3 for ball bearings and 10/3 for roller bearings."}]});
+
+/* 2 · Scaling, Guess. 1.26³ = 2.0004 and 2³ = 8. */
+rc98("mech-machine-3",2,{p:[
+ {t:"p",x:"Keep the same ball bearing and increase its equivalent load $P$. The life calculation uses the cube of the load ratio."},
+ {t:"take",x:"About 26% more load halves the rating life of a ball bearing."},
+ {t:"p",x:"Doubling the load leaves only one eighth of the life, because the load ratio is cubed."}],
+ g:{at:1,q:"Equivalent load rises by about 26%. What happens to the rating life?",o:[
+  ["It drops by about a quarter",0,"That treats the change as nearly linear. The load ratio enters cubed."],
+  ["It drops by about half",1,"Cubing the factor 1.26 gives about 2, and load is in the denominator."]]}});
+
+/* 3 · Worked example, no interaction. 60 min/h × 1,000 rev/min = 60,000 rev/h; 10⁹/60,000 = 16,666.7 h. 20,000–40,000 h is a representative full-shift industrial target, set by application. */
+rc98("mech-machine-3",3,{p:[
+ {t:"p",x:"Hours of rating life come from dividing the rated number of turns by turns per hour at constant speed."},
+ {t:"giv",rows:[["L_{10}","1,000","million turns"],["n","1,000","rev/min"]]},
+ {t:"step",f:"60 n",v:"60,000",u:"rev/h"},
+ {t:"step",f:"10^9 / 60,000",v:"16,700",u:"h",fin:1},
+ {t:"p",x:"For full-shift industrial service, a design may target 20,000–40,000 h. Choose the target for the machine's duty and maintenance plan."}]});
