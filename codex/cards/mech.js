@@ -572,3 +572,34 @@ rc98("mech-machine-3",3,{p:[
  {t:"step",f:"60 n",v:"60,000",u:"rev/h"},
  {t:"step",f:"10^9 / 60,000",v:"16,700",u:"h",fin:1},
  {t:"p",x:"For full-shift industrial service, a design may target 20,000–40,000 h. Choose the target for the machine's duty and maintenance plan."}]});
+
+/* ---------- mech-machine-4 · Bolted joint stiffness ---------- */
+/* 0 · Legend → formula, no interaction. Force balance gives P = rise in bolt force + loss of clamp force; equal incremental displacement gives C = k_b/(k_b + k_m). */
+rc98("mech-machine-4",0,{p:[
+ {t:"vars",vars:[["P","outside force pulling the joint apart"],["k_b","bolt stiffness"],["k_m","stiffness of the parts being clamped"],["C","fraction of added load seen by the bolt"]]},
+ {t:"eq",eq:"C = k_b/(k_b + k_m)",cap:"Linear elastic joint, parts still in contact"},
+ {t:"p",x:"The bolt gains $CP$ in tension. The parts lose $(1 − C)P$ of their initial clamp force."}]});
+
+/* 1 · Compare conditions, Guess. At k_m/k_b = 4, C = 1/5 = 0.20; at k_m/k_b = 7/3, C = 0.30. The range is illustrative. */
+rc98("mech-machine-4",1,{p:[
+ {t:"p",x:"A **gasket** is a layer between parts that fills gaps to seal a joint. Consider adding a soft gasket while keeping the bolt stiffness fixed."},
+ {t:"take",x:"A soft gasket makes the clamped stack easier to compress. The bolt then takes a larger share of each added load."},
+ {t:"p",x:"In joints with clamped parts several times stiffer than the bolt, $C$ may be around 0.20–0.30."}],
+ g:{at:1,q:"What does the soft layer do to the bolt's share of an added load before the joint opens?",o:[
+  ["It raises the share",1,"The clamped parts are less stiff, which reduces the denominator of the stiffness fraction."],
+  ["It lowers the share",0,"That would require stiffer clamped parts. A softer stack raises the bolt's share."]]}});
+
+/* 2 · Rule in words → formula, Fill "proportional". If C = 0.20, a 10 kN swing produces 0.20·10 = 2.00 kN of bolt swing. */
+rc98("mech-machine-4",2,{p:[
+ {t:"p",x:"**Fatigue** is damage from repeated loading. For a joint that stays closed, the bolt's force swing is [[proportional]] to the outside force swing."},
+ {t:"eq",eq:"ΔF_b = C ΔP",cap:"Δ means change in force, with joint stiffnesses fixed"},
+ {t:"p",x:"With $C = 0.20$, a 10 kN outside swing gives a 2.00 kN bolt swing."},
+ {t:"take",x:"Stiffer clamped parts or a more flexible bolt can reduce the bolt's force swing."}]});
+
+/* 3 · Legend → formula → worked result, no interaction. 20/(1 − 0.20) = 25.0 kN. */
+rc98("mech-machine-4",3,{p:[
+ {t:"p",x:"The joint starts to separate when the loss of clamp force consumes the initial clamp force $F_i$."},
+ {t:"eq",eq:"P_{sep} = F_i/(1 − C)",cap:"Outside force at first separation, with constant C until opening"},
+ {t:"p",x:"Take a preload of 20.0 kN and a bolt share $C = 0.20$."},
+ {t:"step",f:"20.0 / (1 − 0.20)",v:"25.0",u:"kN",fin:1},
+ {t:"p",x:"Once the parts separate, the closed-joint load split no longer applies."}]});
