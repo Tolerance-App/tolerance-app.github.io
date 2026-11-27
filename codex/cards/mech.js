@@ -507,3 +507,38 @@ rc98("mech-machine-1",3,{p:[
  {t:"p",x:"For a reusable joint, a common preload target is [[below]] the proof load."},
  {t:"vt",l:"Typical preload target",v:"≈ 75%",u:"of proof load"},
  {t:"p",x:"Preload helps keep the parts clamped in service. Verify clamp force and bolt tension under service loads and allow for tightening scatter."}]});
+
+/* ---------- mech-machine-2 · Shafts in torsion ---------- */
+/* 0 · Legend → formula, Guess. For equal power at a 10:1 ideal reduction, T_out/T_in = ω_in/ω_out = 10. */
+rc98("mech-machine-2",0,{p:[
+ {t:"vars",vars:[["P","power transmitted"],["T","torque, or twisting moment"],["ω","angular speed in rad/s"]]},
+ {t:"take",x:"At equal power, the slower shaft carries more torque."},
+ {t:"eq",eq:"P = Tω",cap:"Steady rotation"},
+ {t:"p",x:"An ideal 10:1 reducer has one tenth the input speed at its output and ten times the torque. With other design limits equal, that favors a thicker output shaft."}],
+ g:{at:1,q:"A lossless speed reducer passes the same power through both shafts. Which carries more torque?",o:[
+  ["Fast input shaft",0,"It turns faster. Less torque is needed there to transmit the same power."],
+  ["Slow output shaft",1,"Equal power at lower angular speed requires more torque."]]}});
+
+/* 1 · Legend → formula, no interaction. τ = Tr/J; at r = d/2 and J = πd⁴/32 this is 16T/(πd³). */
+rc98("mech-machine-2",1,{p:[
+ {t:"vars",vars:[["T","applied torque"],["d","solid shaft diameter"],["τ_{max}","largest shear stress, at the rim"]]},
+ {t:"eq",eq:"τ_{max} = 16T/(πd^3)",cap:"Solid round shaft in elastic torsion"},
+ {t:"p",x:"**Shear stress** measures force per area acting along a surface. In a shaft it grows from zero at the center to its peak at the rim."},
+ {t:"p",x:"At distance $r$ from the center, $τ = Tr/J$. The **polar moment** $J$ measures how far the section area lies from the axis."}]});
+
+/* 2 · Rule in words → scaling, Fill "inversely". (1.259921)³ = 2; (2)³ = 8. */
+rc98("mech-machine-2",2,{p:[
+ {t:"p",x:"Hold torque fixed on a solid round shaft. Its surface stress scales [[inversely]] with the cube of the diameter."},
+ {t:"eq",eq:"τ_{max} ∝ 1/d^3",cap:"Same torque, elastic torsion"},
+ {t:"vt",l:"Diameter about 26% larger",v:"τ_{max} ÷ 2",u:""},
+ {t:"vt",l:"Twice the diameter",v:"τ_{max} ÷ 8",u:""}]});
+
+/* 3 · Compare pair, Guess. At bore/outside diameter = 0.60, area fraction = 1 − 0.60² = 0.64; torque to reach the same outer stress scales with J, whose fraction is 1 − 0.60⁴ = 0.8704. */
+rc98("mech-machine-2",3,{p:[
+ {t:"p",x:"Bore a hole through the middle of an elastic round shaft. Keep its outer diameter, material and allowed surface stress fixed."},
+ {t:"take",x:"The bore removes a larger share of the mass than of the torque capacity. The missing material was near the low-stress center."},
+ [{t:"vt",l:"Mass per length retained",v:"64%",u:""},{t:"vt",l:"Torque capacity retained",v:"87%",u:""}],
+ {t:"rel",x:"Example: bore diameter is 60% of the outside diameter."}],
+ g:{at:1,q:"Which loses a larger fraction of its original value when the shaft is bored?",o:[
+  ["Mass per length",1,"Removing the low-stress core saves mass with a smaller loss of torque capacity."],
+  ["Torque capacity",0,"That would favor the core. Material farther from the axis makes the larger contribution to torsion."]]}});
