@@ -107,3 +107,35 @@ rc98("diffeq-first-order-3",3,{p:[
  {t:"p",x:"Multiply by $μ$ to get $(μy)′ = 6μ$. Integration gives $μy = 3μ + C$, where $C$ is a constant."},
  {t:"p",x:"At $t = 0$, $μ = 1$ and $y = 1$, so $C = −2$. Divide by $μ$ to get $y = 3 − 2 exp(−2t)$."},
  {t:"step",f:"y at t = ln(2)/2",v:"3 − 2/2 = 2",u:"",fin:1}]});
+
+/* ---------- diffeq-first-order-4 · Exact equations, substitutions, and uniqueness ---------- */
+/* 0 · Compare recovery of signs, Guess (both). For t>0, y=√t and y=−√t both square to t. */
+rc98("diffeq-first-order-4",0,{p:[
+ {t:"p",x:"A **substitution** changes the variables or the way an equation is written. Here $t$ is the input and $y$ is the unknown. Can you recover $y$ from the new expression?"},
+ {t:"p",x:"Both a positive and a negative value square to the same positive number. Squaring can lose information about the sign."},
+ {t:"take",x:"Inspect what a transformation preserves before using it to solve the equation."}],
+ g:{at:1,q:"If $y^2 = t$ for $t > 0$, which signs of $y$ are possible?",o:[
+  ["Only positive",0,"The positive square root is one candidate. Its negative also squares to $t$."],
+  ["Only negative",0,"The negative root is one candidate. The positive root also squares to $t$."],
+  ["Positive or negative",1,"Squaring either sign of the square root gives the same $t$."]]}});
+
+/* 1 · Rule in words → worked example, no interaction. d(x²+y²)=2x dx+2y dy; 3²+4²=9+16=25. */
+rc98("diffeq-first-order-4",1,{p:[
+ {t:"p",x:"An **exact** equation has the form $dF = 0$. The differential $dF$ is the total change to first order in the **potential**, a single function $F$ of the variables."},
+ {t:"p",x:"Along a solution the potential stays constant, $F = C$. In the dimensionless example $2x dx + 2y dy = 0$, the potential is $F = x^2 + y^2$. Differentiate with respect to each coordinate while holding the other fixed to get $2x$ and $2y$."},
+ {t:"step",f:"C = 3^2 + 4^2",v:"25",u:"",fin:1},
+ {t:"p",x:"The point $x = 3$, $y = 4$ fixes which constant-potential curve the solution follows."}]});
+
+/* 2 · Legend → formulas, Fill "linear". Differentiating u=y^{1−n} gives u′=(1−n)y^{−n}y′; multiplying the original equation by (1−n)y^{−n} yields u′+(1−n)pu=(1−n)q. */
+rc98("diffeq-first-order-4",2,{p:[
+ {t:"eq",lab:"Bernoulli equation",eq:"y′ + py = q y^n",cap:"p and q depend only on the input; n is a constant other than 0 or 1"},
+ {t:"p",x:"On an interval where the powers and their derivatives are defined and $y ≠ 0$, use the new unknown $u = y^{1−n}$."},
+ {t:"p",x:"The transformed equation is [[linear]]. The chain rule gives $u′ = (1−n)y^{−n}y′$."},
+ {t:"eq",eq:"u′ + (1−n)pu = (1−n)q",cap:"on the interval where the substitution is valid"}]});
+
+/* 3 · Terms → takeaway, no interaction. For y′=2√|y|, y(0)=0, y≡0 and y=t² for t≥0 (zero for t≤0) both satisfy the equation; d(t²)/dt=2t=2√(t²) for t≥0. */
+rc98("diffeq-first-order-4",3,{p:[
+ {t:"p",x:"If a substitution divides by $y$ or uses a power undefined at zero, test $y = 0$ in the original equation."},
+ {t:"p",x:"For $y′ = f(t,y)$, continuity of the right side $f$ near the starting point ensures local **existence**. A solution passes through that point on a short input interval."},
+ {t:"p",x:"For local **uniqueness**, a standard sufficient extra condition is that $f$ is locally Lipschitz in $y$. Near the initial point, differences in $f$ at the same $t$ are bounded by a fixed multiple of differences in $y$."},
+ {t:"take",x:"With these conditions there is exactly one solution near the starting point. Continuity alone can allow several."}]});
