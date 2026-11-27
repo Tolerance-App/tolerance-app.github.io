@@ -326,3 +326,34 @@ rc98("diffeq-laplace-2",3,{p:[
  g:{at:1,q:"Just after the switch, what value does the expression with the unshifted square approach?",o:[
   ["0",0,"The value would approach zero if the square used elapsed time. Here the square still uses clock time."],
   ["4",1,"The step is one just after it activates, and clock time tends to two."]]}});
+
+/* ---------- diffeq-laplace-3 · Impulses and convolution ---------- */
+/* 0 · Terms, Fill "added together". */
+rc98("diffeq-laplace-3",0,{p:[
+ {t:"p",x:"The **initial state** is the set of starting values needed to predict the system's motion. A **zero-state response** starts with all of them at zero."},
+ {t:"p",x:"An **impulse response** is the zero-state response to a unit impulse, an input concentrated at an instant with area one."},
+ {t:"take",x:"For a linear system, responses to separate input contributions can be [[added together]]."},
+ {t:"p",x:"Add two inputs and you get the sum of their individual responses."}]});
+
+/* 1 · Rule in words → formula, Guess (peak doubles). Unit area = height × width; 1/(w/2) = 2/w. */
+rc98("diffeq-laplace-3",1,{p:[
+ {t:"p",x:"Approximate the impulse by a short rectangular pulse. Keep its area at one while making its width $w$ smaller."},
+ {t:"eq",lab:"Pulse height",eq:"height = 1/w",cap:"rectangular pulse with unit area"},
+ {t:"p",x:"Halving the width doubles the height. In the zero-width limit the ideal impulse is a **distribution**, an object defined through integrals rather than a finite height at one point."}],
+ g:{at:1,q:"Keeping area fixed, what happens to the pulse height if you halve its width?",o:[
+  ["It halves.",0,"Height and width multiply to give area. Halving both would shrink the area."],
+  ["It doubles.",1,"Height must double to offset the width being cut in half."]]}});
+
+/* 2 · Legend → formula, no interaction. */
+rc98("diffeq-laplace-3",2,{p:[
+ {t:"p",x:"**Causal** means no response before the input. **Time-invariant** means delaying an input delays its response by the same amount."},
+ {t:"vars",vars:[["τ","input time"],["x(τ)","input at that time"],["h(t−τ)","impulse response after elapsed time $t−τ$"],["y(t)","output at time $t$"]]},
+ {t:"eq",lab:"Convolution",eq:"y(t) = ∫_0^t x(τ)h(t−τ) dτ",cap:"causal, linear, time-invariant system starting at rest"},
+ {t:"p",x:"**Convolution** adds up responses weighted by past inputs."}]});
+
+/* 3 · Worked example, no interaction. For h(t)=exp(−t), ∫₀ᵗexp(−(t−τ))dτ=1−exp(−t); exp(−ln 2)=1/2, so y=0.500. */
+rc98("diffeq-laplace-3",3,{p:[
+ {t:"p",x:"Time invariance lets you shift the same response to every input time. Linearity lets you scale and add all those responses. That sum is called **superposition**."},
+ {t:"giv",lab:"Dimensionless example from rest",rows:[["x(t)","1","after the step"],["h(t)","e^{−t}","impulse response"]]},
+ {t:"p",x:"With a unit step, every past contribution has weight one. Integrating the shifted exponential gives $y(t) = 1−e^{−t}$."},
+ {t:"step",f:"y(ln 2) = 1 − 1/2",v:"0.500",fin:1}]});
