@@ -200,3 +200,28 @@ rc98("mech-thermodynamics-2",2,{p:[
   ["Into the gas",1,"The volume falls, so pΔV is negative. The sign convention counts work into the gas as negative."],
   ["Out of the gas",0,"That is the sign for expansion. A contracting volume makes pΔV negative."]]}});
 
+
+/* ---------- mech-thermodynamics-3 · Flowing energy and enthalpy ---------- */
+/* 0 · Legend → formula, Fill "includes". */
+rc98("mech-thermodynamics-3",0,{p:[
+ {t:"p",x:"A **control volume** is a region with a boundary that matter can cross. A **specific** quantity is measured per unit mass."},
+ {t:"vars",vars:[["h","specific enthalpy"],["u","specific internal energy"],["p","pressure"],["ρ","mass per volume (density)"]]},
+ {t:"p",x:"Enthalpy [[includes]] the work per mass needed to push fluid through the boundary."},
+ {t:"eq",eq:"h = u + p/ρ",cap:"For fluid at pressure p and density ρ."}]});
+
+/* 1 · Legend → formula, no interaction. Figure shows inlet, outlet and shaft. K = V²/2. */
+rc98("mech-thermodynamics-3",1,{p:[
+ {t:"p",x:"At each opening, $h$ is specific enthalpy and $K = V^2/2$ is kinetic energy per mass at speed $V$."},
+ {t:"eq",eq:"w_s = h_1 − h_2 + K_1 − K_2",cap:"Shaft work out per mass. Steady, adiabatic flow from inlet 1 to outlet 2 at equal elevation."}]});
+
+/* 2 · Rule in words → formula, Guess (shaft work enters). m²/s² = J/kg; (kg/s)(J/kg) = W. */
+rc98("mech-thermodynamics-3",2,{p:[
+ {t:"p",x:"Compare kinetic energy and enthalpy in J/kg when speed is in m/s."},
+ {t:"p",x:"A steady adiabatic compressor raises the fluid’s enthalpy. Inlet and outlet speeds and elevations are equal."},
+ {t:"p",x:"In this compressor, work enters through the shaft. Its work output per mass $w_s$ is negative."},
+ {t:"eq",eq:"P_s = ṁw_s",cap:"Steady flow. ṁ is mass per second and P_s is shaft power out."},
+ {t:"p",x:"In a steady adiabatic nozzle with no shaft or elevation change, a fall in enthalpy supplies a rise in kinetic energy."}],
+ g:{at:2,q:"Which way does work cross the compressor boundary?",o:[
+  ["Into the fluid",1,"The enthalpy rises and neither speed nor elevation changes. The shaft supplies the energy increase."],
+  ["Out of the fluid",0,"Work output would require a drop in the energy carried by the flow, as in a turbine."]]}});
+
