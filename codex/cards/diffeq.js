@@ -707,3 +707,33 @@ rc98("diffeq-pde-2",3,{p:[
  {t:"p",x:"Hold time fixed and vary position. The time expression is fixed, so the position expression must stay [[unchanged]]."},
  {t:"p",x:"Each position gives the same value at that fixed time. Holding position fixed gives the same argument for time."},
  {t:"take",x:"Both expressions equal a shared **separation constant**. The spatial boundaries can restrict its allowed values."}]});
+
+/* ---------- diffeq-pde-3 · Heat equation and diffusion modes ---------- */
+/* 0 · Terms → takeaway, no interaction. Positive diffusivity smooths temperature differences in unforced diffusion. */
+rc98("diffeq-pde-3",0,{p:[
+ {t:"p",x:"**Diffusion** is the smoothing of a spatial difference, such as a warmer patch in a rod spreading heat into cooler surroundings."},
+ {t:"p",x:"A **spatial mode** is a fixed shape with a changing strength, called its amplitude. A wavy temperature pattern can be built by adding modes."},
+ {t:"take",x:"With no heat source, diffusion damps short-wavelength modes faster than broad ones."}]});
+
+/* 1 · Rule in words → formula, Fill "proportional". Constant α>0 gives u_t=αu_xx in a homogeneous rod without sources. */
+rc98("diffeq-pde-3",1,{p:[
+ {t:"p",x:"In a uniform rod with no heat source, the time rate of temperature change is [[proportional]] to the spatial curvature."},
+ {t:"eq",lab:"Heat equation",eq:"u_t = α u_{xx}",cap:"one spatial dimension, constant α > 0",vars:[["u","temperature"],["u_t","time derivative"],["u_{xx}","second derivative along the rod"],["α","thermal diffusivity, setting the rate of smoothing"]]},
+ {t:"take",x:"At a rounded temperature peak, the curvature is negative, so that spot cools."}]});
+
+/* 2 · Rule in words → Guess (quadruples). Differentiating sin(kx) twice gives −k²sin(kx); α(2k)²=4αk². */
+rc98("diffeq-pde-3",2,{p:[
+ {t:"p",x:"For a sine mode $sin(kx)$, the wave number $k$ sets how tightly the waves fit along position $x$. Consider two allowed modes in the same rod."},
+ {t:"take",x:"The decay rate is $αk^2$, so doubling $k$ quadruples it."},
+ {t:"eq",lab:"Mode amplitude",eq:"a(t) = a_0 exp(−αk^2t)",cap:"constant diffusivity α, zero-temperature endpoints",vars:[["a(t)","amplitude at time t"],["a_0","initial amplitude"]]},
+ {t:"p",x:"Find the modes that fit the boundaries, find their rates, then expand the starting temperature in those modes to get their initial amplitudes."}],
+ g:{at:1,q:"At the same diffusivity, doubling the wave number changes the decay rate by what factor?",o:[
+  ["2×",0,"This counts only one spatial derivative. Curvature brings in the wave number twice."],
+  ["4×",1,"The rate scales with wave number squared, so doubling gives a factor of four."]]}});
+
+/* 3 · Worked example, no interaction. (sin 3x)″=−9sin 3x; with α=1, a₀=1 and t=ln 2/9, the exponent is −ln 2 and a=1/2. */
+rc98("diffeq-pde-3",3,{p:[
+ {t:"p",x:"Two spatial derivatives of $sin(3x)$ give $−9sin(3x)$. That large negative curvature factor gives a fast decay rate."},
+ {t:"giv",lab:"Dimensionless sine mode",rows:[["α","1","diffusivity"],["a_0","1","initial amplitude"],["t","ln(2)/9","time"]]},
+ {t:"step",f:"−9 × ln(2)/9",v:"−ln(2)",u:""},
+ {t:"step",f:"a = exp(−ln(2))",v:"0.5",u:"",fin:1}]});
