@@ -5,9 +5,9 @@
 /* ---------- linalg-matrices-1 · Matrix shapes and linear maps ---------- */
 /* 0 · Plain text, Guess (one column). Selecting one input coordinate means its weight is one and all other weights are zero. */
 rc98("linalg-matrices-1",0,{p:[
- {t:"p",x:"A matrix stores the coefficients of a linear map, a rule that combines input coordinates into output coordinates."},
+ {t:"p",x:"A matrix lists the numbers used by a **linear map**. Such a map preserves addition and scaling."},
  {t:"p",x:"Each **column** gives the output from selecting its input coordinate alone and setting the others to zero."}],
- g:{at:1,q:"Which part of the matrix specifies all the output coordinates produced by a single input coordinate?",o:[
+ g:{at:1,q:"Which part gives the output when just one input coordinate is set to one?",o:[
   ["One column",1,"A single input coordinate weights one full column."],
   ["One row",0,"A row produces a single output coordinate."]]}});
 
@@ -27,7 +27,7 @@ rc98("linalg-matrices-1",2,{p:[
 /* 3 · Plain text, no interaction. A coordinate basis vector has one unit entry and zeros elsewhere by definition. */
 rc98("linalg-matrices-1",3,{p:[
  {t:"p",x:"A **coordinate basis vector** has a single entry equal to one, with the rest zero."},
- {t:"p",x:"The input coordinates weight the images of these basis vectors. Add the weighted images to get the output."}]});
+ {t:"p",x:"The **image** of a vector is its output. Weight each basis vector's image by its input coordinate, then add the results."}]});
 
 /* ---------- linalg-matrices-2 · Elimination and row operations ---------- */
 /* 0 · Plain text, Guess (you can lose a constraint). */
@@ -223,7 +223,7 @@ rc98("linalg-determinants-1",2,{p:[
 /* 3 · Rule in words → formula, no interaction. The signed area is ad − bc: the main product ad less the opposite product bc. */
 rc98("linalg-determinants-1",3,{p:[
  {t:"p",x:"For a square matrix with top row $a,b$ and bottom row $c,d$, $D$ denotes its determinant."},
- {t:"eq",lab:"Two-by-two determinant",eq:"D = ad − bc"},
+ {t:"eq",lab:"Two-by-two determinant",eq:"D = ad − bc",cap:"square matrix with two rows"},
  {t:"p",x:"Multiply down each diagonal. Subtract the opposite-diagonal product from the main-diagonal product."}]});
 
 /* ---------- linalg-determinants-2 · Inverse maps and solving systems ---------- */
@@ -291,12 +291,12 @@ rc98("linalg-determinants-4",0,{p:[
 /* 1 · Plain text, no interaction. */
 rc98("linalg-determinants-4",1,{p:[
  {t:"p",x:"The **residual** is the observed right-hand side minus the output predicted by the computed solution."},
- {t:"p",x:"**Forward error** compares the computed solution to the exact one directly."}]});
+ {t:"p",x:"**Forward error** compares the computed solution with the exact one. **Backward error** asks how little the data must change to make the computed solution exact."}]});
 
 /* 2 · Rule in words → formula, no interaction. */
 rc98("linalg-determinants-4",2,{p:[
  {t:"p",x:"For an invertible matrix in Euclidean geometry, $κ$ is its condition number. The quantities $σ_{max}$ and $σ_{min}$ are its largest and smallest stretches of unit vectors."},
- {t:"eq",lab:"Euclidean condition number",eq:"κ = σ_{max} / σ_{min}"},
+ {t:"eq",lab:"Euclidean condition number",eq:"κ = σ_{max} / σ_{min}",cap:"invertible matrix"},
  {t:"p",x:"A large ratio permits large relative solution changes from small relative changes to the right-hand side."}]});
 
 /* 3 · Plain text, Fill "weakly stretched". */
@@ -307,13 +307,13 @@ rc98("linalg-determinants-4",3,{p:[
 /* ---------- linalg-eigenvalues-1 · Eigenpairs and invariant directions ---------- */
 /* 0 · Plain text, no interaction. */
 rc98("linalg-eigenvalues-1",0,{p:[
- {t:"p",x:"A square map mixes coordinates. Some nonzero vectors map to a multiple of themselves."},
- {t:"p",x:"The line is an **invariant subspace**: every point on it maps back onto that line, possibly to zero."}]});
+ {t:"p",x:"A square map can mix coordinates. Some nonzero vectors map to multiples of themselves."},
+ {t:"p",x:"That line is an **invariant subspace**. Every point on it maps back to the line, possibly to zero."}]});
 
 /* 1 · Rule in words → formula, no interaction. */
 rc98("linalg-eigenvalues-1",1,{p:[
  {t:"p",x:"For square matrix $A$, a nonzero vector $v$ with this property is an **eigenvector**. The multiplier $λ$ is its **eigenvalue**."},
- {t:"eq",lab:"Eigenpair condition",eq:"Av = λv"},
+ {t:"eq",lab:"Eigenpair condition",eq:"Av = λv",cap:"square map, nonzero vector"},
  {t:"p",x:"Compute the image and verify the same multiplier works in every component."}]});
 
 /* 2 · Plain text, Guess (in the opposite direction). */
@@ -346,7 +346,7 @@ rc98("linalg-eigenvalues-2",1,{p:[
 /* 2 · Plain text, Fill "compatible". */
 rc98("linalg-eigenvalues-2",2,{p:[
  {t:"p",x:"Repeated eigenvalues are [[compatible]] with diagonalization."},
- {t:"p",x:"**Algebraic multiplicity** counts how often the eigenvalue repeats as a root of the characteristic polynomial. **Geometric multiplicity** counts independent eigenvectors for that value."}]});
+ {t:"p",x:"**Algebraic multiplicity** counts repeats as a root of the polynomial used to find eigenvalues. **Geometric multiplicity** is the dimension of the **eigenspace**, made of the associated eigenvectors and zero."}]});
 
 /* 3 · Plain text, Guess (they multiply). */
 rc98("linalg-eigenvalues-2",3,{p:[
@@ -364,7 +364,7 @@ rc98("linalg-eigenvalues-3",0,{p:[
 
 /* 1 · Plain text, Guess (it decays). Repeated magnitude scales by its successive powers, which decay for a positive factor below one. */
 rc98("linalg-eigenvalues-3",1,{p:[
- {t:"p",x:"A conjugate pair can describe rotation in a real plane. The magnitude of the eigenvalue controls how much lengths scale each step."},
+ {t:"p",x:"A conjugate pair can describe rotation in a real plane. The eigenvalue magnitude scales the mode amplitude each step in modal coordinates."},
  {t:"p",x:"The mode decays because each step shrinks it, even while the direction rotates."}],
  g:{at:1,q:"If that magnitude is below one, what happens to the mode under repeated steps?",o:[
   ["It decays",1,"Every step multiplies its size by the same factor below one."],
@@ -374,12 +374,14 @@ rc98("linalg-eigenvalues-3",1,{p:[
 /* 2 · Plain text, Fill "too few". */
 rc98("linalg-eigenvalues-3",2,{p:[
  {t:"p",x:"A **defective** matrix has [[too few]] independent eigenvectors to form a basis in the field being used."},
- {t:"p",x:"A **generalized eigenvector** joins a chain whose next member is produced by subtracting the eigenvalue times that vector from its mapped image."}]});
+ {t:"p",x:"To step down an eigenvector chain, take the image of a vector and subtract the eigenvalue times that vector."},
+ {t:"p",x:"A **generalized eigenvector** reaches an ordinary eigenvector after repeating this step."}]});
 
 /* 3 · Plain text, no interaction. */
 rc98("linalg-eigenvalues-3",3,{p:[
  {t:"p",x:"**Algebraic multiplicity** counts how many times a root repeats. Compare it with the number of independent eigenvectors for that root."},
- {t:"p",x:"The **eigenspace** consists of those eigenvectors and zero. A **Jordan block** places the eigenvalue on the diagonal and links chain members above the diagonal. Repeated action can then produce polynomial factors multiplying the eigenvalue's powers."}]});
+ {t:"p",x:"The **eigenspace** contains those eigenvectors and zero. A **Jordan block** places the eigenvalue on the diagonal and links chain members just above it."},
+ {t:"p",x:"For a nonzero eigenvalue, repeated action can multiply its powers by a polynomial in the step count. A block with eigenvalue zero eventually gives zero."}]});
 
 /* ---------- linalg-eigenvalues-4 · Symmetric spectra and quadratic forms ---------- */
 /* 0 · Plain text, no interaction. */
@@ -390,13 +392,14 @@ rc98("linalg-eigenvalues-4",0,{p:[
 /* 1 · Rule in words → formula, no interaction. */
 rc98("linalg-eigenvalues-4",1,{p:[
  {t:"p",x:"A **quadratic form** is a scalar built from a vector $x$ and a matrix $Q$. The superscript $T$ turns a column into a row."},
- {t:"eq",lab:"Real quadratic form",eq:"x^T Qx"},
+ {t:"eq",lab:"Real quadratic form",eq:"x^T Qx",cap:"real symmetric matrix"},
  {t:"p",x:"For the symmetric form here, each eigenvalue gives its weight along one eigenvector. These weights can represent curvature or energy in a model."}]});
 
 /* 2 · Plain text, Guess (semidefinite only). */
 rc98("linalg-eigenvalues-4",2,{p:[
  {t:"p",x:"A **positive definite** form is positive for every nonzero input. A **positive semidefinite** form is nonnegative for every input."},
- {t:"p",x:"It is semidefinite only. The zero-eigenvalue direction prevents strict positivity."}],
+ {t:"p",x:"The form is semidefinite only. The zero-eigenvalue direction prevents strict positivity."},
+ {t:"p",x:"Positive semidefiniteness needs all eigenvalues to be nonnegative. Positive definiteness needs them all to be positive."}],
  g:{at:1,q:"If every eigenvalue is nonnegative but one is zero, which describes the form?",o:[
   ["Strictly positive definite",0,"Strict positivity excludes zero along any nonzero direction."],
   ["Semidefinite only",1,"The zero-eigenvalue direction gives a zero value even for a nonzero vector."]]}});
@@ -415,7 +418,7 @@ rc98("linalg-orthogonality-1",0,{p:[
 /* 1 · Rule in words → formula, no interaction. Set u·(b − cu) = 0 and solve for c; nonzero u ensures u·u > 0. */
 rc98("linalg-orthogonality-1",1,{p:[
  {t:"p",x:"To project vector $b$ onto the line through nonzero vector $u$, let $c$ denote the weight on $u$. A dot denotes dot product."},
- {t:"eq",lab:"Euclidean line projection",eq:"c = (u·b) / (u·u)"},
+ {t:"eq",lab:"Euclidean line projection",eq:"c = (u·b) / (u·u)",cap:"nonzero line direction"},
  {t:"p",x:"The projected vector is $cu$. Subtract it from $b$ to get the residual."}]});
 
 /* 2 · Plain text, Guess (perpendicular). */
@@ -447,12 +450,12 @@ rc98("linalg-orthogonality-2",1,{p:[
 
 /* 2 · Plain text, no interaction. */
 rc98("linalg-orthogonality-2",2,{p:[
- {t:"p",x:"In **QR factorization**, the factor $Q$ has orthonormal columns. The factor $R$ is upper triangular, with zeros below its diagonal."},
+ {t:"p",x:"For a matrix with independent columns, **QR factorization** writes it as $QR$. The columns of $Q$ are orthonormal. The factor $R$ is upper triangular, with zeros below its diagonal."},
  {t:"p",x:"A **Householder transformation** reflects vectors across a plane. Numerical QR often uses these reflections to zero entries while limiting rounding error."}]});
 
 /* 3 · Plain text, no interaction. */
 rc98("linalg-orthogonality-2",3,{p:[
- {t:"p",x:"The earlier projections can be added back to recover the original column, with its length restored."},
+ {t:"p",x:"Rescale the unit vector to recover the original remainder. Add back the projections to recover the original column."},
  {t:"p",x:"So the new and old lists span the same space at each step. Independent inputs ensure a nonzero remainder."}]});
 
 /* ---------- linalg-orthogonality-3 · Least squares and normal equations ---------- */
@@ -472,7 +475,7 @@ rc98("linalg-orthogonality-3",1,{p:[
 /* 2 · Rule in words → formula, no interaction. */
 rc98("linalg-orthogonality-3",2,{p:[
  {t:"p",x:"Let $A$ be the model matrix and $r$ the residual. Transposing $A$ makes each column into a row."},
- {t:"eq",lab:"Normal-equation condition",eq:"A^T r = 0"},
+ {t:"eq",lab:"Normal-equation condition",eq:"A^T r = 0",cap:"ordinary least squares, at a minimizer"},
  {t:"p",x:"Every model column has zero dot product with the residual."}]});
 
 /* 3 · Plain text, Fill "within". */
@@ -484,7 +487,7 @@ rc98("linalg-orthogonality-3",3,{p:[
 /* 0 · Plain text, Guess (the lower-variance sensor). */
 rc98("linalg-orthogonality-4",0,{p:[
  {t:"p",x:"Two independent sensors measure the same quantity but have different known **variances**, the expected squared spreads of their errors."},
- {t:"p",x:"The lower-variance sensor gets the larger weight when the errors have zero mean and smaller spread reflects greater precision."}],
+ {t:"p",x:"The lower-variance sensor gets the larger weight. For unbiased sensors, smaller spread means higher precision."}],
  g:{at:1,q:"With inverse-variance weighting, which sensor gets the larger weight?",o:[
   ["The higher-variance sensor",0,"A larger variance means more spread and gets a smaller reciprocal weight."],
   ["The lower-variance sensor",1,"A smaller variance gives a larger reciprocal weight."]]}});
@@ -516,12 +519,12 @@ rc98("linalg-svd-1",0,{p:[
 /* 1 · Plain text, no interaction. */
 rc98("linalg-svd-1",1,{p:[
  {t:"p",x:"**Right singular vectors** are orthonormal input directions. **Left singular vectors** are orthonormal output directions."},
- {t:"p",x:"The **singular value decomposition**, or **SVD**, pairs these directions using stretch factors."}]});
+ {t:"p",x:"The **singular value decomposition**, or **SVD**, pairs each right direction that has positive stretch with a left direction. The image points along that left direction."}]});
 
 /* 2 · Rule in words → formula, no interaction. For a unit eigenvector v, v^T A^T Av = λv^T v = λ, so its output norm is √λ. */
 rc98("linalg-svd-1",2,{p:[
  {t:"p",x:"For real matrix $A$, $λ$ is an eigenvalue of $A^T A$, where $T$ swaps rows and columns. The associated stretch is $σ$."},
- {t:"eq",lab:"Singular stretch",eq:"σ = √{λ}"},
+ {t:"eq",lab:"Singular stretch",eq:"σ = √{λ}",cap:"real matrix and Euclidean length"},
  {t:"p",x:"The product $A^T A$ is square even when $A$ is rectangular."}]});
 
 /* 3 · Plain text, Fill "square". */
@@ -541,7 +544,7 @@ rc98("linalg-svd-2",0,{p:[
 /* 1 · Plain text, no interaction. */
 rc98("linalg-svd-2",1,{p:[
  {t:"p",x:"The **Moore–Penrose pseudoinverse** returns the least-squares solution with smallest Euclidean norm."},
- {t:"p",x:"It also works for rectangular matrices and matrices with fewer independent columns than unknowns."}]});
+ {t:"p",x:"It works for rectangular matrices. It also works when the matrix is **rank-deficient**, meaning its rank is smaller than both its row count and its column count."}]});
 
 /* 2 · Plain text, Fill "left out". */
 rc98("linalg-svd-2",2,{p:[
@@ -592,7 +595,7 @@ rc98("linalg-svd-4",0,{p:[
 /* 1 · Plain text, no interaction. */
 rc98("linalg-svd-4",1,{p:[
  {t:"p",x:"**Tikhonov regularization** here adds a penalty proportional to squared solution length to the squared residual error."},
- {t:"p",x:"The **residual** measures data minus prediction. The penalty discourages a large solution even when that solution would fit better."}]});
+ {t:"p",x:"The **residual** is data minus prediction. Adding a penalty for solution length can favor a smaller solution with a larger residual."}]});
 
 /* 2 · Plain text, Fill "smaller". */
 rc98("linalg-svd-4",2,{p:[
