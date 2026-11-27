@@ -225,3 +225,26 @@ rc98("mech-thermodynamics-3",2,{p:[
   ["Into the fluid",1,"The enthalpy rises and neither speed nor elevation changes. The shaft supplies the energy increase."],
   ["Out of the fluid",0,"Work output would require a drop in the energy carried by the flow, as in a turbine."]]}});
 
+
+/* ---------- mech-thermodynamics-4 · Heat-engine feasibility ---------- */
+/* 0 · Legend → formula, Fill "difference". */
+rc98("mech-thermodynamics-4",0,{p:[
+ {t:"p",x:"A **cyclic heat engine** returns to its initial state each cycle. Hot and cold **reservoirs** supply and absorb heat at fixed temperatures."},
+ {t:"vars",vars:[["Q_h","heat received per cycle"],["Q_c","heat rejected per cycle"],["W","net work delivered per cycle"]]},
+ {t:"p",x:"Net work is the [[difference]] between the incoming and outgoing heat magnitudes."},
+ {t:"eq",eq:"W = Q_h − Q_c",cap:"Both heat magnitudes are positive; stored energy returns to its initial value."}]});
+
+/* 1 · Definition and limit, no interaction. Figure gives the two-reservoir efficiency limit. */
+rc98("mech-thermodynamics-4",1,{p:[
+ {t:"p",x:"Efficiency $η = W/Q_h$ compares work out with heat in. Use kelvin for $T_h$ and $T_c$ in the two-reservoir limit."},
+ {t:"p",x:"Only a **reversible** engine reaches this limit. Its ideal cycle generates no entropy."}]});
+
+/* 2 · Legend → formula, Guess (negative entropy generation). S_gen equals net entropy gained by the reservoirs per cycle. */
+rc98("mech-thermodynamics-4",2,{p:[
+ {t:"p",x:"**Entropy generation** $S_{gen}$ measures irreversibility, the effect of processes such as friction or heat flow across a finite temperature gap."},
+ {t:"eq",eq:"S_{gen} = Q_c/T_c − Q_h/T_h",cap:"Per complete cycle with only the two reservoirs. Use kelvin."},
+ {t:"take",x:"A cycle can balance energy and still be impossible. The second law requires $S_{gen} ≥ 0$."}],
+ g:{at:2,q:"A proposal balances heat and work but needs negative entropy generation. Is the proposal possible?",o:[
+  ["Possible",0,"Energy conservation alone allows it, but the second law also has to hold."],
+  ["Impossible",1,"The second law requires entropy generation to be zero or positive."]]}});
+
