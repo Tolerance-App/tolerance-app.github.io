@@ -388,3 +388,32 @@ rc98("diffeq-laplace-4",3,{p:[
  {t:"p",x:"A mode is **uncontrollable** from an input if that input cannot excite it. It is **unobservable** from an output if its motion never shows in that output."},
  {t:"p",x:"Either condition can hide a mode from the transfer. A hidden mode can still grow from an initial disturbance in the state."},
  {t:"take",x:"Check the state dynamics for internal stability: do all natural responses to small initial disturbances stay small?"}]});
+
+/* ---------- diffeq-systems-1 · First-order state systems ---------- */
+/* 0 · Process chain, no interaction. */
+rc98("diffeq-systems-1",0,{p:[
+ {t:"p",x:"The **order** of a differential equation is the highest derivative it contains. A first-order equation uses only first derivatives and undifferentiated quantities."},
+ {t:"chain",items:["solve for highest derivative","name the lower derivatives","write their rates"],hl:2},
+ {t:"p",x:"Each rate now has a first-order equation. The equations are **coupled** when one rate depends on another state component, a coordinate of the state."}]});
+
+/* 1 · Terms → rule in words, Fill "predict". */
+rc98("diffeq-systems-1",1,{p:[
+ {t:"p",x:"A **state** is the set of quantities you need to [[predict]] what happens next, given the model and the input."},
+ {t:"p",x:"Take the original function and its successive derivatives up to, but excluding, the highest one. Each becomes a **state component**, one coordinate of the state."},
+ {t:"take",x:"A **state equation** gives a component's rate of change from the current state, time and any input."}]});
+
+/* 2 · Terms + Guess (one measured output can come from a larger state). A scalar second-order model needs y and y′ as independent initial data. */
+rc98("diffeq-systems-1",2,{p:[
+ {t:"p",x:"**State dimension** counts independent state coordinates. A **measured output** is a quantity you observe, such as the position of a cart."},
+ {t:"take",x:"Measuring only position can leave velocity unobserved. A second-order model uses both position and velocity, giving two first-order equations."}],
+ g:{at:1,q:"A moving cart has one position sensor. Can its state have more coordinates than its measured output?",o:[
+  ["Yes, the state can be larger.",1,"The sensor reports position. Velocity can still be needed to predict motion."],
+  ["No, the dimensions must match.",0,"The number of sensor readings doesn't determine how many quantities the model needs."]]}});
+
+/* 3 · Worked example, no interaction. Dimensionless: y″=−3y′−2y; at (y,y′)=(1,2), y″=−3·2−2·1=−8 and y′=2. */
+rc98("diffeq-systems-1",3,{p:[
+ {t:"p",x:"Let $y$ be a dimensionless position, $x_1=y$ and $x_2=y′$. A prime means a derivative with respect to time."},
+ {t:"eq",lab:"Original law",eq:"y″ + 3y′ + 2y = 0",cap:"dimensionless model, no input"},
+ {t:"eq",lab:"State equations",eq:"x_1′ = x_2",cap:"the second rate is $x_2′ = −3x_2 − 2x_1$"},
+ {t:"giv",lab:"Current state",rows:[["x_1","1","position"],["x_2","2","velocity"]]},
+ {t:"step",f:"x_2′ = −3(2) − 2(1)",v:"−8",u:"",fin:1}]});
