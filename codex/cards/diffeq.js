@@ -139,3 +139,38 @@ rc98("diffeq-first-order-4",3,{p:[
  {t:"p",x:"For $y′ = f(t,y)$, continuity of the right side $f$ near the starting point ensures local **existence**. A solution passes through that point on a short input interval."},
  {t:"p",x:"For local **uniqueness**, a standard sufficient extra condition is that $f$ is locally Lipschitz in $y$. Near the initial point, differences in $f$ at the same $t$ are bounded by a fixed multiple of differences in $y$."},
  {t:"take",x:"With these conditions there is exactly one solution near the starting point. Continuity alone can allow several."}]});
+
+/* ---------- diffeq-second-order-1 · Characteristic roots and homogeneous solutions ---------- */
+/* 0 · Terms, Fill "zero". With no input, the right-hand side is identically zero. */
+rc98("diffeq-second-order-1",0,{p:[
+ {t:"p",x:"A linear second-order equation adds terms in the unknown $y$, its first derivative $y′$ and its second derivative $y″$. Primes mean derivatives with respect to time $t$."},
+ {t:"p",x:"The equation is **homogeneous** when the forcing, the input on the right, is [[zero]]."},
+ {t:"p",x:"For constant coefficients $a$, $b$ and $c$, with $a ≠ 0$, it has this form:"},
+ {t:"eq",eq:"ay″ + by′ + cy = 0",cap:"fixed coefficients, no external input"}]});
+
+/* 1 · Legend → formula → worked factorization, no interaction. (r−1)(r−2) = r²−(1+2)r+1·2; roots 1 and 2. */
+rc98("diffeq-second-order-1",1,{p:[
+ {t:"p",x:"Try $y = exp(rt)$, where $r$ is the trial rate. Differentiating once multiplies by $r$. Differentiating twice multiplies by $r^2$."},
+ {t:"eq",lab:"Characteristic polynomial",eq:"ar^2 + br + c = 0",cap:"after dividing out the nonzero exponential"},
+ {t:"p",x:"A **characteristic root** is a rate $r$ that makes this polynomial zero. For $y″ − 3y′ + 2y = 0$, factor it like this:"},
+ {t:"eq",eq:"(r − 1)(r − 2) = 0",cap:"roots are 1 and 2 in this dimensionless example"}]});
+
+/* 2 · Compare cases, Guess (time factor). For repeated r, the operator (d/dt−r)² takes t exp(rt) to exp(rt) then to 0. */
+rc98("diffeq-second-order-1",2,{p:[
+ {t:"p",x:"Two distinct real roots give two **independent** exponentials. Neither is a constant multiple of the other."},
+ {t:"p",x:"A **repeated** root occurs more than once. With a repeated real root $r$, the independent pair is $exp(rt)$ and $t exp(rt)$."},
+ {t:"p",x:"Complex roots come in a conjugate pair: same real part $α$, opposite imaginary parts $±β$. Use a common envelope $exp(αt)$."},
+ {t:"p",x:"Multiply that envelope by $cos(βt)$ and $sin(βt)$ to get the two real solutions."}],
+ g:{at:1,q:"A real root $r$ repeats. Which function gives a second direction alongside $exp(rt)$?",o:[
+  ["$2 exp(rt)$",0,"A fixed multiplier just rescales the same function."],
+  ["$t exp(rt)$",1,"The ratio to the first exponential is t, so it varies with time."]]}});
+
+/* 3 · Process chain, Guess (one remaining weight). C₁ exp(rt) + C₂ exp(rt) = (C₁ + C₂) exp(rt). */
+rc98("diffeq-second-order-1",3,{p:[
+ {t:"p",x:"Suppose you give two copies of the same exponential separate constant weights."},
+ {t:"p",x:"Those weights appear only as their sum. There is just one freely adjustable coefficient."},
+ {t:"chain",items:["form polynomial","find roots","build the pair","fit initial data"],hl:2},
+ {t:"take",x:"Use an independent pair so both starting values, $y(0)$ and $y′(0)$, can be fitted."}],
+ g:{at:1,q:"How many independent weights do the two copies actually give you?",o:[
+  ["One weight",1,"Only the sum of the weights changes the resulting exponential."],
+  ["Two weights",0,"Changing one weight and undoing that change in the other leaves the result identical."]]}});
