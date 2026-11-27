@@ -234,3 +234,34 @@ rc98("diffeq-second-order-3",3,{p:[
  g:{at:1,q:"Add positive damping to a linear oscillator driven at its undamped natural frequency. What happens to the amplitude over time?",o:[
   ["It grows without bound.",0,"That needs the undamped case. Energy loss grows as the motion grows."],
   ["It settles to a finite value.",1,"Dissipation balances the input energy over each steady cycle."]]}});
+
+/* ---------- diffeq-second-order-4 · Variation of parameters and independence ---------- */
+/* 0 · Terms → preparation, no interaction. Two independent zero-input solutions span the homogeneous family for a regular second-order equation. */
+rc98("diffeq-second-order-4",0,{p:[
+ {t:"p",x:"Two **fundamental solutions** $y_1$ and $y_2$ solve the zero-input equation. They are independent, so constant weights can combine them to make any homogeneous solution."},
+ {t:"p",x:"First **normalize** the forced equation: divide by the coefficient of the highest derivative so that coefficient becomes one."},
+ {t:"take",x:"Work on a **regular interval**, where that division is valid and the resulting coefficients and input are continuous."}]});
+
+/* 1 · Rule → formula, Fill "vary with time". Set u₁′y₁+u₂′y₂=0 so yₚ′=u₁y₁′+u₂y₂′; substituting leaves u₁′y₁′+u₂′y₂′=f. */
+rc98("diffeq-second-order-4",1,{p:[
+ {t:"p",x:"**Variation of parameters** lets the weights $u_1$ and $u_2$ in a homogeneous combination [[vary with time]]."},
+ {t:"eq",eq:"y_p = u_1 y_1 + u_2 y_2",cap:"normalized linear equation with forcing",vars:[["y_p","particular solution"]]},
+ {t:"p",x:"Primes are time derivatives. Solve for the weight derivatives using input $f(t)$, then integrate the weights."},
+ {t:"eq",eq:"u_1′y_1 + u_2′y_2 = 0"},
+ {t:"eq",eq:"u_1′y_1′ + u_2′y_2′ = f(t)"}]});
+
+/* 2 · Legend → formula → worked value, no interaction. At t=0, exp(t)=exp(2t)=1; derivatives 1 and 2 give W=1·2−1·1=1. */
+rc98("diffeq-second-order-4",2,{p:[
+ {t:"p",x:"The **Wronskian** $W$ is a determinant that compares the function values and slopes of the pair. A prime is a time derivative."},
+ {t:"eq",eq:"W = y_1 y_2′ − y_1′ y_2",cap:"two solutions of the same regular homogeneous equation"},
+ {t:"p",x:"To test the pair, try $y_1 = exp(t)$ and $y_2 = exp(2t)$ at $t = 0$."},
+ {t:"step",f:"W(0) = 1 × 2 − 1 × 1",v:"1",fin:1}]});
+
+/* 3 · Terms → implication, Guess (any regular point). For continuous p, Abel's identity W(t)=W(t₀)exp(−∫p) preserves a nonzero W. */
+rc98("diffeq-second-order-4",3,{p:[
+ {t:"p",x:"A regular interval may contain points where an individual solution crosses zero. The method needs the pair to supply two independent directions for matching the forcing."},
+ {t:"p",x:"You can start at any point in that interval if the pair has a nonzero Wronskian at one point. The determinant stays nonzero throughout."},
+ {t:"take",x:"This guarantee uses two solutions of the same regular linear homogeneous equation. A zero determinant at a point can occur for arbitrary independent functions."}],
+ g:{at:1,q:"Your fundamental pair has a nonzero Wronskian at one point. Where can you start matching the forcing?",o:[
+  ["Only at the checked point.",0,"For this equation the determinant stays nonzero as you move along the interval."],
+  ["Anywhere in that regular interval.",1,"Regular linear evolution preserves the pair's independence throughout that interval."]]}});
