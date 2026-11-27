@@ -322,3 +322,28 @@ rc98("mech-heat-transfer-3",2,{p:[
   ["Both fall",0,"Area grows, but volume grows faster. Both ratios increase."],
   ["Both stay fixed",0,"Keeping material fixed keeps its properties fixed, not the ratio of volume to area."]]}});
 
+
+/* ---------- mech-heat-transfer-4 · Cooling bottleneck decisions ---------- */
+/* 0 · Definition → formula, no interaction. Add conductances 1/R_eq = 1/R_1 + 1/R_2. Figure draws the two paths and shared contact. */
+rc98("mech-heat-transfer-4",0,{p:[
+ {t:"p",x:"**Parallel** heat paths connect the same two temperature points. Each has the same temperature drop, and their heat rates add."},
+ {t:"eq",lab:"Equivalent resistance",eq:"R_{eq} = R_1 R_2/(R_1 + R_2)",cap:"Two steady parallel paths with resistances R_1 and R_2."}]});
+
+/* 1 · Legend → formulas, Fill "adds to". */
+rc98("mech-heat-transfer-4",1,{p:[
+ {t:"vars",vars:[["T_s","source temperature"],["T_a","ambient temperature"],["P","heat generated per second"],["R_c","shared contact resistance"]]},
+ {t:"p",x:"The shared contact carries the full heat rate. Its resistance [[adds to]] the equivalent parallel resistance."},
+ {t:"eq",eq:"T_s = T_a + P(R_c + R_{eq})",cap:"Steady state, all generated heat leaves through the network."},
+ {t:"eq",eq:"Q̇_i = ΔT_b/R_i",cap:"Branch i carries heat rate Q̇_i through R_i; ΔT_b is the drop across the branches."}]});
+
+/* 2 · Limit case, Guess (the shared contact sets the floor). (10 W)(2 K/W) = 20.0 K. */
+rc98("mech-heat-transfer-4",2,{p:[
+ {t:"giv",lab:"Fixed source and contact",rows:[["P","10","W"],["R_c","2","K/W"]]},
+ {t:"p",x:"Imagine the downstream paths reach zero equivalent resistance. The shared contact still carries all the heat."},
+ {t:"step",f:"T_s − T_a = PR_c",v:"20.0",u:"K",fin:1},
+ {t:"take",x:"To get below this temperature rise at the same power, reduce the shared contact resistance."}],
+ g:{at:2,q:"What is the source temperature rise over ambient in this limit?",o:[
+  ["Zero",0,"Zero downstream resistance removes only the downstream drop. The contact still carries 10 W."],
+  ["20 K",1,"The contact alone takes a 10 W × 2 K/W temperature drop."],
+  ["40 K",0,"That would require another 2 K/W downstream, but the example sets it to zero."]]}});
+
