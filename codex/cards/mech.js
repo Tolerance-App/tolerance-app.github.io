@@ -297,3 +297,28 @@ rc98("mech-heat-transfer-2",2,{p:[
  {t:"step",f:"Q̇ = 60 K/(3 K/W)",v:"20.0",u:"W",fin:1},
  {t:"p",x:"Multiply the heat rate by a layer's resistance to find that layer's temperature drop."}]});
 
+
+/* ---------- mech-heat-transfer-3 · Transient temperature response ---------- */
+/* 0 · Legend → formula, Fill "small". Bi < 0.1 is a conventional lumped-capacitance guideline, not a derived limit. */
+rc98("mech-heat-transfer-3",0,{p:[
+ {t:"p",x:"A **lumped model** uses one temperature for the entire object."},
+ {t:"p",x:"This works when resistance to heat flow inside is [[small]] compared with resistance to convection at the surface."},
+ {t:"vars",vars:[["h","convection coefficient"],["k","object's thermal conductivity"],["L_c = V/A","object volume divided by exposed area"]]},
+ {t:"eq",lab:"Biot number",eq:"Bi = hL_c/k",cap:"Convection at the exposed surface, conduction inside."},
+ {t:"p",x:"$Bi < 0.1$ is a common guideline for treating internal temperature differences as small."}]});
+
+/* 1 · Symbols and time constant, no interaction. Figure graphs exp(−t/τ). */
+rc98("mech-heat-transfer-3",1,{p:[
+ {t:"p",x:"The gap $θ = T − T_{air}$ compares the object with the air. Its initial value is $θ_0$, and $t$ is elapsed time."},
+ {t:"eq",lab:"Time constant",eq:"τ = mc/(hA)",cap:"Fixed air temperature, constant h and properties. m is mass and c is specific heat."}]});
+
+/* 2 · Scaling, Guess (both rise). exp(−1) = 0.367879; volume ∝ s³, area ∝ s², so τ and Bi ∝ s. */
+rc98("mech-heat-transfer-3",2,{p:[
+ {t:"p",x:"After one time constant $τ$, 36.8% of the initial gap from air temperature remains."},
+ {t:"p",x:"Scale up the same solid shape. Keep material, convection coefficient and exposed-surface proportions fixed."},
+ {t:"take",x:"Both $τ$ and $Bi$ rise. The volume grows faster than the exposed area, so both mass per area and $L_c$ increase."}],
+ g:{at:2,q:"As the object gets larger, what happens to its time constant and Biot number?",o:[
+  ["Both rise",1,"Both depend on volume per exposed area, which grows with linear size."],
+  ["Both fall",0,"Area grows, but volume grows faster. Both ratios increase."],
+  ["Both stay fixed",0,"Keeping material fixed keeps its properties fixed, not the ratio of volume to area."]]}});
+
