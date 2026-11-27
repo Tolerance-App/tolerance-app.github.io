@@ -1014,3 +1014,51 @@ rc98("mech-mohr-1",4,{p:[
  {t:"p",x:"The direction $θ_p$ of $σ_1$ is measured from the x axis. With the shear convention on these cards, use **atan2**, the arctangent that uses both signs to pick the direction."},
  {t:"eq",eq:"2θ_p = atan2(τ_{xy}, d)",cap:"d is the signed gap defined earlier. For R = 0, every orientation is principal."}]});
 
+
+/* ---------- mech-fluids-re-1 · Reynolds number: laminar or turbulent ---------- */
+/* 0 · Plain text, no interaction. */
+rc98("mech-fluids-re-1",0,{p:[
+ {t:"p",x:"Watch a dye streak in flowing water. It may stretch into a smooth thread or break up into swirling patches."},
+ {t:"take",x:"The Reynolds number helps predict which kind of motion to expect."}]});
+
+/* 1 · Legend → formula, no interaction. ρVD/μ reduces to VD/ν since ν = μ/ρ; both VD and ν have units m²/s. */
+rc98("mech-fluids-re-1",1,{p:[
+ {t:"p",x:"**Inertia** is a fluid's tendency to keep moving. **Viscosity** measures how strongly neighboring layers resist sliding past each other."},
+ {t:"vars",vars:[["ρ","density (kg/m^3)"],["V","mean speed (m/s)"],["D","pipe diameter (m)"],["μ","dynamic viscosity (Pa·s)"],["ν","kinematic viscosity, μ/ρ (m^2/s)"]]},
+ {t:"eq",lab:"Reynolds number",eq:"Re = ρVD/μ = VD/ν",cap:"round pipe; inertia relative to viscosity; no units"}]});
+
+/* 2 · Regime comparison, Fill “between”. Approximate empirical boundaries of Re = 2,300 and Re = 4,000 for smooth round pipes. */
+rc98("mech-fluids-re-1",2,{p:[
+ {t:"p",x:"In a straight, smooth, round pipe away from the entrance, the transitional band lies [[between]] the smooth and turbulent regimes."},
+ [{t:"pc",l:"Laminar",c:"fluid slips in smooth layers",v:"Re ≲ 2,300"},
+  {t:"pc",l:"Turbulent",c:"fluctuating, swirling eddies",v:"Re ≳ 4,000"}],
+ {t:"p",x:"Transitional flow can switch between the two. Disturbances can trigger turbulence sooner, and quiet flows can remain laminar longer."}]});
+
+/* 3 · Cause → effect, Guess (turbulent spreads dye faster). Laminar wall stress τ = 8μV/D gives Darcy f = 8τ/(ρV²) = 64/Re. */
+rc98("mech-fluids-re-1",3,{p:[
+ {t:"p",x:"Imagine injecting a narrow streak of dye into a pipe. In both regimes, moving fluid carries it downstream."},
+ {t:"take",x:"Turbulent eddies carry dye across the flow faster. They also mix heat across the pipe faster."},
+ {t:"p",x:"The Darcy friction factor $f$ describes resistance to pipe flow. In fully developed laminar flow in a round pipe, $f = 64/Re$."},
+ {t:"p",x:"Turbulent friction depends on $Re$ and wall roughness, and is higher at the same $Re$ where the regimes overlap. In transition, friction is hard to predict."}],
+ g:{at:1,q:"Which regime typically spreads the dye sideways faster?",o:[
+  ["Laminar",0,"Smooth layers leave molecular diffusion to do most of the sideways mixing."],
+  ["Turbulent",1,"Swirling eddies carry dye across the pipe as well as down it."]]}});
+
+/* 4 · Worked example, no interaction. Water at 20 °C has ν ≈ 1.00×10⁻⁶ m²/s; D = 20 mm = 0.0200 m; Re = 1.00·0.0200/10⁻⁶ = 20,000. */
+rc98("mech-fluids-re-1",4,{p:[
+ {t:"giv",lab:"Water at 20 °C in a round pipe",rows:[["V","1.00","m/s"],["D","20.0","mm"],["ν","1.00×10^{-6}","m^2/s"]]},
+ {t:"p",x:"Convert the diameter to metres: $D = 0.0200$ m."},
+ {t:"step",f:"Re = VD/ν",v:"20,000",u:"",fin:1},
+ {t:"take",x:"Well above the transitional band, this flow is turbulent. The same regime is common in everyday water and air flows."}]});
+
+/* 5 · Scaling, Guess (halves). V = 4Q/(πD²) from Q = AV and A = πD²/4. Re = 4ρQ/(πμD); doubling D quarters V, so VD halves. */
+rc98("mech-fluids-re-1",5,{p:[
+ {t:"p",x:"Send the same volume per second $Q$ of the same fluid through a round pipe of a different diameter."},
+ {t:"take",x:"A pipe with twice the diameter has half the Reynolds number."},
+ {t:"eq",eq:"V = 4Q/(πD^2)",cap:"speed is flow rate divided by circular area"},
+ {t:"eq",eq:"Re = 4ρQ/(πμD)",cap:"at fixed flow rate and fluid properties"},
+ {t:"p",x:"Other shapes have their own regime limits and reference length. Use the flowwise length of a plate or the chord from a wing's front to back edge."}],
+ g:{at:1,q:"If the inner diameter doubles at the same flow rate, how does Reynolds number change?",o:[
+  ["It doubles",0,"That tracks the change in diameter but assumes the mean speed stays fixed."],
+  ["It halves",1,"Speed falls to one quarter in the larger area. Diameter doubles, so their product halves."],
+  ["It drops to one quarter",0,"That tracks speed alone. The doubled diameter also multiplies Reynolds number."]]}});
