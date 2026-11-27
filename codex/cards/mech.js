@@ -409,3 +409,34 @@ rc98("mech-fluids-2",3,{p:[
  {t:"p",x:"In steady flow through a nozzle with no leaks, the mass passing per second stays [[constant]]."},
  {t:"vars",vars:[["ṁ","mass flow rate (kg/s)"],["ρ","local density (kg/m^3)"],["Q","local volume flow rate (m^3/s)"]]},
  {t:"eq",eq:"ṁ = ρQ",cap:"uniform density at the cross-section"}]});
+
+/* ---------- mech-fluids-3 · Bernoulli’s equation ---------- */
+/* 0 · Legend → formula, no interaction. Integrating dp/ρ + V dV + g dz = 0 at constant ρ gives the kinetic term ρV²/2. */
+rc98("mech-fluids-3",0,{p:[
+ {t:"p",x:"A **streamline** follows the local flow direction. Each term below is a form of mechanical energy per unit volume along it."},
+ {t:"vars",vars:[["p","static pressure, the pressure the fluid exerts locally"],["ρ","mass per volume"],["V","flow speed"],["g","gravitational acceleration"],["z","height above a reference level"]]},
+ {t:"eq",lab:"Bernoulli’s equation",eq:"p + ½ρV^2 + ρgz = const.",cap:"along one streamline, steady, incompressible flow with negligible friction and no shaft work"}]});
+
+/* 1 · Compare pair, Guess (pressure falls). With ρ = 1000 kg/m³, Δp = ½·1000·(3² − 1²) Pa = 4.00 kPa. */
+rc98("mech-fluids-3",1,{p:[
+ {t:"p",x:"A **Venturi** narrows and then widens. In a level tube, the same water flow passes through a smaller area at the **throat**."},
+ {t:"take",x:"With negligible losses, the throat has higher speed and lower static pressure than the wide sections."},
+ {t:"p",x:"At equal height with negligible losses, the rise in $½ρV^2$ equals the pressure drop."},
+ {t:"vt",l:"Water speeds up from 1 to 3 m/s",v:"4.00",u:"kPa drop"}],
+ g:{at:1,q:"In a level Venturi with negligible losses, what happens to static pressure as water enters the throat?",o:[
+  ["It falls",1,"The kinetic term rises as water speeds up. At the same height, pressure falls by the same amount."],
+  ["It rises",0,"A rise in speed raises the kinetic term. A rise in static pressure too would require added energy."],
+  ["It stays the same",0,"The smaller area changes speed, so the static term must change to keep the sum constant."]]}});
+
+/* 2 · Limits in words, Fill “drops”. At fixed V and z, a positive mechanical head loss hL gives p₂ − p₁ = −ρg hL. */
+rc98("mech-fluids-3",2,{p:[
+ {t:"p",x:"In a level pipe of constant diameter with steady water flow, static pressure [[drops]] along the pipe if friction matters."},
+ {t:"p",x:"Friction converts mechanical energy to internal energy. **Head loss** measures the mechanical energy lost per unit weight."},
+ {t:"take",x:"Use an energy balance that includes head loss, energy added by pumps, and energy extracted by turbines."}]});
+
+/* 3 · Formula → worked value, no interaction. Equal p, Vsurface ≈ 0 imply ½V² = gh; √(2·9.81·5) = 9.90454 m/s. */
+rc98("mech-fluids-3",3,{p:[
+ {t:"p",x:"A large open tank drains through a small hole open to the same air. The surface moves slowly, and the pressure is atmospheric at both ends."},
+ {t:"p",x:"The outlet speed $V$ equals the speed gained in a free fall of depth $h$. Here $g$ is gravitational acceleration."},
+ {t:"eq",eq:"V = √{2gh}",cap:"steady or slowly draining, small opening"},
+ {t:"vt",l:"5.00 m below the surface",v:"9.90",u:"m/s"}]});
