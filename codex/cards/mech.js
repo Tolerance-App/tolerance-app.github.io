@@ -788,3 +788,50 @@ rc98("mech-vibration-resonance-4",5,{p:[
   ["During startup",1,"Speed passes through the critical on the way to the running range."],
   ["Only at steady speed",0,"A steady test above the critical misses the crossing on the way up."]]}});
 
+
+/* ---------- mech-vibration-resonance-5 · Unbalance vectors and correction planes ---------- */
+/* 0 · Plain text, Fill "reduce". */
+rc98("mech-vibration-resonance-5",0,{p:[
+ {t:"p",x:"If the rotor’s mass is offset from the shaft axis, rotation can tug on the bearings."},
+ {t:"p",x:"Balancing adjusts the distribution of mass to [[reduce]] those rotating loads."},
+ {t:"take",x:"Where you add or remove material matters, both around the shaft and along it."}]});
+
+/* 1 · Legend → formula → value, Fill "more". (0.0120 kg)(0.0400 m) = 4.80×10⁻⁴ kg·m. */
+rc98("mech-vibration-resonance-5",1,{p:[
+ {t:"vars",vars:[["m","offset mass (kg)"],["e","distance from the shaft axis (m)"],["U","unbalance magnitude (kg·m)"]]},
+ {t:"p",x:"The same mass gives [[more]] unbalance farther from the axis."},
+ {t:"eq",eq:"U = me",cap:"Magnitude for one offset mass. For the vector, also record its angle around the shaft."},
+ {t:"vt",l:"12.0 g at 40.0 mm",v:"4.80 × 10^{-4}",u:"kg·m"}]});
+
+/* 2 · Legend → formula → value, Guess (force quadruples). (2ω)²/ω² = 4; 2π·3000/60 = 314.159 rad/s; (4.80×10⁻⁴)(314.159)² = 47.37 N. */
+rc98("mech-vibration-resonance-5",2,{p:[
+ {t:"vars",vars:[["F_u","amplitude of rotating force (N)"],["U","unbalance magnitude (kg·m)"],["ω","angular speed (rad/s)"]]},
+ {t:"eq",eq:"F_u = Uω^2",cap:"Fixed unbalance, steady rotation"},
+ {t:"p",x:"Doubling speed gives four times the force. At 3000 rpm, 50.0 turns/s times $2π$ rad per turn gives about 314 rad/s."},
+ {t:"vt",l:"At that speed, from the unbalance above",v:"F_u = 47.37",u:"N"}],
+ g:{at:1,q:"If you double angular speed and keep the same unbalance, what happens to the rotating force?",o:[
+  ["It quadruples",1,"Speed enters as a square, so doubling it multiplies force by four."],
+  ["It doubles",0,"That would follow from a linear relation. Each speed factor doubles in the square."]]}});
+
+/* 3 · Cause and effect, Guess (the measured phase also depends on the machine response). */
+rc98("mech-vibration-resonance-5",3,{p:[
+ {t:"p",x:"Keeping off-axis mass on a circle requires inward acceleration. The rotor exerts a matching rotating force on its supports."},
+ {t:"p",x:"**Phase** marks where a vibration cycle is relative to a reference mark on the rotor. The bearings and supports can shift that phase."},
+ {t:"take",x:"Use a measured or validated response to relate the vibration phase to the unbalance angle."}],
+ g:{at:1,q:"Can you identify the heavy spot from the measured vibration’s timing alone?",o:[
+  ["Yes, directly",0,"That assumes the sensor motion follows the force with no phase shift."],
+  ["No, you need the response",1,"The machine changes the motion’s magnitude and timing relative to the force."]]}});
+
+/* 4 · Worked example, no interaction. (4.80×10⁻⁴ kg·m)/(0.0600 m) = 8.00×10⁻³ kg = 8.00 g. */
+rc98("mech-vibration-resonance-5",4,{p:[
+ {t:"p",x:"A **correction plane** is a slice along the shaft where a weight can be fitted. Here one plane suffices and the unbalance vector is known."},
+ {t:"vars",vars:[["U","unbalance magnitude (kg·m)"],["r_c","available correction radius (m)"],["m_c","added correction mass (kg)"]]},
+ {t:"eq",eq:"m_c = U/r_c",cap:"Add the mass opposite the known unbalance angle"},
+ {t:"p",x:"Use 60.0 mm radius and the unbalance from earlier. Verify vibration after fitting the correction."},
+ {t:"step",f:"m_c = U/r_c",v:"8.00",u:"g",fin:1}]});
+
+/* 5 · Compare planes, no interaction. LFIG17 shows force cancellation and the remaining couple. */
+rc98("mech-vibration-resonance-5",5,{p:[
+ {t:"p",x:"Equal, opposite forces in separate planes form a **couple**: they rock the rotor end to end with no net push."},
+ {t:"take",x:"Use two planes when correcting both net unbalance and a couple."}]});
+
