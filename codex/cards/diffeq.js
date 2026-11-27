@@ -518,3 +518,36 @@ rc98("diffeq-systems-4",3,{p:[
  {t:"p",x:"For a **diagonal matrix**, all entries off the main diagonal are zero. Exponentiate the diagonal entries individually and keep the other entries zero."},
  {t:"p",x:"For dimensionless diagonal rates $−1$ and $−2$ at $t=ln(2)$, the first entry is:"},
  {t:"step",f:"exp(−ln(2))",v:"0.500",u:"",fin:1}]});
+
+/* ---------- diffeq-numerical-series-1 · Euler and Runge–Kutta stepping ---------- */
+/* 0 · Plain text → takeaway, Fill "estimate". */
+rc98("diffeq-numerical-series-1",0,{p:[
+ {t:"p",x:"A differential equation can give you a rate of change even when you don't have a formula for the state."},
+ {t:"p",x:"A numerical solver samples that rate to [[estimate]] the state at the next time."},
+ {t:"take",x:"Use the new state to start the next step. The steps build an approximate solution."}]});
+
+/* 1 · Formula → worked example, no interaction. For y′ = y, f = 1 at y = 1 and one step of size 0.1 gives 1 + 0.1 × 1 = 1.1. */
+rc98("diffeq-numerical-series-1",1,{p:[
+ {t:"p",x:"**Forward Euler** uses the rate $f(t,y)$ at the current time $t$ and state $y$. Let $h$ be the step size."},
+ {t:"eq",lab:"One Euler step",eq:"y_{new} = y + h f(t,y)",cap:"use the rate at the start of the step"},
+ {t:"p",x:"Try the dimensionless equation $y′ = y$, starting at $y = 1$ with $h = 0.1$."},
+ {t:"step",f:"y_{new} = 1 + 0.1 × 1",v:"1.1",u:"",fin:1},
+ {t:"p",x:"**Global error** is the gap from the exact solution after many steps. Euler is first order: for a smooth problem on a fixed interval, small enough steps give error that scales with $h$."}]});
+
+/* 2 · Definition → comparison, Guess (RK4 error falls faster). The classical stages sample at t, t+h/2, t+h/2 and t+h. After halving h in the asymptotic regime, h/2 over h is 1/2 and (h/2)^4 over h^4 is 1/16. */
+rc98("diffeq-numerical-series-1",2,{p:[
+ {t:"p",x:"Multistage **Runge–Kutta** methods combine rate samples from several stages within a step. Classical **RK4** uses four stages."},
+ {t:"p",x:"For a smooth problem on the same time interval, RK4's global error falls faster as the step shrinks."},
+ {t:"p",x:"Euler's global error scales with $h$ and RK4's with $h^4$ when steps are sufficiently small and rounding is negligible."}],
+ g:{at:1,q:"As you halve already small steps, which method's global error shrinks by a larger factor?",o:[
+  ["Euler",0,"Euler samples the initial rate only. For small steps its global error scales with the first power of the step size."],
+  ["RK4",1,"The fourth power of the step size shrinks faster than the first power."]]}});
+
+/* 3 · Plain text, Guess (constant initial rate underestimates the change when the true rate increases). */
+rc98("diffeq-numerical-series-1",3,{p:[
+ {t:"p",x:"Suppose the true rate of a state keeps rising during a forward time step. Euler carries the starting rate across the entire step."},
+ {t:"p",x:"The starting rate is below all later rates, so Euler predicts a smaller change than the true one."},
+ {t:"take",x:"More samples can capture how the rate changes within a step. With Euler you can shorten the step so its single rate stays representative."}],
+ g:{at:1,q:"How does this one Euler step compare with the true change?",o:[
+  ["It underestimates the change",1,"The initial rate is below the average rate over the step."],
+  ["It overestimates the change",0,"That would happen if the starting rate were above the average, as with a rate that keeps falling."]]}});
