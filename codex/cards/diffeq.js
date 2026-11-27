@@ -551,3 +551,36 @@ rc98("diffeq-numerical-series-1",3,{p:[
  g:{at:1,q:"How does this one Euler step compare with the true change?",o:[
   ["It underestimates the change",1,"The initial rate is below the average rate over the step."],
   ["It overestimates the change",0,"That would happen if the starting rate were above the average, as with a rate that keeps falling."]]}});
+
+/* ---------- diffeq-numerical-series-2 · Adaptive steps and stiffness ---------- */
+/* 0 · Plain text, Guess (fast modes can still constrain the explicit step). */
+rc98("diffeq-numerical-series-2",0,{p:[
+ {t:"p",x:"One solution can have both a slow trend and a **fast mode**, a component that decays much faster than the rest."},
+ {t:"p",x:"Even after the fast mode nearly disappears, an **explicit method** can still need short steps to keep errors in that mode from growing. Explicit methods use rates from values already known."},
+ {t:"take",x:"**Stability** here means a decaying component also decays in the numerical update."}],
+ g:{at:1,q:"Only the slow trend is visible now. Can the fast component still place a limit on the step?",o:[
+  ["Yes, it can still limit steps",1,"A small error can put some of that fast component back into the computed solution."],
+  ["No, the limit disappears",0,"The fast rate remains in the differential equation even after its contribution to the true solution is tiny."]]}});
+
+/* 1 · Terms → process, Fill "grows with". */
+rc98("diffeq-numerical-series-2",1,{p:[
+ {t:"p",x:"An **adaptive solver** estimates the error made in one proposed step. That estimate is the **local error**."},
+ {t:"p",x:"The **absolute tolerance** sets an error scale near zero. The contribution from **relative tolerance** [[grows with]] the magnitude of the state."},
+ {t:"p",x:"For a larger state, the same allowed fraction gives a larger allowed error."},
+ {t:"take",x:"If the estimated error is too large for the combined allowance, the solver retries with a smaller step."}]});
+
+/* 2 · Compare pair → takeaway, Fill "larger". */
+rc98("diffeq-numerical-series-2",2,{p:[
+ {t:"p",x:"An equation is **stiff** when fast decay forces an explicit method to use much smaller steps for stability than the slow trend needs for accuracy."},
+ {t:"p",x:"Many implicit methods allow [[larger]] stable steps on stiff problems."},
+ [{t:"pc",l:"Explicit update",c:"evaluate rates using values already known",v:"direct"},
+  {t:"pc",l:"Implicit update",c:"solve for a new state that also enters the rate",v:"coupled"}],
+ {t:"take",x:"A suitable implicit update can damp the fast mode even at a step size that makes an explicit update unstable. Check the accuracy separately."}]});
+
+/* 3 · Worked example, no interaction. Euler gives y_new = (1 − 10h)y, so h = 0.150 gives 1 − 1.50 = −0.500 and |−0.500| < 1. */
+rc98("diffeq-numerical-series-2",3,{p:[
+ {t:"p",x:"For the dimensionless decay law $y′ = −10y$, each Euler step multiplies the current state $y$ by a fixed factor."},
+ {t:"eq",lab:"Euler multiplier",eq:"m = 1 − 10h",cap:"forward Euler for this decay law",vars:[["m","factor per step"],["h","step size"]]},
+ {t:"step",f:"m = 1 − 10(0.150)",v:"−0.500",u:"",fin:1},
+ {t:"p",x:"This step flips the sign and halves the magnitude. If $|m| > 1$, the step would instead amplify a mode the equation damps."},
+ {t:"take",x:"A stable step can still distort the solution. Here the exact decay stays the same sign."}]});
