@@ -476,3 +476,34 @@ rc98("mech-fluids-4",3,{p:[
  {t:"p",x:"Use metres in the formula: $D = 0.0250$ m."},
  {t:"step",f:"Re = ρVD/μ",v:"25,000",u:"",fin:1},
  {t:"take",x:"That is well into the turbulent regime. Many water plumbing flows are turbulent at everyday operating rates."}]});
+
+/* ---------- mech-machine-1 · Bolt torque and preload ---------- */
+/* 0 · Plain text, no interaction. The existing figure shows the bolt, torque and clamp force. */
+rc98("mech-machine-1",0,{p:[
+ {t:"p",x:"Tightening the nut stretches the bolt elastically, like a stiff spring."},
+ {t:"take",x:"The stretched bolt pulls the parts together. Its initial tension is the **preload**."}]});
+
+/* 1 · Legend → formula, Fill "in proportion". K ≈ 0.20 dry and 0.15 or less lubricated are representative estimates; 0.20·20,000·0.010 = 40.0 N·m. */
+rc98("mech-machine-1",1,{p:[
+ {t:"vars",vars:[["T","tightening torque"],["F","preload"],["d","nominal bolt diameter"],["K","nut factor, an estimate of the effect of friction"]]},
+ {t:"p",x:"For the same bolt and nut factor, torque rises [[in proportion]] to preload."},
+ {t:"eq",eq:"T ≈ K F d",cap:"Empirical estimate for a given thread and contact condition"},
+ {t:"p",x:"Typical $K$ is about 0.20 dry and 0.15 or less lubricated. A 10 mm dry bolt at 20 kN needs about 40 N·m by this estimate."}]});
+
+/* 2 · Cause → comparison, Guess. At fixed T and d, F_lub/F_dry = 0.20/0.15 = 1.333, a 33.3% rise. */
+rc98("mech-machine-1",2,{p:[
+ {t:"p",x:"Most tightening torque overcomes friction at the threads and under the turning nut or bolt head."},
+ {t:"take",x:"Lubrication lowers $K$. At the same torque, that raises preload."},
+ {t:"p",x:"Changing $K$ from 0.20 to 0.15 raises the estimated preload by about 33%."},
+ {t:"p",x:"If the stretch can be measured, it tracks tension in the elastic range without relying on a friction estimate."}],
+ g:{at:1,q:"Lubricate the threads but keep the torque and bolt size fixed. How does preload change?",o:[
+  ["It falls",0,"Less friction leaves more of the applied torque available to stretch the bolt."],
+  ["It rises",1,"The lower nut factor gives more preload for the same torque."],
+  ["It stays the same",0,"Torque alone does not fix preload. The nut factor changes too."]]}});
+
+/* 3 · Rule in words → value row, Fill "below". 0.75 F_proof leaves 0.25 F_proof to the proof load before service effects and scatter; target is a design convention. */
+rc98("mech-machine-1",3,{p:[
+ {t:"p",x:"The **proof load** is a specified test load the bolt must withstand without permanent stretch."},
+ {t:"p",x:"For a reusable joint, a common preload target is [[below]] the proof load."},
+ {t:"vt",l:"Typical preload target",v:"≈ 75%",u:"of proof load"},
+ {t:"p",x:"Preload helps keep the parts clamped in service. Verify clamp force and bolt tension under service loads and allow for tightening scatter."}]});
