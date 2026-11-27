@@ -737,3 +737,38 @@ rc98("diffeq-pde-3",3,{p:[
  {t:"giv",lab:"Dimensionless sine mode",rows:[["α","1","diffusivity"],["a_0","1","initial amplitude"],["t","ln(2)/9","time"]]},
  {t:"step",f:"−9 × ln(2)/9",v:"−ln(2)",u:""},
  {t:"step",f:"a = exp(−ln(2))",v:"0.5",u:"",fin:1}]});
+
+/* ---------- diffeq-pde-4 · Wave and Laplace equations ---------- */
+/* 0 · Definition → comparison, no interaction. Wave equation evolves a state; Laplace’s equation sets a spatial balance. */
+rc98("diffeq-pde-4",0,{p:[
+ {t:"p",x:"A **partial differential equation** relates derivatives of a field, a quantity that depends on several variables."},
+ [{t:"pc",l:"Wave equation",c:"A disturbed string moves in time",v:"evolution"},
+  {t:"pc",l:"Laplace’s equation",c:"A source-free plate has reached a steady temperature",v:"equilibrium"}],
+ {t:"take",x:"First decide whether the field is evolving or already in balance. That tells you what kinds of data to specify."}]});
+
+/* 1 · Legend → formula with Guess (initial velocity). Integrating a second-order time equation requires initial displacement and its time derivative. */
+rc98("diffeq-pde-4",1,{p:[
+ {t:"p",x:"A stretched string has displacement $u$ at position $x$ and time $t$. Its curvature sets its acceleration in the ideal small-motion model."},
+ {t:"eq",lab:"Wave equation",eq:"u_{tt} = c^2 u_{xx}",cap:"uniform string, no damping or forcing",vars:[["u_{tt}","acceleration"],["u_{xx}","spatial curvature"],["c","wave speed"]]},
+ {t:"take",x:"Give the starting displacement and velocity as well as the string’s boundary conditions."},
+ {t:"p",x:"A pulse can travel along the string. Opposing waves can form a standing pattern."}],
+ g:{at:2,q:"Alongside starting displacement, which starting rate must you specify?",o:[
+  ["velocity",1,"A second-order time equation needs both displacement and its time derivative."],
+  ["acceleration",0,"The equation already gives acceleration from the starting shape’s curvature."]]}});
+
+/* 2 · Rule in words → formula, Fill "sum". In two dimensions ∇²u=u_xx+u_yy; Laplace sets this expression to zero. */
+rc98("diffeq-pde-4",2,{p:[
+ {t:"p",x:"The **Laplacian** is the [[sum]] of the second derivatives along the individual spatial axes."},
+ {t:"eq",lab:"Laplace’s equation",eq:"∇^2u = u_{xx}+u_{yy} = 0",cap:"two spatial dimensions, steady and source-free",vars:[["u","field value, for example temperature"],["u_{xx}, u_{yy}","curvatures along x and y"]]},
+ {t:"p",x:"A field with zero Laplacian is **harmonic**. To find the field in a region, prescribe suitable boundary data, such as its value all along the edge."}]});
+
+/* 3 · Guess → worked example. d²x²/dx²=2 and d²(−y²)/dy²=−2, hence 2+(−2)=0; matching the signs incorrectly gives −4 or 4. */
+rc98("diffeq-pde-4",3,{p:[
+ {t:"p",x:"In a wave, inertia allows energy to pass between motion and deformation. Laplace’s equation has no time term. It balances spatial curvatures."},
+ {t:"p",x:"Test that balance for the dimensionless field $u=x^2−y^2$."},
+ {t:"step",f:"u_{xx}+u_{yy} = 2−2",v:"0",u:"",fin:1},
+ {t:"take",x:"The field is harmonic even though it varies with position. The two curvatures cancel."}],
+ g:{at:2,q:"For this field, what is the sum of the two curvatures?",o:[
+  ["−4",0,"That treats both terms as negative. The x² curvature is positive."],
+  ["0",1,"The +2 and −2 curvatures cancel."],
+  ["4",0,"That treats both terms as positive. The −y² curvature is negative."]]}});
