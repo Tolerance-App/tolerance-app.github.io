@@ -357,3 +357,34 @@ rc98("diffeq-laplace-3",3,{p:[
  {t:"giv",lab:"Dimensionless example from rest",rows:[["x(t)","1","after the step"],["h(t)","e^{−t}","impulse response"]]},
  {t:"p",x:"With a unit step, every past contribution has weight one. Integrating the shifted exponential gives $y(t) = 1−e^{−t}$."},
  {t:"step",f:"y(ln 2) = 1 − 1/2",v:"0.500",fin:1}]});
+
+/* ---------- diffeq-laplace-4 · Transfer functions, poles, and cancellation ---------- */
+/* 0 · Plain text, Fill "algebraically". */
+rc98("diffeq-laplace-4",0,{p:[
+ {t:"p",x:"A model maps an input to an output. The **transform domain** describes both using their Laplace transforms."},
+ {t:"p",x:"For a linear, time-invariant model starting at rest, the input and output transforms are connected [[algebraically]]."},
+ {t:"take",x:"Multiply the input transform by a function of the transform variable to get the output transform."}]});
+
+/* 1 · Legend → formula + worked step. For H=2/(s+4), substitution at s=0 gives 2/4=0.500. */
+rc98("diffeq-laplace-4",1,{p:[
+ {t:"vars",vars:[["s","transform variable"],["Y(s)","output transform"],["U(s)","input transform"],["H(s)","transfer function for this input and output"]]},
+ {t:"eq",lab:"Transfer function",eq:"H(s) = Y(s) / U(s)",cap:"linear and time-invariant, zero initial state, $U(s) ≠ 0$ for the ratio"},
+ {t:"p",x:"The **zero-frequency gain** is $H(0)$ when it is finite. Take the dimensionless example $H(s) = 2/(s+4)$."},
+ {t:"step",f:"H(0) = 2/4",v:"0.500",fin:1}]});
+
+/* 2 · Terms + Guess (only the uncanceled root remains). After reduction (s−1)/[(s−1)(s+2)] = 1/(s+2), so s=−2 is the lone pole. */
+rc98("diffeq-laplace-4",2,{p:[
+ {t:"p",x:"A **pole** is a point where a transfer function grows without bound nearby. To locate poles of a ratio of polynomials, check its denominator roots."},
+ {t:"p",x:"In a dimensionless example, the numerator is $s−1$ and the denominator is $(s−1)(s+2)$. They share a factor."},
+ {t:"p",x:"Cancel the shared factor first. Only the remaining denominator root is a pole of this input-output transfer."},
+ {t:"eq",lab:"Reduced transfer function",eq:"H(s) = 1/(s+2)",cap:"the remaining pole is at $s = −2$"}],
+ g:{at:2,q:"Which denominator root survives as a pole of this transfer?",o:[
+  ["$s = 1$",0,"The numerator shares the factor that vanishes here, so it cancels."],
+  ["$s = −2$",1,"The factor that vanishes here has no matching numerator factor."]]}});
+
+/* 3 · Terms → takeaway, no interaction. */
+rc98("diffeq-laplace-4",3,{p:[
+ {t:"p",x:"An **internal mode** is a natural pattern of growth, decay or oscillation in the system's state."},
+ {t:"p",x:"A mode is **uncontrollable** from an input if that input cannot excite it. It is **unobservable** from an output if its motion never shows in that output."},
+ {t:"p",x:"Either condition can hide a mode from the transfer. A hidden mode can still grow from an initial disturbance in the state."},
+ {t:"take",x:"Check the state dynamics for internal stability: do all natural responses to small initial disturbances stay small?"}]});
