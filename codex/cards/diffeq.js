@@ -44,3 +44,35 @@ rc98("diffeq-first-order-1",3,{p:[
  {t:"p",x:"Evaluate at $t = ln(2)$, where $ln$ is the natural logarithm, the inverse of $exp$."},
  {t:"step",f:"3 exp(2 ln 2) = 3 × 4",v:"12",u:"",fin:1},
  {t:"take",x:"Initial data select one trajectory when the problem has a unique solution."}]});
+
+/* ---------- diffeq-first-order-2 · Separation, equilibria, and logistic growth ---------- */
+/* 0 · Rule in words → formula, Guess (t on the input side). Dividing by 1+y when nonzero gives dy/(1+y)=t dt. */
+rc98("diffeq-first-order-2",0,{p:[
+ {t:"p",x:"A **separable** equation writes the rate as an input factor times an output factor. Here $t$ is the input, $y$ is the output, and $dy/dt$ (or $y′$) is its rate."},
+ {t:"p",x:"In $dy/dt = t(1+y)$, keep $t$ with $dt$. Divide by $1+y$ to put the $y$ factor with $dy$."},
+ {t:"eq",eq:"dy / (1+y) = t dt",cap:"where 1+y is nonzero"}],
+ g:{at:1,q:"In $dy/dt = t(1+y)$, which factor stays with $dt$ after separation?",o:[
+  ["$1+y$",0,"That factor depends on the output $y$, so it belongs with $dy$."],
+  ["$t$",1,"The factor $t$ depends only on the input and stays with $dt$."]]}});
+
+/* 1 · Process chain, Fill "separately". */
+rc98("diffeq-first-order-2",1,{p:[
+ {t:"p",x:"Check zeros of the output factor before dividing. Then integrate each side [[separately]]."},
+ {t:"chain",items:["Check zeros","Separate","Integrate"],hl:1},
+ {t:"p",x:"On an interval where the divided factor is nonzero, integrate the output side with respect to $y$ and the input side with respect to $t$. Include a constant of integration."}]});
+
+/* 2 · Formula → worked rate, no interaction. y(1−y/10)=0 iff y=0 or y=10; at y=2, 2/10=0.2, 1−0.2=0.8 and 2·0.8=1.6. */
+rc98("diffeq-first-order-2",2,{p:[
+ {t:"p",x:"An **equilibrium** is a constant solution with zero rate. In logistic growth, the rate includes a factor that falls as $y$ approaches its **carrying capacity**, the nonzero saturation level."},
+ {t:"eq",lab:"Example logistic rate",eq:"y′ = y(1−y/10)",cap:"dimensionless example with carrying capacity 10"},
+ {t:"p",x:"At $y = 0$ the first factor vanishes. At $y = 10$ the second vanishes. Both constant functions solve the original equation."},
+ {t:"step",f:"y′ at y = 2: 2 × 0.8",v:"1.60",u:"",fin:1}]});
+
+/* 3 · Compare cases, Guess (flat only at that instant). At t=0, ty=0. For constant y=1, ty=t, which does not vanish on any open interval. */
+rc98("diffeq-first-order-2",3,{p:[
+ {t:"p",x:"Try $y′ = ty$ with $y(0) = 1$. Plugging in $t = 0$ gives a zero rate at the starting point."},
+ {t:"take",x:"The solution is flat at the starting point. A constant $y = 1$ would also need zero rate at nearby times, but the right side would be $t$."},
+ {t:"p",x:"Dividing by an output factor can hide a constant solution. Check each zero of that factor in the original equation for a whole interval."}],
+ g:{at:1,q:"Does the zero rate at the start make $y = 1$ an equilibrium?",o:[
+  ["Yes, it stays at 1.",0,"The rate must stay zero throughout an interval. Zero rate at a single point is insufficient."],
+  ["No, only the starting slope is zero.",1,"At other times the rate evaluated at $y = 1$ is $t$, so $y$ cannot stay at 1."]]}});
