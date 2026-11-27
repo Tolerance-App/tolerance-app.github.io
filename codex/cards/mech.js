@@ -742,3 +742,49 @@ rc98("mech-vibration-resonance-3",5,{p:[
   ["It rises",1,"The damper transmits more of the base motion to the isolated mass."],
   ["It falls",0,"That extends the resonance benefit into the isolation region, where the effect reverses."]]}});
 
+
+/* ---------- mech-vibration-resonance-4 · Critical shaft speed and support stiffness ---------- */
+/* 0 · Terms, no interaction. */
+rc98("mech-vibration-resonance-4",0,{p:[
+ {t:"p",x:"A rotating shaft can bend and vibrate sideways. This sideways motion is called **lateral** vibration."},
+ {t:"p",x:"A **bending mode** is a characteristic shape in which the shaft and its supports vibrate together."},
+ {t:"take",x:"Rotation can excite a bending mode and make the shaft shake."}]});
+
+/* 1 · Rule in words, Fill "matches". */
+rc98("mech-vibration-resonance-4",1,{p:[
+ {t:"p",x:"A bending mode has a **natural frequency**: the rate at which it oscillates freely."},
+ {t:"p",x:"At a **lateral critical speed**, a repeating force excites resonance as its frequency [[matches]] a sideways mode’s frequency."},
+ {t:"p",x:"Uneven mass around the axis produces a force once per turn. Other sources can repeat a different number of times per turn, called their **excitation order**."}]});
+
+/* 2 · Legend → formula, no interaction. The Campbell diagram draws the crossing. One cycle/turn × 60 s/min converts Hz to rpm. */
+rc98("mech-vibration-resonance-4",2,{p:[
+ {t:"p",x:"Use the lateral natural frequency $f_n$ in Hz to estimate the critical speed $N_c$ in rpm."},
+ {t:"eq",eq:"N_c = 60f_n",cap:"One force cycle per turn, no gyroscopic effects"}]});
+
+/* 3 · Cause and effect, Fill "smaller". */
+rc98("mech-vibration-resonance-4",3,{p:[
+ {t:"p",x:"Uneven mass applies a rotating sideways force that repeatedly drives the shaft and supports."},
+ {t:"p",x:"If the forcing frequency is near a natural frequency, successive pushes can build a large response."},
+ {t:"p",x:"Damping dissipates vibration energy. Near resonance, more damping gives a [[smaller]] response for the same forcing."}]});
+
+/* 4 · Compare supports → worked result, Guess (lower). √(200,000/5.00) = 200 rad/s; 200/(2π) = 31.83 Hz; 60·31.83 = 1.910×10³ rpm. */
+rc98("mech-vibration-resonance-4",4,{p:[
+ {t:"p",x:"The installed rotor rests on bearings and pedestals. A pedestal is the base that supports a bearing."},
+ {t:"p",x:"Support **compliance** is how easily the support deflects under load. Added compliance can lower the first bending frequency and its critical speed."},
+ {t:"p",x:"For one mode without gyroscopic effects, let stiffness $k$ be 200 kN/m and modal mass $m$ be 5.00 kg."},
+ [{t:"step",f:"f_n = √{k/m}/(2π)",v:"31.83",u:"Hz"},{t:"step",f:"N_c = 60f_n",v:"1.910 × 10^3",u:"rpm",fin:1}],
+ {t:"p",x:"Use bearing properties at operating temperature and account for gyroscopic effects from shaft spin in the installed model."}],
+ g:{at:1,q:"In a simple rotor model, if the pedestals get more flexible at the same modal mass, how does the first critical speed tend to change?",o:[
+  ["It falls",1,"Softer supports reduce the restoring stiffness for sideways motion."],
+  ["It rises",0,"That is the trend for stiffer supports at the same modal mass."]]}});
+
+/* 5 · Operating range → verification, Guess (check startup). (2400 − 1800)/1800 = 1/3 ≈ 0.3333. */
+rc98("mech-vibration-resonance-4",5,{p:[
+ {t:"p",x:"Compare predicted crossings and their uncertainty with the full running speed range. State the denominator for any separation ratio."},
+ {t:"p",x:"For a critical at 2400 rpm and a running maximum of 1800 rpm, the gap is 0.3333 times that maximum."},
+ {t:"p",x:"Running above a critical is **supercritical**. Running below it is **subcritical**."},
+ {t:"take",x:"A startup crossing needs a verified transient response (motion while speed changes) and an approved operating procedure."}],
+ g:{at:3,q:"The rotor starts from rest and runs supercritically. When must you verify the crossing response?",o:[
+  ["During startup",1,"Speed passes through the critical on the way to the running range."],
+  ["Only at steady speed",0,"A steady test above the critical misses the crossing on the way up."]]}});
+
