@@ -7,7 +7,7 @@
 #   python tools/check.py demolessons ctrl-feedback-2          -> demoCheck(null,{lessons:[...]})
 #   python tools/check.py eval "LS.length"                     -> any expression
 #   python tools/check.py export                             -> rewrite content-export/ from the built app (run after each build)
-#   python tools/check.py shot mech1 out.png [1x]                -> screenshot of a lesson's first card (2x; 1x = cheap)
+#   python tools/check.py shot mech1 out.png [1x]                -> screenshot of a lesson's first card (2x; 1x = cheap); add a card index after out.png for another card
 #   python tools/check.py demoshot mech1 out.png [1x] [0=3 …]    -> screenshot of a lesson's demo card (optional: slider index=value)
 #   python tools/check.py qshot mech1 2 out.png [1x]            -> screenshot of question 2 (0-based) of a lesson
 #   python tools/check.py look mech1 [cardIndex]              -> text view: visible text + overflow/clipping (no image)
@@ -109,6 +109,7 @@ try:
             pg.wait_for_timeout(400); pg.screenshot(path=args[2]); print("saved", args[2])
         elif mode == "shot":
             pg.evaluate(f"startId({j(args[0])})"); pg.wait_for_timeout(500)
+            if len(args) > 2 and args[2].isdigit(): pg.evaluate(f"()=>{{SS.ci={int(args[2])};cardScreen()}}"); pg.wait_for_timeout(400)  # optional card index
             pg.screenshot(path=args[1] if len(args) > 1 else "shot.png"); print("saved", args[1] if len(args) > 1 else "shot.png")
         else:
             r = pg.evaluate(f"async()=>{{const r=await ({expr[mode]()});return Array.isArray(r)&&r.summary?{{summary:r.summary,issues:[...r]}}:r}}")

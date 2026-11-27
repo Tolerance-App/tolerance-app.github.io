@@ -283,7 +283,10 @@ Seth's top rule: **a new build must never reset anyone's progress.**
   answering and coming back (unreproduced); remove classmate/professor framing; Lab "all models in one list" mode;
   "vote for this content next" button; in-depth worked solutions; Nyquist two-sine
   overlay demo; graph axis/equation scaling; calculator toggle that fills the answer box;
-  3D reference figures with vectors; confirm Friends on real devices.
+  3D reference figures with vectors; confirm Friends on real devices; "brake snake in a circle" random demo (b116).
+- **Old-app flags rechecked 2026-11-27:** all 47 triaged (35 already fixed by later builds, 10 won't-fix with a
+  reason, 2 left open: collapse other sections on Learn so Friends is reachable without scrolling, and more setup
+  figures for Joints and fatigue (mech3)).
 - **Not forgotten:**
   - Reintroduce the time-of-day slider.
   - Remove the classmate/professor framing from lessons.
