@@ -603,3 +603,50 @@ rc98("mech-machine-4",3,{p:[
  {t:"p",x:"Take a preload of 20.0 kN and a bolt share $C = 0.20$."},
  {t:"step",f:"20.0 / (1 − 0.20)",v:"25.0",u:"kN",fin:1},
  {t:"p",x:"Once the parts separate, the closed-joint load split no longer applies."}]});
+
+/* ---------- mech-vibration-resonance-1 · Natural frequency and forcing frequency ---------- */
+/* 0 · Plain text, Fill "can differ" */
+rc98("mech-vibration-resonance-1",0,{p:[
+ {t:"p",x:"Tap a machine bracket and let it vibrate freely. Its own preferred rate of shaking is its **natural frequency**."},
+ {t:"p",x:"That rate [[can differ]] from the rate at which the motor shakes it."},
+ {t:"take",x:"One rate belongs to the bracket. The other comes from whatever is driving it."}]});
+
+/* 1 · Terms, Guess (two masses can have more modes). One mass on one spring has one independent displacement. */
+rc98("mech-vibration-resonance-1",1,{p:[
+ {t:"p",x:"A **mode** is a particular pattern of vibration, with its own natural frequency."},
+ {t:"p",x:"A mass that can only slide back and forth on one spring has one vibration mode."},
+ {t:"p",x:"With two linked masses, they can move together or against each other. Different patterns can have different natural frequencies."}],
+ g:{at:2,q:"If a second linked mass can move independently, how many modes can the system have?",o:[
+  ["Still only one",0,"That would be true if the masses had to move together."],
+  ["More than one",1,"The two masses can move in different patterns, each with its own frequency."]]}});
+
+/* 2 · Legend → formula → worked step, no interaction. √(18,000/2.00)/(2π) = 15.0988 Hz ≈ 15.10 Hz. */
+rc98("mech-vibration-resonance-1",2,{p:[
+ {t:"vars",vars:[["f_n","undamped natural frequency (Hz)"],["k","spring stiffness (N/m)"],["m","moving mass (kg)"]]},
+ {t:"eq",eq:"f_n = √{k/m}/(2π)",cap:"One mass, a linear spring, and no damping"},
+ {t:"p",x:"Use $k = 18,000$ N/m and $m = 2.00$ kg. The square root gives radians per second, so divide by $2π$ radians per cycle."},
+ {t:"step",f:"√{18000/2.00}/(2π)",v:"15.10",u:"Hz",fin:1}]});
+
+/* 3 · Definition → worked step, no interaction. 1200 rev/min ÷ 60 s/min × 1 cycle/rev = 20.0 Hz. */
+rc98("mech-vibration-resonance-1",3,{p:[
+ {t:"p",x:"**Forcing frequency** is how often a load repeats. Measure it in hertz (cycles per second)."},
+ {t:"p",x:"A once-per-revolution load repeats one time per turn. For a shaft turning at 1200 rpm, divide by 60 seconds per minute."},
+ {t:"step",f:"1200 ÷ 60",v:"20.0",u:"Hz",fin:1}]});
+
+/* 4 · Cause → effect, Fill "more efficiently" */
+rc98("mech-vibration-resonance-1",4,{p:[
+ {t:"p",x:"**Resonance** is the large response that can occur when forcing is near a natural frequency."},
+ {t:"p",x:"A repeated force transfers energy [[more efficiently]] to the mode near resonance."},
+ {t:"p",x:"**Damping** removes vibration energy. It limits the steady shaking even when the force keeps adding energy."},
+ {t:"take",x:"Natural frequency tells you where to look for resonance. The forcing and damping also set how much the part moves."}]});
+
+/* 5 · Scaling table, Guess (quadruple stiffness → twice the frequency). √4 = 2; √(1/4) = 1/2. */
+rc98("mech-vibration-resonance-1",5,{p:[
+ {t:"p",x:"Consider the same linear mass–spring model. Change just the spring or just the mass."},
+ {t:"tbl",head:["Change","Natural frequency"],rows:[["Stiffness × 4","× 2"],["Mass × 4","÷ 2"]],hi:[0,1]},
+ {t:"take",x:"Name the mode and the repeated load before proposing a fix. Check whether the change moves their frequencies farther apart."}],
+ g:{at:1,q:"With mass fixed, what happens to natural frequency if stiffness quadruples?",o:[
+  ["Quadruples",0,"That uses a linear rule. Frequency follows the square root of stiffness."],
+  ["Doubles",1,"With the mass fixed, frequency scales by the square root of four."],
+  ["Halves",0,"That is what happens when mass quadruples with stiffness fixed."]]}});
+
