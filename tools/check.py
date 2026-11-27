@@ -9,6 +9,7 @@
 #   python tools/check.py export                             -> rewrite content-export/ from the built app (run after each build)
 #   python tools/check.py shot mech1 out.png [1x]                -> screenshot of a lesson's first card (2x; 1x = cheap)
 #   python tools/check.py demoshot mech1 out.png [1x] [0=3 …]    -> screenshot of a lesson's demo card (optional: slider index=value)
+#   python tools/check.py qshot mech1 2 out.png [1x]            -> screenshot of question 2 (0-based) of a lesson
 #   python tools/check.py look mech1 [cardIndex]              -> text view: visible text + overflow/clipping (no image)
 #   python tools/check.py cards aero2 | cards course Aerospace | cards all   -> cardCheck (reveal cards, 375 x 812)
 #   python tools/check.py cardshot aero2 1 3 out.png [light]   -> reveal card 1 after 3 taps (2x, 375 x 812);
@@ -100,6 +101,12 @@ try:
                 pg.wait_for_timeout(200)
             pg.evaluate("()=>{const d=document.querySelector('.lesson .demo');if(d)d.scrollIntoView({block:'start'})}")
             pg.wait_for_timeout(300); pg.screenshot(path=args[1]); print("saved", args[1])
+        elif mode == "qshot":  # qshot <lessonId> <qIndex> out.png [1x]: answer through to question qIndex, screenshot it
+            pg.evaluate(f"startId({j(args[0])})"); pg.wait_for_timeout(300)
+            pg.evaluate("()=>{for(let i=0;i<30&&!SS.qs;i++)nextCard()}"); pg.wait_for_timeout(300)
+            for _ in range(int(args[1])):
+                pg.evaluate("()=>{feedback(true,'',2);nextQ()}"); pg.wait_for_timeout(250)
+            pg.wait_for_timeout(400); pg.screenshot(path=args[2]); print("saved", args[2])
         elif mode == "shot":
             pg.evaluate(f"startId({j(args[0])})"); pg.wait_for_timeout(500)
             pg.screenshot(path=args[1] if len(args) > 1 else "shot.png"); print("saved", args[1] if len(args) > 1 else "shot.png")
