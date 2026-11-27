@@ -676,3 +676,34 @@ rc98("diffeq-pde-1",3,{p:[
   ["$2π$",0,"That is the period length. The integrand averages one half across it."],
   ["$π$",1,"Cosine squared averages one half, so its integral is half the period."],
   ["$0$",0,"Cosine integrates to zero over a period. Squaring makes every contribution nonnegative."]]}});
+
+/* ---------- diffeq-pde-2 · Separation of variables and eigenvalue boundaries ---------- */
+/* 0 · Terms → Guess (zero displacement at each endpoint). At a pin u=0, while the adjacent shape can have nonzero slope. */
+rc98("diffeq-pde-2",0,{p:[
+ {t:"p",x:"A **boundary condition** specifies what the solution does at an edge. Consider a string held by pins at both ends. A pin keeps that endpoint from moving."},
+ {t:"take",x:"The **displacement** must be zero at both ends. The string can still leave a pin at an angle, so its slope can be nonzero there."}],
+ g:{at:1,q:"Which quantity must be zero at both pins?",o:[
+  ["displacement",1,"Each pin holds the endpoint at its original position."],
+  ["slope",0,"A pin can hold one point fixed while the string leaves it at an angle."]]}});
+
+/* 1 · Rule in words → formula, Fill "multiplied together". Product substitution makes each separated expression depend on one variable. */
+rc98("diffeq-pde-2",1,{p:[
+ {t:"p",x:"For a solution $u(x,t)$ that depends on position $x$ and time $t$, try a spatial factor $X$ and a time factor $T$."},
+ {t:"p",x:"In **separation of variables**, the factors are [[multiplied together]]."},
+ {t:"eq",lab:"Trial form",eq:"u(x,t) = X(x) T(t)",cap:"when the equation allows product separation"},
+ {t:"p",x:"Substitute and divide by the product where it is nonzero. The aim is to put all position dependence on one side and all time dependence on the other."}]});
+
+/* 2 · Rule in words → formula, no interaction. For λ>0, X(0)=0 leaves sin(√λ x); X(π)=0 implies √λπ=nπ; λ=n² and n=1 gives λ=1. */
+rc98("diffeq-pde-2",2,{p:[
+ {t:"p",x:"**Homogeneous** means zero boundary data. Try $X″+λX=0$ with $X(0)=X(π)=0$."},
+ {t:"p",x:"For positive $λ$, the first endpoint leaves a sine shape. The second requires $sin(√{λ}π)=0$."},
+ {t:"eq",lab:"Allowed values and shapes",eq:"λ = n^2,   X ∝ sin(nx)",cap:"dimensionless x, n a positive integer"},
+ {t:"p",x:"An allowed $λ$ is an **eigenvalue**. Its nonzero shape is an **eigenfunction**. The smallest $λ$ is 1."},
+ {t:"p",x:"In a **Sturm–Liouville** spatial problem, modes with different eigenvalues have zero weighted product integral. The equation sets the weight."}]});
+
+/* 3 · Plain text → takeaway, Fill "unchanged". Fixing t fixes the common value while x varies, then fixing x does the same for t. */
+rc98("diffeq-pde-2",3,{p:[
+ {t:"p",x:"After separating, suppose an expression in position alone equals an expression in time alone throughout the interval and time range."},
+ {t:"p",x:"Hold time fixed and vary position. The time expression is fixed, so the position expression must stay [[unchanged]]."},
+ {t:"p",x:"Each position gives the same value at that fixed time. Holding position fixed gives the same argument for time."},
+ {t:"take",x:"Both expressions equal a shared **separation constant**. The spatial boundaries can restrict its allowed values."}]});
