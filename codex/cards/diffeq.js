@@ -295,3 +295,34 @@ rc98("diffeq-laplace-1",3,{p:[
  {t:"p",x:"Integration by parts moves the derivative from $y(t)$ to the exponential weight $e^{−st}$, also called the **kernel**."},
  {t:"p",x:"The derivative of the weight brings down $−s$. The minus sign in integration by parts changes this to the $+sY(s)$ term."},
  {t:"take",x:"The **initial boundary term** comes from subtracting the lower endpoint. The weight there is one, so the term is $−y(0)$."}]});
+
+/* ---------- diffeq-laplace-2 · Steps, shifts, and piecewise forcing ---------- */
+/* 0 · Plain text, Fill "piece by piece". */
+rc98("diffeq-laplace-2",0,{p:[
+ {t:"p",x:"A forcing is an input to a differential equation. If the input changes rule when a switch flips, describe it [[piece by piece]]."},
+ {t:"p",x:"**Piecewise forcing** uses a different formula on each time interval. Before a delayed input starts, its contribution is zero."},
+ {t:"take",x:"When the delayed input starts, read its waveform by elapsed time since activation."}]});
+
+/* 1 · Legend → compare pair, no interaction. For t<a, t−a<0 and the step is 0; for t>a it is 1. */
+rc98("diffeq-laplace-2",1,{p:[
+ {t:"p",x:"The **unit step** $u$ is zero before its argument reaches zero and one after. Use $u(t−a)$ to place the switch at delay $a$ on the time axis $t$."},
+ [{t:"pc",l:"Before activation",c:"time is below the delay",v:"u(t−a) = 0"},
+  {t:"pc",l:"After activation",c:"time is above the delay",v:"u(t−a) = 1"}],
+ {t:"p",x:"For an original waveform $f$, multiply $f(t−a)$ by the step to turn it off before activation."}]});
+
+/* 2 · Legend → formula, Fill "multiplies". Substituting elapsed time τ = t−a factors e^(−as) out of e^(−st). */
+rc98("diffeq-laplace-2",2,{p:[
+ {t:"p",x:"At transform variable $s$, let $F(s)$ represent the original $f(t)$ and $G(s)$ the waveform after delay $a$."},
+ {t:"p",x:"In transform space, a delay [[multiplies]] the original transform by an exponential factor."},
+ {t:"eq",lab:"Time-delay rule",eq:"G(s) = e^{−as} F(s)",cap:"for a nonnegative delay $a$ and a convergent transform"},
+ {t:"p",x:"The step starts the input at $t = a$. The argument $t−a$ starts the waveform's clock there."}]});
+
+/* 3 · Worked example, Guess (false shift jumps). At t=2⁺, t²→4 and (t−2)²→0; at t=5, (5−2)²=9. */
+rc98("diffeq-laplace-2",3,{p:[
+ {t:"p",x:"Consider a dimensionless quadratic input $g(t)$ meant to start from zero when $t = 2$. Someone writes $u(t−2)t^2$."},
+ {t:"p",x:"The unshifted square makes the input jump to $4$ as the step switches on. Shift the clock inside the square too."},
+ {t:"eq",lab:"Delayed quadratic",eq:"g(t) = u(t−2)(t−2)^2",cap:"zero before the switch, elapsed time inside the square"},
+ {t:"step",f:"g(5) = (5−2)^2",v:"9",fin:1}],
+ g:{at:1,q:"Just after the switch, what value does the expression with the unshifted square approach?",o:[
+  ["0",0,"The value would approach zero if the square used elapsed time. Here the square still uses clock time."],
+  ["4",1,"The step is one just after it activates, and clock time tends to two."]]}});
