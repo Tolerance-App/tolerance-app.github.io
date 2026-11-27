@@ -417,3 +417,38 @@ rc98("diffeq-systems-1",3,{p:[
  {t:"eq",lab:"State equations",eq:"x_1′ = x_2",cap:"the second rate is $x_2′ = −3x_2 − 2x_1$"},
  {t:"giv",lab:"Current state",rows:[["x_1","1","position"],["x_2","2","velocity"]]},
  {t:"step",f:"x_2′ = −3(2) − 2(1)",v:"−8",u:"",fin:1}]});
+
+/* ---------- diffeq-systems-2 · Eigenmodes and linear stability ---------- */
+/* 0 · Terms, no interaction. */
+rc98("diffeq-systems-2",0,{p:[
+ {t:"p",x:"A **mode** is a natural pattern of motion. In a linear system without input, adding solutions gives another solution."},
+ {t:"eq",lab:"Free linear system",eq:"x′ = Ax",cap:"constant coefficients, no input",vars:[["x","state vector, the list of state coordinates"],["x′","rates of those coordinates"],["A","matrix of rate coefficients"]]},
+ {t:"take",x:"If you can build any initial state by adding scaled modes, evolve those modes separately and add their results."}]});
+
+/* 1 · Legend → formula, Fill "exponentially". Substitution gives x′=λ exp(λt)v=exp(λt)Av. */
+rc98("diffeq-systems-2",1,{p:[
+ {t:"p",x:"An **eigenvector** $v$ is a nonzero vector that $A$ scales by a single number, its **eigenvalue** $λ$."},
+ {t:"eq",lab:"Eigenvector relation",eq:"Av = λv",cap:"for an eigenvector of the constant state matrix"},
+ {t:"p",x:"An **eigenmode** starting at $v$ evolves by scaling that vector [[exponentially]]."},
+ {t:"eq",lab:"Mode in time",eq:"x(t) = exp(λt)v",cap:"time $t$ measured from the start, with no input"}]});
+
+/* 2 · Definition + Guess (all negative real parts imply decay). Polynomial factors from repeated modes still tend to zero times a decaying exponential. */
+rc98("diffeq-systems-2",2,{p:[
+ {t:"p",x:"The **real part** of a complex number is its component without the imaginary unit $i$, where $i^2=−1$. For a real number, it is the whole number."},
+ {t:"p",x:"An equilibrium is a state that stays fixed. It is **asymptotically stable** if nearby starts stay close and converge to it."},
+ {t:"take",x:"When every eigenvalue has a negative real part, the zero state is asymptotically stable. Any positive real part gives instability."},
+ {t:"p",x:"If no real parts are positive but one is zero, not every nearby start decays to zero. Check whether motion persists or grows."}],
+ g:{at:2,q:"A constant-matrix system has no input. Every eigenvalue has negative real part. What happens near zero?",o:[
+  ["The state converges to zero.",1,"Every mode decays. Oscillations or polynomial factors from repeated roots do not prevent eventual decay."],
+  ["The state keeps moving away.",0,"This confuses negative real parts with positive ones. Negative real parts make the exponential envelope shrink."]]}});
+
+/* 3 · Compare pair → formula + Guess. Time constants 1/2=0.500 and 1/5=0.200, where the exponential reaches exp(−1) of its start. */
+rc98("diffeq-systems-2",3,{p:[
+ {t:"p",x:"The real part of a mode's eigenvalue sets its exponential growth or decay. The imaginary part gives the rate of oscillation, if present."},
+ {t:"p",x:"A decaying mode's **time constant** $τ$ is how long its exponential envelope takes to fall to $exp(−1)$ of its starting amplitude."},
+ [{t:"pc",l:"Slower decay",c:"real eigenvalue −2",v:"τ = 0.500"},
+  {t:"pc",l:"Faster decay",c:"real eigenvalue −5",v:"τ = 0.200"}],
+ {t:"eq",lab:"Time constant",eq:"τ = −1 / λ",cap:"real eigenvalue $λ<0$; time and rate dimensionless here"}],
+ g:{at:2,q:"For two modes with real eigenvalues −2 and −5, which takes longer to reach the same fraction of its starting amplitude?",o:[
+  ["The −2 mode",1,"The decay rate has smaller magnitude, so the time constant is larger."],
+  ["The −5 mode",0,"The more negative rate makes the exponential fall faster."]]}});
