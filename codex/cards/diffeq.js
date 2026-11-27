@@ -645,3 +645,34 @@ rc98("diffeq-numerical-series-4",3,{p:[
  {t:"p",x:"Zero second derivative gives a constant slope $s$. Over the distance from $0$ to $2$, the solution ends at $1 + 2s$."},
  {t:"step",f:"s = (5 − 1) / (2 − 0)",v:"2",u:"",fin:1},
  {t:"take",x:"Shooting can be **ill-conditioned** on other equations. A tiny error in the starting value can grow into a large error at the far end."}]});
+
+/* ---------- diffeq-pde-1 · Fourier series and orthogonality ---------- */
+/* 0 · Terms → rule in words, Fill "whole-number multiples". Harmonic frequency n·f₀ follows from n cycles in the fundamental period. */
+rc98("diffeq-pde-1",0,{p:[
+ {t:"p",x:"A **periodic** signal repeats after a fixed time or distance, called its period. Its fundamental frequency is one cycle per period."},
+ {t:"p",x:"A **Fourier series** builds the signal from a constant and sine and cosine patterns called harmonics."},
+ {t:"p",x:"Their frequencies are [[whole-number multiples]] of the fundamental."},
+ {t:"take",x:"The first harmonic completes one cycle per period. The next completes two, then three, and so on."}]});
+
+/* 1 · Plain text, no interaction. LFIG17 supplies the square-wave plot and convergence caption. */
+rc98("diffeq-pde-1",1,{p:[
+ {t:"p",x:"A **Fourier coefficient** is the weight of one mode."},
+ {t:"take",x:"To isolate it, project onto that mode over a full period."}]});
+
+/* 2 · Terms → takeaway, no interaction. For one-sided levels 2 and 6, their mean is (2 + 6)/2 = 4. */
+rc98("diffeq-pde-1",2,{p:[
+ {t:"p",x:"A **one-sided limit** is the level approached from one side. Suppose a piecewise smooth signal approaches 2 from the left and 6 from the right."},
+ {t:"p",x:"The series approaches **4** at the jump, whatever value the signal is assigned at that point."},
+ {t:"take",x:"Adding harmonics squeezes the ripples closer to the jump. Their peak overshoot need not shrink to zero. This is the Gibbs phenomenon."}]});
+
+/* 3 · Worked projection with Guess (cosine squared norm). On [0,2π], cos²(x) averages 1/2, so its integral is (1/2)·2π=π. The sine cross-term integrates to zero, so c=(3π+2·0)/π=3. */
+rc98("diffeq-pde-1",3,{p:[
+ {t:"p",x:"To project $3cos(x)+2sin(2x)$ onto $cos(x)$, multiply by $cos(x)$ and integrate over $0$ to $2π$. Here $x$ is the dimensionless phase."},
+ {t:"p",x:"An **inner product** here is the integral of a product. These modes are **orthogonal**: their cross-product integrates to zero."},
+ {t:"p",x:"The integral against cosine is $3π$. Divide by the cosine’s **squared norm**, its integral against itself."},
+ {t:"p",x:"Cosine squared averages one half over a period of $2π$, so its integral is $π$."},
+ {t:"step",f:"3π / π",v:"3",u:"",fin:1}],
+ g:{at:3,q:"What is the integral of $cos^2(x)$ over one period?",o:[
+  ["$2π$",0,"That is the period length. The integrand averages one half across it."],
+  ["$π$",1,"Cosine squared averages one half, so its integral is half the period."],
+  ["$0$",0,"Cosine integrates to zero over a period. Squaring makes every contribution nonnegative."]]}});
