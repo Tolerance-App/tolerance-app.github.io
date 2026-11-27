@@ -928,3 +928,48 @@ rc98("mech-shear-1",5,{p:[
   ["Hole bearing stress",0,"Bearing area quadruples, but the pin's cross-section quadruples too."],
   ["Pin shear stress",0,"The pin's cross-section quadruples. The projected bearing area also quadruples because both dimensions double."],
   ["They fall by the same fraction",1,"Both resisting areas quadruple under the same force."]]}});
+
+/* ---------- mech-shear-2 · Transverse shear in beams ---------- */
+/* 0 · Plain text, no interaction. */
+rc98("mech-shear-2",0,{p:[
+ {t:"p",x:"Load a beam sideways and imagine it as a stack of thin layers. The load makes the layers try to slide past each other."},
+ {t:"take",x:"That sliding action creates **transverse shear stress**. In a rectangular section it is strongest at mid-depth."}]});
+
+/* 1 · Legend → formula, Fill "inversely". */
+rc98("mech-shear-2",1,{p:[
+ {t:"vars",vars:[["V","shear force through the section"],["I","whole section's second area moment about the neutral axis"],["b","width where you check the stress"]]},
+ {t:"p",x:"The **neutral axis** is where bending produces no lengthwise stretch. $Q$ is the area beyond the cut times its center's distance from that axis."},
+ {t:"p",x:"Hold $V$, $Q$ and $I$ fixed. Shear stress then varies [[inversely]] with the width at the cut."},
+ {t:"eq",eq:"τ = VQ/(Ib)",cap:"Elastic beam theory, away from concentrated loads"}]});
+
+/* 2 · Compare levels, Guess. For a rectangle Q = b(h²/8 − y²/2); at y = ±h/2 it is zero, at y = 0 it is largest. */
+rc98("mech-shear-2",2,{p:[
+ {t:"p",x:"In a rectangular beam the width is constant. To find $Q$ at any height, take the area above that cut and multiply by its center's distance from the neutral axis."},
+ {t:"take",x:"At the top face there is no area above the cut. $Q$ and the shear stress are zero there."},
+ {t:"p",x:"At the bottom, the entire section's area balances about the neutral axis, so $Q$ is zero again. The largest $Q$ is at the neutral axis."}],
+ g:{at:1,q:"At the free top face of a rectangular beam, how large is the transverse shear stress?",o:[
+  ["Zero",1,"No area lies above that cut, and a free face has no applied sliding force."],
+  ["Greater than zero",0,"That assumes some load transfers across the free face. The layers above the cut have vanished."]]}});
+
+/* 3 · Formula → worked value, no interaction. Rectangle: (bh²/8)/(bh³/12·b) = 1.5/A. Circle: (2r³/3)/(πr⁴/4·2r) = 4/(3A). 50·100 = 5,000 mm²; 1.50·10,000/5,000 = 3.00 MPa. */
+rc98("mech-shear-2",3,{p:[
+ {t:"p",x:"With cross-sectional area $A$, the average shear stress is $V/A$. For these solid sections, elastic beam theory gives a larger peak at mid-depth."},
+ {t:"vt",l:"Rectangle (parabolic profile)",v:"1.50 V/A",u:""},
+ {t:"vt",l:"Solid round",v:"4V/(3A)",u:""},
+ {t:"p",x:"A 50.0 mm by 100 mm rectangle has area 5,000 mm². With 10.0 kN of shear force, its average is 2.00 MPa and its peak is 3.00 MPa."}]});
+
+/* 4 · Shape → load path, Guess. For a thin web with near-uniform shear, V ≈ τ A_web. */
+rc98("mech-shear-2",4,{p:[
+ {t:"p",x:"The **web** is the thin upright plate in an I-beam. The **flanges** are its wide top and bottom plates."},
+ {t:"take",x:"The web carries most of the vertical shear. The flanges carry most of the bending through tension and compression."},
+ {t:"p",x:"For a thin web, its small width makes $VQ/(Ib)$ large there. A first estimate of peak shear is $V$ divided by the web area."}],
+ g:{at:1,q:"In a typical I-beam, which part carries most of the vertical shear force?",o:[
+  ["The web",1,"Shear stress stays comparatively high along the tall, narrow web."],
+  ["The flanges",0,"The flanges sit far from the neutral axis, which helps them resist bending. Vertical shear is concentrated in the web."]]}});
+
+/* 5 · Shop language → comparison, Fill "greater than". Thin round tube at neutral axis: Q ≈ 2r²t, I ≈ πr³t, b ≈ 2t, A ≈ 2πrt, so τ_max ≈ V/(πrt) ≈ 2V/A. */
+rc98("mech-shear-2",5,{p:[
+ {t:"p",x:"“The web carries the shear” identifies the main shear path in an I-beam. The peak stress still depends on the section's shape."},
+ {t:"p",x:"For transverse shear on a thin-walled round tube, the peak is [[greater than]] the average $V/A$."},
+ {t:"vt",l:"Thin round tube peak",v:"≈ 2V/A",u:""},
+ {t:"rel",x:"Use the factor for the shape you're checking. A solid rectangle peaks at $1.50 V/A$."}]});
